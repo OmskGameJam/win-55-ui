@@ -11,6 +11,5 @@ createRoot(document.getElementById('root')!).render(
 )
 
 registerGlobalImageErrorHandler((img) => {
-  // Example: swap to fallback
   img.src = "/win-55-ui/icons/broken-image.png";
 });

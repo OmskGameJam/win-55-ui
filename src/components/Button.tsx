@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Box, type BoxType } from "./Box";
+import { Typography } from "./Typography";
 
 export interface ButtonProps {
   baseType?: BoxType;
@@ -70,7 +71,9 @@ export function Button({
           transform: pressed ? "translate(2px, 2px)" : "translate(0, 0)",
         }}
       >
-        {children}
+        <Typography fontColor="black" fontSize={12} fontShadowColor="#a5a5a5" >
+          {children}
+        </Typography>
       </div>
     </Box>
   );

@@ -49,6 +49,7 @@ table {
 
 * {
   image-rendering: pixelated;
+	outline: none;
 }
 
 body {
@@ -76,15 +77,14 @@ body {
   src: url("/public/win-55-ui/font/LiberationSans-Bold-12.ttf") 
 }
 
-* {
-  font-family: 'Bold12' !important;
-  font-size: 24px !important;
+body {
+  font-family: 'Regular12';
+  font-size: 24px;
 	color: white;
-	text-shadow: 2px 2px 0 black;
 }
 
 .titlebar-text {
-	margin-top: 5px;
+	margin-top: 6px;
 	margin-left: 4px;
 	flex-grow: 1;
 	user-select: none;

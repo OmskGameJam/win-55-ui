@@ -1,35 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { Box } from './components/Box'
 import Titlebar from './components/Titlebar';
 import { Button } from './components/Button';
+import { BaseDropdown } from './components/BaseDropdown';
+import { useSineWave } from './helpers/useSineWave';
+import { BaseInput } from './components/BaseInput';
+import { useState } from 'react';
+import { Typography } from './components/Typography';
 
 
 
 function App() {
-  const [sinValue, setSinValue] = useState<number>(0);
-  const [cosValue, setCosValue] = useState<number>(0);
-  const frameRef = useRef<number | null>(null);
 
-  useEffect(() => {
-    const update = () => {
-      const now = Date.now();
-      const sin = Math.sin(now / 1000); // scale time for smoother wave
-      const cos = Math.cos(now / 3000); // scale time for smoother wave
-
-      setSinValue(sin);
-      setCosValue(cos)
-
-      frameRef.current = requestAnimationFrame(update);
-    };
-
-    frameRef.current = requestAnimationFrame(update);
-
-    return () => {
-      if (frameRef.current) cancelAnimationFrame(frameRef.current);
-    };
-  }, []);
-
+  const {values} = useSineWave(5)
+  
   const boxStyle = {
     width: 2*48+48,
     height: 2*24+48,
@@ -44,19 +28,28 @@ function App() {
     marginLeft: 8
   }
 
-  return (
-    <>
-      <h1>Kitchen sink</h1>
+  const [textInputState, setTextInputState] = useState('oleg')
 
+  return (
+    <Typography fontShadowColor='#555'>
+      <h1>Kitchen sink</h1>
+      <div>
+        <h2>The quick brown fox jumps over the lazy dog</h2>
+        <h2>ABCDE</h2>
+      </div>
+      <div>
+        <h2>Text input</h2>
+        <BaseInput value={textInputState} onChange={setTextInputState} extraStyles={{width: '512px'}}/>
+      </div>
       <div>
         <h2>
           Sized boxes
         </h2>
-        <Box extraStyles={boxStyle} type='panel-d-1'></Box> <br />
-        <Box extraStyles={boxStyle} type='panel-d-2'></Box> <br />
-        <Box extraStyles={boxStyle} type='border-groove'></Box> <br />
-        <Box extraStyles={boxStyle} type='indent'></Box> <br />
-        <Box extraStyles={boxStyle} type='textarea'></Box> <br />
+        <Box extraStyles={{...boxStyle, width: 2*48+values[0].cos*30, height: 2*24+values[0].sin*30}} type='panel-d-1'></Box> <br />
+        <Box extraStyles={{...boxStyle, width: 2*48+values[1].cos*30, height: 2*24+values[1].sin*30}} type='panel-d-2'></Box> <br />
+        <Box extraStyles={{...boxStyle, width: 2*48+values[2].cos*30, height: 2*24+values[2].sin*30}} type='border-groove'></Box> <br />
+        <Box extraStyles={{...boxStyle, width: 2*48+values[3].cos*30, height: 2*24+values[3].sin*30}} type='indent'></Box> <br />
+        <Box extraStyles={{...boxStyle, width: 2*48+values[4].cos*30, height: 2*24+values[4].sin*30}} type='textarea'></Box> <br />
       </div>
 
       <div>
@@ -71,8 +64,39 @@ function App() {
       <Button extraStyles={{margin: '8px'}} onClick={() => alert('Click!')}>
         Oleg
       </Button>
-      
-    </>
+
+      <div>
+        <h2>Basic dropdown</h2>
+        <div style={{marginLeft: '8px'}}>
+          <BaseDropdown 
+            trigger={<Button>This is a dropdown</Button>}
+            items={[
+              <Button>Item 1</Button>,
+              <Button>Item 2</Button>,
+              <Button>Item 3</Button>,
+              <Button>Item 4</Button>,
+            ]}
+          />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <BaseDropdown 
+            trigger={<Button>This is also a dropdown</Button>}
+            items={[
+              <Button>Item 1</Button>,
+              <Button>Item 2</Button>,
+              <Button>Item 3</Button>,
+              <Button>Item 4</Button>,
+            ]}
+          />
+        </div>
+      </div>
+    </Typography>
   )
 }
 

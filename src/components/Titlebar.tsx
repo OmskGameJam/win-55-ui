@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, type ReactNode } from "react";
 import { drawAngledBayerDitherGradient } from "../helpers/bayerMatrix";
 import { Button } from "./Button";
+import { Typography } from "./Typography";
 
 interface TitlebarProps {
   children?: ReactNode | ReactNode[]
@@ -58,7 +59,7 @@ export default function Titlebar(props: TitlebarProps) {
       <div style={{height: 0, overflow: "visible"}}>
         <canvas
           ref={canvasRef}
-          style={{ width: "100%", height: "36px", display: "block"}}
+          style={{ width: "100%", height: "34px", display: "block"}}
         />
       </div>
       <div className="titlebar-content">
@@ -66,7 +67,9 @@ export default function Titlebar(props: TitlebarProps) {
           <img src={props.icon} />
         </div>
         <div className="titlebar-text">
-          { props.title }
+          <Typography shorthand="Bold12" fontShadowColor="black">
+            { props.title }
+          </Typography>
         </div>
         <Button extraClass="titlebar-button" baseType="panel-d-2">
           <img draggable="false" src="/win-55-ui/window/o.png" />
