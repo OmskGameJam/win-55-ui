@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
 interface RadioButtonProps {
@@ -41,19 +42,18 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   return (
     <div 
       className={`radio-container ${disabled ? 'disabled' : ''}`}
+      onClick={handleClick}  // Moved click handler here
       style={{ 
         display: 'flex', 
         alignItems: 'center', 
         gap: '8px',
         opacity: disabled ? 0.5 : 1,
         cursor: disabled ? 'not-allowed' : 'pointer',
-        userSelect: 'none'
+        userSelect: 'none',
+        marginBottom: '2px'
       }}
     >
-      <div 
-        onClick={handleClick}
-        style={{ display: 'flex', alignItems: 'center' }}
-      >
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         {isChecked ? checkedIcon : uncheckedIcon}
       </div>
       
@@ -68,12 +68,9 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
       />
       
       {label && (
-        <label 
-          onClick={handleClick}
-          style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
-        >
+        <span style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}>
           {label}
-        </label>
+        </span>
       )}
     </div>
   );

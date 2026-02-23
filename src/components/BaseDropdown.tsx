@@ -12,22 +12,25 @@ import { createPortal } from "react-dom";
 interface DropdownProps {
   trigger: ReactElement<{ onClick?: React.MouseEventHandler<unknown> }>;
   items: ReactNode[];
+  itemWrapper?: (children: ReactNode) => ReactNode;
+  matchTriggerWidth?: boolean; // NEW
 }
 
 export const BaseDropdown: React.FC<DropdownProps> = ({
   trigger,
   items,
+  itemWrapper,
+  matchTriggerWidth = false,
 }) => {
   const [open, setOpen] = useState(false);
   const [position, setPosition] = useState<{
     top: number;
     left: number;
-    width: number;
+    width?: number;
   } | null>(null);
 
   const triggerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const isFirstOpen = useRef(true);
 
   const calculatePosition = () => {
     const triggerEl = triggerRef.current;
@@ -40,7 +43,6 @@ export const BaseDropdown: React.FC<DropdownProps> = ({
 
     let top = rect.bottom + window.scrollY;
     const left = rect.left + window.scrollX;
-    const width = rect.width;
 
     const wouldOverflow = rect.bottom + dropdownHeight > viewportHeight;
 
@@ -48,16 +50,18 @@ export const BaseDropdown: React.FC<DropdownProps> = ({
       top = rect.top + window.scrollY - dropdownHeight;
     }
 
-    setPosition({ top, left, width });
+    setPosition({
+      top,
+      left,
+      width: matchTriggerWidth ? rect.width : undefined,
+    });
   };
 
-  // Use useLayoutEffect for immediate measurement after render
   useLayoutEffect(() => {
     if (open) {
       calculatePosition();
-      isFirstOpen.current = false;
     }
-  }, [open]);
+  }, [open, matchTriggerWidth]);
 
   useEffect(() => {
     const handleResizeScroll = () => {
@@ -74,8 +78,21 @@ export const BaseDropdown: React.FC<DropdownProps> = ({
   }, [open]);
 
   const enhancedTrigger = cloneElement(trigger, {
-    onClick: () => setOpen((prev: boolean) => !prev),
+    onClick: (e: React.MouseEvent) => {
+      trigger.props.onClick?.(e);
+      setOpen(prev => !prev);
+    },
   });
+
+  const content = (
+    <>
+      {items.map((item, index) => (
+        <React.Fragment key={index}>{item}</React.Fragment>
+      ))}
+    </>
+  );
+
+  const wrappedContent = itemWrapper ? itemWrapper(content) : content;
 
   return (
     <>
@@ -91,12 +108,10 @@ export const BaseDropdown: React.FC<DropdownProps> = ({
               position: "absolute",
               top: position?.top ?? 0,
               left: position?.left ?? 0,
-              width: position?.width ?? "auto",
+              width: matchTriggerWidth ? position?.width : "auto",
             }}
           >
-            {items.map((item, index) => (
-              <React.Fragment key={index}>{item}</React.Fragment>
-            ))}
+            {wrappedContent}
           </div>,
           document.body
         )}

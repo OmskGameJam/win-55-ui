@@ -9,18 +9,26 @@ import { useState } from 'react';
 import { Typography } from './components/Typography';
 import Checkbox from './components/Checkbox';
 import RadioButton from './components/RadioButton';
+import { MenuDropdown } from './components/MenuDropdown';
+import { HDivider } from './components/HDivider';
 
 
 
 function App() {
 
-  const {values} = useSineWave(5)
+  const {values} = useSineWave(6)
   
+  const containerStyle = {
+    width: 'fit-content',
+    margin: '4px',
+    padding: '4px'
+  }
+
   const boxStyle = {
     width: 2*48+48,
     height: 2*24+48,
     marginBottom: 10,
-    marginLeft: 8
+    marginLeft: 8,
   }
 
   const windowStyle = {
@@ -35,48 +43,49 @@ function App() {
   const [exampleRadioState, setExampleRadioState] = useState('oleg')
 
   return (
-    <Typography fontShadowColor='gray'>
+    <Typography fontColor='black'>
       <h1>Kitchen sink</h1>
       <div>
         <h2>The quick brown fox jumps over the lazy dog</h2>
         <h2>ABCDE</h2>
       </div>
-      <div>
+      <Box type='border-groove' extraStyles={containerStyle}>
         <h2>Text input</h2>
         <Typography fontShadowColor='#00000000'>
           <BaseInput value={exampleTextInputState} onChange={setExampleTextInputState} extraStyles={{width: '512px'}}/>
         </Typography>
-      </div>
+      </Box>
 
-      <div>
+      <Box type='panel-d-2' extraStyles={containerStyle}>
         <h2>Form elements</h2>
-        <div style={{margin: '8px'}}>
+        <Box type='border-groove' extraStyles={containerStyle}>
           <Checkbox checked={exampleCheckboxState} onChange={setExampleCheckboxState} label='Oleg' />
-        </div>
-        <div style={{margin: '8px'}}>
+          <Checkbox checked={exampleCheckboxState} onChange={setExampleCheckboxState} label='Oleg' />
+        </Box>
+        <Box type='border-groove' extraStyles={containerStyle}>
           <RadioButton value='a' target={exampleRadioState} onChange={setExampleRadioState} label='A' />
           <RadioButton value='oleg' target={exampleRadioState} onChange={setExampleRadioState} label='Oleg' />
           <RadioButton value='b' target={exampleRadioState} onChange={setExampleRadioState} label='B' />
           <RadioButton value='c' target={exampleRadioState} onChange={setExampleRadioState} label='C' />
-        </div>
-      </div>
+        </Box>
+      </Box>
 
-      <div>
+      <Box type='border-groove' extraStyles={containerStyle}>
         <h2>
           Sized boxes
         </h2>
-        <Box extraStyles={{...boxStyle, width: 2*48+values[0].cos*30, height: 2*24+values[0].sin*30}} type='panel-d-1'></Box> <br />
-        <Box extraStyles={{...boxStyle, width: 2*48+values[1].cos*30, height: 2*24+values[1].sin*30}} type='panel-d-2'></Box> <br />
-        <Box extraStyles={{...boxStyle, width: 2*48+values[2].cos*30, height: 2*24+values[2].sin*30}} type='border-groove'></Box> <br />
-        <Box extraStyles={{...boxStyle, width: 2*48+values[3].cos*30, height: 2*24+values[3].sin*30}} type='indent'></Box> <br />
-        <Box extraStyles={{...boxStyle, width: 2*48+values[4].cos*30, height: 2*24+values[4].sin*30}} type='textarea'></Box> <br />
-      </div>
+        <Box extraStyles={{...boxStyle, width: 2*48+values[0].cos*50, height: 2*24+values[0].sin*30}} type='panel-d-1'></Box> <br />
+        <Box extraStyles={{...boxStyle, width: 2*48+values[1].cos*50, height: 2*24+values[1].sin*30}} type='panel-d-2'></Box> <br />
+        <Box extraStyles={{...boxStyle, width: 2*48+values[2].cos*50, height: 2*24+values[2].sin*30}} type='border-groove'></Box> <br />
+        <Box extraStyles={{...boxStyle, width: 2*48+values[3].cos*50, height: 2*24+values[3].sin*30}} type='indent'></Box> <br />
+        <Box extraStyles={{...boxStyle, width: 2*48+values[4].cos*50, height: 2*24+values[4].sin*30}} type='textarea'></Box> <br />
+      </Box>
 
       <div>
         <h2>
           Window
         </h2>
-        <Box extraStyles={windowStyle} type='panel-d-2'>
+        <Box extraStyles={{...windowStyle, width: 2*48+values[5].cos*30+150, height: 2*24+values[5].sin*30+150}} type='panel-d-2'>
           <Titlebar title='Oleg' icon='/win-55-ui/icons/program.png' />
         </Box>
       </div>
@@ -97,9 +106,16 @@ function App() {
               <Button>Item 4</Button>,
             ]}
           />
-          <br />
-          <br />
-          <br />
+          <MenuDropdown 
+            trigger={<Button>This is a nice menu dropdown!</Button>}
+            items={[
+              <div>New</div>,
+              <div>Open...</div>,
+              <HDivider />,
+              <div>Save</div>,
+              <div>Save as...</div>,
+            ]}
+          />
           <br />
           <br />
           <br />

@@ -36,7 +36,7 @@ export const useSineWave = (n: number, fps: number = 30) => {
           const scaleFactor = targetTotalHeight / currentTotalHeight;
           
           // Adjust sin values to produce normalized heights
-          const normalizedValues = rawValues.map((v, i) => {
+          const normalizedValues = rawValues.map((v) => {
             // We need to solve: baseHeight + newSin*30 = (baseHeight + v.sin*30) * scaleFactor
             // Therefore: newSin = ((baseHeight + v.sin*30) * scaleFactor - baseHeight) / 30
             const newSin = ((baseHeight + v.sin * 30) * scaleFactor - baseHeight) / 30;

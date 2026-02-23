@@ -24,8 +24,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     onChange(event.target.checked);
   };
 
-  const handleClick = (event: React.MouseEvent) => {
-    event.preventDefault();
+  const toggleCheckbox = () => {
     if (disabled) return;
     onChange(!checked);
   };
@@ -39,13 +38,12 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         gap: '8px',
         opacity: disabled ? 0.5 : 1,
         cursor: disabled ? 'not-allowed' : 'pointer',
-        userSelect: 'none'
+        userSelect: 'none',
+        marginBottom: '2px'
       }}
+      onClick={toggleCheckbox}
     >
-      <div 
-        onClick={handleClick}
-        style={{ display: 'flex', alignItems: 'center' }}
-      >
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         {checked ? checkedIcon : uncheckedIcon}
       </div>
       
@@ -59,12 +57,9 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       />
       
       {label && (
-        <label 
-          onClick={handleClick}
-          style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
-        >
+        <span style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}>
           {label}
-        </label>
+        </span>
       )}
     </div>
   );

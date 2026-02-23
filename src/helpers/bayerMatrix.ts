@@ -4,11 +4,11 @@ export function drawAngledBayerDitherGradient(
   height: number,
   colorHex1: string,
   colorHex2: string,
-  offsetPx: number
 ) {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
+  ctx.clearRect(0,0,canvas.width,canvas.height)
   const blockSize = 2;
 
   // 8x8 Bayer matrix (0–63)
@@ -28,6 +28,9 @@ export function drawAngledBayerDitherGradient(
 
   const blocksX = Math.floor(width / blockSize);
   const blocksY = Math.floor(height / blockSize);
+
+  canvas.width = Math.floor(width*2)/2
+  canvas.height = Math.floor(height*2)/2
 
   for (let by = 0; by < blocksY; by++) {
     for (let bx = 0; bx < blocksX; bx++) {

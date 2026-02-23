@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, type ReactNode } from "react";
+import { useRef, useEffect, type ReactNode } from "react";
 import { drawAngledBayerDitherGradient } from "../helpers/bayerMatrix";
 import { Button } from "./Button";
 import { Typography } from "./Typography";
@@ -10,7 +10,7 @@ interface TitlebarProps {
 }
 
 function draw(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
-  drawAngledBayerDitherGradient(canvas, canvas.width, canvas.height, '5555ff', '0000aa', 32)
+  drawAngledBayerDitherGradient(canvas, canvas.width, canvas.height, '5555ff', '0000aa')
 
   context.fillStyle = '#555555'
   context.fillRect(0,canvas.height - 2, Math.floor(canvas.width/2)*2, 4)
@@ -30,8 +30,8 @@ export default function Titlebar(props: TitlebarProps) {
       if (!canvas) return;
       if (!context) return;
       const rect = canvas.getBoundingClientRect();
-      const width = rect.width;
-      const height = rect.height;
+      const width = Math.floor(rect.width*2)/2;
+      const height = Math.floor(rect.height*2)/2;
 
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width;
@@ -67,7 +67,7 @@ export default function Titlebar(props: TitlebarProps) {
           <img src={props.icon} />
         </div>
         <div className="titlebar-text">
-          <Typography shorthand="Bold12" fontShadowColor="black">
+          <Typography shorthand="Bold12" fontColor="white" fontShadowColor="black">
             { props.title }
           </Typography>
         </div>
