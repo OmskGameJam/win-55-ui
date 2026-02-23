@@ -7,6 +7,8 @@ import { useSineWave } from './helpers/useSineWave';
 import { BaseInput } from './components/BaseInput';
 import { useState } from 'react';
 import { Typography } from './components/Typography';
+import Checkbox from './components/Checkbox';
+import RadioButton from './components/RadioButton';
 
 
 
@@ -28,10 +30,12 @@ function App() {
     marginLeft: 8
   }
 
-  const [textInputState, setTextInputState] = useState('oleg')
+  const [exampleTextInputState, setExampleTextInputState] = useState('oleg')
+  const [exampleCheckboxState, setExampleCheckboxState] = useState(false)
+  const [exampleRadioState, setExampleRadioState] = useState('oleg')
 
   return (
-    <Typography fontShadowColor='#555'>
+    <Typography fontShadowColor='gray'>
       <h1>Kitchen sink</h1>
       <div>
         <h2>The quick brown fox jumps over the lazy dog</h2>
@@ -39,8 +43,24 @@ function App() {
       </div>
       <div>
         <h2>Text input</h2>
-        <BaseInput value={textInputState} onChange={setTextInputState} extraStyles={{width: '512px'}}/>
+        <Typography fontShadowColor='#00000000'>
+          <BaseInput value={exampleTextInputState} onChange={setExampleTextInputState} extraStyles={{width: '512px'}}/>
+        </Typography>
       </div>
+
+      <div>
+        <h2>Form elements</h2>
+        <div style={{margin: '8px'}}>
+          <Checkbox checked={exampleCheckboxState} onChange={setExampleCheckboxState} label='Oleg' />
+        </div>
+        <div style={{margin: '8px'}}>
+          <RadioButton value='a' target={exampleRadioState} onChange={setExampleRadioState} label='A' />
+          <RadioButton value='oleg' target={exampleRadioState} onChange={setExampleRadioState} label='Oleg' />
+          <RadioButton value='b' target={exampleRadioState} onChange={setExampleRadioState} label='B' />
+          <RadioButton value='c' target={exampleRadioState} onChange={setExampleRadioState} label='C' />
+        </div>
+      </div>
+
       <div>
         <h2>
           Sized boxes

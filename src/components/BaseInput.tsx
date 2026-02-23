@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, type KeyboardEvent } from 'react';
 import { Box, type BoxType } from './Box'; // Adjust import path as needed
 import { typographyStyles } from '../helpers/typography';
 
