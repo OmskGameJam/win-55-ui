@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'vue'
 
 const SIZES = [10, 12, 14, 16, 24]
 
@@ -10,16 +11,16 @@ export interface TypographySettings {
   fontShadowColor?: string,
 }
 
-export function typographyStyles(settings: TypographySettings): React.CSSProperties {
+export function typographyStyles(settings: TypographySettings): CSSProperties {
   // Parse shorthand or derive from individual settings
-  const { style, size } = settings.shorthand 
+  const { style, size } = settings.shorthand
     ? parseShorthand(settings.shorthand)
     : {
         style: getStyleString(settings.isBold, settings.isItalic),
         size: findClosestNumber(settings.fontSize ?? 12, SIZES)
       };
 
-  const outStyle: React.CSSProperties = {
+  const outStyle: CSSProperties = {
     fontFamily: `${style}${size}, Arial, sans`,
     fontSize: `${size * 2}px`,
     color: settings.fontColor,
@@ -44,10 +45,10 @@ function parseShorthand(shorthand: string): { style: string; size: number } {
   if (!match) {
     throw new Error(`Invalid shorthand format: ${shorthand}`);
   }
-  
+
   const style = match[1];
   const size = parseInt(match[2], 10);
-  
+
   return { style, size };
 }
 
@@ -59,7 +60,7 @@ function findClosestNumber(target: number, numbers: number[]): number {
   return numbers.reduce((closest, current) => {
     const currentDiff = Math.abs(current - target);
     const closestDiff = Math.abs(closest - target);
-    
+
     return currentDiff < closestDiff ? current : closest;
   });
 }
