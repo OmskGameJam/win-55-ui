@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 const props = withDefaults(defineProps<{
-  target: unknown
+  modelValue: unknown
   value: unknown
   label?: string
   disabled?: boolean
@@ -18,16 +18,16 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-  change: [value: unknown]
+  'update:modelValue': [value: unknown]
 }>()
 
-const isChecked = computed(() => props.target === props.value)
+const isChecked = computed(() => props.modelValue === props.value)
 
 const handleClick = (e: MouseEvent) => {
   e.preventDefault()
   if (props.disabled) return
   if (!isChecked.value) {
-    emit('change', props.value)
+    emit('update:modelValue', props.value)
   }
 }
 </script>

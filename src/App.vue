@@ -48,9 +48,8 @@ const exampleRadioState = ref('oleg')
       <h2>Text input</h2>
       <Typography font-shadow-color="#00000000">
         <BaseInput
-          :value="exampleTextInputState"
+          v-model="exampleTextInputState"
           :extra-styles="{ width: '512px' }"
-          @change="exampleTextInputState = $event"
         />
       </Typography>
     </Box>
@@ -59,40 +58,34 @@ const exampleRadioState = ref('oleg')
       <h2>Form elements</h2>
       <Box type="border-groove" :extra-styles="containerStyle">
         <Checkbox
-          :checked="exampleCheckboxState"
+          v-model="exampleCheckboxState"
           label="Oleg"
-          @change="exampleCheckboxState = $event"
         />
         <Checkbox
-          :checked="exampleCheckboxState"
+          v-model="exampleCheckboxState"
           label="Oleg"
-          @change="exampleCheckboxState = $event"
         />
       </Box>
       <Box type="border-groove" :extra-styles="containerStyle">
         <RadioButton
+          v-model="exampleRadioState"
           value="a"
-          :target="exampleRadioState"
           label="A"
-          @change="exampleRadioState = $event as string"
         />
         <RadioButton
+          v-model="exampleRadioState"
           value="oleg"
-          :target="exampleRadioState"
           label="Oleg"
-          @change="exampleRadioState = $event as string"
         />
         <RadioButton
+          v-model="exampleRadioState"
           value="b"
-          :target="exampleRadioState"
           label="B"
-          @change="exampleRadioState = $event as string"
         />
         <RadioButton
+          v-model="exampleRadioState"
           value="c"
-          :target="exampleRadioState"
           label="C"
-          @change="exampleRadioState = $event as string"
         />
       </Box>
     </Box>

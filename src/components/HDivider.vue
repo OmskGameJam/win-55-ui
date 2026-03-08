@@ -6,7 +6,7 @@ import Box from './Box.vue'
   <Box
     type="border-groove"
     :extra-styles="{
-      height: '-4px',
+      height: '0px',
       boxSizing: 'border-box',
       borderImageWidth: '0 0 6px 0',
       marginBottom: '6px',

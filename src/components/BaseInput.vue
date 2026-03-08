@@ -4,7 +4,7 @@ import Box, { type BoxType } from './Box.vue'
 import { typographyStyles } from '../helpers/typography'
 
 const props = withDefaults(defineProps<{
-  value: string
+  modelValue: string
   placeholder?: string
   disabled?: boolean
   maxLength?: number
@@ -19,37 +19,38 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-  change: [value: string]
+  'update:modelValue': [value: string]
 }>()
 
-const internalRef = ref<HTMLDivElement | null>(null)
+const boxRef = ref<InstanceType<typeof Box> | null>(null)
+const el = computed(() => boxRef.value?.el ?? null)
 
-// Update content when value prop changes externally
-watch(() => props.value, (newVal) => {
-  if (internalRef.value && internalRef.value.innerText !== newVal) {
-    internalRef.value.innerText = newVal
+// Update content when modelValue prop changes externally
+watch(() => props.modelValue, (newVal) => {
+  if (el.value && el.value.innerText !== newVal) {
+    el.value.innerText = newVal
   }
 })
 
 const handleInput = () => {
-  if (!internalRef.value) return
+  if (!el.value) return
 
-  let newValue = internalRef.value.innerText || ''
+  let newValue = el.value.innerText || ''
 
   // Apply maxLength if specified
   if (props.maxLength && newValue.length > props.maxLength) {
     newValue = newValue.slice(0, props.maxLength)
-    internalRef.value.innerText = newValue
+    el.value.innerText = newValue
     // Place cursor at the end
     const range = document.createRange()
     const sel = window.getSelection()
-    range.selectNodeContents(internalRef.value)
+    range.selectNodeContents(el.value)
     range.collapse(false)
     sel?.removeAllRanges()
     sel?.addRange(range)
   }
 
-  emit('change', newValue)
+  emit('update:modelValue', newValue)
 }
 
 const handleKeyDown = (e: KeyboardEvent) => {
@@ -65,7 +66,7 @@ const handlePaste = (e: ClipboardEvent) => {
   e.preventDefault()
   const text = e.clipboardData?.getData('text/plain') ?? ''
 
-  if (!internalRef.value) return
+  if (!el.value) return
 
   const selection = window.getSelection()
   const range = selection?.getRangeAt(0)
@@ -83,8 +84,8 @@ const handlePaste = (e: ClipboardEvent) => {
 }
 
 const handleBlur = () => {
-  if (internalRef.value && internalRef.value.innerText === '') {
-    internalRef.value.innerHTML = ''
+  if (el.value && el.value.innerText === '') {
+    el.value.innerHTML = ''
   }
 }
 
@@ -93,14 +94,12 @@ const combinedStyles = computed<CSSProperties>(() => ({
   ...typographyStyles({ fontColor: 'black' }),
 }))
 
-defineExpose({
-  el: internalRef,
-})
+defineExpose({ el })
 </script>
 
 <template>
   <Box
-    ref="internalRef"
+    ref="boxRef"
     :type="boxType"
     :contenteditable="!disabled"
     :extra-styles="combinedStyles"

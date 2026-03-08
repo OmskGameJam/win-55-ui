@@ -1,6 +1,6 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
-  checked: boolean
+const props = withDefaults(defineProps<{
+  modelValue: boolean
   label?: string
   disabled?: boolean
   value?: string
@@ -15,12 +15,12 @@ withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-  change: [checked: boolean]
+  'update:modelValue': [checked: boolean]
 }>()
 
-const toggleCheckbox = (checked: boolean, disabled: boolean) => {
-  if (disabled) return
-  emit('change', !checked)
+const toggleCheckbox = () => {
+  if (props.disabled) return
+  emit('update:modelValue', !props.modelValue)
 }
 </script>
 
@@ -36,16 +36,16 @@ const toggleCheckbox = (checked: boolean, disabled: boolean) => {
       userSelect: 'none',
       marginBottom: '2px',
     }"
-    @click="toggleCheckbox(checked, disabled)"
+    @click="toggleCheckbox"
   >
     <div style="display: flex; align-items: center">
-      <img v-if="checked" draggable="false" :src="checkedIcon" />
+      <img v-if="modelValue" draggable="false" :src="checkedIcon" />
       <img v-else draggable="false" :src="uncheckedIcon" />
     </div>
 
     <input
       type="checkbox"
-      :checked="checked"
+      :checked="modelValue"
       :disabled="disabled"
       :value="value"
       style="display: none"

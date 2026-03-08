@@ -49,14 +49,24 @@ const handleResizeScroll = () => {
   if (open.value) calculatePosition()
 }
 
+const handleClickOutside = (e: MouseEvent) => {
+  if (!open.value) return
+  const target = e.target as Node
+  if (triggerRef.value?.contains(target)) return
+  if (dropdownRef.value?.contains(target)) return
+  open.value = false
+}
+
 onMounted(() => {
   window.addEventListener('resize', handleResizeScroll)
   window.addEventListener('scroll', handleResizeScroll)
+  document.addEventListener('click', handleClickOutside)
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', handleResizeScroll)
   window.removeEventListener('scroll', handleResizeScroll)
+  document.removeEventListener('click', handleClickOutside)
 })
 
 const toggleOpen = () => {
@@ -65,7 +75,7 @@ const toggleOpen = () => {
 </script>
 
 <template>
-  <div ref="triggerRef" style="display: inline-block" @click="toggleOpen">
+  <div ref="triggerRef" style="display: inline-block" @click.stop="toggleOpen">
     <slot name="trigger" />
   </div>
 
