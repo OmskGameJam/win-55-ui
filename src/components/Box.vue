@@ -8,6 +8,8 @@ export type BoxType =
   | 'panel-d-2'
   | 'textarea'
   | 'border-groove'
+  | 'white-box'
+  | 'notification'
 
 const props = defineProps<{
   type: BoxType
@@ -28,7 +30,7 @@ defineExpose({ el: rootRef })
 <template>
   <div
     ref="rootRef"
-    :class="['border-9-base', extraClass ?? '']"
+    :class="['border-9-base', `border-9-${type}`, extraClass ?? '']"
     :style="style"
   >
     <slot />

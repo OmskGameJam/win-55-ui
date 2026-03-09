@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Box from './components/Box.vue'
-import Titlebar from './components/Titlebar.vue'
 import Button from './components/Button.vue'
 import BaseDropdown from './components/BaseDropdown.vue'
 import { useSineWave } from './helpers/useSineWave'
@@ -11,8 +10,11 @@ import Checkbox from './components/Checkbox.vue'
 import RadioButton from './components/RadioButton.vue'
 import MenuDropdown from './components/MenuDropdown.vue'
 import HDivider from './components/HDivider.vue'
+import Window from './components/Window.vue'
+import Tooltip from './components/Tooltip.vue'
+import Balloon from './components/Balloon.vue'
 
-const { values } = useSineWave(6)
+const { values } = useSineWave(5)
 
 const containerStyle = {
   width: 'fit-content',
@@ -121,17 +123,36 @@ const exampleRadioState = ref('oleg')
 
     <div>
       <h2>Window</h2>
-      <Box
-        :extra-styles="{ ...windowStyle, width: (2 * 48 + values[5].cos * 30 + 150) + 'px', height: (2 * 24 + values[5].sin * 30 + 150) + 'px' }"
-        type="panel-d-2"
-      >
-        <Titlebar title="Oleg" icon="/win-55-ui/icons/program.png" />
-      </Box>
+      (it's floating)
+      <Window resizable :extra-styles="{ ...windowStyle }">
+        Oleg
+      </Window>
     </div>
 
-    <Button :extra-styles="{ margin: '8px' }" @click="handleClick">
-      Oleg
-    </Button>
+    <div>
+      <h2>Button with tooltip</h2>
+      <Tooltip text="oleg">
+        <Button :extra-styles="{ margin: '8px' }" @click="handleClick">
+          Oleg
+        </Button>
+      </Tooltip>
+      
+    </div>
+
+    <div style="display: flex; margin: 20px; gap: 120px">
+      <Balloon side="top" text="TOP" :shown="true">
+        <Button>TOP</Button>
+      </Balloon>
+      <Balloon side="left" text="LEFT" :shown="true">
+        <Button>LEFT</Button>
+      </Balloon>
+      <Balloon side="right" text="RIGHT" :shown="true">
+        <Button>RIGHT</Button>
+      </Balloon>
+      <Balloon side="bottom" text="BOTTOM" :shown="true">
+        <Button>BOTTOM</Button>
+      </Balloon>
+    </div>
 
     <div>
       <h2>Basic dropdown</h2>

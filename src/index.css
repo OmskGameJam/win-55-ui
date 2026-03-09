@@ -47,6 +47,7 @@ table {
 * {
   image-rendering: pixelated;
 	outline: none;
+	user-select: none;
 }
 
 body {
@@ -65,6 +66,11 @@ body {
   background: none;
 
   position: relative
+}
+
+.border-9-notification {
+	border: 12px solid transparent;
+  border-image: var(--img) 12 fill repeat;
 }
 
 @font-face {
