@@ -104,3 +104,34 @@ body {
 	height: 16px;
 	margin-top: 2px;
 }
+
+.balloon-wrapper {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  height: fit-content;
+}
+
+.balloon {
+  position: absolute;
+  z-index: 1000;
+}
+
+.balloon-inner {
+  display: flex;
+  align-items: center;
+}
+
+.balloon-tip-box {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -2px;
+  flex-shrink: 0;
+}
+
+.balloon-tip {
+  display: block;
+}

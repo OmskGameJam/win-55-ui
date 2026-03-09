@@ -139,7 +139,11 @@ const exampleRadioState = ref('oleg')
       
     </div>
 
-    <div style="display: flex; margin: 20px; gap: 120px">
+    <div style=" 
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 100px;"
+    >
       <Balloon side="top" text="TOP" :shown="true">
         <Button>TOP</Button>
       </Balloon>
@@ -151,6 +155,39 @@ const exampleRadioState = ref('oleg')
       </Balloon>
       <Balloon side="bottom" text="BOTTOM" :shown="true">
         <Button>BOTTOM</Button>
+      </Balloon>
+
+      <Balloon side="top" bias="right" :shown="true">
+        <Button>TOP</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT  <br>
+          TEXT TEXT TEXT TEXT 
+        </template>
+      </Balloon>
+      <Balloon side="left" bias="down" text="LEFT" :shown="true">
+        <Button>LEFT</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT  
+        </template>
+      </Balloon>
+      <Balloon side="right" bias="up" text="RIGHT" :shown="true">
+        <Button>RIGHT</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT  
+        </template>
+      </Balloon>
+      <Balloon side="bottom" bias="left" :shown="true">
+        <Button>BOTTOM</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT  <br>
+          TEXT TEXT TEXT TEXT 
+        </template>
       </Balloon>
     </div>
 
