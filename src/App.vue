@@ -34,9 +34,9 @@ const windowStyle = {
 
 const handleClick = () => window.alert('Click!')
 
-const exampleTextInputState = ref('oleg')
+const exampleTextInputState = ref('sample')
 const exampleCheckboxState = ref(false)
-const exampleRadioState = ref('oleg')
+const exampleRadioState = ref('sample')
 </script>
 
 <template>
@@ -61,11 +61,11 @@ const exampleRadioState = ref('oleg')
       <Box type="border-groove" :extra-styles="containerStyle">
         <Checkbox
           v-model="exampleCheckboxState"
-          label="Oleg"
+          label="Sample"
         />
         <Checkbox
           v-model="exampleCheckboxState"
-          label="Oleg"
+          label="Sample"
         />
       </Box>
       <Box type="border-groove" :extra-styles="containerStyle">
@@ -76,8 +76,8 @@ const exampleRadioState = ref('oleg')
         />
         <RadioButton
           v-model="exampleRadioState"
-          value="oleg"
-          label="Oleg"
+          value="sample"
+          label="Sample"
         />
         <RadioButton
           v-model="exampleRadioState"
@@ -125,15 +125,15 @@ const exampleRadioState = ref('oleg')
       <h2>Window</h2>
       (it's floating)
       <Window resizable :extra-styles="{ ...windowStyle }">
-        Oleg
+        Sample
       </Window>
     </div>
 
     <div>
       <h2>Button with tooltip</h2>
-      <Tooltip text="oleg">
+      <Tooltip text="Text!">
         <Button :extra-styles="{ margin: '8px' }" @click="handleClick">
-          Oleg
+          This has a tooltip on hover
         </Button>
       </Tooltip>
       
@@ -144,17 +144,67 @@ const exampleRadioState = ref('oleg')
       grid-template-columns: repeat(4, 1fr);
       gap: 100px;"
     >
-      <Balloon side="top" text="TOP" :shown="true">
+
+      <Balloon side="bottom" bias="right" :shown="true">
         <Button>TOP</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT  <br>
+          TEXT TEXT TEXT TEXT 
+        </template>
       </Balloon>
-      <Balloon side="left" text="LEFT" :shown="true">
+      <Balloon side="right" bias="down" text="LEFT" :shown="true">
         <Button>LEFT</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT  
+        </template>
       </Balloon>
-      <Balloon side="right" text="RIGHT" :shown="true">
+      <Balloon side="left" bias="up" text="RIGHT" :shown="true">
         <Button>RIGHT</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT  
+        </template>
       </Balloon>
-      <Balloon side="bottom" text="BOTTOM" :shown="true">
+      <Balloon side="top" bias="left" :shown="true">
         <Button>BOTTOM</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT  <br>
+          TEXT TEXT TEXT TEXT 
+        </template>
+      </Balloon>
+
+      <Balloon side="right" :shown="true">
+        <Button>RIGHT</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT  <br>
+          TEXT TEXT TEXT TEXT 
+        </template>
+      </Balloon>
+      <Balloon side="top" :shown="true">
+        <Button>TOP</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT  <br>
+          TEXT TEXT TEXT TEXT 
+        </template>
+      </Balloon>
+      <Balloon side="bottom" :shown="true">
+        <Button>BOTTOM</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT  <br>
+          TEXT TEXT TEXT TEXT 
+        </template>
+      </Balloon>
+      <Balloon side="left" :shown="true">
+        <Button>LEFT</Button>
+        <template #content>
+          TEXT TEXT TEXT TEXT  <br>
+          TEXT TEXT TEXT TEXT 
+        </template>
       </Balloon>
 
       <Balloon side="top" bias="right" :shown="true">
@@ -189,6 +239,11 @@ const exampleRadioState = ref('oleg')
           TEXT TEXT TEXT TEXT 
         </template>
       </Balloon>
+
+
+
+
+      
     </div>
 
     <div>

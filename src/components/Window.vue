@@ -183,7 +183,7 @@ function detectEdge(e: MouseEvent) {
     @mousedown="startResize"
   >
     <div @mousedown.stop="startDrag">
-      <Titlebar title="Oleg" icon="/win-55-ui/icons/program.png" />
+      <Titlebar title="Sample" icon="/win-55-ui/icons/program.png" />
     </div>
     <slot></slot>
   </Box>
