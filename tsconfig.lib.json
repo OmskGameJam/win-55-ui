@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "dist",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "strict": true,
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "types": ["vite/client"],
+    "erasableSyntaxOnly": true
+  },
+  "include": [
+    "src/index.ts",
+    "src/components/**/*.vue",
+    "src/components/**/*.ts",
+    "src/helpers/**/*.ts"
+  ],
+  "exclude": ["src/main.ts", "src/App.vue"]
+}

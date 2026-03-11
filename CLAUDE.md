@@ -5,9 +5,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Build & Development Commands
 
 - `npm run dev` — запуск Vite dev-сервера с HMR
-- `npm run build` — проверка типов (`vue-tsc -b`) + production-сборка Vite
+- `npm run build` — проверка типов (`vue-tsc -b`) + production-сборка Vite (демо-приложение)
+- `npm run build:lib` — library build: Vite (ESM bundle + CSS) + vue-tsc (декларации типов) → `dist/`
 - `npm run lint` — ESLint
 - `npm run preview` — предпросмотр production-сборки
+
+Требуется Node.js 20.19+ или 22.12+ (указан в `.nvmrc`).
+
+## npm-пакет
+
+Устанавливается из git: `npm install github:<owner>/win-55-ui`. `prepare` скрипт автоматически запускает `build:lib`.
+
+Точки входа:
+- `win-55-ui-vue` — компоненты и хелперы (ESM)
+- `win-55-ui-vue/style.css` — CSS (reset, font-face, классы компонентов)
+- `win-55-ui-vue/plugin` — Vite-плагин `win55ui()` для раздачи ассетов из `public/win-55-ui/` (dev: middleware, build: emitFile)
+
+`vite.config.lib.ts` — отдельный конфиг для library build (`publicDir: false`, `transformAssetUrls: false`, `external: ['vue']`).
 
 ## Project Overview
 
@@ -17,12 +31,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Компоненты (`src/components/`)
 
-- **Box** — центральный layout-компонент с 9-patch border-image (CSS `border-image` + PNG из `/public/win-55-ui/`). Тип `BoxType` (`indent`, `panel-d-1`, `panel-d-2`, `textarea`, `border-groove`) определяет визуальный стиль рамки. Пробрасывает `$attrs` на корневой div.
+- **Box** — центральный layout-компонент с 9-patch border-image (CSS `border-image` + PNG из `/public/win-55-ui/`). Тип `BoxType` (`indent`, `panel-d-1`, `panel-d-2`, `textarea`, `border-groove`, `white-box`, `notification`) определяет визуальный стиль рамки. Пробрасывает `$attrs` на корневой div.
 - **Typography** — обёрточный компонент, применяющий `typographyStyles()`. Принимает props из `TypographySettings` напрямую (kebab-case в шаблонах: `font-color`, `font-shadow-color`). По умолчанию рендерится как `<span style="display: contents">`, с опциональным prop `element` для смены тега.
 - **BaseInput** — использует `contentEditable` div (обёрнут в Box) вместо HTML input. Поддерживает maxLength, paste (plain text only), блокировку Enter/Tab. Emit `change` с новым значением.
 - **BaseDropdown / MenuDropdown** — dropdown-система с `<Teleport to="body">` для предотвращения clipping. Автоматически переворачивается вверх при overflow. Используют named slots: `#trigger` и `#items`.
 - **Checkbox, RadioButton** — скрытый нативный input + кастомная иконка (img). Emit `change`. RadioButton сравнивает `target` с `value` для определения checked-состояния.
 - **Button** — кастомная обработка mousedown/mouseup (глобальный listener на window). Меняет BoxType на `indent` при нажатии. Emit `click` только если мышь внутри при отпускании.
+- **Window** — перемещаемое/ресайзабельное окно с абсолютным позиционированием. Использует `defineModel` для `x`, `y`, `width`, `height`. Поддерживает направленный resize (по краям окна, 6px зона) и drag за Titlebar. Props `resizable`, `resizableHorizontally`, `resizableVertically`.
+- **Balloon** — всплывающее уведомление с «хвостиком» (треугольная стрелка). Позиционирование: `side` (top/bottom/left/right) + `bias` (left/right/up/down) для смещения. Использует `defineModel` для `shown`. Контент через `#content` слот или prop `text`.
+- **Tooltip** — тултип, следующий за курсором. Появляется с задержкой 400ms при наведении. Props: `text`, `offsetX`, `offsetY`. Оборачивает контент через default slot.
+- **HDivider** — горизонтальный разделитель (Box type `border-groove` с нулевой высотой).
 - **Titlebar** — рендерит Bayer-dithered градиент на canvas с ResizeObserver для адаптивной перерисовки.
 
 ### Helpers (`src/helpers/`)
@@ -39,7 +57,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Все компоненты используют `<script setup lang="ts">` с `defineProps`/`withDefaults`/`defineEmits`.
 - Кастомизация внешнего вида через props `extraStyles` (`CSSProperties`) и `extraClass` (`string`).
 - Компоненты, которым нужен DOM-доступ извне, используют `defineExpose`.
-- Состояние управляется через emit-паттерн (не v-model): родитель хранит `ref`, дочерний emit'ит `change`.
+- Состояние управляется через `v-model` (`defineModel`). Компоненты форм (BaseInput, Checkbox, RadioButton) используют `modelValue`/`update:modelValue`. Window использует именованные модели (`x`, `y`, `width`, `height`). Balloon — `shown`.
 
 ### Стилизация
 
