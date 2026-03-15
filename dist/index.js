@@ -1,4 +1,4 @@
-import { defineComponent as M, ref as $, computed as b, openBlock as g, createElementBlock as y, normalizeStyle as k, normalizeClass as Z, renderSlot as B, useModel as N, useSlots as ce, createElementVNode as p, createVNode as T, withCtx as x, unref as de, Fragment as j, createTextVNode as J, toDisplayString as P, createCommentVNode as X, mergeModels as te, watch as Q, nextTick as ue, onMounted as F, onUnmounted as O, withModifiers as le, createBlock as I, Teleport as fe, resolveDynamicComponent as he, reactive as me } from "vue";
+import { defineComponent as M, ref as $, computed as b, openBlock as g, createElementBlock as y, normalizeStyle as k, normalizeClass as Z, renderSlot as B, useModel as N, useSlots as ce, createElementVNode as v, createVNode as T, withCtx as x, unref as de, Fragment as j, createTextVNode as J, toDisplayString as P, createCommentVNode as X, mergeModels as te, watch as Q, nextTick as ue, onMounted as F, onUnmounted as O, withModifiers as le, createBlock as I, Teleport as fe, resolveDynamicComponent as he, reactive as me } from "vue";
 const D = /* @__PURE__ */ M({
   __name: "Box",
   props: {
@@ -20,7 +20,7 @@ const D = /* @__PURE__ */ M({
       B(i.$slots, "default")
     ], 6));
   }
-}), ve = { class: "balloon-wrapper" }, pe = { class: "balloon-tip-box" }, He = /* @__PURE__ */ M({
+}), pe = { class: "balloon-wrapper" }, ve = { class: "balloon-tip-box" }, He = /* @__PURE__ */ M({
   __name: "Balloon",
   props: /* @__PURE__ */ te({
     text: {},
@@ -81,18 +81,18 @@ const D = /* @__PURE__ */ M({
       const a = {};
       return i.value ? ((s.value === "top" || s.value === "bottom") && (i.value === "left" && (a.transform = "translateX(calc(-50% + 28px))"), i.value === "right" && (a.transform = "translateX(calc(50% - 28px))")), (s.value === "left" || s.value === "right") && (i.value === "up" && (a.transform = "translateY(calc(-50% + 28px))"), i.value === "down" && (a.transform = "translateY(calc(50% - 28px))")), a) : {};
     });
-    return (a, h) => (g(), y("div", ve, [
+    return (a, h) => (g(), y("div", pe, [
       B(a.$slots, "default"),
       l.value ? (g(), y("div", {
         key: 0,
         class: "balloon",
         style: k(o.value)
       }, [
-        p("div", {
+        v("div", {
           class: "balloon-inner",
           style: k({ flexDirection: c.value })
         }, [
-          p("div", {
+          v("div", {
             class: "balloon-box-wrapper",
             style: k(d.value)
           }, [
@@ -108,8 +108,8 @@ const D = /* @__PURE__ */ M({
               _: 3
             })
           ], 4),
-          p("div", pe, [
-            p("img", {
+          v("div", ve, [
+            v("img", {
               class: "balloon-tip",
               src: "/win-55-ui/balloon-tip.png",
               style: k({ transform: u.value }),
@@ -131,10 +131,10 @@ const D = /* @__PURE__ */ M({
       const a = s.value, h = i.value;
       if (!a || !h) return;
       const r = a.getBoundingClientRect(), f = window.innerHeight, m = h.offsetHeight;
-      let v = r.bottom + window.scrollY;
+      let p = r.bottom + window.scrollY;
       const S = r.left + window.scrollX;
-      r.bottom + m > f && (v = r.top + window.scrollY - m), n.value = {
-        top: v,
+      r.bottom + m > f && (p = r.top + window.scrollY - m), n.value = {
+        top: p,
         left: S,
         width: l.matchTriggerWidth ? r.width : void 0
       };
@@ -158,7 +158,7 @@ const D = /* @__PURE__ */ M({
       t.value = !t.value;
     };
     return (a, h) => (g(), y(j, null, [
-      p("div", {
+      v("div", {
         ref_key: "triggerRef",
         ref: s,
         style: { display: "inline-block" },
@@ -247,11 +247,11 @@ const Xe = /* @__PURE__ */ M({
       r.preventDefault();
       let f = r.clipboardData?.getData("text/plain") ?? "";
       if (n.multiline || (f = f.replace(/\n/g, " ")), !o.value) return;
-      const m = window.getSelection(), v = m?.getRangeAt(0);
-      if (v) {
-        v.deleteContents();
+      const m = window.getSelection(), p = m?.getRangeAt(0);
+      if (p) {
+        p.deleteContents();
         const S = document.createTextNode(f);
-        v.insertNode(S), v.collapse(!1), m?.removeAllRanges(), m?.addRange(v);
+        p.insertNode(S), p.collapse(!1), m?.removeAllRanges(), m?.addRange(p);
       }
       c();
     }, a = () => {
@@ -312,14 +312,14 @@ const Xe = /* @__PURE__ */ M({
   },
   emits: ["click"],
   setup(e, { emit: l }) {
-    const t = e, n = l, s = $(!1), i = $(!1), o = b(() => !t.disabled && s.value && i.value), c = b(() => t.disabled), u = (v) => {
-      t.disabled || v.button !== 0 || (s.value = !0, i.value = !0);
+    const t = e, n = l, s = $(!1), i = $(!1), o = b(() => !t.disabled && s.value && i.value), c = b(() => t.disabled), u = (p) => {
+      t.disabled || p.button !== 0 || (s.value = !0, i.value = !0);
     }, d = () => {
       t.disabled || (i.value = !0);
     }, a = () => {
       i.value = !1;
-    }, h = (v) => {
-      t.disabled || v.button !== 0 || (s.value && i.value && n("click"), s.value = !1);
+    }, h = (p) => {
+      t.disabled || p.button !== 0 || (s.value && i.value && n("click"), s.value = !1);
     };
     F(() => {
       window.addEventListener("mouseup", h);
@@ -337,7 +337,7 @@ const Xe = /* @__PURE__ */ M({
       transform: o.value ? "translate(2px, 2px)" : "translate(0, 0)",
       opacity: c.value ? 0.5 : 1
     })), m = b(() => o.value ? "indent" : t.baseType);
-    return (v, S) => (g(), I(D, {
+    return (p, S) => (g(), I(D, {
       type: m.value,
       "extra-styles": r.value,
       "extra-class": e.extraClass,
@@ -346,7 +346,7 @@ const Xe = /* @__PURE__ */ M({
       onMouseleave: a
     }, {
       default: x(() => [
-        p("div", {
+        v("div", {
           style: k(f.value)
         }, [
           T(ne, {
@@ -355,7 +355,7 @@ const Xe = /* @__PURE__ */ M({
             "font-shadow-color": "#a5a5a5"
           }, {
             default: x(() => [
-              B(v.$slots, "default")
+              B(p.$slots, "default")
             ]),
             _: 3
           })
@@ -392,14 +392,14 @@ const Xe = /* @__PURE__ */ M({
       }),
       onClick: s
     }, [
-      p("div", ke, [
-        p("img", {
+      v("div", ke, [
+        v("img", {
           draggable: "false",
           src: e.modelValue ? e.checkedIcon : e.uncheckedIcon,
           alt: e.modelValue ? "checked" : "unchecked"
         }, null, 8, Be)
       ]),
-      p("input", {
+      v("input", {
         type: "checkbox",
         checked: e.modelValue,
         disabled: e.disabled,
@@ -472,7 +472,7 @@ const Xe = /* @__PURE__ */ M({
       }),
       onClick: i
     }, [
-      p("div", Se, [
+      v("div", Se, [
         s.value ? (g(), y("img", {
           key: 0,
           draggable: "false",
@@ -483,7 +483,7 @@ const Xe = /* @__PURE__ */ M({
           src: e.uncheckedIcon
         }, null, 8, Ce))
       ]),
-      p("input", {
+      v("input", {
         type: "radio",
         checked: s.value,
         disabled: e.disabled,
@@ -515,8 +515,8 @@ function Te(e, l, t, n, s) {
   e.width = Math.floor(l * 2) / 2, e.height = Math.floor(t * 2) / 2;
   for (let r = 0; r < h; r++)
     for (let f = 0; f < a; f++) {
-      const m = f * o, v = r * o, S = (f + r) / (a + h - 6), R = (c[r % 8][f % 8] + 0.5) / 64, C = S > R ? 1 : 0, V = Math.round(u.r * (1 - C) + d.r * C), L = Math.round(u.g * (1 - C) + d.g * C), U = Math.round(u.b * (1 - C) + d.b * C);
-      i.fillStyle = `rgb(${V}, ${L}, ${U})`, i.fillRect(m, v, o, o);
+      const m = f * o, p = r * o, S = (f + r) / (a + h - 6), R = (c[r % 8][f % 8] + 0.5) / 64, C = S > R ? 1 : 0, V = Math.round(u.r * (1 - C) + d.r * C), L = Math.round(u.g * (1 - C) + d.g * C), U = Math.round(u.b * (1 - C) + d.b * C);
+      i.fillStyle = `rgb(${V}, ${L}, ${U})`, i.fillRect(m, p, o, o);
     }
 }
 function ee(e) {
@@ -564,18 +564,20 @@ const Ie = { style: { height: "0", overflow: "visible" } }, Re = { class: "title
     }), O(() => {
       n?.disconnect();
     }), (o, c) => (g(), y("div", null, [
-      p("div", Ie, [
-        p("canvas", {
+      v("div", Ie, [
+        v("canvas", {
           ref_key: "canvasRef",
           ref: t,
           style: { width: "100%", height: "34px", display: "block" }
         }, null, 512)
       ]),
-      p("div", Re, [
-        p("div", Ee, [
-          p("img", { src: e.icon }, null, 8, De)
+      v("div", Re, [
+        v("div", Ee, [
+          v("img", {
+            src: e.icon ?? "/win-55-ui/icons/program.png"
+          }, null, 8, De)
         ]),
-        p("div", Ve, [
+        v("div", Ve, [
           T(ne, {
             shorthand: "Bold12",
             "font-color": "white",
@@ -595,7 +597,7 @@ const Ie = { style: { height: "0", overflow: "visible" } }, Re = { class: "title
             disabled: ""
           }, {
             default: x(() => [...c[0] || (c[0] = [
-              p("img", {
+              v("img", {
                 draggable: "false",
                 src: "/win-55-ui/window/o.png"
               }, null, -1)
@@ -608,28 +610,28 @@ const Ie = { style: { height: "0", overflow: "visible" } }, Re = { class: "title
             disabled: ""
           }, {
             default: x(() => [...c[1] || (c[1] = [
-              p("img", {
+              v("img", {
                 draggable: "false",
                 src: "/win-55-ui/window/_.png"
               }, null, -1)
             ])]),
             _: 1
           }),
-          c[3] || (c[3] = p("div", { style: { width: "2px" } }, null, -1)),
+          c[3] || (c[3] = v("div", { style: { width: "2px" } }, null, -1)),
           T(K, {
             "extra-class": "titlebar-button",
             "base-type": "panel-d-2",
             disabled: ""
           }, {
             default: x(() => [...c[2] || (c[2] = [
-              p("img", {
+              v("img", {
                 draggable: "false",
                 src: "/win-55-ui/window/x.png"
               }, null, -1)
             ])]),
             _: 1
           }),
-          c[4] || (c[4] = p("div", { style: { width: "2px" } }, null, -1))
+          c[4] || (c[4] = v("div", { style: { width: "2px" } }, null, -1))
         ], 64)) : X("", !0)
       ])
     ]));
@@ -713,17 +715,17 @@ const Ie = { style: { height: "0", overflow: "visible" } }, Re = { class: "title
   emits: ["update:x", "update:y", "update:width", "update:height"],
   setup(e) {
     const l = e, t = N(e, "x"), n = N(e, "y"), s = N(e, "width"), i = N(e, "height"), o = l.minWidth ?? 240, c = l.minHeight ?? 40, u = l.resizable ?? l.resizableHorizontally ?? !1, d = l.resizable ?? l.resizableVertically ?? !1;
-    let a = !1, h = !1, r = "", f = "", m = 0, v = 0, S = 0, R = 0, C = 0, V = 0;
+    let a = !1, h = !1, r = "", f = "", m = 0, p = 0, S = 0, R = 0, C = 0, V = 0;
     const L = $("default");
     function U(w) {
-      l.faux || r || (a = !0, m = w.clientX, v = w.clientY, C = t.value, V = n.value, window.addEventListener("mousemove", q), window.addEventListener("mouseup", G));
+      l.faux || r || (a = !0, m = w.clientX, p = w.clientY, C = t.value, V = n.value, window.addEventListener("mousemove", q), window.addEventListener("mouseup", G));
     }
     function ae(w) {
-      l.faux || r && (!u && !d || (h = !0, f = r, m = w.clientX, v = w.clientY, S = s.value, R = i.value, C = t.value, V = n.value, window.addEventListener("mousemove", q), window.addEventListener("mouseup", G)));
+      l.faux || r && (!u && !d || (h = !0, f = r, m = w.clientX, p = w.clientY, S = s.value, R = i.value, C = t.value, V = n.value, window.addEventListener("mousemove", q), window.addEventListener("mouseup", G)));
     }
     function q(w) {
       if (l.faux) return;
-      const Y = w.clientX - m, z = w.clientY - v;
+      const Y = w.clientX - m, z = w.clientY - p;
       if (a && (t.value = C + Y, n.value = V + z), h) {
         const A = f;
         if (u && A.includes("e") && (s.value = Math.max(o, S + Y)), d && A.includes("s") && (i.value = Math.max(c, R + z)), u && A.includes("w")) {
@@ -779,7 +781,7 @@ const Ie = { style: { height: "0", overflow: "visible" } }, Re = { class: "title
       onMousedown: ae
     }, {
       default: x(() => [
-        p("div", {
+        v("div", {
           onMousedown: le(U, ["stop"])
         }, [
           T(Le, {
@@ -817,9 +819,9 @@ const Ie = { style: { height: "0", overflow: "visible" } }, Re = { class: "title
         cos: Math.cos(u / (3e3 + m * 400) + m * Math.PI * 2 / e + Math.PI / 4)
       })), a = d.map((f) => t + f.sin * n), h = e * t, r = a.reduce((f, m) => f + m, 0);
       if (r > 0) {
-        const f = h / r, m = d.map((v) => ({
-          sin: ((t + v.sin * n) * f - t) / n,
-          cos: v.cos
+        const f = h / r, m = d.map((p) => ({
+          sin: ((t + p.sin * n) * f - t) / n,
+          cos: p.cos
         }));
         s.value = m;
       } else

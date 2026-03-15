@@ -1,6 +1,6 @@
 type __VLS_Props = {
     title: string;
-    icon: string;
+    icon?: string;
     placeholderButtons?: boolean;
     disabled?: boolean;
     gradientColorA?: string;

@@ -8,7 +8,7 @@ type __VLS_Props = {
     resizableHorizontally?: boolean;
     resizableVertically?: boolean;
     title: string;
-    icon: string;
+    icon?: string;
     placeholderButtons?: boolean;
     disabled?: boolean;
     gradientColorA?: string;
