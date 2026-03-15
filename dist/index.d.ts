@@ -1,4 +1,5 @@
 import './index.css';
+import './scrollbar.css';
 export { default as Balloon } from './components/Balloon.vue';
 export { default as BaseDropdown } from './components/BaseDropdown.vue';
 export { default as BaseInput } from './components/BaseInput.vue';

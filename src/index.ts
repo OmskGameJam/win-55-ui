@@ -1,4 +1,5 @@
 import './index.css'
+import './scrollbar.css'
 
 // Components
 export { default as Balloon } from './components/Balloon.vue'
