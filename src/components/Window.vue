@@ -15,7 +15,7 @@ const props = defineProps<{
   
   // Titlebar passthrough props
   title: string
-  icon: string
+  icon?: string
   placeholderButtons?: boolean
   disabled?: boolean
   gradientColorA?: string

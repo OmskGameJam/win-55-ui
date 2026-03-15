@@ -117,7 +117,7 @@ const exampleRadioState = ref('sample')
         Sample
       </Window>
       (Second window is in faux mode, behaving as a div)
-      <Window faux title="Title" icon="/win-55-ui/icons/program.png" placeholder-buttons>
+      <Window faux title="Title" placeholder-buttons>
         Sample
       </Window>
     </div>

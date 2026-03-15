@@ -6,7 +6,7 @@ import Typography from './Typography.vue'
 
 const props = defineProps<{
   title: string
-  icon: string
+  icon?: string
   placeholderButtons?: boolean
   disabled?: boolean
   gradientColorA?: string
@@ -79,7 +79,7 @@ onUnmounted(() => {
     </div>
     <div class="titlebar-content">
       <div class="titlebar-image">
-        <img :src="icon" />
+        <img :src="icon ?? '/win-55-ui/icons/program.png'" />
       </div>
       <div class="titlebar-text">
         <Typography shorthand="Bold12" font-color="white" font-shadow-color="black">
