@@ -35,6 +35,7 @@ const windowStyle = {
 const handleClick = () => window.alert('Click!')
 
 const exampleTextInputState = ref('sample')
+const scrollableTextInputState = ref('sample')
 const exampleCheckboxState = ref(false)
 const exampleRadioState = ref('sample')
 </script>
@@ -146,14 +147,14 @@ const exampleRadioState = ref('sample')
     >
 
       <Balloon side="bottom" bias="right" :shown="true">
-        <Button>TOP</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT  <br>
           TEXT TEXT TEXT TEXT 
         </template>
       </Balloon>
       <Balloon side="right" bias="down" text="LEFT" :shown="true">
-        <Button>LEFT</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT <br>
           TEXT TEXT TEXT TEXT <br>
@@ -162,7 +163,7 @@ const exampleRadioState = ref('sample')
         </template>
       </Balloon>
       <Balloon side="left" bias="up" text="RIGHT" :shown="true">
-        <Button>RIGHT</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT <br>
           TEXT TEXT TEXT TEXT <br>
@@ -171,7 +172,7 @@ const exampleRadioState = ref('sample')
         </template>
       </Balloon>
       <Balloon side="top" bias="left" :shown="true">
-        <Button>BOTTOM</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT  <br>
           TEXT TEXT TEXT TEXT 
@@ -179,28 +180,28 @@ const exampleRadioState = ref('sample')
       </Balloon>
 
       <Balloon side="right" :shown="true">
-        <Button>RIGHT</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT  <br>
           TEXT TEXT TEXT TEXT 
         </template>
       </Balloon>
       <Balloon side="top" :shown="true">
-        <Button>TOP</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT  <br>
           TEXT TEXT TEXT TEXT 
         </template>
       </Balloon>
       <Balloon side="bottom" :shown="true">
-        <Button>BOTTOM</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT  <br>
           TEXT TEXT TEXT TEXT 
         </template>
       </Balloon>
       <Balloon side="left" :shown="true">
-        <Button>LEFT</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT  <br>
           TEXT TEXT TEXT TEXT 
@@ -208,14 +209,14 @@ const exampleRadioState = ref('sample')
       </Balloon>
 
       <Balloon side="top" bias="right" :shown="true">
-        <Button>TOP</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT  <br>
           TEXT TEXT TEXT TEXT 
         </template>
       </Balloon>
       <Balloon side="left" bias="down" text="LEFT" :shown="true">
-        <Button>LEFT</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT <br>
           TEXT TEXT TEXT TEXT <br>
@@ -224,7 +225,7 @@ const exampleRadioState = ref('sample')
         </template>
       </Balloon>
       <Balloon side="right" bias="up" text="RIGHT" :shown="true">
-        <Button>RIGHT</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT <br>
           TEXT TEXT TEXT TEXT <br>
@@ -233,16 +234,12 @@ const exampleRadioState = ref('sample')
         </template>
       </Balloon>
       <Balloon side="bottom" bias="left" :shown="true">
-        <Button>BOTTOM</Button>
+        <Button>BUTTON</Button>
         <template #content>
           TEXT TEXT TEXT TEXT  <br>
           TEXT TEXT TEXT TEXT 
         </template>
       </Balloon>
-
-
-
-
       
     </div>
 
