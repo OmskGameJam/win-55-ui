@@ -20,6 +20,9 @@ const props = defineProps<{
   disabled?: boolean
   gradientColorA?: string
   gradientColorB?: string
+
+  // New faux mode
+  faux?: boolean
 }>()
 
 // v-model bindings
@@ -54,7 +57,9 @@ let startTop = 0
 
 const cursor = ref('default')
 
+// --- Dragging and Resizing ---
 function startDrag(e: MouseEvent) {
+  if (props.faux) return
   if (resizeDir) return
   dragging = true
 
@@ -68,6 +73,7 @@ function startDrag(e: MouseEvent) {
 }
 
 function startResize(e: MouseEvent) {
+  if (props.faux) return
   if (!resizeDir) return
   if (!allowHorizontal && !allowVertical) return
 
@@ -86,6 +92,8 @@ function startResize(e: MouseEvent) {
 }
 
 function onMove(e: MouseEvent) {
+  if (props.faux) return
+
   const dx = e.clientX - startX
   const dy = e.clientY - startY
 
@@ -131,6 +139,12 @@ function stopAll() {
 }
 
 function detectEdge(e: MouseEvent) {
+  if (props.faux) {
+    resizeDir = ''
+    cursor.value = 'default'
+    return
+  }
+
   if (resizing) return
   if (!allowHorizontal && !allowVertical) {
     resizeDir = ''
@@ -177,15 +191,17 @@ function detectEdge(e: MouseEvent) {
 
 <template>
   <Box
-    :extra-styles="{
-      position: 'absolute',
-      left: x + 'px',
-      top: y + 'px',
-      width: width + 'px',
-      height: height + 'px',
-      cursor,
-      ...extraStyles
-    }"
+    :extra-styles="props.faux
+      ? extraStyles
+      : {
+          position: 'absolute',
+          left: x + 'px',
+          top: y + 'px',
+          width: width + 'px',
+          height: height + 'px',
+          cursor,
+          ...extraStyles
+        }"
     type="panel-d-2"
     @mousemove="detectEdge"
     @mousedown="startResize"
@@ -196,10 +212,9 @@ function detectEdge(e: MouseEvent) {
         :icon="icon"
         :placeholder-buttons="placeholderButtons"
         :disabled="disabled"
-        :gradient-color-a="gradientColorA"
-        :gradient-color-b="gradientColorB"
+        :gradient-color-a="faux ? '#888888' : gradientColorA"
+        :gradient-color-b="faux ? '#555555' : gradientColorB"
       >
-        <!-- Pass through titlebar buttons slot -->
         <template #buttons>
           <slot name="titlebar-buttons"></slot>
         </template>

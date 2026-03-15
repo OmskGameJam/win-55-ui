@@ -37,11 +37,6 @@ const boxStyle = {
   marginLeft: '8px',
 }
 
-const windowStyle = {
-  marginBottom: '10px',
-  marginLeft: '8px',
-}
-
 
 
 const handleClick = () => window.alert('Click!')
@@ -117,8 +112,12 @@ const exampleRadioState = ref('sample')
 
     <div>
       <h2>Window</h2>
-      (it's floating)
-      <Window resizable title="Title" icon="/win-55-ui/icons/program.png" placeholder-buttons :extra-styles="{ ...windowStyle }">
+      (First window is floating like normal)
+      <Window resizable title="Title" icon="/win-55-ui/icons/program.png" placeholder-buttons>
+        Sample
+      </Window>
+      (Second window is in faux mode, behaving as a div)
+      <Window faux title="Title" icon="/win-55-ui/icons/program.png" placeholder-buttons>
         Sample
       </Window>
     </div>
