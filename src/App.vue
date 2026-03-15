@@ -51,7 +51,10 @@ const exampleRadioState = ref('sample')
   <Typography font-color="black">
     <h1>Kitchen sink</h1>
     <div>
-      <h2>The quick brown fox jumps over the lazy dog</h2>
+      <h2>Currently prepared bitmap strikes</h2>
+      <Typography shorthand="Regular12">The quick brown fox jumps over the lazy dog</Typography>
+      <Typography shorthand="Bold12">The quick brown fox jumps over the lazy dog</Typography>
+      <Typography shorthand="Regular24">The quick brown fox jumps over the lazy dog</Typography>
       <h2>ABCDE</h2>
     </div>
     <Box type="border-groove" :extra-styles="containerStyle">

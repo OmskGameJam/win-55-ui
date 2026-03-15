@@ -83,6 +83,11 @@ body {
   src: url("/win-55-ui/font/LiberationSans-Bold-12.ttf")
 }
 
+@font-face {
+  font-family: "Regular24";
+  src: url("/win-55-ui/font/LiberationSans-Regular-24.ttf")
+}
+
 .titlebar-text {
 	margin-top: 6px;
 	margin-left: 4px;
