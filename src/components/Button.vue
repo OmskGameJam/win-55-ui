@@ -7,10 +7,12 @@ const props = withDefaults(defineProps<{
   baseType?: BoxType
   extraStyles?: Record<string, string | number | undefined>
   extraClass?: string
+  disabled?: boolean
 }>(), {
   baseType: 'panel-d-1',
   extraStyles: undefined,
   extraClass: undefined,
+  disabled: false,
 })
 
 const emit = defineEmits<{
@@ -20,19 +22,25 @@ const emit = defineEmits<{
 const isMouseDown = ref(false)
 const isInside = ref(false)
 
-const pressed = computed(() => isMouseDown.value && isInside.value)
+const pressed = computed(() => !props.disabled && isMouseDown.value && isInside.value)
+const isDisabled = computed(() => props.disabled)
 
 const handleMouseDown = (e: MouseEvent) => {
-  if (e.button !== 0) return
+  if (props.disabled || e.button !== 0) return
   isMouseDown.value = true
   isInside.value = true
 }
 
-const handleMouseEnter = () => { isInside.value = true }
+const handleMouseEnter = () => { 
+  if (!props.disabled) {
+    isInside.value = true 
+  }
+}
+
 const handleMouseLeave = () => { isInside.value = false }
 
 const handleWindowMouseUp = (e: MouseEvent) => {
-  if (e.button !== 0) return
+  if (props.disabled || e.button !== 0) return
   if (isMouseDown.value && isInside.value) {
     emit('click')
   }
@@ -52,18 +60,23 @@ const boxStyle = computed(() => ({
   width: 'fit-content',
   paddingBottom: '4px',
   paddingRight: '4px',
-  cursor: 'default',
+  cursor: isDisabled.value ? 'not-allowed' : 'default',
   ...props.extraStyles,
 }))
 
 const innerStyle = computed(() => ({
   transform: pressed.value ? 'translate(2px, 2px)' : 'translate(0, 0)',
+  opacity: isDisabled.value ? 0.5 : 1,
 }))
+
+const boxType = computed(() => {
+  return pressed.value ? 'indent' : props.baseType
+})
 </script>
 
 <template>
   <Box
-    :type="pressed ? 'indent' : baseType"
+    :type="boxType"
     :extra-styles="boxStyle"
     :extra-class="extraClass"
     @mousedown="handleMouseDown"

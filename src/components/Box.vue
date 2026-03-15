@@ -4,6 +4,7 @@ import { computed, ref } from 'vue'
 
 export type BoxType =
   | 'indent'
+  | 'indent-dark'
   | 'panel-d-1'
   | 'panel-d-2'
   | 'textarea'

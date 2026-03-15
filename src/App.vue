@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import Box from './components/Box.vue'
+import Box, { type BoxType } from './components/Box.vue'
 import Button from './components/Button.vue'
 import BaseDropdown from './components/BaseDropdown.vue'
 import { useSineWave } from './helpers/useSineWave'
@@ -14,7 +14,17 @@ import Window from './components/Window.vue'
 import Tooltip from './components/Tooltip.vue'
 import Balloon from './components/Balloon.vue'
 
-const { values } = useSineWave(5)
+const testingBoxes: BoxType[] = [
+  'indent',
+  'indent-dark',
+  'panel-d-1',
+  'panel-d-2',
+  'textarea',
+  'border-groove',
+  'white-box',
+  'notification',
+]
+const { values } = useSineWave(testingBoxes.length)
 
 const containerStyle = {
   width: 'fit-content',
@@ -31,6 +41,8 @@ const windowStyle = {
   marginBottom: '10px',
   marginLeft: '8px',
 }
+
+
 
 const handleClick = () => window.alert('Click!')
 
@@ -95,29 +107,10 @@ const exampleRadioState = ref('sample')
 
     <Box type="border-groove" :extra-styles="containerStyle">
       <h2>Sized boxes</h2>
-      <Box
-        :extra-styles="{ ...boxStyle, width: (2 * 48 + values[0].cos * 50) + 'px', height: (2 * 24 + values[0].sin * 30) + 'px' }"
-        type="panel-d-1"
-      />
-      <br />
-      <Box
-        :extra-styles="{ ...boxStyle, width: (2 * 48 + values[1].cos * 50) + 'px', height: (2 * 24 + values[1].sin * 30) + 'px' }"
-        type="panel-d-2"
-      />
-      <br />
-      <Box
-        :extra-styles="{ ...boxStyle, width: (2 * 48 + values[2].cos * 50) + 'px', height: (2 * 24 + values[2].sin * 30) + 'px' }"
-        type="border-groove"
-      />
-      <br />
-      <Box
-        :extra-styles="{ ...boxStyle, width: (2 * 48 + values[3].cos * 50) + 'px', height: (2 * 24 + values[3].sin * 30) + 'px' }"
-        type="indent"
-      />
-      <br />
-      <Box
-        :extra-styles="{ ...boxStyle, width: (2 * 48 + values[4].cos * 50) + 'px', height: (2 * 24 + values[4].sin * 30) + 'px' }"
-        type="textarea"
+      <Box v-for="(item, index) in testingBoxes"
+        :extra-styles="{ ...boxStyle, width: (2 * 48 + values[index].cos * 50) + 'px', height: (2 * 24 + values[index].sin * 30) + 'px' }"
+        :type="item"
+        :key="index"
       />
       <br />
     </Box>
@@ -125,7 +118,7 @@ const exampleRadioState = ref('sample')
     <div>
       <h2>Window</h2>
       (it's floating)
-      <Window resizable :extra-styles="{ ...windowStyle }">
+      <Window resizable title="Title" icon="/win-55-ui/icons/program.png" placeholder-buttons :extra-styles="{ ...windowStyle }">
         Sample
       </Window>
     </div>

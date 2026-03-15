@@ -12,6 +12,14 @@ const props = defineProps<{
   resizable?: boolean
   resizableHorizontally?: boolean
   resizableVertically?: boolean
+  
+  // Titlebar passthrough props
+  title: string
+  icon: string
+  placeholderButtons?: boolean
+  disabled?: boolean
+  gradientColorA?: string
+  gradientColorB?: string
 }>()
 
 // v-model bindings
@@ -183,7 +191,19 @@ function detectEdge(e: MouseEvent) {
     @mousedown="startResize"
   >
     <div @mousedown.stop="startDrag">
-      <Titlebar title="Sample" icon="/win-55-ui/icons/program.png" />
+      <Titlebar
+        :title="title"
+        :icon="icon"
+        :placeholder-buttons="placeholderButtons"
+        :disabled="disabled"
+        :gradient-color-a="gradientColorA"
+        :gradient-color-b="gradientColorB"
+      >
+        <!-- Pass through titlebar buttons slot -->
+        <template #buttons>
+          <slot name="titlebar-buttons"></slot>
+        </template>
+      </Titlebar>
     </div>
     <slot></slot>
   </Box>

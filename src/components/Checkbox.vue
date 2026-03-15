@@ -39,8 +39,11 @@ const toggleCheckbox = () => {
     @click="toggleCheckbox"
   >
     <div style="display: flex; align-items: center">
-      <img v-if="modelValue" draggable="false" :src="checkedIcon" />
-      <img v-else draggable="false" :src="uncheckedIcon" />
+      <img 
+        draggable="false" 
+        :src="modelValue ? checkedIcon : uncheckedIcon"
+        :alt="modelValue ? 'checked' : 'unchecked'"
+      />
     </div>
 
     <input

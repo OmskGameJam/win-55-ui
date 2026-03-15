@@ -1,19 +1,26 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { drawAngledBayerDitherGradient } from '../helpers/bayerMatrix'
 import Button from './Button.vue'
 import Typography from './Typography.vue'
 
-defineProps<{
+const props = defineProps<{
   title: string
   icon: string
+  placeholderButtons?: boolean
+  disabled?: boolean
+  gradientColorA?: string
+  gradientColorB?: string
 }>()
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 let resizeObserver: ResizeObserver | null = null
 
 function draw(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
-  drawAngledBayerDitherGradient(canvas, canvas.width, canvas.height, '5555ff', '0000aa')
+  const colorA = props.gradientColorA || '5555ff'
+  const colorB = props.gradientColorB || '0000aa'
+  
+  drawAngledBayerDitherGradient(canvas, canvas.width, canvas.height, colorA, colorB)
   context.fillStyle = '#555555'
   context.fillRect(0, canvas.height - 2, Math.floor(canvas.width / 2) * 2, 4)
 }
@@ -35,6 +42,16 @@ function resizeCanvas() {
 
   draw(canvas, context)
 }
+
+// Redraw when gradient colors change
+watch(() => [props.gradientColorA, props.gradientColorB], () => {
+  if (canvasRef.value) {
+    const context = canvasRef.value.getContext('2d')
+    if (context) {
+      draw(canvasRef.value, context)
+    }
+  }
+})
 
 onMounted(() => {
   resizeCanvas()
@@ -69,17 +86,36 @@ onUnmounted(() => {
           {{ title }}
         </Typography>
       </div>
-      <Button extra-class="titlebar-button" base-type="panel-d-2">
-        <img draggable="false" src="/win-55-ui/window/o.png" />
-      </Button>
-      <Button extra-class="titlebar-button" base-type="panel-d-2">
-        <img draggable="false" src="/win-55-ui/window/_.png" />
-      </Button>
-      <div style="width: 2px"><!-- Он тут реально! --></div>
-      <Button extra-class="titlebar-button" base-type="panel-d-2">
-        <img draggable="false" src="/win-55-ui/window/x.png" />
-      </Button>
-      <div style="width: 2px"><!-- Он тут реально! --></div>
+      
+      <!-- Slot for custom buttons -->
+      <slot name="buttons"></slot>
+      
+      <!-- Placeholder buttons when slot is empty and placeholderButtons is true -->
+      <template v-if="placeholderButtons">
+        <Button 
+          extra-class="titlebar-button" 
+          base-type="panel-d-2"
+          disabled
+        >
+          <img draggable="false" src="/win-55-ui/window/o.png" />
+        </Button>
+        <Button 
+          extra-class="titlebar-button" 
+          base-type="panel-d-2"
+          disabled
+        >
+          <img draggable="false" src="/win-55-ui/window/_.png" />
+        </Button>
+        <div style="width: 2px"><!-- Он тут реально! --></div>
+        <Button 
+          extra-class="titlebar-button" 
+          base-type="panel-d-2"
+          disabled
+        >
+          <img draggable="false" src="/win-55-ui/window/x.png" />
+        </Button>
+        <div style="width: 2px"><!-- Он тут реально! --></div>
+      </template>
     </div>
   </div>
 </template>
