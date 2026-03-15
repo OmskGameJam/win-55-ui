@@ -1,0 +1,128 @@
+/* ========================= */
+/* SCROLLBAR SIZE */
+/* ========================= */
+
+*::-webkit-scrollbar {
+  width: 28px;
+  height: 28px;
+}
+
+
+/* ========================= */
+/* TRACK (SCROLL UNDERLAY) */
+/* indent-dark.png */
+/* ========================= */
+
+*::-webkit-scrollbar-track {
+  --img: url(/win-55-ui/indent-dark.png);
+
+  border: 6px solid transparent;
+  border-image: var(--img) 6 fill repeat;
+
+  background: none;
+}
+
+
+/* ========================= */
+/* THUMB */
+/* panel-d-2.png */
+/* ========================= */
+
+/* ========================= */
+/* VERTICAL SCROLLBAR THUMB */
+/* ========================= */
+
+*::-webkit-scrollbar-thumb:vertical {
+  --img: url(/win-55-ui/scroll-thumb-v.png);
+
+  border: 8px solid transparent;
+  border-image: var(--img) 8 fill repeat;
+
+  background: none;
+  min-height: 28px;
+}
+
+
+/* ========================= */
+/* HORIZONTAL SCROLLBAR THUMB */
+/* ========================= */
+
+*::-webkit-scrollbar-thumb:horizontal {
+  --img: url(/win-55-ui/scroll-thumb-h.png);
+
+  border: 8px solid transparent;
+  border-image: var(--img) 8 fill repeat;
+
+  background: none;
+  min-width: 28px;
+}
+
+/* ========================= */
+/* SCROLLBAR CORNER */
+/* ========================= */
+
+*::-webkit-scrollbar-corner {
+  background: #999
+}
+
+
+/* ========================= */
+/* BUTTON BASE */
+/* ========================= */
+
+*::-webkit-scrollbar-button {
+  width: 28px;
+  height: 28px;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+/* ========================= */
+/* VERTICAL BUTTONS */
+/* ========================= */
+
+/* UP */
+*::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-up.png);
+}
+
+*::-webkit-scrollbar-button:vertical:decrement:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-up-pressed.png);
+}
+
+
+/* DOWN */
+*::-webkit-scrollbar-button:vertical:increment {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-down.png);
+}
+
+*::-webkit-scrollbar-button:vertical:increment:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-down-pressed.png);
+}
+
+
+/* ========================= */
+/* HORIZONTAL BUTTONS */
+/* ========================= */
+
+/* LEFT */
+*::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-left.png);
+}
+
+*::-webkit-scrollbar-button:horizontal:decrement:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-left-pressed.png);
+}
+
+
+/* RIGHT */
+*::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-right.png);
+}
+
+*::-webkit-scrollbar-button:horizontal:increment:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-right-pressed.png);
+}

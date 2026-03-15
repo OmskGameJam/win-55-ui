@@ -1,0 +1,895 @@
+import { defineComponent as M, ref as $, computed as b, openBlock as v, createElementBlock as w, normalizeStyle as k, normalizeClass as Z, renderSlot as B, useModel as N, useSlots as ce, createElementVNode as p, createVNode as I, withCtx as x, unref as de, Fragment as j, createTextVNode as J, toDisplayString as X, createCommentVNode as Y, mergeModels as te, watch as Q, nextTick as ue, onMounted as P, onUnmounted as O, withModifiers as oe, createBlock as z, Teleport as fe, resolveDynamicComponent as he, reactive as me } from "vue";
+const R = /* @__PURE__ */ M({
+  __name: "Box",
+  props: {
+    type: {},
+    extraStyles: {},
+    extraClass: {}
+  },
+  setup(e, { expose: o }) {
+    const t = e, n = $(null), a = b(() => ({
+      "--img": `url(/win-55-ui/${t.type}.png)`,
+      ...t.extraStyles
+    }));
+    return o({ el: n }), (i, l) => (v(), w("div", {
+      ref_key: "rootRef",
+      ref: n,
+      class: Z(["border-9-base", `border-9-${e.type}`, e.extraClass ?? ""]),
+      style: k(a.value)
+    }, [
+      B(i.$slots, "default")
+    ], 6));
+  }
+}), pe = { class: "balloon-wrapper" }, ve = { class: "balloon-tip-box" }, Ye = /* @__PURE__ */ M({
+  __name: "Balloon",
+  props: /* @__PURE__ */ te({
+    text: {},
+    side: {},
+    bias: {}
+  }, {
+    shown: { type: Boolean, default: !1 },
+    shownModifiers: {}
+  }),
+  emits: ["update:shown"],
+  setup(e) {
+    const o = N(e, "shown"), t = e, n = ce(), a = b(() => t.side ?? "top"), i = b(() => t.bias), l = b(() => {
+      const s = {};
+      switch (a.value) {
+        case "top":
+          s.bottom = "100%", s.left = "50%", s.transform = "translateX(-50%)";
+          break;
+        case "bottom":
+          s.top = "100%", s.left = "50%", s.transform = "translateX(-50%)";
+          break;
+        case "left":
+          s.right = "100%", s.top = "50%", s.transform = "translateY(-50%)";
+          break;
+        case "right":
+          s.left = "100%", s.top = "50%", s.transform = "translateY(-50%)";
+          break;
+      }
+      return s;
+    }), c = b(() => {
+      switch (a.value) {
+        case "top":
+          return "column";
+        case "bottom":
+          return "column-reverse";
+        case "left":
+          return "row";
+        case "right":
+          return "row-reverse";
+      }
+    }), u = b(() => {
+      let s = "", h = !1;
+      switch (a.value) {
+        case "top":
+          s = "rotate(0deg)", i.value === "right" && (h = !0);
+          break;
+        case "bottom":
+          s = "rotate(180deg)", i.value === "left" && (h = !0);
+          break;
+        case "left":
+          s = "rotate(-90deg)";
+          break;
+        case "right":
+          s = "rotate(90deg)", h = !0;
+          break;
+      }
+      return h ? `${s} scaleX(-1)` : s;
+    }), d = b(() => {
+      const s = {};
+      return i.value ? ((a.value === "top" || a.value === "bottom") && (i.value === "left" && (s.transform = "translateX(calc(-50% + 28px))"), i.value === "right" && (s.transform = "translateX(calc(50% - 28px))")), (a.value === "left" || a.value === "right") && (i.value === "up" && (s.transform = "translateY(calc(-50% + 28px))"), i.value === "down" && (s.transform = "translateY(calc(50% - 28px))")), s) : {};
+    });
+    return (s, h) => (v(), w("div", pe, [
+      B(s.$slots, "default"),
+      o.value ? (v(), w("div", {
+        key: 0,
+        class: "balloon",
+        style: k(l.value)
+      }, [
+        p("div", {
+          class: "balloon-inner",
+          style: k({ flexDirection: c.value })
+        }, [
+          p("div", {
+            class: "balloon-box-wrapper",
+            style: k(d.value)
+          }, [
+            I(R, {
+              type: "notification",
+              "extra-styles": { whiteSpace: "pre" }
+            }, {
+              default: x(() => [
+                de(n).content ? B(s.$slots, "content", { key: 0 }) : (v(), w(j, { key: 1 }, [
+                  J(X(e.text), 1)
+                ], 64))
+              ]),
+              _: 3
+            })
+          ], 4),
+          p("div", ve, [
+            p("img", {
+              class: "balloon-tip",
+              src: "/win-55-ui/balloon-tip.png",
+              style: k({ transform: u.value }),
+              width: "18",
+              height: "28"
+            }, null, 4)
+          ])
+        ], 4)
+      ], 4)) : Y("", !0)
+    ]));
+  }
+}), ge = /* @__PURE__ */ M({
+  __name: "BaseDropdown",
+  props: {
+    matchTriggerWidth: { type: Boolean, default: !1 }
+  },
+  setup(e) {
+    const o = e, t = $(!1), n = $(null), a = $(null), i = $(null), l = () => {
+      const s = a.value, h = i.value;
+      if (!s || !h) return;
+      const r = s.getBoundingClientRect(), f = window.innerHeight, m = h.offsetHeight;
+      let g = r.bottom + window.scrollY;
+      const C = r.left + window.scrollX;
+      r.bottom + m > f && (g = r.top + window.scrollY - m), n.value = {
+        top: g,
+        left: C,
+        width: o.matchTriggerWidth ? r.width : void 0
+      };
+    };
+    Q(t, async (s) => {
+      s && (await ue(), l());
+    });
+    const c = () => {
+      t.value && l();
+    }, u = (s) => {
+      if (!t.value) return;
+      const h = s.target;
+      a.value?.contains(h) || i.value?.contains(h) || (t.value = !1);
+    };
+    P(() => {
+      window.addEventListener("resize", c), window.addEventListener("scroll", c), document.addEventListener("click", u);
+    }), O(() => {
+      window.removeEventListener("resize", c), window.removeEventListener("scroll", c), document.removeEventListener("click", u);
+    });
+    const d = () => {
+      t.value = !t.value;
+    };
+    return (s, h) => (v(), w(j, null, [
+      p("div", {
+        ref_key: "triggerRef",
+        ref: a,
+        style: { display: "inline-block" },
+        onClick: oe(d, ["stop"])
+      }, [
+        B(s.$slots, "trigger")
+      ], 512),
+      (v(), z(fe, { to: "body" }, [
+        t.value ? (v(), w("div", {
+          key: 0,
+          ref_key: "dropdownRef",
+          ref: i,
+          style: k({
+            position: "absolute",
+            top: (n.value?.top ?? 0) + "px",
+            left: (n.value?.left ?? 0) + "px",
+            width: e.matchTriggerWidth ? (n.value?.width ?? "auto") + "px" : "auto"
+          })
+        }, [
+          B(s.$slots, "items")
+        ], 4)) : Y("", !0)
+      ]))
+    ], 64));
+  }
+}), be = [10, 12, 14, 16, 24];
+function le(e) {
+  const { style: o, size: t } = e.shorthand ? we(e.shorthand) : {
+    style: ye(e.isBold, e.isItalic),
+    size: xe(e.fontSize ?? 12, be)
+  }, n = {
+    fontFamily: `${o}${t}, Arial, sans`,
+    fontSize: `${t * 2}px`,
+    color: e.fontColor
+  };
+  return e.fontShadowColor && (n.textShadow = `2px 2px 0 ${e.fontShadowColor}`), n;
+}
+function ye(e, o) {
+  return e && o ? "BoldItalic" : e ? "Bold" : o ? "Italic" : "Regular";
+}
+function we(e) {
+  const o = e.match(/^([A-Za-z]+)(\d+)$/);
+  if (!o)
+    throw new Error(`Invalid shorthand format: ${e}`);
+  const t = o[1], n = parseInt(o[2], 10);
+  return { style: t, size: n };
+}
+function xe(e, o) {
+  if (o.length === 0)
+    throw new Error("Array cannot be empty");
+  return o.reduce((t, n) => {
+    const a = Math.abs(n - e), i = Math.abs(t - e);
+    return a < i ? n : t;
+  });
+}
+const _e = /* @__PURE__ */ M({
+  __name: "BaseInput",
+  props: {
+    modelValue: {},
+    placeholder: { default: "" },
+    disabled: { type: Boolean, default: !1 },
+    maxLength: { default: void 0 },
+    boxType: { default: "textarea" },
+    extraStyles: { default: void 0 },
+    multiline: { type: Boolean, default: !1 }
+  },
+  emits: ["update:modelValue"],
+  setup(e, { expose: o, emit: t }) {
+    const n = e, a = t, i = $(null), l = b(() => i.value?.el ?? null);
+    P(() => {
+      l.value && n.modelValue && (l.value.innerText = n.modelValue);
+    }), Q(() => n.modelValue, (r) => {
+      l.value && l.value.innerText !== r && (l.value.innerText = r ?? "");
+    });
+    const c = () => {
+      if (!l.value) return;
+      let r = l.value.innerText || "";
+      if (n.multiline || (r = r.replace(/\n/g, "")), n.maxLength && r.length > n.maxLength) {
+        r = r.slice(0, n.maxLength), l.value.innerText = r;
+        const f = document.createRange(), m = window.getSelection();
+        f.selectNodeContents(l.value), f.collapse(!1), m?.removeAllRanges(), m?.addRange(f);
+      }
+      a("update:modelValue", r);
+    }, u = (r) => {
+      !n.multiline && r.key === "Enter" && r.preventDefault(), r.key === "Tab" && r.preventDefault();
+    }, d = (r) => {
+      r.preventDefault();
+      let f = r.clipboardData?.getData("text/plain") ?? "";
+      if (n.multiline || (f = f.replace(/\n/g, " ")), !l.value) return;
+      const m = window.getSelection(), g = m?.getRangeAt(0);
+      if (g) {
+        g.deleteContents();
+        const C = document.createTextNode(f);
+        g.insertNode(C), g.collapse(!1), m?.removeAllRanges(), m?.addRange(g);
+      }
+      c();
+    }, s = () => {
+      l.value && l.value.innerText === "" && (l.value.innerHTML = "");
+    }, h = b(() => ({
+      ...n.extraStyles,
+      ...le({ fontColor: "black" }),
+      overflow: "auto"
+    }));
+    return o({ el: l }), (r, f) => (v(), z(R, {
+      ref_key: "boxRef",
+      ref: i,
+      type: e.boxType,
+      contenteditable: !e.disabled,
+      "extra-styles": h.value,
+      "data-placeholder": e.placeholder,
+      role: "textbox",
+      "aria-multiline": e.multiline,
+      "aria-disabled": e.disabled,
+      onInput: c,
+      onKeydown: u,
+      onPaste: d,
+      onBlur: s
+    }, null, 8, ["type", "contenteditable", "extra-styles", "data-placeholder", "aria-multiline", "aria-disabled"]));
+  }
+}), ne = /* @__PURE__ */ M({
+  __name: "Typography",
+  props: {
+    element: { default: void 0 },
+    fontSize: {},
+    isBold: { type: Boolean },
+    isItalic: { type: Boolean },
+    fontColor: {},
+    shorthand: {},
+    fontShadowColor: {}
+  },
+  setup(e) {
+    const o = e, t = b(() => o.element ?? "span"), n = b(() => {
+      const a = le(o);
+      return o.element || (a.display = "contents"), a;
+    });
+    return (a, i) => (v(), z(he(t.value), {
+      style: k(n.value)
+    }, {
+      default: x(() => [
+        B(a.$slots, "default")
+      ]),
+      _: 3
+    }, 8, ["style"]));
+  }
+}), K = /* @__PURE__ */ M({
+  __name: "Button",
+  props: {
+    baseType: { default: "panel-d-1" },
+    extraStyles: { default: void 0 },
+    extraClass: { default: void 0 },
+    disabled: { type: Boolean, default: !1 }
+  },
+  emits: ["click"],
+  setup(e, { emit: o }) {
+    const t = e, n = o, a = $(!1), i = $(!1), l = b(() => !t.disabled && a.value && i.value), c = b(() => t.disabled), u = (g) => {
+      t.disabled || g.button !== 0 || (a.value = !0, i.value = !0);
+    }, d = () => {
+      t.disabled || (i.value = !0);
+    }, s = () => {
+      i.value = !1;
+    }, h = (g) => {
+      t.disabled || g.button !== 0 || (a.value && i.value && n("click"), a.value = !1);
+    };
+    P(() => {
+      window.addEventListener("mouseup", h);
+    }), O(() => {
+      window.removeEventListener("mouseup", h);
+    });
+    const r = b(() => ({
+      userSelect: "none",
+      width: "fit-content",
+      paddingBottom: "4px",
+      paddingRight: "4px",
+      cursor: c.value ? "not-allowed" : "default",
+      ...t.extraStyles
+    })), f = b(() => ({
+      transform: l.value ? "translate(2px, 2px)" : "translate(0, 0)",
+      opacity: c.value ? 0.5 : 1
+    })), m = b(() => l.value ? "indent" : t.baseType);
+    return (g, C) => (v(), z(R, {
+      type: m.value,
+      "extra-styles": r.value,
+      "extra-class": e.extraClass,
+      onMousedown: u,
+      onMouseenter: d,
+      onMouseleave: s
+    }, {
+      default: x(() => [
+        p("div", {
+          style: k(f.value)
+        }, [
+          I(ne, {
+            "font-color": "black",
+            "font-size": 12,
+            "font-shadow-color": "#a5a5a5"
+          }, {
+            default: x(() => [
+              B(g.$slots, "default")
+            ]),
+            _: 3
+          })
+        ], 4)
+      ]),
+      _: 3
+    }, 8, ["type", "extra-styles", "extra-class"]));
+  }
+}), ke = { style: { display: "flex", "align-items": "center" } }, Be = ["src", "alt"], Me = ["checked", "disabled", "value"], We = /* @__PURE__ */ M({
+  __name: "Checkbox",
+  props: {
+    modelValue: { type: Boolean },
+    label: { default: void 0 },
+    disabled: { type: Boolean, default: !1 },
+    value: { default: void 0 },
+    checkedIcon: { default: "/win-55-ui/whole-components/checkbox-checked.png" },
+    uncheckedIcon: { default: "/win-55-ui/whole-components/checkbox-unchecked.png" }
+  },
+  emits: ["update:modelValue"],
+  setup(e, { emit: o }) {
+    const t = e, n = o, a = () => {
+      t.disabled || n("update:modelValue", !t.modelValue);
+    };
+    return (i, l) => (v(), w("div", {
+      class: Z(["checkbox-container", { disabled: e.disabled }]),
+      style: k({
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+        opacity: e.disabled ? 0.5 : 1,
+        cursor: e.disabled ? "not-allowed" : "pointer",
+        userSelect: "none",
+        marginBottom: "2px"
+      }),
+      onClick: a
+    }, [
+      p("div", ke, [
+        p("img", {
+          draggable: "false",
+          src: e.modelValue ? e.checkedIcon : e.uncheckedIcon,
+          alt: e.modelValue ? "checked" : "unchecked"
+        }, null, 8, Be)
+      ]),
+      p("input", {
+        type: "checkbox",
+        checked: e.modelValue,
+        disabled: e.disabled,
+        value: e.value,
+        style: { display: "none" }
+      }, null, 8, Me),
+      e.label ? (v(), w("span", {
+        key: 0,
+        style: k({ cursor: e.disabled ? "not-allowed" : "pointer" })
+      }, X(e.label), 5)) : Y("", !0)
+    ], 6));
+  }
+}), Ne = /* @__PURE__ */ M({
+  __name: "HDivider",
+  setup(e) {
+    return (o, t) => (v(), z(R, {
+      type: "border-groove",
+      "extra-styles": {
+        height: "0px",
+        boxSizing: "border-box",
+        borderImageWidth: "0 0 6px 0",
+        marginBottom: "6px"
+      }
+    }));
+  }
+}), Pe = /* @__PURE__ */ M({
+  __name: "MenuDropdown",
+  setup(e) {
+    return (o, t) => (v(), z(ge, null, {
+      trigger: x(() => [
+        B(o.$slots, "trigger")
+      ]),
+      items: x(() => [
+        I(R, { type: "panel-d-1" }, {
+          default: x(() => [
+            B(o.$slots, "items")
+          ]),
+          _: 3
+        })
+      ]),
+      _: 3
+    }));
+  }
+}), Ce = { style: { display: "flex", "align-items": "center" } }, $e = ["src"], Se = ["src"], ze = ["checked", "disabled", "value", "name"], Oe = /* @__PURE__ */ M({
+  __name: "RadioButton",
+  props: {
+    modelValue: {},
+    value: {},
+    label: { default: void 0 },
+    disabled: { type: Boolean, default: !1 },
+    name: { default: void 0 },
+    checkedIcon: { default: "/win-55-ui/whole-components/radio-checked.png" },
+    uncheckedIcon: { default: "/win-55-ui/whole-components/radio-unchecked.png" }
+  },
+  emits: ["update:modelValue"],
+  setup(e, { emit: o }) {
+    const t = e, n = o, a = b(() => t.modelValue === t.value), i = (l) => {
+      l.preventDefault(), !t.disabled && (a.value || n("update:modelValue", t.value));
+    };
+    return (l, c) => (v(), w("div", {
+      class: Z(["radio-container", { disabled: e.disabled }]),
+      style: k({
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+        opacity: e.disabled ? 0.5 : 1,
+        cursor: e.disabled ? "not-allowed" : "pointer",
+        userSelect: "none",
+        marginBottom: "2px"
+      }),
+      onClick: i
+    }, [
+      p("div", Ce, [
+        a.value ? (v(), w("img", {
+          key: 0,
+          draggable: "false",
+          src: e.checkedIcon
+        }, null, 8, $e)) : (v(), w("img", {
+          key: 1,
+          draggable: "false",
+          src: e.uncheckedIcon
+        }, null, 8, Se))
+      ]),
+      p("input", {
+        type: "radio",
+        checked: a.value,
+        disabled: e.disabled,
+        value: e.value,
+        name: e.name,
+        style: { display: "none" }
+      }, null, 8, ze),
+      e.label ? (v(), w("span", {
+        key: 0,
+        style: k({ cursor: e.disabled ? "not-allowed" : "pointer" })
+      }, X(e.label), 5)) : Y("", !0)
+    ], 6));
+  }
+});
+function Te(e, o, t, n, a) {
+  const i = e.getContext("2d");
+  if (!i) return;
+  i.clearRect(0, 0, e.width, e.height);
+  const l = 2, c = [
+    [0, 48, 12, 60, 3, 51, 15, 63],
+    [32, 16, 44, 28, 35, 19, 47, 31],
+    [8, 56, 4, 52, 11, 59, 7, 55],
+    [40, 24, 36, 20, 43, 27, 39, 23],
+    [2, 50, 14, 62, 1, 49, 13, 61],
+    [34, 18, 46, 30, 33, 17, 45, 29],
+    [10, 58, 6, 54, 9, 57, 5, 53],
+    [42, 26, 38, 22, 41, 25, 37, 21]
+  ], u = ee(n), d = ee(a), s = Math.floor(o / l), h = Math.floor(t / l);
+  e.width = Math.floor(o * 2) / 2, e.height = Math.floor(t * 2) / 2;
+  for (let r = 0; r < h; r++)
+    for (let f = 0; f < s; f++) {
+      const m = f * l, g = r * l, C = (f + r) / (s + h - 6), E = (c[r % 8][f % 8] + 0.5) / 64, S = C > E ? 1 : 0, V = Math.round(u.r * (1 - S) + d.r * S), L = Math.round(u.g * (1 - S) + d.g * S), U = Math.round(u.b * (1 - S) + d.b * S);
+      i.fillStyle = `rgb(${V}, ${L}, ${U})`, i.fillRect(m, g, l, l);
+    }
+}
+function ee(e) {
+  const o = e.replace("#", ""), t = parseInt(o, 16);
+  return {
+    r: t >> 16 & 255,
+    g: t >> 8 & 255,
+    b: t & 255
+  };
+}
+const Ie = { style: { height: "0", overflow: "visible" } }, Re = { class: "titlebar-content" }, Ee = { class: "titlebar-image" }, De = ["src"], Ve = { class: "titlebar-text" }, Le = /* @__PURE__ */ M({
+  __name: "Titlebar",
+  props: {
+    title: {},
+    icon: {},
+    placeholderButtons: { type: Boolean },
+    disabled: { type: Boolean },
+    gradientColorA: {},
+    gradientColorB: {}
+  },
+  setup(e) {
+    const o = e, t = $(null);
+    let n = null;
+    function a(l, c) {
+      const u = o.gradientColorA || "5555ff", d = o.gradientColorB || "0000aa";
+      Te(l, l.width, l.height, u, d), c.fillStyle = "#555555", c.fillRect(0, l.height - 2, Math.floor(l.width / 2) * 2, 4);
+    }
+    function i() {
+      const l = t.value;
+      if (!l) return;
+      const c = l.getContext("2d");
+      if (!c) return;
+      const u = l.getBoundingClientRect(), d = Math.floor(u.width * 2) / 2, s = Math.floor(u.height * 2) / 2;
+      (l.width !== d || l.height !== s) && (l.width = d, l.height = s), a(l, c);
+    }
+    return Q(() => [o.gradientColorA, o.gradientColorB], () => {
+      if (t.value) {
+        const l = t.value.getContext("2d");
+        l && a(t.value, l);
+      }
+    }), P(() => {
+      i(), t.value && (n = new ResizeObserver(() => {
+        i();
+      }), n.observe(t.value));
+    }), O(() => {
+      n?.disconnect();
+    }), (l, c) => (v(), w("div", null, [
+      p("div", Ie, [
+        p("canvas", {
+          ref_key: "canvasRef",
+          ref: t,
+          style: { width: "100%", height: "34px", display: "block" }
+        }, null, 512)
+      ]),
+      p("div", Re, [
+        p("div", Ee, [
+          p("img", {
+            src: e.icon ?? "/win-55-ui/icons/program.png"
+          }, null, 8, De)
+        ]),
+        p("div", Ve, [
+          I(ne, {
+            shorthand: "Bold12",
+            "font-color": "white",
+            "font-shadow-color": "black"
+          }, {
+            default: x(() => [
+              J(X(e.title), 1)
+            ]),
+            _: 1
+          })
+        ]),
+        B(l.$slots, "buttons"),
+        e.placeholderButtons ? (v(), w(j, { key: 0 }, [
+          I(K, {
+            "extra-class": "titlebar-button",
+            "base-type": "panel-d-2",
+            disabled: ""
+          }, {
+            default: x(() => [...c[0] || (c[0] = [
+              p("img", {
+                draggable: "false",
+                src: "/win-55-ui/window/o.png"
+              }, null, -1)
+            ])]),
+            _: 1
+          }),
+          I(K, {
+            "extra-class": "titlebar-button",
+            "base-type": "panel-d-2",
+            disabled: ""
+          }, {
+            default: x(() => [...c[1] || (c[1] = [
+              p("img", {
+                draggable: "false",
+                src: "/win-55-ui/window/_.png"
+              }, null, -1)
+            ])]),
+            _: 1
+          }),
+          c[3] || (c[3] = p("div", { style: { width: "2px" } }, null, -1)),
+          I(K, {
+            "extra-class": "titlebar-button",
+            "base-type": "panel-d-2",
+            disabled: ""
+          }, {
+            default: x(() => [...c[2] || (c[2] = [
+              p("img", {
+                draggable: "false",
+                src: "/win-55-ui/window/x.png"
+              }, null, -1)
+            ])]),
+            _: 1
+          }),
+          c[4] || (c[4] = p("div", { style: { width: "2px" } }, null, -1))
+        ], 64)) : Y("", !0)
+      ])
+    ]));
+  }
+}), Fe = /* @__PURE__ */ M({
+  __name: "Tooltip",
+  props: {
+    text: {},
+    offsetX: {},
+    offsetY: {}
+  },
+  setup(e) {
+    const o = e, t = $(!1), n = me({ x: 0, y: 0 });
+    let a = null;
+    const i = () => {
+      a = window.setTimeout(() => {
+        t.value = !0;
+      }, 400);
+    }, l = () => {
+      a !== null && (clearTimeout(a), a = null), t.value = !1;
+    }, c = (d) => {
+      n.x = d.clientX + (o.offsetX ?? 24), n.y = d.clientY + (o.offsetY ?? 24);
+    }, u = b(() => ({
+      position: "fixed",
+      left: `${n.x}px`,
+      top: `${n.y}px`,
+      pointerEvents: "none",
+      // now TS understands it's valid
+      whiteSpace: "nowrap",
+      zIndex: 1e3
+    }));
+    return O(() => {
+      a !== null && clearTimeout(a);
+    }), (d, s) => (v(), w("span", {
+      onMouseenter: i,
+      onMouseleave: l,
+      onMousemove: c,
+      style: { position: "relative", display: "inline-block" }
+    }, [
+      B(d.$slots, "default"),
+      t.value ? (v(), z(R, {
+        key: 0,
+        style: k(u.value),
+        class: "tooltip",
+        type: "white-box"
+      }, {
+        default: x(() => [
+          J(X(o.text), 1)
+        ]),
+        _: 1
+      }, 8, ["style"])) : Y("", !0)
+    ], 32));
+  }
+}), F = 6, Ue = /* @__PURE__ */ M({
+  __name: "Window",
+  props: /* @__PURE__ */ te({
+    extraStyles: {},
+    extraClass: {},
+    minWidth: {},
+    minHeight: {},
+    resizable: { type: Boolean },
+    resizableHorizontally: { type: Boolean },
+    resizableVertically: { type: Boolean },
+    title: {},
+    icon: {},
+    placeholderButtons: { type: Boolean },
+    disabled: { type: Boolean },
+    gradientColorA: {},
+    gradientColorB: {},
+    faux: { type: Boolean }
+  }, {
+    x: { default: 100 },
+    xModifiers: {},
+    y: { default: 100 },
+    yModifiers: {},
+    width: { default: 320 },
+    widthModifiers: {},
+    height: { default: 220 },
+    heightModifiers: {}
+  }),
+  emits: ["update:x", "update:y", "update:width", "update:height"],
+  setup(e) {
+    const o = e, t = N(e, "x"), n = N(e, "y"), a = N(e, "width"), i = N(e, "height"), l = o.minWidth ?? 240, c = o.minHeight ?? 40, u = o.resizable ?? o.resizableHorizontally ?? !1, d = o.resizable ?? o.resizableVertically ?? !1;
+    let s = !1, h = !1, r = "", f = "", m = 0, g = 0, C = 0, E = 0, S = 0, V = 0;
+    const L = $("default");
+    function U(y) {
+      o.faux || r || (s = !0, m = y.clientX, g = y.clientY, S = t.value, V = n.value, window.addEventListener("mousemove", q), window.addEventListener("mouseup", G));
+    }
+    function ae(y) {
+      o.faux || r && (!u && !d || (h = !0, f = r, m = y.clientX, g = y.clientY, C = a.value, E = i.value, S = t.value, V = n.value, window.addEventListener("mousemove", q), window.addEventListener("mouseup", G)));
+    }
+    function q(y) {
+      if (o.faux) return;
+      const _ = y.clientX - m, T = y.clientY - g;
+      if (s && (t.value = S + _, n.value = V + T), h) {
+        const H = f;
+        if (u && H.includes("e") && (a.value = Math.max(l, C + _)), d && H.includes("s") && (i.value = Math.max(c, E + T)), u && H.includes("w")) {
+          const W = C - _, D = Math.max(l, W);
+          a.value = D, t.value = S + (C - D);
+        }
+        if (d && H.includes("n")) {
+          const W = E - T, D = Math.max(c, W);
+          i.value = D, n.value = V + (E - D);
+        }
+      }
+    }
+    function G() {
+      s = !1, h = !1, f = "", window.removeEventListener("mousemove", q), window.removeEventListener("mouseup", G);
+    }
+    function se(y) {
+      if (o.faux) {
+        r = "", L.value = "default";
+        return;
+      }
+      if (h) return;
+      if (!u && !d) {
+        r = "", L.value = "default";
+        return;
+      }
+      const T = y.currentTarget.getBoundingClientRect(), H = y.clientX - T.left, W = T.right - y.clientX, D = y.clientY - T.top, ie = T.bottom - y.clientY;
+      let A = "";
+      d && (D < F ? A += "n" : ie < F && (A += "s")), u && (H < F ? A += "w" : W < F && (A += "e")), r = A;
+      const re = {
+        n: "ns-resize",
+        s: "ns-resize",
+        e: "ew-resize",
+        w: "ew-resize",
+        ne: "nesw-resize",
+        sw: "nesw-resize",
+        nw: "nwse-resize",
+        se: "nwse-resize"
+      };
+      L.value = re[A] ?? "default";
+    }
+    return (y, _) => (v(), z(R, {
+      "extra-styles": o.faux ? e.extraStyles : {
+        position: "absolute",
+        left: t.value + "px",
+        top: n.value + "px",
+        width: a.value + "px",
+        height: i.value + "px",
+        cursor: L.value,
+        ...e.extraStyles
+      },
+      type: "panel-d-2",
+      onMousemove: se,
+      onMousedown: ae
+    }, {
+      default: x(() => [
+        p("div", {
+          onMousedown: oe(U, ["stop"])
+        }, [
+          I(Le, {
+            title: e.title,
+            icon: e.icon,
+            "placeholder-buttons": e.placeholderButtons,
+            disabled: e.disabled,
+            "gradient-color-a": e.faux ? "#888888" : e.gradientColorA,
+            "gradient-color-b": e.faux ? "#555555" : e.gradientColorB
+          }, {
+            buttons: x(() => [
+              B(y.$slots, "titlebar-buttons")
+            ]),
+            _: 3
+          }, 8, ["title", "icon", "placeholder-buttons", "disabled", "gradient-color-a", "gradient-color-b"])
+        ], 32),
+        B(y.$slots, "default")
+      ]),
+      _: 3
+    }, 8, ["extra-styles"]));
+  }
+}), He = /* @__PURE__ */ M({
+  __name: "NamedPanel",
+  props: {
+    label: {},
+    backgroundColorHint: { default: "#CBCBCB" }
+  },
+  setup(e) {
+    return (o, t) => (v(), z(R, {
+      type: "border-groove",
+      "extra-styles": { padding: "10px", margin: "10px" }
+    }, {
+      default: x(() => [
+        p("div", {
+          class: "label",
+          style: k({ backgroundColor: e.backgroundColorHint })
+        }, X(e.label), 5),
+        B(o.$slots, "default", {}, void 0, !0)
+      ]),
+      _: 3
+    }));
+  }
+}), Ae = (e, o) => {
+  const t = e.__vccOpts || e;
+  for (const [n, a] of o)
+    t[n] = a;
+  return t;
+}, qe = /* @__PURE__ */ Ae(He, [["__scopeId", "data-v-4fa9fe55"]]), Ge = (e, o = 30, t = 48, n = 30) => {
+  const a = $(
+    Array.from({ length: e }, (u, d) => ({
+      sin: Math.sin(0 + d * Math.PI * 2 / e),
+      cos: Math.cos(0 + d * Math.PI * 2 / e + Math.PI / 4)
+    }))
+  );
+  let i, l = 0;
+  const c = () => {
+    const u = Date.now();
+    if (u - l >= 1e3 / o) {
+      const d = Array.from({ length: e }, (f, m) => ({
+        sin: Math.sin(u / (1e3 + m * 200) + m * Math.PI * 2 / e),
+        cos: Math.cos(u / (3e3 + m * 400) + m * Math.PI * 2 / e + Math.PI / 4)
+      })), s = d.map((f) => t + f.sin * n), h = e * t, r = s.reduce((f, m) => f + m, 0);
+      if (r > 0) {
+        const f = h / r, m = d.map((g) => ({
+          sin: ((t + g.sin * n) * f - t) / n,
+          cos: g.cos
+        }));
+        a.value = m;
+      } else
+        a.value = d;
+      l = u;
+    }
+    i = requestAnimationFrame(c);
+  };
+  return P(() => {
+    i = requestAnimationFrame(c);
+  }), O(() => {
+    cancelAnimationFrame(i);
+  }), { values: a };
+};
+function Ke(e) {
+  document.addEventListener(
+    "error",
+    (o) => {
+      const t = o.target;
+      t instanceof HTMLImageElement && e(t, o);
+    },
+    !0
+    // IMPORTANT: use capture phase since error doesn't bubble
+  );
+}
+export {
+  Ye as Balloon,
+  ge as BaseDropdown,
+  _e as BaseInput,
+  R as Box,
+  K as Button,
+  We as Checkbox,
+  Ne as HDivider,
+  Pe as MenuDropdown,
+  qe as NamedPanel,
+  Oe as RadioButton,
+  Le as Titlebar,
+  Fe as Tooltip,
+  ne as Typography,
+  Ue as Window,
+  Te as drawAngledBayerDitherGradient,
+  Ke as registerGlobalImageErrorHandler,
+  le as typographyStyles,
+  Ge as useSineWave
+};
