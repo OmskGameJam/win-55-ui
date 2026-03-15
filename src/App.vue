@@ -35,7 +35,7 @@ const windowStyle = {
 const handleClick = () => window.alert('Click!')
 
 const exampleTextInputState = ref('sample')
-const scrollableTextInputState = ref('sample')
+const scrollableTextInputState = ref('aasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdfaasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdfaasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\n')
 const exampleCheckboxState = ref(false)
 const exampleRadioState = ref('sample')
 </script>
@@ -137,7 +137,12 @@ const exampleRadioState = ref('sample')
           This has a tooltip on hover
         </Button>
       </Tooltip>
-      
+    </div>
+
+    <div>
+      <h2>Scrollable</h2>
+      <BaseInput style="width: 320px; height: 240px" v-model="scrollableTextInputState" multiline>
+      </BaseInput>
     </div>
 
     <div style=" 

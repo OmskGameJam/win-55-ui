@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import './index.css'
+import './scrollbar.css'
 import App from './App.vue'
 import { registerGlobalImageErrorHandler } from './helpers/imgErrors.ts'
 
