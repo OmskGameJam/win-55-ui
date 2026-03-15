@@ -13,6 +13,7 @@ import HDivider from './components/HDivider.vue'
 import Window from './components/Window.vue'
 import Tooltip from './components/Tooltip.vue'
 import Balloon from './components/Balloon.vue'
+import NamedPanel from './components/NamedPanel.vue'
 
 const testingBoxes: BoxType[] = [
   'indent',
@@ -117,7 +118,10 @@ const exampleRadioState = ref('sample')
       <h2>Window</h2>
       (First window is floating like normal)
       <Window resizable title="Title" icon="/win-55-ui/icons/program.png" placeholder-buttons>
-        Sample
+        <NamedPanel label="Это борт!">
+          TEXT TEXT TEXT TEXT TEXT TEXT TEXT <br>
+          TEXT TEXT TEXT TEXT TEXT TEXT TEXT <br>
+        </NamedPanel>
       </Window>
       (Second window is in faux mode, behaving as a div)
       <Window faux title="Title" placeholder-buttons>

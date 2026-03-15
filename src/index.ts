@@ -14,6 +14,7 @@ export { default as Titlebar } from './components/Titlebar.vue'
 export { default as Tooltip } from './components/Tooltip.vue'
 export { default as Typography } from './components/Typography.vue'
 export { default as Window } from './components/Window.vue'
+export { default as NamedPanel } from './components/NamedPanel.vue'
 
 // Helpers
 export { typographyStyles } from './helpers/typography'
