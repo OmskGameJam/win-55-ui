@@ -141,7 +141,7 @@ const exampleRadioState = ref('sample')
 
     <div>
       <h2>Scrollable</h2>
-      <BaseInput style="width: 320px; height: 240px" v-model="scrollableTextInputState" multiline>
+      <BaseInput style="width: 320px; height: 240px; white-space: pre;" v-model="scrollableTextInputState" multiline>
       </BaseInput>
     </div>
 

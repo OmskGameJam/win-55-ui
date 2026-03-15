@@ -28,15 +28,32 @@
 /* panel-d-2.png */
 /* ========================= */
 
-*::-webkit-scrollbar-thumb {
-  --img: url(/win-55-ui/panel-d-2.png);
+/* ========================= */
+/* VERTICAL SCROLLBAR THUMB */
+/* ========================= */
 
-  border: 6px solid transparent;
-  border-image: var(--img) 6 fill repeat;
+*::-webkit-scrollbar-thumb:vertical {
+  --img: url(/win-55-ui/scroll-thumb-v.png);
+
+  border: 8px solid transparent;
+  border-image: var(--img) 8 fill repeat;
 
   background: none;
-
   min-height: 28px;
+}
+
+
+/* ========================= */
+/* HORIZONTAL SCROLLBAR THUMB */
+/* ========================= */
+
+*::-webkit-scrollbar-thumb:horizontal {
+  --img: url(/win-55-ui/scroll-thumb-h.png);
+
+  border: 8px solid transparent;
+  border-image: var(--img) 8 fill repeat;
+
+  background: none;
   min-width: 28px;
 }
 
@@ -45,10 +62,7 @@
 /* ========================= */
 
 *::-webkit-scrollbar-corner {
-  --img: url(/win-55-ui/indent-dark.png);
-
-  border: 6px solid transparent;
-  border-image: var(--img) 6 fill repeat;
+  background: #999
 }
 
 
