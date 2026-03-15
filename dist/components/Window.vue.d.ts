@@ -7,6 +7,13 @@ type __VLS_Props = {
     resizable?: boolean;
     resizableHorizontally?: boolean;
     resizableVertically?: boolean;
+    title: string;
+    icon: string;
+    placeholderButtons?: boolean;
+    disabled?: boolean;
+    gradientColorA?: string;
+    gradientColorB?: string;
+    faux?: boolean;
 };
 type __VLS_PublicProps = __VLS_Props & {
     'x'?: number;
@@ -14,9 +21,11 @@ type __VLS_PublicProps = __VLS_Props & {
     'width'?: number;
     'height'?: number;
 };
-declare var __VLS_13: {};
+declare var __VLS_13: {}, __VLS_15: {};
 type __VLS_Slots = {} & {
-    default?: (props: typeof __VLS_13) => any;
+    'titlebar-buttons'?: (props: typeof __VLS_13) => any;
+} & {
+    default?: (props: typeof __VLS_15) => any;
 };
 declare const __VLS_component: import("vue").DefineComponent<__VLS_PublicProps, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     "update:x": (value: number) => any;

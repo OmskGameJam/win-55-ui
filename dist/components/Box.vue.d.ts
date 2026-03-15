@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'vue';
-export type BoxType = 'indent' | 'panel-d-1' | 'panel-d-2' | 'textarea' | 'border-groove' | 'white-box' | 'notification';
+export type BoxType = 'indent' | 'indent-dark' | 'panel-d-1' | 'panel-d-2' | 'textarea' | 'border-groove' | 'white-box' | 'notification';
 type __VLS_Props = {
     type: BoxType;
     extraStyles?: CSSProperties;

@@ -3,6 +3,7 @@ type __VLS_Props = {
     baseType?: BoxType;
     extraStyles?: Record<string, string | number | undefined>;
     extraClass?: string;
+    disabled?: boolean;
 };
 declare var __VLS_14: {};
 type __VLS_Slots = {} & {
@@ -15,6 +16,7 @@ declare const __VLS_component: import("vue").DefineComponent<__VLS_Props, {}, {}
 }>, {
     extraStyles: Record<string, string | number | undefined>;
     extraClass: string;
+    disabled: boolean;
     baseType: BoxType;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 declare const _default: __VLS_WithSlots<typeof __VLS_component, __VLS_Slots>;
