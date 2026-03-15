@@ -48,6 +48,8 @@ table {
   image-rendering: pixelated;
 	outline: none;
 	user-select: none;
+  font-smooth: never;
+  -webkit-font-smoothing: never;
 }
 
 body {
@@ -55,6 +57,10 @@ body {
   background-color: cyan;
   font-family: 'Regular12';
   font-size: 24px;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  text-rendering: geometricPrecision;
 }
 
 .border-9-base {
