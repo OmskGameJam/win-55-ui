@@ -191,6 +191,7 @@ function detectEdge(e: MouseEvent) {
 
 <template>
   <Box
+    :extra-class="extraClass"
     :extra-styles="props.faux
       ? extraStyles
       : {
