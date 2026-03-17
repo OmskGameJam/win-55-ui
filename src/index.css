@@ -108,6 +108,7 @@ body {
 .titlebar-content {
 	display: flex;
 	user-select: none;
+	position: relative;
 }
 
 .titlebar-button {
@@ -146,5 +147,3 @@ body {
 .balloon-tip {
   display: block;
 }
-
-
