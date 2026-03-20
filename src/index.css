@@ -50,6 +50,7 @@ table {
 	user-select: none;
   font-smooth: never;
   -webkit-font-smoothing: never;
+  box-sizing: border-box;
 }
 
 body {
@@ -110,9 +111,10 @@ body {
 }
 
 .titlebar-button {
-	width: 16px !important;
-	height: 16px;
+	width: 32px !important;
+	height: 32px;
 	margin-top: 2px;
+  margin-left: 2px;
 }
 
 .balloon-wrapper {
