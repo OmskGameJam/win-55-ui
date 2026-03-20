@@ -57,8 +57,6 @@ body {
   background-color: cyan;
   font-family: 'Regular12';
   font-size: 24px;
-  will-change: transform;
-  transform: translateZ(0);
   backface-visibility: hidden;
   text-rendering: geometricPrecision;
 }
