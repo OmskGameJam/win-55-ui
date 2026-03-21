@@ -5,9 +5,9 @@ type __VLS_Props = {
     extraClass?: string;
     disabled?: boolean;
 };
-declare var __VLS_14: {};
+declare var __VLS_11: {};
 type __VLS_Slots = {} & {
-    default?: (props: typeof __VLS_14) => any;
+    default?: (props: typeof __VLS_11) => any;
 };
 declare const __VLS_component: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     click: () => any;
