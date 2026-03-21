@@ -84,9 +84,7 @@ const boxType = computed(() => {
     @mouseleave="handleMouseLeave"
   >
     <div :style="innerStyle">
-      <Typography font-color="black" :font-size="12" font-shadow-color="#a5a5a5">
-        <slot />
-      </Typography>
+      <slot />
     </div>
   </Box>
 </template>
