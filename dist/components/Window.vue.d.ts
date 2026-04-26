@@ -14,6 +14,8 @@ type __VLS_Props = {
     gradientColorA?: string;
     gradientColorB?: string;
     faux?: boolean;
+    overflowX?: 'auto' | 'hidden' | 'scroll' | 'visible';
+    overflowY?: 'auto' | 'hidden' | 'scroll' | 'visible';
 };
 type __VLS_PublicProps = __VLS_Props & {
     'x'?: number;
