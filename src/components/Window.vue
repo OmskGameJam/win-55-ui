@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { CSSProperties } from 'vue'
 import Titlebar from './Titlebar.vue'
 import Box from './Box.vue'
 
+// Define props for overflow control
 const props = defineProps<{
   extraStyles?: CSSProperties
   extraClass?: string
@@ -23,6 +24,10 @@ const props = defineProps<{
 
   // New faux mode
   faux?: boolean
+  
+  // Overflow control for inner container
+  overflowX?: 'auto' | 'hidden' | 'scroll' | 'visible'
+  overflowY?: 'auto' | 'hidden' | 'scroll' | 'visible'
 }>()
 
 // v-model bindings
@@ -38,10 +43,12 @@ const minHeight = props.minHeight ?? 40
 
 // resolve resize permissions
 const allowHorizontal =
-  props.resizable ?? props.resizableHorizontally ?? false
+  (props.resizable !== undefined ? props.resizable : false) ||
+  (props.resizableHorizontally ?? false)
 
 const allowVertical =
-  props.resizable ?? props.resizableVertically ?? false
+  (props.resizable !== undefined ? props.resizable : false) ||
+  (props.resizableVertically ?? false)
 
 let dragging = false
 let resizing = false
@@ -146,7 +153,17 @@ function detectEdge(e: MouseEvent) {
   }
 
   if (resizing) return
-  if (!allowHorizontal && !allowVertical) {
+  
+  // Recalculate allowHorizontal and allowVertical to ensure reactivity
+  const currentAllowHorizontal =
+    (props.resizable !== undefined ? props.resizable : false) ||
+    (props.resizableHorizontally ?? false)
+
+  const currentAllowVertical =
+    (props.resizable !== undefined ? props.resizable : false) ||
+    (props.resizableVertically ?? false)
+
+  if (!currentAllowHorizontal && !currentAllowVertical) {
     resizeDir = ''
     cursor.value = 'default'
     return
@@ -162,12 +179,12 @@ function detectEdge(e: MouseEvent) {
 
   let dir = ''
 
-  if (allowVertical) {
+  if (currentAllowVertical) {
     if (top < edge) dir += 'n'
     else if (bottom < edge) dir += 's'
   }
 
-  if (allowHorizontal) {
+  if (currentAllowHorizontal) {
     if (left < edge) dir += 'w'
     else if (right < edge) dir += 'e'
   }
@@ -187,6 +204,25 @@ function detectEdge(e: MouseEvent) {
 
   cursor.value = map[dir] ?? 'default'
 }
+
+// Watch for changes in resize props and update cursor accordingly
+watch(() => [props.resizable, props.resizableHorizontally, props.resizableVertically], () => {
+  // Force cursor update by re-running detectEdge logic with current mouse position
+  const box = document.querySelector(`[data-v-${Math.random().toString(36).substr(2, 9)}]`) as HTMLElement
+  if (box) {
+    const rect = box.getBoundingClientRect()
+    const centerX = rect.left + rect.width / 2
+    const centerY = rect.top + rect.height / 2
+    
+    const mockEvent = {
+      currentTarget: box,
+      clientX: centerX,
+      clientY: centerY
+    } as unknown as MouseEvent
+    
+    detectEdge(mockEvent)
+  }
+}, { immediate: true })
 </script>
 
 <template>
@@ -207,20 +243,47 @@ function detectEdge(e: MouseEvent) {
     @mousemove="detectEdge"
     @mousedown="startResize"
   >
-    <div @mousedown.stop="startDrag">
-      <Titlebar
-        :title="title"
-        :icon="icon"
-        :placeholder-buttons="placeholderButtons"
-        :disabled="disabled"
-        :gradient-color-a="faux ? '#888888' : gradientColorA"
-        :gradient-color-b="faux ? '#555555' : gradientColorB"
+    <!-- Window container with flex layout -->
+    <div 
+      class="window-container"
+      @mousedown.stop="startDrag"
+      :style="{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        width: '100%'
+      }"
+    >
+      <!-- Titlebar with fixed height -->
+      <div class="titlebar-wrapper" :style="{ height: '34px' }">
+        <Titlebar
+          :title="title"
+          :icon="icon"
+          :placeholder-buttons="placeholderButtons"
+          :disabled="disabled"
+          :gradient-color-a="faux ? '#888888' : gradientColorA"
+          :gradient-color-b="faux ? '#555555' : gradientColorB"
+        >
+          <template #buttons>
+            <slot name="titlebar-buttons"></slot>
+          </template>
+        </Titlebar>
+      </div>
+      
+      <!-- Inner container that fills remaining space with 2px gutter -->
+      <div 
+        class="inner-container"
+        :style="{
+          flex: '1',
+          overflowX: props.overflowX ?? 'auto',
+          overflowY: props.overflowY ?? 'auto',
+          margin: '2px',
+          marginTop: '0',
+          boxSizing: 'border-box'
+        }"
       >
-        <template #buttons>
-          <slot name="titlebar-buttons"></slot>
-        </template>
-      </Titlebar>
+        <slot></slot>
+      </div>
     </div>
-    <slot></slot>
   </Box>
 </template>

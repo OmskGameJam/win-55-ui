@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import Box, { type BoxType } from './components/Box.vue'
 import Button from './components/Button.vue'
 import BaseDropdown from './components/BaseDropdown.vue'
@@ -38,7 +38,17 @@ const boxStyle = {
   marginLeft: '8px',
 }
 
+// Window resize mode controls
+const resizeMode = ref('horizontal')
+const windowX = ref(100)
+const windowY = ref(100)
+const windowWidth = ref(320)
+const windowHeight = ref(220)
 
+// Computed properties for resize flags
+const resizable = computed(() => resizeMode.value === 'both')
+const resizableHorizontally = computed(() => resizeMode.value === 'horizontal' || resizeMode.value === 'both')
+const resizableVertically = computed(() => resizeMode.value === 'vertical' || resizeMode.value === 'both')
 
 const handleClick = () => window.alert('Click!')
 
@@ -116,14 +126,52 @@ const exampleRadioState = ref('sample')
 
     <div>
       <h2>Window</h2>
-      (First window is floating like normal)
-      <Window resizable title="Title" icon="/win-55-ui/icons/program.png" placeholder-buttons>
+      <div style="margin-bottom: 10px;">
+        <h3>Resize Mode:</h3>
+        <div style="display: flex; flex-direction: column; gap: 5px; margin-left: 8px;">
+          <RadioButton
+            v-model="resizeMode"
+            value="both"
+            label="Resizable (both axes)"
+          />
+          <RadioButton
+            v-model="resizeMode"
+            value="horizontal"
+            label="Resizable horizontally"
+          />
+          <RadioButton
+            v-model="resizeMode"
+            value="vertical"
+            label="Resizable vertically"
+          />
+          <RadioButton
+            v-model="resizeMode"
+            value="none"
+            label="Not resizable"
+          />
+        </div>
+      </div>
+      
+      <!-- First window is floating like normal -->
+      <Window 
+        :resizable="resizable" 
+        :resizableHorizontally="resizableHorizontally" 
+        :resizableVertically="resizableVertically"
+        v-model:x="windowX" 
+        v-model:y="windowY" 
+        v-model:width="windowWidth" 
+        v-model:height="windowHeight"
+        title="Title" 
+        icon="/win-55-ui/icons/program.png" 
+        placeholder-buttons
+      >
         <NamedPanel label="Это борт!">
           TEXT TEXT TEXT TEXT TEXT TEXT TEXT <br>
           TEXT TEXT TEXT TEXT TEXT TEXT TEXT <br>
         </NamedPanel>
       </Window>
-      (Second window is in faux mode, behaving as a div)
+      
+      <!-- Second window is in faux mode, behaving as a div -->
       <Window faux title="Title" placeholder-buttons>
         Sample
       </Window>
