@@ -19,6 +19,12 @@ const DEFAULT_CLASS_NAME = 'win55-emoji'
 const DEFAULT_IMAGE_CLASS_NAME = 'win55-emoji-image'
 const BASE_EMOJI_SIZE = 15
 const UI_SCALE = 2
+const FALLBACK_EMOJI_PATTERN = [
+  '[\\u{1F1E6}-\\u{1F1FF}]{2}',
+  '[0-9#*]\\uFE0F?\\u20E3',
+  '\\p{Extended_Pictographic}(?:\\uFE0F|\\uFE0E)?(?:\\u200D\\p{Extended_Pictographic}(?:\\uFE0F|\\uFE0E)?)*',
+  '\\p{Emoji_Presentation}',
+].join('|')
 const IGNORED_TAGS = new Set([
   'SCRIPT',
   'STYLE',
@@ -39,6 +45,7 @@ interface EmojiDirectiveState {
 
 const elementState = new WeakMap<HTMLElement, EmojiDirectiveState>()
 const regexCache = new WeakMap<EmojiRegistry, RegExp>()
+const fallbackEmojiImageCache = new Map<string, string>()
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -51,13 +58,14 @@ function getEmojiRegex(registry: EmojiRegistry): RegExp | null {
     return cachedRegex
   }
 
-  const emojis = Object.keys(registry).sort((a, b) => b.length - a.length)
+  const emojis = Object.keys(registry)
+    .sort((a, b) => b.length - a.length)
+    .map(escapeRegExp)
+  const pattern = emojis.length > 0
+    ? `${emojis.join('|')}|${FALLBACK_EMOJI_PATTERN}`
+    : FALLBACK_EMOJI_PATTERN
 
-  if (emojis.length === 0) {
-    return null
-  }
-
-  const regex = new RegExp(emojis.map(escapeRegExp).join('|'), 'gu')
+  const regex = new RegExp(pattern, 'gu')
   regexCache.set(registry, regex)
 
   return regex
@@ -113,9 +121,52 @@ function getScaledEmojiSize(): string {
   return `${BASE_EMOJI_SIZE * UI_SCALE}px`
 }
 
+function getFallbackEmojiImageSrc(emoji: string): string {
+  const cachedImageSrc = fallbackEmojiImageCache.get(emoji)
+
+  if (cachedImageSrc) {
+    return cachedImageSrc
+  }
+
+  const canvas = document.createElement('canvas')
+  canvas.width = BASE_EMOJI_SIZE
+  canvas.height = BASE_EMOJI_SIZE
+
+  const context = canvas.getContext('2d')
+
+  if (!context) {
+    return ''
+  }
+
+  context.imageSmoothingEnabled = false
+  context.textAlign = 'center'
+  context.textBaseline = 'middle'
+
+  let fontSize = BASE_EMOJI_SIZE
+
+  while (fontSize > 6) {
+    context.font = `${fontSize}px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif`
+
+    if (context.measureText(emoji).width <= BASE_EMOJI_SIZE) {
+      break
+    }
+
+    fontSize -= 1
+  }
+
+  context.clearRect(0, 0, BASE_EMOJI_SIZE, BASE_EMOJI_SIZE)
+  context.font = `${fontSize}px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif`
+  context.fillText(emoji, BASE_EMOJI_SIZE / 2, BASE_EMOJI_SIZE / 2)
+
+  const imageSrc = canvas.toDataURL('image/png')
+  fallbackEmojiImageCache.set(emoji, imageSrc)
+
+  return imageSrc
+}
+
 function createEmojiElement(
   emoji: string,
-  code: string,
+  imageSrc: string,
   options: EmojiDirectiveOptions,
 ): HTMLSpanElement {
   const wrapper = document.createElement('span')
@@ -128,7 +179,7 @@ function createEmojiElement(
   wrapper.ariaLabel = emoji
   wrapper.style.setProperty('--win55-emoji-size', getScaledEmojiSize())
 
-  image.src = getEmojiGifPathFromCode(code, options)
+  image.src = imageSrc
   image.alt = emoji
   image.className = DEFAULT_IMAGE_CLASS_NAME
   image.draggable = false
@@ -183,7 +234,7 @@ function replaceEmojiInTextNode(
     const index = match.index
     const code = registry[emoji]
 
-    if (index === undefined || !code) {
+    if (index === undefined) {
       continue
     }
 
@@ -203,7 +254,15 @@ function replaceEmojiInTextNode(
       fragment.append(beforeText)
     }
 
-    const emojiElement = createEmojiElement(emoji, code, options)
+    const imageSrc = code
+      ? getEmojiGifPathFromCode(code, options)
+      : getFallbackEmojiImageSrc(emoji)
+
+    if (!imageSrc) {
+      continue
+    }
+
+    const emojiElement = createEmojiElement(emoji, imageSrc, options)
     fragment.append(emojiElement)
 
     if (
