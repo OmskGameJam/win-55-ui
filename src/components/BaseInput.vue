@@ -207,6 +207,50 @@ const deleteSelection = (range: Range): void => {
   handleInput()
 }
 
+const rangeFromStaticRange = (staticRange: StaticRange): Range => {
+  const range = document.createRange()
+  range.setStart(staticRange.startContainer, staticRange.startOffset)
+  range.setEnd(staticRange.endContainer, staticRange.endOffset)
+
+  return range
+}
+
+const deleteEmojiFromTargetRange = (
+  staticRange: StaticRange,
+  direction: 'backward' | 'forward',
+  beforeDelete: () => void,
+): boolean => {
+  if (!el.value || !el.value.contains(staticRange.startContainer)) {
+    return false
+  }
+
+  const range = rangeFromStaticRange(staticRange)
+
+  if (!range.collapsed && selectionContainsCustomEmoji(range)) {
+    beforeDelete()
+    deleteSelection(range)
+    return true
+  }
+
+  const candidate = direction === 'backward'
+    ? getPreviousCaretNode(staticRange.startContainer, staticRange.startOffset)
+    : getNextCaretNode(staticRange.startContainer, staticRange.startOffset)
+  const emojiElement = findAdjacentEmojiElement(candidate, direction)
+
+  if (!emojiElement || !emojiElement.parentNode) {
+    return false
+  }
+
+  beforeDelete()
+  const parent = emojiElement.parentNode
+  const offset = getChildIndex(emojiElement)
+  emojiElement.remove()
+  setCaret(parent, offset)
+  handleInput()
+
+  return true
+}
+
 const deleteAdjacentEmoji = (
   direction: 'backward' | 'forward',
   beforeDelete: () => void,
@@ -279,6 +323,34 @@ const handleKeyDown = (e: KeyboardEvent) => {
   }
 }
 
+const handleBeforeInput = (e: InputEvent) => {
+  if (!el.value) return
+
+  if (e.inputType !== 'deleteContentBackward' && e.inputType !== 'deleteContentForward') {
+    return
+  }
+
+  if (getTextWithCustomEmoji(el.value) === '') {
+    e.preventDefault()
+    el.value.focus({ preventScroll: true })
+    return
+  }
+
+  const direction = e.inputType === 'deleteContentBackward' ? 'backward' : 'forward'
+  const targetRanges = e.getTargetRanges()
+
+  for (const targetRange of targetRanges) {
+    if (deleteEmojiFromTargetRange(targetRange, direction, () => e.preventDefault())) {
+      el.value.focus({ preventScroll: true })
+      return
+    }
+  }
+
+  if (deleteAdjacentEmoji(direction, () => e.preventDefault())) {
+    el.value.focus({ preventScroll: true })
+  }
+}
+
 const handlePaste = (e: ClipboardEvent) => {
   e.preventDefault()
 
@@ -334,6 +406,7 @@ defineExpose({ el })
     :aria-disabled="disabled"
     @input="handleInput"
     @keydown="handleKeyDown"
+    @beforeinput="handleBeforeInput"
     @paste="handlePaste"
     @blur="handleBlur"
   />

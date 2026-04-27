@@ -111,7 +111,11 @@ function childIndex(node: Node): number {
   return Array.prototype.indexOf.call(node.parentNode.childNodes, node)
 }
 
-export function restoreSelectionOffset(root: HTMLElement, offset: number | null): void {
+export function restoreSelectionOffset(
+  root: HTMLElement,
+  offset: number | null,
+  focusRoot = false,
+): void {
   if (offset === null || !root.isConnected) {
     return
   }
@@ -124,6 +128,10 @@ export function restoreSelectionOffset(root: HTMLElement, offset: number | null)
 
   const range = document.createRange()
   const selection = window.getSelection()
+
+  if (focusRoot) {
+    root.focus({ preventScroll: true })
+  }
 
   range.setStart(position.node, position.offset)
   range.collapse(true)

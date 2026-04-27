@@ -6,9 +6,7 @@ import {
   type EmojiRegistryOptions,
 } from '../helpers/emoji'
 import {
-  getSelectionOffset,
   getTextWithCustomEmoji,
-  restoreSelectionOffset,
 } from '../helpers/emojiDom'
 
 export interface EmojiDirectiveOptions extends EmojiRegistryOptions {
@@ -146,14 +144,37 @@ function replaceEmojiInTextNode(
   registry: EmojiRegistry,
   options: EmojiDirectiveOptions,
 ): void {
-  if (!textNode.parentElement) {
+  const parent = textNode.parentElement
+
+  if (!parent) {
     return
   }
 
+  const selection = window.getSelection()
+  const shouldRestoreCaret = Boolean(
+    selection &&
+    selection.rangeCount > 0 &&
+    selection.isCollapsed &&
+    selection.getRangeAt(0).startContainer === textNode,
+  )
+  const caretOffset = shouldRestoreCaret
+    ? selection?.getRangeAt(0).startOffset ?? null
+    : null
   const text = textNode.nodeValue ?? ''
   let lastIndex = 0
   let matched = false
   const fragment = document.createDocumentFragment()
+  let caretContainer: Node | null = null
+  let caretContainerOffset = 0
+
+  const rememberCaret = (container: Node, offset: number) => {
+    if (caretContainer) {
+      return
+    }
+
+    caretContainer = container
+    caretContainerOffset = offset
+  }
 
   regex.lastIndex = 0
 
@@ -169,10 +190,30 @@ function replaceEmojiInTextNode(
     matched = true
 
     if (index > lastIndex) {
-      fragment.append(document.createTextNode(text.slice(lastIndex, index)))
+      const beforeText = document.createTextNode(text.slice(lastIndex, index))
+
+      if (
+        caretOffset !== null &&
+        caretOffset >= lastIndex &&
+        caretOffset <= index
+      ) {
+        rememberCaret(beforeText, caretOffset - lastIndex)
+      }
+
+      fragment.append(beforeText)
     }
 
-    fragment.append(createEmojiElement(emoji, code, options))
+    const emojiElement = createEmojiElement(emoji, code, options)
+    fragment.append(emojiElement)
+
+    if (
+      caretOffset !== null &&
+      caretOffset > index &&
+      caretOffset <= index + emoji.length
+    ) {
+      rememberCaret(parent, Array.prototype.indexOf.call(parent.childNodes, textNode) + fragment.childNodes.length)
+    }
+
     lastIndex = index + emoji.length
   }
 
@@ -181,10 +222,26 @@ function replaceEmojiInTextNode(
   }
 
   if (lastIndex < text.length) {
-    fragment.append(document.createTextNode(text.slice(lastIndex)))
+    const afterText = document.createTextNode(text.slice(lastIndex))
+
+    if (caretOffset !== null && caretOffset >= lastIndex) {
+      rememberCaret(afterText, caretOffset - lastIndex)
+    }
+
+    fragment.append(afterText)
+  } else if (caretOffset !== null && caretOffset >= lastIndex) {
+    rememberCaret(parent, Array.prototype.indexOf.call(parent.childNodes, textNode) + fragment.childNodes.length)
   }
 
   textNode.replaceWith(fragment)
+
+  if (shouldRestoreCaret && caretContainer) {
+    const range = document.createRange()
+    range.setStart(caretContainer, caretContainerOffset)
+    range.collapse(true)
+    selection?.removeAllRanges()
+    selection?.addRange(range)
+  }
 }
 
 async function renderEmoji(
@@ -211,13 +268,9 @@ async function renderEmoji(
     return
   }
 
-  const selectionOffset = getSelectionOffset(el)
-
   for (const textNode of collectTextNodes(el)) {
     replaceEmojiInTextNode(textNode, regex, registry, options)
   }
-
-  restoreSelectionOffset(el, selectionOffset)
 }
 
 function scheduleRender(
