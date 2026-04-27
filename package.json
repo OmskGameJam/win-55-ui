@@ -28,7 +28,8 @@
     "build:lib": "vite build --config vite.config.lib.ts && vue-tsc --project tsconfig.lib.json",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "npm run build:lib"
+    "prepare": "npm run build:lib",
+    "emoji": "node scripts/emoji-cli.js"
   },
   "peerDependencies": {
     "vue": "^3.5.0"
