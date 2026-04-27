@@ -47,7 +47,6 @@ table {
 * {
   image-rendering: pixelated;
 	outline: none;
-	user-select: none;
   font-smooth: never;
   -webkit-font-smoothing: never;
   box-sizing: border-box;
@@ -146,4 +145,32 @@ body {
 
 .balloon-tip {
   display: block;
+}
+
+.win55-emoji {
+  display: inline-block;
+  width: var(--win55-emoji-size, 30px);
+  height: var(--win55-emoji-size, 30px);
+  color: transparent;
+  image-rendering: pixelated;
+  line-height: 1;
+  overflow: hidden;
+  position: relative;
+  speak: never;
+  vertical-align: -0.125em;
+}
+
+.win55-emoji-image {
+  display: block;
+  height: var(--win55-emoji-size, 30px);
+  image-rendering: pixelated;
+  left: 50%;
+  max-height: none;
+  max-width: none;
+  object-fit: contain;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--win55-emoji-size, 30px);
 }

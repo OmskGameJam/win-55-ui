@@ -3,6 +3,18 @@
 dist/
 *.d.ts
 *.js
+!dist/
+!dist/index.css
+!dist/index.d.ts
+!dist/index.js
+!dist/components/
+!dist/components/*.d.ts
+!dist/directives/
+!dist/directives/*.d.ts
+!dist/helpers/
+!dist/helpers/*.d.ts
+!scripts/
+!scripts/*.js
 
 # Dependencies
 node_modules/

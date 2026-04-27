@@ -17,12 +17,30 @@ export { default as Typography } from './components/Typography.vue'
 export { default as Window } from './components/Window.vue'
 export { default as NamedPanel } from './components/NamedPanel.vue'
 
+// Directives
+export { default as emojiDirective, customEmojiDirective } from './directives/emoji'
+
 // Helpers
 export { typographyStyles } from './helpers/typography'
 export { drawAngledBayerDitherGradient } from './helpers/bayerMatrix'
 export { useSineWave } from './helpers/useSineWave'
 export { registerGlobalImageErrorHandler } from './helpers/imgErrors'
+export {
+  getEmojiGifPath,
+  getEmojiGifPathFromCode,
+  getEmojiRegistry,
+  hasEmoji,
+  loadEmojiRegistry,
+  resetEmojiRegistryCache,
+} from './helpers/emoji'
+export {
+  getSelectionOffset,
+  getTextWithCustomEmoji,
+  restoreSelectionOffset,
+} from './helpers/emojiDom'
 
 // Types
 export type { BoxType } from './components/Box.vue'
 export type { TypographySettings } from './helpers/typography'
+export type { EmojiDirectiveBindingValue, EmojiDirectiveOptions } from './directives/emoji'
+export type { EmojiRegistry, EmojiRegistryOptions } from './helpers/emoji'

@@ -14,6 +14,9 @@ import Window from './components/Window.vue'
 import Tooltip from './components/Tooltip.vue'
 import Balloon from './components/Balloon.vue'
 import NamedPanel from './components/NamedPanel.vue'
+import emojiDirective from './directives/emoji'
+
+const vEmoji = emojiDirective
 
 const testingBoxes: BoxType[] = [
   'indent',
@@ -59,7 +62,7 @@ const exampleRadioState = ref('sample')
 </script>
 
 <template>
-  <Typography font-color="black">
+  <Typography v-emoji font-color="black">
     <h1>Kitchen sink</h1>
     <div>
       <h2>Currently prepared bitmap strikes</h2>
@@ -76,6 +79,16 @@ const exampleRadioState = ref('sample')
           :extra-styles="{ width: '512px' }"
         />
       </Typography>
+    </Box>
+
+    <Box type="border-groove" :extra-styles="containerStyle">
+      <h2>Custom emoji</h2>
+      <div>
+        Static ☀ 🌈 😄 🚀 💾
+      </div>
+      <div>
+        {{ exampleTextInputState }}
+      </div>
     </Box>
 
     <Box type="panel-d-2" :extra-styles="containerStyle">

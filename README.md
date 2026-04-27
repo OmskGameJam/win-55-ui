@@ -2,7 +2,7 @@
 
 Библиотека UI-компонентов для Vue 3 в стиле Windows 95. Пиксельная эстетика, 9-patch рамки, bitmap-шрифты и все привычные контролы эпохи.
 
-> **Дисклеймер.** Часть кода и документации этого проекта написана при участии нейросетей (Claude, GitHub Copilot). Все результаты проверялись и редактировались вручную.
+> **Дисклеймер.** Часть кода и документации этого проекта написана при участии нейросетей (Claude, Codex, GitHub Copilot). Все результаты проверялись и редактировались вручную.
 
 ---
 
@@ -246,6 +246,41 @@ Slot `#buttons` — кнопки справа.
 
 ---
 
+### Custom Emoji
+
+Директива `v-emoji` заменяет emoji в текстовых нодах на GIF-ассеты из `public/win-55-ui/emoji/`. Её достаточно повесить один раз на верхний компонент приложения: внутри работает `MutationObserver`, поэтому emoji будут подменяться и в динамически появившемся тексте, включая `BaseInput`.
+
+```ts
+// main.ts
+import { createApp } from 'vue'
+import { emojiDirective } from 'win-55-ui-vue'
+
+createApp(App)
+  .directive('emoji', emojiDirective)
+  .mount('#app')
+```
+
+```vue
+<main v-emoji>
+  <div>Hello ☀ 🌈 😄 🚀</div>
+  <BaseInput v-model="message" />
+</main>
+```
+
+Реестр загружается в браузере из `/win-55-ui/emoji/emoji-registry.csv` и читается как простой `emoji,code` key-value файл. Генерировать TypeScript-реестр для emoji больше не нужно.
+
+Подмена хранит оригинальный Unicode emoji в `data-win55-emoji`, поэтому копирование и `BaseInput` возвращают обычный текст. GIF рендерится как один non-editable inline-atom в масштабе UI kit: 15px ассет → 30px на экране.
+
+Для обслуживания реестра:
+
+```bash
+npm run emoji -- add 😀 123
+npm run emoji -- replace 😀 ./emoji.gif
+npm run emoji -- check
+```
+
+---
+
 ## Хелперы
 
 ### `typographyStyles(settings)`
@@ -283,6 +318,15 @@ npm run build     # type-check + сборка демо-приложения
 ```
 
 `src/App.vue` — kitchen sink со всеми компонентами. Это основная площадка для ручного тестирования и визуальной проверки изменений.
+
+---
+
+## Документация для AI-агентов
+
+- `CLAUDE.md` — рабочий контекст для Claude Code.
+- `CODEX.md` — рабочий контекст для Codex.
+
+Оба файла должны оставаться синхронизированными с архитектурой, командами сборки и проектными соглашениями.
 
 ---
 
