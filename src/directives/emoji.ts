@@ -331,15 +331,21 @@ function replaceEmojiInTextNode(
   }
 
   const selection = window.getSelection()
-  const shouldRestoreCaret = Boolean(
-    selection &&
-    selection.rangeCount > 0 &&
-    selection.isCollapsed &&
-    selection.getRangeAt(0).startContainer === textNode,
-  )
-  const caretOffset = shouldRestoreCaret
-    ? selection?.getRangeAt(0).startOffset ?? null
+  const selRange = selection && selection.rangeCount > 0 && selection.isCollapsed
+    ? selection.getRangeAt(0)
     : null
+  const isCaretInNode = selRange?.startContainer === textNode
+  const isCaretAfterNode = Boolean(
+    selRange &&
+    selRange.startContainer === parent &&
+    selRange.startOffset === Array.prototype.indexOf.call(parent.childNodes, textNode) + 1,
+  )
+  const shouldRestoreCaret = isCaretInNode || isCaretAfterNode
+  const caretOffset = isCaretAfterNode
+    ? (textNode.nodeValue?.length ?? 0)
+    : isCaretInNode
+      ? (selRange?.startOffset ?? null)
+      : null
   const text = textNode.nodeValue ?? ''
   let lastIndex = 0
   let matched = false
