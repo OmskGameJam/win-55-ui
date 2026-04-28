@@ -215,26 +215,58 @@ const rangeFromStaticRange = (staticRange: StaticRange): Range => {
   return range
 }
 
-const deleteEmojiFromTargetRange = (
-  staticRange: StaticRange,
+const isCustomEmojiElement = (node: Node | null): node is HTMLElement => {
+  return node instanceof HTMLElement && node.hasAttribute('data-win55-emoji')
+}
+
+const deleteTextRangeAtEmojiBoundary = (
+  range: Range,
   direction: 'backward' | 'forward',
   beforeDelete: () => void,
 ): boolean => {
-  if (!el.value || !el.value.contains(staticRange.startContainer)) {
+  if (
+    !el.value ||
+    range.collapsed ||
+    range.startContainer !== range.endContainer ||
+    !(range.startContainer instanceof Text)
+  ) {
     return false
   }
 
-  const range = rangeFromStaticRange(staticRange)
+  const textNode = range.startContainer
+  const textLength = textNode.nodeValue?.length ?? 0
 
-  if (!range.collapsed && selectionContainsCustomEmoji(range)) {
-    beforeDelete()
-    deleteSelection(range)
-    return true
+  if (range.startOffset !== 0 || range.endOffset !== textLength) {
+    return false
   }
 
+  const adjacentEmoji = direction === 'backward'
+    ? textNode.previousSibling
+    : textNode.nextSibling
+
+  if (!isCustomEmojiElement(adjacentEmoji) || !textNode.parentNode) {
+    return false
+  }
+
+  beforeDelete()
+  const parent = textNode.parentNode
+  const offset = getChildIndex(textNode)
+  textNode.remove()
+  setCaret(parent, offset)
+  handleInput()
+
+  return true
+}
+
+const deleteAdjacentEmojiFromPosition = (
+  container: Node,
+  startOffset: number,
+  direction: 'backward' | 'forward',
+  beforeDelete: () => void,
+): boolean => {
   const candidate = direction === 'backward'
-    ? getPreviousCaretNode(staticRange.startContainer, staticRange.startOffset)
-    : getNextCaretNode(staticRange.startContainer, staticRange.startOffset)
+    ? getPreviousCaretNode(container, startOffset)
+    : getNextCaretNode(container, startOffset)
   const emojiElement = findAdjacentEmojiElement(candidate, direction)
 
   if (!emojiElement || !emojiElement.parentNode) {
@@ -249,6 +281,39 @@ const deleteEmojiFromTargetRange = (
   handleInput()
 
   return true
+}
+
+const deleteEmojiFromTargetRange = (
+  staticRange: StaticRange,
+  direction: 'backward' | 'forward',
+  beforeDelete: () => void,
+): 'deleted' | 'native' | 'none' => {
+  if (!el.value || !el.value.contains(staticRange.startContainer)) {
+    return 'none'
+  }
+
+  const range = rangeFromStaticRange(staticRange)
+
+  if (!range.collapsed) {
+    if (selectionContainsCustomEmoji(range)) {
+      beforeDelete()
+      deleteSelection(range)
+      return 'deleted'
+    }
+
+    if (deleteTextRangeAtEmojiBoundary(range, direction, beforeDelete)) {
+      return 'deleted'
+    }
+
+    return getTextWithCustomEmoji(range.cloneContents()) ? 'native' : 'none'
+  }
+
+  return deleteAdjacentEmojiFromPosition(
+    staticRange.startContainer,
+    staticRange.startOffset,
+    direction,
+    beforeDelete,
+  ) ? 'deleted' : 'none'
 }
 
 const deleteAdjacentEmoji = (
@@ -279,41 +344,15 @@ const deleteAdjacentEmoji = (
     return true
   }
 
-  const candidate = direction === 'backward'
-    ? getPreviousCaretNode(range.startContainer, range.startOffset)
-    : getNextCaretNode(range.startContainer, range.startOffset)
-  const emojiElement = findAdjacentEmojiElement(candidate, direction)
-
-  if (!emojiElement || !emojiElement.parentNode) {
-    return false
-  }
-
-  beforeDelete()
-  const parent = emojiElement.parentNode
-  const offset = getChildIndex(emojiElement)
-  emojiElement.remove()
-  setCaret(parent, offset)
-  handleInput()
-
-  return true
+  return deleteAdjacentEmojiFromPosition(
+    range.startContainer,
+    range.startOffset,
+    direction,
+    beforeDelete,
+  )
 }
 
 const handleKeyDown = (e: KeyboardEvent) => {
-  if ((e.key === 'Backspace' || e.key === 'Delete') && el.value) {
-    if (getTextWithCustomEmoji(el.value) === '') {
-      e.preventDefault()
-      el.value.focus({ preventScroll: true })
-      return
-    }
-
-    const direction = e.key === 'Backspace' ? 'backward' : 'forward'
-
-    if (deleteAdjacentEmoji(direction, () => e.preventDefault())) {
-      el.value.focus({ preventScroll: true })
-      return
-    }
-  }
-
   if (!props.multiline && e.key === 'Enter') {
     e.preventDefault()
   }
@@ -340,8 +379,18 @@ const handleBeforeInput = (e: InputEvent) => {
   const targetRanges = e.getTargetRanges()
 
   for (const targetRange of targetRanges) {
-    if (deleteEmojiFromTargetRange(targetRange, direction, () => e.preventDefault())) {
+    const targetRangeResult = deleteEmojiFromTargetRange(
+      targetRange,
+      direction,
+      () => e.preventDefault(),
+    )
+
+    if (targetRangeResult === 'deleted') {
       el.value.focus({ preventScroll: true })
+      return
+    }
+
+    if (targetRangeResult === 'native') {
       return
     }
   }

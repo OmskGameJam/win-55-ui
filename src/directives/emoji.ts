@@ -8,6 +8,7 @@ import {
 import {
   getTextWithCustomEmoji,
 } from '../helpers/emojiDom'
+import { findNearestColor, parseHexPalette } from '../helpers/color'
 
 export interface EmojiDirectiveOptions extends EmojiRegistryOptions {
   className?: string
@@ -19,6 +20,43 @@ const DEFAULT_CLASS_NAME = 'win55-emoji'
 const DEFAULT_IMAGE_CLASS_NAME = 'win55-emoji-image'
 const BASE_EMOJI_SIZE = 15
 const UI_SCALE = 2
+
+export const FALLBACK_EMOJI_PALETTE = [
+"#000000",
+"#020202",
+"#2E2E2E",
+"#700000",
+"#007000",
+"#000070",
+"#700070",
+"#007070",
+"#BB0202",
+"#F72E2E",
+"#BB7E02",
+"#02BB02",
+"#2EF72E",
+"#F7F22E",
+"#0202BB",
+"#2E2EF7",
+"#BB02BB",
+"#F72EF7",
+"#02BBBB",
+"#2EF7F7",
+"#8F8F8F",
+"#C4C4C4",
+"#D7D7D7",
+"#FFC4C4",
+"#C4FFC4",
+"#FFFFC4",
+"#C4C4FF",
+"#FFC4FF",
+"#C4FFFF",
+"#FAFAFA",
+"#FFFFFF",
+"#000000"
+] as const
+
+const FALLBACK_EMOJI_PALETTE_RGB = parseHexPalette(FALLBACK_EMOJI_PALETTE)
 const FALLBACK_EMOJI_PATTERN = [
   '[\\u{1F1E6}-\\u{1F1FF}]{2}',
   '[0-9#*]\\uFE0F?\\u20E3',
@@ -121,6 +159,85 @@ function getScaledEmojiSize(): string {
   return `${BASE_EMOJI_SIZE * UI_SCALE}px`
 }
 
+function quantizeCanvas(
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  palette: readonly [number, number, number][],
+  percentage: number,                       // new param, range 0..1
+): void {
+  // clamp percentage to valid range
+  const t = Math.min(1, Math.max(0, percentage));
+
+  const imageData = context.getImageData(0, 0, width, height);
+  const data = imageData.data;
+
+  for (let i = 0; i < data.length; i += 4) {
+    const originalR = data[i];
+    const originalG = data[i + 1];
+    const originalB = data[i + 2];
+    const alpha = data[i + 3];
+
+    if (alpha < 80) {
+      // transparent: keep fully transparent
+      data[i] = 0;
+      data[i + 1] = 0;
+      data[i + 2] = 0;
+      data[i + 3] = 0;
+    } else {
+      // find nearest colour in palette
+      const [rQuant, gQuant, bQuant] = findNearestColor(
+        originalR, originalG, originalB, palette
+      );
+
+      // interpolate between original and quantized
+      const r = Math.round(originalR + (rQuant - originalR) * t);
+      const g = Math.round(originalG + (gQuant - originalG) * t);
+      const b = Math.round(originalB + (bQuant - originalB) * t);
+
+      data[i] = r;
+      data[i + 1] = g;
+      data[i + 2] = b;
+      data[i + 3] = 255;   // make opaque (original behaviour)
+    }
+  }
+
+  context.putImageData(imageData, 0, 0);
+}
+
+function smoothCanvas(
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+): void {
+  const imageData = context.getImageData(0, 0, width, height)
+  const src = new Uint8ClampedArray(imageData.data)
+  const dst = imageData.data
+  const idx = (x: number, y: number) => (y * width + x) * 4
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = idx(x, y)
+      const neighbors = [
+        x > 0 ? idx(x - 1, y) : -1,
+        x < width - 1 ? idx(x + 1, y) : -1,
+        y > 0 ? idx(x, y - 1) : -1,
+        y < height - 1 ? idx(x, y + 1) : -1,
+      ].filter(n => n !== -1)
+      const opaque = neighbors.filter(n => src[n + 3] > 127)
+
+      if (src[i + 3] > 127 && opaque.length <= 1) {
+        dst[i] = dst[i + 1] = dst[i + 2] = dst[i + 3] = 0
+      } else if (src[i + 3] === 0 && opaque.length >= 3) {
+        const n = opaque[0]
+        dst[i] = src[n]; dst[i + 1] = src[n + 1]; dst[i + 2] = src[n + 2]; dst[i + 3] = 255
+      }
+    }
+  }
+
+  context.putImageData(imageData, 0, 0)
+}
+
 function getFallbackEmojiImageSrc(emoji: string): string {
   const cachedImageSrc = fallbackEmojiImageCache.get(emoji)
 
@@ -138,25 +255,29 @@ function getFallbackEmojiImageSrc(emoji: string): string {
     return ''
   }
 
-  context.imageSmoothingEnabled = false
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
+  const fontStack = '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif'
+  const probe = BASE_EMOJI_SIZE * 4
 
-  let fontSize = BASE_EMOJI_SIZE
+  context.textBaseline = 'alphabetic'
+  context.font = `${probe}px ${fontStack}`
 
-  while (fontSize > 6) {
-    context.font = `${fontSize}px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif`
+  const pm = context.measureText(emoji)
+  const pw = pm.actualBoundingBoxLeft + pm.actualBoundingBoxRight
+  const ph = pm.actualBoundingBoxAscent + pm.actualBoundingBoxDescent
 
-    if (context.measureText(emoji).width <= BASE_EMOJI_SIZE) {
-      break
-    }
-
-    fontSize -= 1
+  if (pw > 0 && ph > 0) {
+    const fontSize = probe * Math.min((BASE_EMOJI_SIZE) / pw, (BASE_EMOJI_SIZE) / ph)
+    context.font = `${fontSize}px ${fontStack}`
+    const m = context.measureText(emoji)
+    const gw = m.actualBoundingBoxLeft + m.actualBoundingBoxRight
+    const gh = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent
+    const x = (BASE_EMOJI_SIZE - gw) / 2 + m.actualBoundingBoxLeft
+    const y = (BASE_EMOJI_SIZE - gh) / 2 + m.actualBoundingBoxAscent
+    context.fillText(emoji, x, y-0.5)
+    quantizeCanvas(context, BASE_EMOJI_SIZE, BASE_EMOJI_SIZE, FALLBACK_EMOJI_PALETTE_RGB, 0.1)
+    smoothCanvas(context, BASE_EMOJI_SIZE, BASE_EMOJI_SIZE)
+    drawInsetBlackOutline(canvas)
   }
-
-  context.clearRect(0, 0, BASE_EMOJI_SIZE, BASE_EMOJI_SIZE)
-  context.font = `${fontSize}px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif`
-  context.fillText(emoji, BASE_EMOJI_SIZE / 2, BASE_EMOJI_SIZE / 2)
 
   const imageSrc = canvas.toDataURL('image/png')
   fallbackEmojiImageCache.set(emoji, imageSrc)
@@ -184,6 +305,14 @@ function createEmojiElement(
   image.className = DEFAULT_IMAGE_CLASS_NAME
   image.draggable = false
   image.dataset.win55EmojiImg = 'true'
+  image.addEventListener('load', () => {
+    const w = image.naturalWidth * UI_SCALE
+    const h = image.naturalHeight * UI_SCALE
+    wrapper.style.width = `${w}px`
+    wrapper.style.height = `${h}px`
+    image.style.width = `${w}px`
+    image.style.height = `${h}px`
+  }, { once: true })
   wrapper.append(image)
 
   return wrapper
@@ -430,6 +559,129 @@ const emojiDirective: Directive<HTMLElement, EmojiDirectiveBindingValue> = {
 
     elementState.delete(el)
   },
+}
+
+/**
+ * Draws a black inset outline on the sprite inside a canvas.
+ * The outline is applied exactly on the outermost non‑transparent pixels.
+ *
+ * @param canvas - The target HTMLCanvasElement (size is inferred from its dimensions)
+ */
+function drawInsetBlackOutline(canvas: HTMLCanvasElement): void {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    console.warn('Unable to get 2D context from canvas');
+    return;
+  }
+
+  const width = canvas.width;
+  const height = canvas.height;
+
+  // Read the current pixel data
+  const imageData = ctx.getImageData(0, 0, width, height);
+  const data = imageData.data; // Uint8ClampedArray in RGBA order
+
+  // Helper: get alpha value of a pixel (0 = fully transparent)
+  const getAlpha = (x: number, y: number): number => {
+    if (x < 0 || y < 0 || x >= width || y >= height) return 0;
+    return data[(y * width + x) * 4 + 3];
+  };
+
+  // ------- 1. Find all transparent pixels connected to the canvas border -------
+  // (these define the "outside" background)
+  const isBackground = Array.from({ length: height }, () => Array(width).fill(false));
+  const queue: { x: number; y: number }[] = [];
+
+  // Enqueue all border pixels that are fully transparent
+  for (let x = 0; x < width; x++) {
+    if (getAlpha(x, 0) === 0 && !isBackground[0][x]) {
+      isBackground[0][x] = true;
+      queue.push({ x, y: 0 });
+    }
+    if (getAlpha(x, height - 1) === 0 && !isBackground[height - 1][x]) {
+      isBackground[height - 1][x] = true;
+      queue.push({ x, y: height - 1 });
+    }
+  }
+  for (let y = 0; y < height; y++) {
+    if (getAlpha(0, y) === 0 && !isBackground[y][0]) {
+      isBackground[y][0] = true;
+      queue.push({ x: 0, y });
+    }
+    if (getAlpha(width - 1, y) === 0 && !isBackground[y][width - 1]) {
+      isBackground[y][width - 1] = true;
+      queue.push({ x: width - 1, y });
+    }
+  }
+
+  // BFS flood fill to mark all transparent cells reachable from the border
+  const dirs = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+  ];
+  while (queue.length) {
+    const { x, y } = queue.shift()!;
+    for (const [dx, dy] of dirs) {
+      const nx = x + dx;
+      const ny = y + dy;
+      if (
+        nx >= 0 && nx < width &&
+        ny >= 0 && ny < height &&
+        !isBackground[ny][nx] &&
+        getAlpha(nx, ny) === 0
+      ) {
+        isBackground[ny][nx] = true;
+        queue.push({ x: nx, y: ny });
+      }
+    }
+  }
+
+  // ------- 2. Identify the external edge pixels of the sprite -------
+  // An opaque pixel is an edge if it has a neighbour that is:
+  //   - out of canvas bounds, or
+  //   - a transparent pixel that belongs to the outside background
+  const isEdge = Array.from({ length: height }, () => Array(width).fill(false));
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (getAlpha(x, y) === 0) continue; // skip transparent pixels
+
+      let edge = false;
+      for (const [dx, dy] of dirs) {
+        const nx = x + dx;
+        const ny = y + dy;
+        // Out of bounds → treat as outside background
+        if (nx < 0 || ny < 0 || nx >= width || ny >= height) {
+          edge = true;
+          break;
+        }
+        const neighborAlpha = getAlpha(nx, ny);
+        if (neighborAlpha === 0 && isBackground[ny][nx]) {
+          edge = true;
+          break;
+        }
+      }
+      if (edge) isEdge[y][x] = true;
+    }
+  }
+
+  // ------- 3. Apply black outline on the edge pixels -------
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (isEdge[y][x]) {
+        const idx = (y * width + x) * 4;
+        data[idx] = 0;     // R = 0
+        data[idx + 1] = 0; // G = 0
+        data[idx + 2] = 0; // B = 0
+        // Alpha channel is left unchanged
+      }
+    }
+  }
+
+  // Write the modified pixels back to the canvas
+  ctx.putImageData(imageData, 0, 0);
 }
 
 export const customEmojiDirective = emojiDirective
