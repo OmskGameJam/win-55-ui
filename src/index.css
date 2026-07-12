@@ -254,6 +254,16 @@ body {
   transform: scale(2);
 }
 
+.richtext-link {
+  color: #0000ee;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.richtext-link:visited {
+  color: #000080;
+}
+
 .balloon-inner {
   display: flex;
   align-items: center;

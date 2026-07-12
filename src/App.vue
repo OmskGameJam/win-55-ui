@@ -15,6 +15,7 @@ import Tooltip from './components/Tooltip.vue'
 import Balloon from './components/Balloon.vue'
 import NamedPanel from './components/NamedPanel.vue'
 import EmojiPickerWindow from './components/EmojiPickerWindow.vue'
+import RichText from './components/RichText.vue'
 import emojiDirective from './directives/emoji'
 
 const vEmoji = emojiDirective
@@ -105,6 +106,19 @@ setTimeout(() => {
       <div v-emoji>
         Nested v-emoji (should not double-render): 🍕🐶
       </div>
+    </Box>
+
+    <Box type="border-groove" :extra-styles="containerStyle">
+      <h2>RichText (BBCode + :shortcodes:)</h2>
+      <RichText allow-links>
+        Plain text, [b]bold[/b], [i]italic (no strike! tell anton to fix fonts)[/i],
+        [u]underline[/u], [s]strike[/s], [color=#aa0000]red[/color], [size=24]big[/size],
+        [url=https://example.com]a link[/url], and an emoji :smile: :book:
+        Also, real emoji! ☀ 🌈 😄 🚀 💾
+      </RichText>
+      <RichText>
+        Links disabled here: [url=https://example.com]this should render as plain text[/url]
+      </RichText>
     </Box>
 
     <Box type="panel-d-2" :extra-styles="containerStyle">
