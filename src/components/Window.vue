@@ -68,12 +68,18 @@ const cursor = ref('default')
 function startDrag(e: MouseEvent) {
   if (props.faux) return
   if (resizeDir) return
+
+  const target = e.target as HTMLElement
+  if (target.closest('.titlebar-image') || target.closest('.titlebar-buttons')) return
+
   dragging = true
 
   startX = e.clientX
   startY = e.clientY
   startLeft = x.value
   startTop = y.value
+
+  document.body.style.userSelect = 'none'
 
   window.addEventListener('mousemove', onMove)
   window.addEventListener('mouseup', stopAll)
@@ -93,6 +99,8 @@ function startResize(e: MouseEvent) {
   startH = height.value
   startLeft = x.value
   startTop = y.value
+
+  document.body.style.userSelect = 'none'
 
   window.addEventListener('mousemove', onMove)
   window.addEventListener('mouseup', stopAll)
@@ -140,6 +148,8 @@ function stopAll() {
   dragging = false
   resizing = false
   activeResizeDir = ''
+
+  document.body.style.userSelect = ''
 
   window.removeEventListener('mousemove', onMove)
   window.removeEventListener('mouseup', stopAll)
@@ -244,9 +254,8 @@ watch(() => [props.resizable, props.resizableHorizontally, props.resizableVertic
     @mousedown="startResize"
   >
     <!-- Window container with flex layout -->
-    <div 
+    <div
       class="window-container"
-      @mousedown.stop="startDrag"
       :style="{
         display: 'flex',
         flexDirection: 'column',
@@ -255,7 +264,7 @@ watch(() => [props.resizable, props.resizableHorizontally, props.resizableVertic
       }"
     >
       <!-- Titlebar with fixed height -->
-      <div class="titlebar-wrapper" :style="{ height: '34px' }">
+      <div class="titlebar-wrapper" @mousedown.stop="startDrag" :style="{ height: '34px' }">
         <Titlebar
           :title="title"
           :icon="icon"
