@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build:lib` — library build: Vite (ESM bundle + CSS) + vue-tsc (декларации типов) → `dist/`
 - `npm run lint` — ESLint
 - `npm run preview` — предпросмотр production-сборки
+- `npm run emoji -- <command>` — обслуживание `public/win-55-ui/emoji/emoji-registry.csv` (`add`, `replace`, `remove`, `list`, `sort`, `check`)
 
 Требуется Node.js 20.19+ или 22.12+ (указан в `.nvmrc`).
 
@@ -43,6 +44,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **HDivider** — горизонтальный разделитель (Box type `border-groove` с нулевой высотой).
 - **NamedPanel** — Box с `border-groove` и плавающим лейблом сверху (абсолютно позиционированный `<div class="label">`). Props: `label`, `backgroundColorHint` (по умолчанию `#CBCBCB`). Контент через default slot.
 - **Titlebar** — рендерит Bayer-dithered градиент на canvas с ResizeObserver для адаптивной перерисовки.
+- **Custom Emoji directive** (`src/directives/emoji.ts`) — Vue-директива для замены emoji в текстовых нодах на GIF-изображения из `/win-55-ui/emoji/`. Регистрируется как `app.directive('emoji', emojiDirective)` и используется как `v-emoji`, обычно один раз на верхнем компоненте приложения. Внутри есть `MutationObserver`, поэтому динамический текст и `BaseInput` тоже обрабатываются. Emoji wrapper — один non-editable inline-atom с оригинальным Unicode emoji в `data-win55-emoji` для копирования/сериализации; GIF всегда следует 2x масштабу UI kit: 15px ассет → 30px на экране.
 
 ### Helpers (`src/helpers/`)
 
@@ -50,6 +52,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **bayerMatrix.ts** — 8x8 Bayer dithering для canvas-градиентов.
 - **useSineWave.ts** — composable (`ref` + `requestAnimationFrame`) для анимированных sine/cosine значений с configurable FPS. Нормализует высоты для постоянной суммы.
 - **imgErrors.ts** — `registerGlobalImageErrorHandler` — глобальный fallback на `broken-image.png` при ошибках загрузки изображений (capture phase listener).
+- **emoji.ts** — runtime emoji registry loader. Загружает `public/win-55-ui/emoji/emoji-registry.csv` в браузере через `fetch`, читает его как простой `emoji,code` key-value файл и кэширует результат. Не генерировать TS-реестр; для обновления CSV использовать `npm run emoji -- add/replace/remove/...`.
 
 ## Conventions
 
@@ -67,6 +70,8 @@ Plain CSS (`index.css`, `scrollbar.css`) + inline `CSSProperties`. Без CSS-м
 ### Ассеты
 
 Все UI-ассеты (PNG-рамки, шрифты, иконки) в `/public/win-55-ui/`.
+
+Emoji GIF-ассеты и runtime registry лежат в `/public/win-55-ui/emoji/`. CSV должен публиковаться вместе с ассетами и читаться на runtime.
 
 ### TypeScript
 

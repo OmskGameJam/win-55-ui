@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import Box, { type BoxType } from './Box.vue'
-import Typography from './Typography.vue'
 
 const props = withDefaults(defineProps<{
   baseType?: BoxType

@@ -8,6 +8,7 @@ type __VLS_Props = {
     boxType?: BoxType;
     extraStyles?: CSSProperties;
     multiline?: boolean;
+    showEmojiButton?: boolean;
 };
 declare const _default: import("vue").DefineComponent<__VLS_Props, {
     el: import("vue").ComputedRef<HTMLDivElement | null>;
@@ -22,5 +23,6 @@ declare const _default: import("vue").DefineComponent<__VLS_Props, {
     maxLength: number;
     boxType: BoxType;
     multiline: boolean;
+    showEmojiButton: boolean;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 export default _default;

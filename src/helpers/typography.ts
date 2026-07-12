@@ -11,14 +11,63 @@ export interface TypographySettings {
   fontShadowColor?: string,
 }
 
+/*
+ * The registry of font faces actually declared via @font-face in index.css.
+ * Requesting a style/size combination outside this list degrades instead of
+ * silently rendering an unstyled system font under a made-up family name —
+ * this is what lets callers (e.g. a BBCode renderer) pass along styles we
+ * haven't shipped a bitmap strike for yet (isItalic, unlisted sizes, ...)
+ * without needing to know which combinations exist. Keep in sync with the
+ * @font-face declarations in index.css.
+ */
+const SUPPORTED_FACES: ReadonlyArray<{ style: string; size: number }> = [
+  { style: 'Regular', size: 12 },
+  { style: 'Bold', size: 12 },
+  { style: 'Regular', size: 24 },
+]
+
+const STYLE_FALLBACKS: Record<string, string[]> = {
+  BoldItalic: ['BoldItalic', 'Bold', 'Italic', 'Regular'],
+  Bold: ['Bold', 'Regular'],
+  Italic: ['Italic', 'Regular'],
+  Regular: ['Regular'],
+}
+
+function sizesForStyle(style: string): number[] {
+  return SUPPORTED_FACES.filter((face) => face.style === style).map((face) => face.size)
+}
+
+/** Degrades an arbitrary requested style/size down to one we actually have a font for. */
+function resolveSupportedFace(style: string, size: number): { style: string; size: number } {
+  const fallbackChain = STYLE_FALLBACKS[style] ?? ['Regular']
+
+  for (const candidateStyle of fallbackChain) {
+    if (sizesForStyle(candidateStyle).includes(size)) {
+      return { style: candidateStyle, size }
+    }
+  }
+
+  for (const candidateStyle of fallbackChain) {
+    const sizes = sizesForStyle(candidateStyle)
+
+    if (sizes.length > 0) {
+      return { style: candidateStyle, size: findClosestNumber(size, sizes) }
+    }
+  }
+
+  return { style: 'Regular', size }
+}
+
 export function typographyStyles(settings: TypographySettings): CSSProperties {
   // Parse shorthand or derive from individual settings
-  const { style, size } = settings.shorthand
+  const { style: requestedStyle, size: requestedSize } = settings.shorthand
     ? parseShorthand(settings.shorthand)
     : {
         style: getStyleString(settings.isBold, settings.isItalic),
         size: findClosestNumber(settings.fontSize ?? 12, SIZES)
       };
+
+  const { style, size } = resolveSupportedFace(requestedStyle, requestedSize)
 
   const outStyle: CSSProperties = {
     fontFamily: `${style}${size}, Arial, sans`,

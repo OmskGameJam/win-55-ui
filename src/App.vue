@@ -14,6 +14,11 @@ import Window from './components/Window.vue'
 import Tooltip from './components/Tooltip.vue'
 import Balloon from './components/Balloon.vue'
 import NamedPanel from './components/NamedPanel.vue'
+import EmojiPickerWindow from './components/EmojiPickerWindow.vue'
+import RichText from './components/RichText.vue'
+import emojiDirective from './directives/emoji'
+
+const vEmoji = emojiDirective
 
 const testingBoxes: BoxType[] = [
   'indent',
@@ -56,10 +61,18 @@ const exampleTextInputState = ref('sample')
 const scrollableTextInputState = ref('aasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdfaasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdfaasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\n')
 const exampleCheckboxState = ref(false)
 const exampleRadioState = ref('sample')
+
+// Simulates text arriving after the initial render (e.g. from an API call),
+// mixing registered emoji (rendered as our GIFs) and unregistered ones
+// (rendered via the canvas fallback) with plain text.
+const delayedEmojiText = ref('')
+setTimeout(() => {
+  delayedEmojiText.value = 'Loaded later: pizza night 🍕🐶 party time 🎉✨ and also 😀🥳🦄 surprise!'
+}, 2000)
 </script>
 
 <template>
-  <Typography font-color="black">
+  <Typography v-emoji font-color="black">
     <h1>Kitchen sink</h1>
     <div>
       <h2>Currently prepared bitmap strikes</h2>
@@ -74,8 +87,38 @@ const exampleRadioState = ref('sample')
         <BaseInput
           v-model="exampleTextInputState"
           :extra-styles="{ width: '512px' }"
+          show-emoji-button
         />
       </Typography>
+    </Box>
+
+    <Box type="border-groove" :extra-styles="containerStyle">
+      <h2>Custom emoji</h2>
+      <div>
+        Static ☀ 🌈 😄 🚀 💾
+      </div>
+      <div>
+        {{ exampleTextInputState }}
+      </div>
+      <div>
+        {{ delayedEmojiText || 'Loading later...' }}
+      </div>
+      <div v-emoji>
+        Nested v-emoji (should not double-render): 🍕🐶
+      </div>
+    </Box>
+
+    <Box type="border-groove" :extra-styles="containerStyle">
+      <h2>RichText (BBCode + :shortcodes:)</h2>
+      <RichText allow-links>
+        Plain text, [b]bold[/b], [i]italic (no strike! tell anton to fix fonts)[/i],
+        [u]underline[/u], [s]strike[/s], [color=#aa0000]red[/color], [size=24]big[/size],
+        [url=https://example.com]a link[/url], and an emoji :smile: :book:
+        Also, real emoji! ☀ 🌈 😄 🚀 💾
+      </RichText>
+      <RichText>
+        Links disabled here: [url=https://example.com]this should render as plain text[/url]
+      </RichText>
     </Box>
 
     <Box type="panel-d-2" :extra-styles="containerStyle">
@@ -340,4 +383,14 @@ const exampleRadioState = ref('sample')
       </div>
     </div>
   </Typography>
+
+  <!-- Independent of the v-emoji above (not a descendant of it): verifies
+       multiple separate v-emoji instances on the same page both work. -->
+  <Typography v-emoji font-color="black">
+    <h2>Second, independent v-emoji instance</h2>
+    <div>🎉✨ party over here too</div>
+  </Typography>
+
+  <!-- Global singleton: mounted once, shared by every BaseInput's emoji button -->
+  <EmojiPickerWindow />
 </template>

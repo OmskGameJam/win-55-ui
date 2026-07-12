@@ -84,23 +84,35 @@
 /* VERTICAL BUTTONS */
 /* ========================= */
 
-/* UP */
-*::-webkit-scrollbar-button:vertical:decrement {
+/* Without explicit :start/:end, WebKit's :decrement/:increment match both
+   ends at once, painting all four button slots instead of just one pair
+   (https://almaer.com/blog/creating-custom-scrollbars-with-css-how-css-isnt-great-for-every-task).
+   Qualify each button explicitly and hide the two unwanted slots. */
+
+/* UP (top) */
+*::-webkit-scrollbar-button:vertical:start:decrement {
+  display: block;
   background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-up.png);
 }
 
-*::-webkit-scrollbar-button:vertical:decrement:active {
+*::-webkit-scrollbar-button:vertical:start:decrement:active {
   background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-up-pressed.png);
 }
 
-
-/* DOWN */
-*::-webkit-scrollbar-button:vertical:increment {
+/* DOWN (bottom) */
+*::-webkit-scrollbar-button:vertical:end:increment {
+  display: block;
   background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-down.png);
 }
 
-*::-webkit-scrollbar-button:vertical:increment:active {
+*::-webkit-scrollbar-button:vertical:end:increment:active {
   background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-down-pressed.png);
+}
+
+/* Unwanted phantom slots (down-at-top, up-at-bottom) */
+*::-webkit-scrollbar-button:vertical:start:increment,
+*::-webkit-scrollbar-button:vertical:end:decrement {
+  display: none;
 }
 
 
@@ -108,21 +120,167 @@
 /* HORIZONTAL BUTTONS */
 /* ========================= */
 
-/* LEFT */
-*::-webkit-scrollbar-button:horizontal:decrement {
+/* LEFT (start) */
+*::-webkit-scrollbar-button:horizontal:start:decrement {
+  display: block;
   background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-left.png);
 }
 
-*::-webkit-scrollbar-button:horizontal:decrement:active {
+*::-webkit-scrollbar-button:horizontal:start:decrement:active {
   background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-left-pressed.png);
 }
 
-
-/* RIGHT */
-*::-webkit-scrollbar-button:horizontal:increment {
+/* RIGHT (end) */
+*::-webkit-scrollbar-button:horizontal:end:increment {
+  display: block;
   background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-right.png);
 }
 
-*::-webkit-scrollbar-button:horizontal:increment:active {
+*::-webkit-scrollbar-button:horizontal:end:increment:active {
   background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-right-pressed.png);
+}
+
+/* Unwanted phantom slots (right-at-start, left-at-end) */
+*::-webkit-scrollbar-button:horizontal:start:increment,
+*::-webkit-scrollbar-button:horizontal:end:decrement {
+  display: none;
+}
+
+
+/* ========================= */
+/* ARROW STYLE HELPER CLASSES */
+/* Apply to the same element that scrolls (the one with overflow: auto/scroll).
+   Mirrors the classic Windows "scroll bar arrow style" options: Normal (the
+   default set above), Top/Bottom-grouped ("adjacent arrows"), and None. */
+/* ========================= */
+
+/* .scrollbar-arrows-none: no arrow buttons at all */
+.scrollbar-arrows-none::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* .scrollbar-arrows-normal: explicit opt-in for the default single-button-per-end
+   layout, useful for re-enabling arrows within a container that set one of the
+   other classes higher up the tree */
+.scrollbar-arrows-normal::-webkit-scrollbar-button:vertical:start:decrement {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-up.png);
+}
+
+.scrollbar-arrows-normal::-webkit-scrollbar-button:vertical:end:increment {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-down.png);
+}
+
+.scrollbar-arrows-normal::-webkit-scrollbar-button:horizontal:start:decrement {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-left.png);
+}
+
+.scrollbar-arrows-normal::-webkit-scrollbar-button:horizontal:end:increment {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-right.png);
+}
+
+.scrollbar-arrows-normal::-webkit-scrollbar-button:vertical:start:increment,
+.scrollbar-arrows-normal::-webkit-scrollbar-button:vertical:end:decrement,
+.scrollbar-arrows-normal::-webkit-scrollbar-button:horizontal:start:increment,
+.scrollbar-arrows-normal::-webkit-scrollbar-button:horizontal:end:decrement {
+  display: none;
+}
+
+/* .scrollbar-arrows-start: both arrows grouped at the start
+   (top for vertical, left for horizontal); none at the end */
+.scrollbar-arrows-start::-webkit-scrollbar-button:vertical:start:decrement {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-up.png);
+}
+
+.scrollbar-arrows-start::-webkit-scrollbar-button:vertical:start:increment {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-down.png);
+}
+
+.scrollbar-arrows-start::-webkit-scrollbar-button:vertical:start:decrement:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-up-pressed.png);
+}
+
+.scrollbar-arrows-start::-webkit-scrollbar-button:vertical:start:increment:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-down-pressed.png);
+}
+
+.scrollbar-arrows-start::-webkit-scrollbar-button:vertical:end:decrement,
+.scrollbar-arrows-start::-webkit-scrollbar-button:vertical:end:increment {
+  display: none;
+}
+
+.scrollbar-arrows-start::-webkit-scrollbar-button:horizontal:start:decrement {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-left.png);
+}
+
+.scrollbar-arrows-start::-webkit-scrollbar-button:horizontal:start:increment {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-right.png);
+}
+
+.scrollbar-arrows-start::-webkit-scrollbar-button:horizontal:start:decrement:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-left-pressed.png);
+}
+
+.scrollbar-arrows-start::-webkit-scrollbar-button:horizontal:start:increment:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-right-pressed.png);
+}
+
+.scrollbar-arrows-start::-webkit-scrollbar-button:horizontal:end:decrement,
+.scrollbar-arrows-start::-webkit-scrollbar-button:horizontal:end:increment {
+  display: none;
+}
+
+/* .scrollbar-arrows-end: both arrows grouped at the end
+   (bottom for vertical, right for horizontal); none at the start */
+.scrollbar-arrows-end::-webkit-scrollbar-button:vertical:end:decrement {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-up.png);
+}
+
+.scrollbar-arrows-end::-webkit-scrollbar-button:vertical:end:increment {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-down.png);
+}
+
+.scrollbar-arrows-end::-webkit-scrollbar-button:vertical:end:decrement:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-up-pressed.png);
+}
+
+.scrollbar-arrows-end::-webkit-scrollbar-button:vertical:end:increment:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-down-pressed.png);
+}
+
+.scrollbar-arrows-end::-webkit-scrollbar-button:vertical:start:decrement,
+.scrollbar-arrows-end::-webkit-scrollbar-button:vertical:start:increment {
+  display: none;
+}
+
+.scrollbar-arrows-end::-webkit-scrollbar-button:horizontal:end:decrement {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-left.png);
+}
+
+.scrollbar-arrows-end::-webkit-scrollbar-button:horizontal:end:increment {
+  display: block;
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-right.png);
+}
+
+.scrollbar-arrows-end::-webkit-scrollbar-button:horizontal:end:decrement:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-left-pressed.png);
+}
+
+.scrollbar-arrows-end::-webkit-scrollbar-button:horizontal:end:increment:active {
+  background-image: url(/win-55-ui/whole-components/scrollbar-buttons/btn-right-pressed.png);
+}
+
+.scrollbar-arrows-end::-webkit-scrollbar-button:horizontal:start:decrement,
+.scrollbar-arrows-end::-webkit-scrollbar-button:horizontal:start:increment {
+  display: none;
 }
