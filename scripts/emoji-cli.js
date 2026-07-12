@@ -229,6 +229,16 @@ function checkRegistry() {
 }
 
 const categoriesPath = join(emojiDir, 'emoji-categories.json')
+const byCategoryPath = join(emojiDir, 'emoji-by-category.json')
+
+/* Fixed display order for the emoji picker's category tabs. */
+const CATEGORY_ORDER = [
+  'Smileys & People',
+  'Animals & Nature',
+  'Food & Drink',
+  'Objects & Places',
+  'Symbols & Flags',
+]
 
 /*
  * emojibase-data's own group numbering (from its meta/groups.json), not to be
@@ -343,7 +353,19 @@ function classifyRegistry() {
   mkdirSync(emojiDir, { recursive: true })
   writeFileSync(categoriesPath, `${JSON.stringify(classified, null, 2)}\n`, 'utf8')
 
+  const byCategory = CATEGORY_ORDER
+    .map((category) => ({
+      category,
+      emojis: classified
+        .filter((entry) => entry.category === category)
+        .map(({ emoji, code, shortcodes }) => ({ emoji, code, shortcodes })),
+    }))
+    .filter((group) => group.emojis.length > 0)
+
+  writeFileSync(byCategoryPath, `${JSON.stringify(byCategory, null, 2)}\n`, 'utf8')
+
   console.log(`Classified ${classified.length} of ${rows.length} emoji into ${categoriesPath}`)
+  console.log(`Grouped ${classified.length} emoji into ${byCategory.length} categories in ${byCategoryPath}`)
 
   for (const [tab, count] of Object.entries(tabCounts)) {
     console.log(`  ${tab}: ${count}`)

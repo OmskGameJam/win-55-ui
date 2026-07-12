@@ -149,19 +149,46 @@ const PERPENDICULAR_SIDES: Record<Side, [Side, Side]> = {
   right: ['top', 'bottom'],
 }
 
-function fitsOnSide(
-  side: Side,
-  anchor: AnchorRect,
+/*
+ * Each side anchors to the matching edge of the rect (e.g. flipping to
+ * "bottom" anchors to the rect's bottom edge, not its top), so the balloon
+ * never overlaps the thing it's pointing at.
+ */
+function computePosition(side: Side, anchor: AnchorRect, rect: DOMRect): { top: number; left: number } {
+  const centerX = (anchor.left + anchor.right) / 2
+  const centerY = (anchor.top + anchor.bottom) / 2
+
+  if (side === 'top' || side === 'bottom') {
+    return {
+      top: side === 'top' ? anchor.top - rect.height : anchor.bottom,
+      left: centerX - rect.width / 2,
+    }
+  }
+
+  return {
+    left: side === 'left' ? anchor.left - rect.width : anchor.right,
+    top: centerY - rect.height / 2,
+  }
+}
+
+/*
+ * Checks the full resulting box against the viewport, not just the axis the
+ * side name suggests — a downward balloon can still poke off the left/right
+ * edge if it's wide, so any AABB overlap with the viewport margin counts as
+ * not fitting.
+ */
+function fitsInViewport(
+  position: { top: number; left: number },
   rect: DOMRect,
   viewportWidth: number,
   viewportHeight: number,
 ): boolean {
-  switch (side) {
-    case 'top': return anchor.top - rect.height >= VIEWPORT_MARGIN
-    case 'bottom': return anchor.bottom + rect.height <= viewportHeight - VIEWPORT_MARGIN
-    case 'left': return anchor.left - rect.width >= VIEWPORT_MARGIN
-    case 'right': return anchor.right + rect.width <= viewportWidth - VIEWPORT_MARGIN
-  }
+  return (
+    position.top >= VIEWPORT_MARGIN &&
+    position.left >= VIEWPORT_MARGIN &&
+    position.top + rect.height <= viewportHeight - VIEWPORT_MARGIN &&
+    position.left + rect.width <= viewportWidth - VIEWPORT_MARGIN
+  )
 }
 
 function calculateAnchoredPosition() {
@@ -176,34 +203,18 @@ function calculateAnchoredPosition() {
   const requestedSide = props.side ?? 'top'
 
   /* Try the requested side, then its opposite, then the two perpendicular
-     sides. First one that fits wins; if none do, give up and use the
-     requested side anyway rather than clamping/repositioning to force a fit. */
+     sides. First one whose full box fits wins; if none do, give up and use
+     the requested side anyway rather than clamping/repositioning to force a fit. */
   const candidates: Side[] = [
     requestedSide,
     OPPOSITE_SIDE[requestedSide],
     ...PERPENDICULAR_SIDES[requestedSide],
   ]
   const resolved = candidates.find((candidate) =>
-    fitsOnSide(candidate, anchor, rect, viewportWidth, viewportHeight)) ?? requestedSide
-
-  const centerX = (anchor.left + anchor.right) / 2
-  const centerY = (anchor.top + anchor.bottom) / 2
-  let top: number
-  let left: number
-
-  /* Each side anchors to the matching edge of the rect (e.g. flipping to
-     "bottom" anchors to the rect's bottom edge, not its top), so the balloon
-     never overlaps the thing it's pointing at. */
-  if (resolved === 'top' || resolved === 'bottom') {
-    top = resolved === 'top' ? anchor.top - rect.height : anchor.bottom
-    left = centerX - rect.width / 2
-  } else {
-    left = resolved === 'left' ? anchor.left - rect.width : anchor.right
-    top = centerY - rect.height / 2
-  }
+    fitsInViewport(computePosition(candidate, anchor, rect), rect, viewportWidth, viewportHeight)) ?? requestedSide
 
   resolvedAnchorSide.value = resolved
-  anchoredPosition.value = { top, left }
+  anchoredPosition.value = computePosition(resolved, anchor, rect)
 }
 
 watch(

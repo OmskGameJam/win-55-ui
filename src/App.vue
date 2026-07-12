@@ -14,6 +14,7 @@ import Window from './components/Window.vue'
 import Tooltip from './components/Tooltip.vue'
 import Balloon from './components/Balloon.vue'
 import NamedPanel from './components/NamedPanel.vue'
+import EmojiPickerWindow from './components/EmojiPickerWindow.vue'
 import emojiDirective from './directives/emoji'
 
 const vEmoji = emojiDirective
@@ -85,6 +86,7 @@ setTimeout(() => {
         <BaseInput
           v-model="exampleTextInputState"
           :extra-styles="{ width: '512px' }"
+          show-emoji-button
         />
       </Typography>
     </Box>
@@ -374,4 +376,7 @@ setTimeout(() => {
     <h2>Second, independent v-emoji instance</h2>
     <div>🎉✨ party over here too</div>
   </Typography>
+
+  <!-- Global singleton: mounted once, shared by every BaseInput's emoji button -->
+  <EmojiPickerWindow />
 </template>

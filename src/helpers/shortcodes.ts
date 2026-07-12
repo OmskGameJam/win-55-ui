@@ -36,8 +36,14 @@ export async function loadShortcodeIndex(): Promise<ShortcodeEntry[]> {
   return indexPromise
 }
 
-/** Prefix-matches a partial shortcode (e.g. "piz") against known shortcode names. */
-export async function searchShortcodes(prefix: string, limit = 8): Promise<ShortcodeMatch[]> {
+/**
+ * Prefix-matches a partial shortcode (e.g. "piz") against known shortcode names.
+ * Shortcode-name hits are ranked first, followed by entries whose tags match
+ * the query (skipping emoji already matched by name). Returns every match —
+ * callers that only want to display a handful (e.g. a virtual-scrolled popup)
+ * should window the result themselves.
+ */
+export async function searchShortcodes(prefix: string): Promise<ShortcodeMatch[]> {
   const query = prefix.trim().toLowerCase()
 
   if (!query) {
@@ -46,6 +52,7 @@ export async function searchShortcodes(prefix: string, limit = 8): Promise<Short
 
   const entries = await loadShortcodeIndex()
   const matches: ShortcodeMatch[] = []
+  const seen = new Set<string>()
 
   for (const entry of entries) {
     const matchedShortcode = entry.shortcodes.find((name) => name.toLowerCase().startsWith(query))
@@ -55,10 +62,22 @@ export async function searchShortcodes(prefix: string, limit = 8): Promise<Short
     }
 
     matches.push({ emoji: entry.emoji, code: entry.code, shortcode: matchedShortcode })
+    seen.add(entry.code)
+  }
 
-    if (matches.length >= limit) {
-      break
+  for (const entry of entries) {
+    if (seen.has(entry.code)) {
+      continue
     }
+
+    const matchedTag = entry.tags.find((tag) => tag.toLowerCase().startsWith(query))
+
+    if (!matchedTag) {
+      continue
+    }
+
+    matches.push({ emoji: entry.emoji, code: entry.code, shortcode: entry.shortcodes[0] ?? matchedTag })
+    seen.add(entry.code)
   }
 
   return matches

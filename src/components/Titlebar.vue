@@ -87,35 +87,36 @@ onUnmounted(() => {
         </Typography>
       </div>
       
-      <!-- Slot for custom buttons -->
-      <slot name="buttons"></slot>
-      
-      <!-- Placeholder buttons when slot is empty and placeholderButtons is true -->
-      <template v-if="placeholderButtons">
-        <Button 
-          extra-class="titlebar-button" 
-          base-type="panel-d-2"
-          disabled
-        >
-          <img draggable="false" src="/win-55-ui/window/o.png" />
-        </Button>
-        <Button 
-          extra-class="titlebar-button" 
-          base-type="panel-d-2"
-          disabled
-        >
-          <img draggable="false" src="/win-55-ui/window/_.png" />
-        </Button>
-        <div style="width: 2px"><!-- Он тут реально! --></div>
-        <Button 
-          extra-class="titlebar-button" 
-          base-type="panel-d-2"
-          disabled
-        >
-          <img draggable="false" src="/win-55-ui/window/x.png" />
-        </Button>
-        <div style="width: 2px"><!-- Он тут реально! --></div>
-      </template>
+      <div class="titlebar-buttons">
+        <!-- Slot for custom buttons -->
+        <slot name="buttons"></slot>
+
+        <!-- Placeholder buttons when slot is empty and placeholderButtons is true -->
+        <template v-if="placeholderButtons">
+          <Button
+            extra-class="titlebar-button"
+            base-type="panel-d-2"
+            disabled
+          >
+            <img draggable="false" src="/win-55-ui/window/o.png" />
+          </Button>
+          <Button
+            extra-class="titlebar-button"
+            base-type="panel-d-2"
+            disabled
+          >
+            <img draggable="false" src="/win-55-ui/window/_.png" />
+          </Button>
+          <div style="width: 2px"><!-- Он тут реально! --></div>
+          <Button
+            extra-class="titlebar-button"
+            base-type="panel-d-2"
+            disabled
+          >
+            <img draggable="false" src="/win-55-ui/window/x.png" />
+          </Button>
+        </template>
+      </div>
     </div>
   </div>
 </template>

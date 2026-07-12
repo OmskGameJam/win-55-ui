@@ -9,6 +9,28 @@ import { getEmojiGifPathFromCode } from '../helpers/emoji'
 import { graphemeLength, sliceGraphemes } from '../helpers/graphemes'
 import { getCaretClientRect } from '../helpers/caretPosition'
 import { searchShortcodes, resolveShortcode, type ShortcodeMatch } from '../helpers/shortcodes'
+import {
+  registerActiveInput,
+  openPicker,
+  pickerOpen,
+  activeTarget,
+  pickNextButtonIcon,
+  type EmojiInsertTarget,
+} from '../helpers/emojiPickerStore'
+
+/* Exact registry matches for a few whimsical picker trigger icons; one is
+   picked at random each time the button becomes visible. */
+const EMOJI_BUTTON_CODES = [
+  '338', // :smile:
+  '814', // :notes:
+  '199', // :barber:
+  '51F', // :jack_o_lantern:
+  'B60', // :sparkles:
+]
+
+/* Shown instead of the cycling icon while the picker is open and targeting
+   this specific input, as a visual "the picker is pointing at you" cue. */
+const BOOK_ICON_CODE = '546' // :book:
 
 const props = withDefaults(defineProps<{
   modelValue: string
@@ -18,6 +40,7 @@ const props = withDefaults(defineProps<{
   boxType?: BoxType
   extraStyles?: CSSProperties
   multiline?: boolean
+  showEmojiButton?: boolean
 }>(), {
   placeholder: '',
   disabled: false,
@@ -25,6 +48,7 @@ const props = withDefaults(defineProps<{
   boxType: 'textarea',
   extraStyles: undefined,
   multiline: false,
+  showEmojiButton: false,
 })
 
 const emit = defineEmits<{
@@ -95,6 +119,10 @@ const handleInput = () => {
 const OPEN_SHORTCODE_PATTERN = /:([A-Za-z0-9_+-]*)$/
 const CLOSED_SHORTCODE_PATTERN = /:([A-Za-z0-9_+-]{2,}):$/
 
+/* Virtual scroll: only SHORTCODE_WINDOW_SIZE rows are ever rendered, however
+   many matches there are, sliding the window as the selection moves past it. */
+const SHORTCODE_WINDOW_SIZE = 5
+
 const shortcodeOpen = ref(false)
 const shortcodeQuery = ref<string | null>(null)
 const shortcodeMatches = ref<ShortcodeMatch[]>([])
@@ -102,11 +130,37 @@ const selectedMatchIndex = ref(0)
 const caretRect = ref<AnchorRect | null>(null)
 let shortcodeRequestId = 0
 
+/* The window only slides when the selection moves past whichever edge it's
+   currently pinned to — the cursor is otherwise free to move within the
+   already-visible rows without provoking a scroll. */
+const shortcodeWindowStart = ref(0)
+
+function scrollShortcodeWindowTo(index: number) {
+  if (index < shortcodeWindowStart.value) {
+    shortcodeWindowStart.value = index
+  } else if (index > shortcodeWindowStart.value + SHORTCODE_WINDOW_SIZE - 1) {
+    shortcodeWindowStart.value = index - SHORTCODE_WINDOW_SIZE + 1
+  }
+}
+
+const shortcodeWindow = computed(() => {
+  const start = shortcodeWindowStart.value
+
+  return shortcodeMatches.value
+    .slice(start, start + SHORTCODE_WINDOW_SIZE)
+    .map((match, offset) => ({ match, index: start + offset }))
+})
+
+const shortcodeHasMoreAbove = computed(() => shortcodeWindowStart.value > 0)
+const shortcodeHasMoreBelow = computed(() =>
+  shortcodeWindowStart.value + SHORTCODE_WINDOW_SIZE < shortcodeMatches.value.length)
+
 const closeShortcodePopup = () => {
   shortcodeOpen.value = false
   shortcodeQuery.value = null
   shortcodeMatches.value = []
   selectedMatchIndex.value = 0
+  shortcodeWindowStart.value = 0
 }
 
 const replaceShortcodeRunWithEmoji = (runLength: number, emojiChar: string) => {
@@ -143,6 +197,81 @@ const confirmSelectedMatch = () => {
 
   replaceShortcodeRunWithEmoji(1 + shortcodeQuery.value.length, match.emoji)
   closeShortcodePopup()
+}
+
+/*
+ * Full emoji picker: BaseInput exposes an `insertEmoji` target the global
+ * picker store calls back into. Opening the picker usually moves focus away
+ * from this input, so the caret position to insert at is captured on blur;
+ * but the picker button itself doesn't steal focus (it's a plain <img>), so
+ * if this input is still focused, its live selection is more accurate than
+ * whatever was last captured on a previous blur.
+ */
+const lastCaretOffset = ref<number | null>(null)
+
+const insertEmoji = (emojiChar: string) => {
+  if (!el.value) return
+
+  const isCurrentlyFocused = document.activeElement === el.value
+  const liveOffset = isCurrentlyFocused ? getSelectionOffset(el.value) : null
+  const offset = liveOffset ?? lastCaretOffset.value ?? graphemeLength(getTextWithCustomEmoji(el.value))
+
+  restoreSelectionOffset(el.value, offset, true)
+
+  const selection = window.getSelection()
+
+  if (!selection || selection.rangeCount === 0 || !selection.isCollapsed) return
+
+  const range = selection.getRangeAt(0)
+
+  beginHistoryEdit()
+  range.deleteContents()
+  const textNode = document.createTextNode(emojiChar)
+  range.insertNode(textNode)
+  setCaret(textNode, textNode.length)
+  closeHistoryBatch()
+  handleInput()
+  void renderCustomEmoji(el.value)
+}
+
+/* Stable object identity so the store's activeTarget can be compared against
+   it (===) to know whether the picker is currently targeting THIS input. */
+const emojiTarget: EmojiInsertTarget = { insertEmoji }
+
+const isFocused = ref(false)
+
+/* Whether the picker is currently open and targeting THIS input specifically
+   (as opposed to just being focused). */
+const isPickerTargetingThis = computed(() => pickerOpen.value && activeTarget.value === emojiTarget)
+
+/* Only show the trigger button while this input is focused, or while the
+   picker is open and still targeting it (so it stays visible if focus moves
+   to the picker window itself). */
+const showEmojiButtonNow = computed(() => props.showEmojiButton && (isFocused.value || isPickerTargetingThis.value))
+
+const emojiButtonCode = ref(EMOJI_BUTTON_CODES[0])
+
+/* While the picker is pointed at this input, show :book: as a "the picker is
+   pointing at you" cue instead of the cycling icon. */
+const displayedEmojiButtonCode = computed(() =>
+  isPickerTargetingThis.value ? BOOK_ICON_CODE : emojiButtonCode.value)
+
+const rerollEmojiButtonIcon = () => {
+  emojiButtonCode.value = pickNextButtonIcon(EMOJI_BUTTON_CODES)
+}
+
+watch(showEmojiButtonNow, (visible) => {
+  if (visible) rerollEmojiButtonIcon()
+})
+
+const handleFocus = () => {
+  isFocused.value = true
+  registerActiveInput(emojiTarget)
+}
+
+const handleEmojiButtonClick = () => {
+  registerActiveInput(emojiTarget)
+  openPicker()
 }
 
 const updateShortcodeTrigger = async () => {
@@ -212,6 +341,7 @@ const updateShortcodeTrigger = async () => {
   shortcodeQuery.value = query
   shortcodeMatches.value = matches
   selectedMatchIndex.value = 0
+  shortcodeWindowStart.value = 0
   caretRect.value = { top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right }
   shortcodeOpen.value = true
 }
@@ -593,6 +723,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
       selectedMatchIndex.value = (selectedMatchIndex.value + 1) % shortcodeMatches.value.length
+      scrollShortcodeWindowTo(selectedMatchIndex.value)
       return
     }
 
@@ -600,6 +731,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
       e.preventDefault()
       selectedMatchIndex.value =
         (selectedMatchIndex.value - 1 + shortcodeMatches.value.length) % shortcodeMatches.value.length
+      scrollShortcodeWindowTo(selectedMatchIndex.value)
       return
     }
 
@@ -714,6 +846,11 @@ const handleBlur = () => {
   /* Don't leave an open batch stranded if focus leaves before the debounce fires */
   closeHistoryBatch()
   closeShortcodePopup()
+  isFocused.value = false
+
+  if (el.value) {
+    lastCaretOffset.value = getSelectionOffset(el.value)
+  }
 
   if (el.value && getTextWithCustomEmoji(el.value) === '') {
     el.value.innerHTML = ''
@@ -724,13 +861,45 @@ const combinedStyles = computed<CSSProperties>(() => ({
   ...props.extraStyles,
   ...typographyStyles({ fontColor: 'black' }),
   overflow: 'auto',
+  ...(props.showEmojiButton ? { paddingRight: '34px' } : {}),
 }))
 
 defineExpose({ el })
 </script>
 
 <template>
+  <div v-if="showEmojiButton" class="baseinput-emoji-wrapper">
+    <Box
+      ref="boxRef"
+      :type="boxType"
+      :contenteditable="!disabled"
+      :extra-styles="combinedStyles"
+      :data-placeholder="placeholder"
+      role="textbox"
+      :aria-multiline="multiline"
+      :aria-disabled="disabled"
+      @input="handleInput"
+      @keydown="handleKeyDown"
+      @beforeinput="handleBeforeInput"
+      @paste="handlePaste"
+      @focus="handleFocus"
+      @blur="handleBlur"
+    />
+
+    <img
+      v-if="showEmojiButtonNow"
+      :src="getEmojiGifPathFromCode(displayedEmojiButtonCode)"
+      width="30"
+      height="30"
+      class="baseinput-emoji-button"
+      data-emoji-picker-trigger
+      @mousedown.prevent
+      @click.stop="handleEmojiButtonClick"
+    />
+  </div>
+
   <Box
+    v-else
     ref="boxRef"
     :type="boxType"
     :contenteditable="!disabled"
@@ -743,26 +912,29 @@ defineExpose({ el })
     @keydown="handleKeyDown"
     @beforeinput="handleBeforeInput"
     @paste="handlePaste"
+    @focus="handleFocus"
     @blur="handleBlur"
   />
 
   <Balloon v-if="shortcodeOpen && caretRect" :shown="true" :anchor="caretRect" side="top">
     <template #content>
       <div class="shortcode-suggestions">
+        <div v-if="shortcodeHasMoreAbove" class="shortcode-suggestion-ellipsis">...</div>
         <div
-          v-for="(match, index) in shortcodeMatches"
+          v-for="{ match, index } in shortcodeWindow"
           :key="match.shortcode"
           class="shortcode-suggestion"
           :class="{ 'shortcode-suggestion--selected': index === selectedMatchIndex }"
         >
           <img
             :src="getEmojiGifPathFromCode(match.code)"
-            width="15"
-            height="15"
+            width="30"
+            height="30"
             class="shortcode-suggestion-image"
           />
           <span>:{{ match.shortcode }}:</span>
         </div>
+        <div v-if="shortcodeHasMoreBelow" class="shortcode-suggestion-ellipsis">...</div>
       </div>
     </template>
   </Balloon>

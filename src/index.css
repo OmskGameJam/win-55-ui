@@ -116,6 +116,11 @@ body {
   margin-left: 2px;
 }
 
+.titlebar-buttons {
+  display: flex;
+  padding-right: 2px;
+}
+
 .balloon-wrapper {
   position: relative;
   display: inline-flex;
@@ -155,6 +160,98 @@ body {
 .shortcode-suggestion-image {
   image-rendering: pixelated;
   flex-shrink: 0;
+}
+
+.shortcode-suggestion-ellipsis {
+  padding: 0 4px;
+  text-align: center;
+}
+
+.baseinput-emoji-wrapper {
+  position: relative;
+  display: block;
+  /* Scope the button's z-index to this wrapper only, so it doesn't compete
+     in the page's global stacking order against unrelated elements (like
+     other Windows) that happen to have no z-index of their own. */
+  isolation: isolate;
+}
+
+.baseinput-emoji-button {
+  position: absolute;
+  right: 4px;
+  /* Fixed, grid-safe inset instead of computed centering (top: 50% +
+     translateY(-50%) combines two independent percentage bases and
+     generally lands on a fractional pixel, breaking the kit's 2px grid). */
+  top: 4px;
+  cursor: pointer;
+  z-index: 1;
+  image-rendering: pixelated;
+}
+
+.emoji-picker-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  user-select: none;
+}
+
+.emoji-picker-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  gap: 10px;
+  padding: 4px;
+}
+
+.emoji-picker-tab {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0000ee;
+  white-space: nowrap;
+}
+
+.emoji-picker-tab--selected {
+  color: #000080;
+}
+
+/* Emoji GIFs used as a Window icon still need the kit's 2x display convention
+   (15px asset -> 30px shown), same as everywhere else emoji are rendered. */
+.emoji-picker-window .titlebar-image img {
+  width: 30px;
+  height: 30px;
+}
+
+.emoji-picker-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 4px;
+  padding: 4px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* Fixed-size slot so the grid stays uniform even though source assets aren't
+   all the same native size; the image inside is centered, not stretched. */
+.emoji-picker-grid-cell {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emoji-picker-grid-item {
+  cursor: pointer;
+  image-rendering: pixelated;
+  /* Scale each emoji to exactly 2x its own natural size (the kit's display
+     convention) rather than stretching it to fill the cell. transform (not
+     zoom) keeps this correct across browsers; the cell's flex-centering
+     keeps it visually centered since scale is anchored at the image's own
+     center by default. */
+  transform: scale(2);
 }
 
 .balloon-inner {
