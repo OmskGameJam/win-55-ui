@@ -128,6 +128,35 @@ body {
   z-index: 1000;
 }
 
+.balloon-anchored {
+  position: fixed;
+  z-index: 1100;
+}
+
+.shortcode-suggestions {
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+}
+
+.shortcode-suggestion {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px;
+  white-space: nowrap;
+}
+
+.shortcode-suggestion--selected {
+  background-color: #000080;
+  color: #ffffff;
+}
+
+.shortcode-suggestion-image {
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
 .balloon-inner {
   display: flex;
   align-items: center;

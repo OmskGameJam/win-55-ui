@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { ref, watch, type CSSProperties, computed, onMounted } from 'vue'
 import Box, { type BoxType } from './Box.vue'
+import Balloon, { type AnchorRect } from './Balloon.vue'
 import { typographyStyles } from '../helpers/typography'
-import { getTextWithCustomEmoji } from '../helpers/emojiDom'
+import { getTextWithCustomEmoji, getSelectionOffset, restoreSelectionOffset } from '../helpers/emojiDom'
+import { renderCustomEmoji } from '../directives/emoji'
+import { getEmojiGifPathFromCode } from '../helpers/emoji'
+import { graphemeLength, sliceGraphemes } from '../helpers/graphemes'
+import { getCaretClientRect } from '../helpers/caretPosition'
+import { searchShortcodes, resolveShortcode, type ShortcodeMatch } from '../helpers/shortcodes'
 
 const props = withDefaults(defineProps<{
   modelValue: string
@@ -40,7 +46,14 @@ watch(() => props.modelValue, (newVal) => {
   if (!el.value) return
 
   if (getTextWithCustomEmoji(el.value) !== newVal) {
+    const isFocused = document.activeElement === el.value
+    const offset = isFocused ? getSelectionOffset(el.value) : null
+
     el.value.innerText = newVal ?? ''
+
+    if (isFocused) {
+      restoreSelectionOffset(el.value, offset)
+    }
   }
 })
 
@@ -53,9 +66,9 @@ const handleInput = () => {
     newValue = newValue.replace(/\n/g, '')
   }
 
-  /* Apply maxLength if specified */
-  if (props.maxLength && newValue.length > props.maxLength) {
-    newValue = newValue.slice(0, props.maxLength)
+  /* Apply maxLength if specified, counting graphemes so multi-codepoint emoji count as one */
+  if (props.maxLength && graphemeLength(newValue) > props.maxLength) {
+    newValue = sliceGraphemes(newValue, props.maxLength)
     el.value.innerText = newValue
 
     /* Move cursor to end */
@@ -67,7 +80,230 @@ const handleInput = () => {
     sel?.addRange(range)
   }
 
+  scheduleHistoryBatchClose()
   emit('update:modelValue', newValue)
+  void updateShortcodeTrigger()
+}
+
+/*
+ * Discord-style `:shortcode:` autocomplete. Never silently auto-converts a
+ * fully-typed `:name:` — a closing `:` only resolves if the popup was
+ * already open showing that exact query the instant before, so the user
+ * always saw it coming. Otherwise, confirmation only happens through an
+ * explicit Tab/Space/Enter while the popup is open.
+ */
+const OPEN_SHORTCODE_PATTERN = /:([A-Za-z0-9_+-]*)$/
+const CLOSED_SHORTCODE_PATTERN = /:([A-Za-z0-9_+-]{2,}):$/
+
+const shortcodeOpen = ref(false)
+const shortcodeQuery = ref<string | null>(null)
+const shortcodeMatches = ref<ShortcodeMatch[]>([])
+const selectedMatchIndex = ref(0)
+const caretRect = ref<AnchorRect | null>(null)
+let shortcodeRequestId = 0
+
+const closeShortcodePopup = () => {
+  shortcodeOpen.value = false
+  shortcodeQuery.value = null
+  shortcodeMatches.value = []
+  selectedMatchIndex.value = 0
+}
+
+const replaceShortcodeRunWithEmoji = (runLength: number, emojiChar: string) => {
+  if (!el.value) return
+
+  const selection = window.getSelection()
+
+  if (!selection || selection.rangeCount === 0 || !selection.isCollapsed) return
+
+  const range = selection.getRangeAt(0)
+  const textNode = range.startContainer
+
+  if (!(textNode instanceof Text) || !el.value.contains(textNode)) return
+
+  const caretOffset = range.startOffset
+  const runStart = caretOffset - runLength
+
+  if (runStart < 0) return
+
+  const value = textNode.nodeValue ?? ''
+
+  beginHistoryEdit()
+  textNode.nodeValue = value.slice(0, runStart) + emojiChar + value.slice(caretOffset)
+  setCaret(textNode, runStart + emojiChar.length)
+  closeHistoryBatch()
+  handleInput()
+  void renderCustomEmoji(el.value)
+}
+
+const confirmSelectedMatch = () => {
+  const match = shortcodeMatches.value[selectedMatchIndex.value]
+
+  if (!match || shortcodeQuery.value === null) return
+
+  replaceShortcodeRunWithEmoji(1 + shortcodeQuery.value.length, match.emoji)
+  closeShortcodePopup()
+}
+
+const updateShortcodeTrigger = async () => {
+  if (!el.value) {
+    closeShortcodePopup()
+    return
+  }
+
+  const selection = window.getSelection()
+
+  if (!selection || selection.rangeCount === 0 || !selection.isCollapsed) {
+    closeShortcodePopup()
+    return
+  }
+
+  const range = selection.getRangeAt(0)
+  const textNode = range.startContainer
+
+  if (!(textNode instanceof Text) || !el.value.contains(textNode)) {
+    closeShortcodePopup()
+    return
+  }
+
+  const before = (textNode.nodeValue ?? '').slice(0, range.startOffset)
+  const previousQuery = shortcodeOpen.value ? shortcodeQuery.value : null
+  const closedMatch = CLOSED_SHORTCODE_PATTERN.exec(before)
+
+  if (closedMatch) {
+    if (previousQuery === closedMatch[1]) {
+      const resolved = await resolveShortcode(closedMatch[1])
+
+      if (resolved) {
+        replaceShortcodeRunWithEmoji(closedMatch[0].length, resolved.emoji)
+      }
+    }
+
+    closeShortcodePopup()
+    return
+  }
+
+  const openMatch = OPEN_SHORTCODE_PATTERN.exec(before)
+  const query = openMatch?.[1] ?? null
+
+  if (query === null || query.length < 2) {
+    closeShortcodePopup()
+    return
+  }
+
+  const rect = getCaretClientRect(el.value)
+
+  if (!rect) {
+    closeShortcodePopup()
+    return
+  }
+
+  const requestId = ++shortcodeRequestId
+  const matches = await searchShortcodes(query)
+
+  if (requestId !== shortcodeRequestId || matches.length === 0) {
+    if (requestId === shortcodeRequestId) {
+      closeShortcodePopup()
+    }
+
+    return
+  }
+
+  shortcodeQuery.value = query
+  shortcodeMatches.value = matches
+  selectedMatchIndex.value = 0
+  caretRect.value = { top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right }
+  shortcodeOpen.value = true
+}
+
+/*
+ * BaseInput implements its own undo/redo stack instead of relying on the
+ * browser's native contentEditable history: native undo/redo mutates the
+ * emoji-span DOM in an unspecified way (it isn't aware of `data-win55-emoji`
+ * atoms), so we intercept `historyUndo`/`historyRedo` and replay full
+ * innerHTML + caret snapshots instead.
+ */
+const HISTORY_COALESCE_MS = 200
+
+interface HistorySnapshot {
+  html: string
+  caret: number | null
+}
+
+const undoStack: HistorySnapshot[] = []
+const redoStack: HistorySnapshot[] = []
+let openBatchSnapshot: HistorySnapshot | null = null
+let coalesceTimer: ReturnType<typeof setTimeout> | null = null
+
+const captureHistorySnapshot = (): HistorySnapshot | null => {
+  if (!el.value) return null
+
+  return { html: el.value.innerHTML, caret: getSelectionOffset(el.value) }
+}
+
+const restoreHistorySnapshot = (snapshot: HistorySnapshot) => {
+  if (!el.value) return
+
+  el.value.innerHTML = snapshot.html
+  restoreSelectionOffset(el.value, snapshot.caret, true)
+  handleInput()
+}
+
+const beginHistoryEdit = () => {
+  if (!openBatchSnapshot) {
+    openBatchSnapshot = captureHistorySnapshot()
+  }
+
+  redoStack.length = 0
+}
+
+const closeHistoryBatch = () => {
+  if (coalesceTimer !== null) {
+    clearTimeout(coalesceTimer)
+    coalesceTimer = null
+  }
+
+  if (openBatchSnapshot) {
+    undoStack.push(openBatchSnapshot)
+    openBatchSnapshot = null
+  }
+}
+
+const scheduleHistoryBatchClose = () => {
+  if (coalesceTimer !== null) {
+    clearTimeout(coalesceTimer)
+  }
+
+  coalesceTimer = setTimeout(closeHistoryBatch, HISTORY_COALESCE_MS)
+}
+
+const undoHistory = () => {
+  closeHistoryBatch()
+  const previous = undoStack.pop()
+
+  if (!previous) return
+
+  const current = captureHistorySnapshot()
+
+  if (current) {
+    redoStack.push(current)
+  }
+
+  restoreHistorySnapshot(previous)
+}
+
+const redoHistory = () => {
+  const next = redoStack.pop()
+
+  if (!next) return
+
+  const current = captureHistorySnapshot()
+
+  if (current) {
+    undoStack.push(current)
+  }
+
+  restoreHistorySnapshot(next)
 }
 
 const setCaret = (container: Node, offset: number) => {
@@ -353,6 +589,33 @@ const deleteAdjacentEmoji = (
 }
 
 const handleKeyDown = (e: KeyboardEvent) => {
+  if (shortcodeOpen.value) {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      selectedMatchIndex.value = (selectedMatchIndex.value + 1) % shortcodeMatches.value.length
+      return
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      selectedMatchIndex.value =
+        (selectedMatchIndex.value - 1 + shortcodeMatches.value.length) % shortcodeMatches.value.length
+      return
+    }
+
+    if (e.key === 'Tab' || e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault()
+      confirmSelectedMatch()
+      return
+    }
+
+    if (e.key === 'Escape') {
+      e.preventDefault()
+      closeShortcodePopup()
+      return
+    }
+  }
+
   if (!props.multiline && e.key === 'Enter') {
     e.preventDefault()
   }
@@ -364,6 +627,20 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 const handleBeforeInput = (e: InputEvent) => {
   if (!el.value) return
+
+  if (e.inputType === 'historyUndo' || e.inputType === 'historyRedo') {
+    e.preventDefault()
+
+    if (e.inputType === 'historyUndo') {
+      undoHistory()
+    } else {
+      redoHistory()
+    }
+
+    return
+  }
+
+  beginHistoryEdit()
 
   if (e.inputType !== 'deleteContentBackward' && e.inputType !== 'deleteContentForward') {
     return
@@ -411,6 +688,8 @@ const handlePaste = (e: ClipboardEvent) => {
 
   if (!el.value) return
 
+  beginHistoryEdit()
+
   const selection = window.getSelection()
   const range = selection?.getRangeAt(0)
 
@@ -426,9 +705,16 @@ const handlePaste = (e: ClipboardEvent) => {
   }
 
   handleInput()
+  /* A paste is always its own undo step, regardless of adjacent typing */
+  closeHistoryBatch()
+  void renderCustomEmoji(el.value)
 }
 
 const handleBlur = () => {
+  /* Don't leave an open batch stranded if focus leaves before the debounce fires */
+  closeHistoryBatch()
+  closeShortcodePopup()
+
   if (el.value && getTextWithCustomEmoji(el.value) === '') {
     el.value.innerHTML = ''
   }
@@ -459,4 +745,25 @@ defineExpose({ el })
     @paste="handlePaste"
     @blur="handleBlur"
   />
+
+  <Balloon v-if="shortcodeOpen && caretRect" :shown="true" :anchor="caretRect" side="top">
+    <template #content>
+      <div class="shortcode-suggestions">
+        <div
+          v-for="(match, index) in shortcodeMatches"
+          :key="match.shortcode"
+          class="shortcode-suggestion"
+          :class="{ 'shortcode-suggestion--selected': index === selectedMatchIndex }"
+        >
+          <img
+            :src="getEmojiGifPathFromCode(match.code)"
+            width="15"
+            height="15"
+            class="shortcode-suggestion-image"
+          />
+          <span>:{{ match.shortcode }}:</span>
+        </div>
+      </div>
+    </template>
+  </Balloon>
 </template>

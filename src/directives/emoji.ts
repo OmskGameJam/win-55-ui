@@ -130,6 +130,31 @@ function shouldSkipElement(element: Element): boolean {
   )
 }
 
+/**
+ * True if some ancestor of `el` also has an enabled `v-emoji` binding, meaning
+ * that ancestor's own (subtree-scoped) MutationObserver already covers `el`.
+ *
+ * Checked lazily at render/copy time rather than in `mounted`, since Vue
+ * mounts child elements before their parents: an ancestor's directive state
+ * may not exist yet when a descendant's `mounted` hook runs, but always does
+ * by the time anything actually renders or a copy event fires.
+ */
+function hasEmojiAncestor(el: HTMLElement): boolean {
+  let ancestor = el.parentElement
+
+  while (ancestor) {
+    const ancestorState = elementState.get(ancestor)
+
+    if (ancestorState && getDirectiveOptions(ancestorState.binding)) {
+      return true
+    }
+
+    ancestor = ancestor.parentElement
+  }
+
+  return false
+}
+
 function collectTextNodes(root: HTMLElement): Text[] {
   const textNodes: Text[] = []
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
@@ -245,6 +270,13 @@ function getFallbackEmojiImageSrc(emoji: string): string {
     return cachedImageSrc
   }
 
+  const imageSrc = rasterizeFallbackEmoji(emoji)
+  fallbackEmojiImageCache.set(emoji, imageSrc)
+
+  return imageSrc
+}
+
+function rasterizeFallbackEmoji(emoji: string): string {
   const canvas = document.createElement('canvas')
   canvas.width = BASE_EMOJI_SIZE
   canvas.height = BASE_EMOJI_SIZE
@@ -279,10 +311,7 @@ function getFallbackEmojiImageSrc(emoji: string): string {
     drawInsetBlackOutline(canvas)
   }
 
-  const imageSrc = canvas.toDataURL('image/png')
-  fallbackEmojiImageCache.set(emoji, imageSrc)
-
-  return imageSrc
+  return canvas.toDataURL('image/png')
 }
 
 function createEmojiElement(
@@ -438,6 +467,45 @@ function replaceEmojiInTextNode(
   }
 }
 
+function replaceEmojiInElement(
+  el: HTMLElement,
+  registry: EmojiRegistry,
+  options: EmojiDirectiveOptions,
+): void {
+  const regex = getEmojiRegex(registry)
+
+  if (!regex) {
+    return
+  }
+
+  for (const textNode of collectTextNodes(el)) {
+    replaceEmojiInTextNode(textNode, regex, registry, options)
+  }
+}
+
+const standaloneRenderVersion = new WeakMap<HTMLElement, number>()
+
+/**
+ * Renders custom emoji inside `el` once, without requiring the `v-emoji`
+ * directive to be bound to it. Useful for components that need to trigger
+ * emoji conversion imperatively (e.g. right after a paste).
+ */
+export async function renderCustomEmoji(
+  el: HTMLElement,
+  options: EmojiDirectiveOptions = {},
+): Promise<void> {
+  const version = (standaloneRenderVersion.get(el) ?? 0) + 1
+  standaloneRenderVersion.set(el, version)
+
+  const registry = await loadEmojiRegistry(options)
+
+  if (standaloneRenderVersion.get(el) !== version || !el.isConnected) {
+    return
+  }
+
+  replaceEmojiInElement(el, registry, options)
+}
+
 async function renderEmoji(
   el: HTMLElement,
   state: EmojiDirectiveState,
@@ -456,15 +524,11 @@ async function renderEmoji(
     return
   }
 
-  const regex = getEmojiRegex(registry)
-
-  if (!regex) {
+  if (hasEmojiAncestor(el)) {
     return
   }
 
-  for (const textNode of collectTextNodes(el)) {
-    replaceEmojiInTextNode(textNode, regex, registry, options)
-  }
+  replaceEmojiInElement(el, registry, options)
 }
 
 function scheduleRender(
@@ -490,6 +554,10 @@ function handleCopy(el: HTMLElement, event: ClipboardEvent): void {
   const selection = window.getSelection()
 
   if (!selection || selection.rangeCount === 0 || !event.clipboardData) {
+    return
+  }
+
+  if (hasEmojiAncestor(el)) {
     return
   }
 

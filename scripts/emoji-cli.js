@@ -18,6 +18,7 @@ function usage(exitCode = 0) {
     '  npm run emoji -- add <emoji> <code|gif-path> [gif-path]',
     '  npm run emoji -- replace <emoji> <code|gif-path> [gif-path]',
     '  npm run emoji -- remove <emoji>',
+    '  npm run emoji -- classify',
     '',
     'Examples:',
     '  npm run emoji -- add 😀 123',
@@ -227,6 +228,138 @@ function checkRegistry() {
   console.log(`Registry OK (${rows.length} emoji)`)
 }
 
+const categoriesPath = join(emojiDir, 'emoji-categories.json')
+
+/*
+ * emojibase-data's own group numbering (from its meta/groups.json), not to be
+ * confused with an arbitrary 0-based index: 2 = "component" (skin-tone/hair
+ * modifiers, not real standalone emoji) and 9 = "flags".
+ */
+const GROUP_TO_TAB = {
+  0: 'Smileys & People', // smileys-emotion
+  1: 'Smileys & People', // people-body
+  3: 'Animals & Nature',
+  4: 'Food & Drink',
+  5: 'Objects & Places', // travel-places
+  6: 'Objects & Places', // activities
+  7: 'Objects & Places', // objects
+  8: 'Symbols & Flags', // symbols
+  9: 'Symbols & Flags', // flags
+}
+
+/* Our registry stores bare codepoints (e.g. "2708"), while emojibase-data
+   canonicalizes text-default symbols with an explicit VS16 (e.g. "2708 FE0F").
+   Strip variation selectors on both sides before matching. */
+const VARIATION_SELECTOR_CODEPOINTS = new Set([0xfe0e, 0xfe0f])
+
+function stripVariationSelectors(value) {
+  return Array.from(value)
+    .filter((char) => !VARIATION_SELECTOR_CODEPOINTS.has(char.codePointAt(0)))
+    .join('')
+}
+
+/* Discord-style aliases: github's preset matches Discord's own shortcode
+   naming almost exactly (:thumbsup:, :grinning:, :pizza:); iamcal/joypixels
+   contribute a few extra aliases people commonly type. */
+const SHORTCODE_PRESETS = ['github', 'iamcal', 'joypixels']
+
+function toArray(value) {
+  if (Array.isArray(value)) return value
+  return value ? [value] : []
+}
+
+function loadShortcodeMap() {
+  const merged = new Map()
+
+  for (const preset of SHORTCODE_PRESETS) {
+    const presetPath = join(
+      projectRoot, 'node_modules', 'emojibase-data', 'en', 'shortcodes', `${preset}.json`,
+    )
+
+    if (!existsSync(presetPath)) {
+      continue
+    }
+
+    const presetData = JSON.parse(readFileSync(presetPath, 'utf8'))
+
+    for (const [hexcode, names] of Object.entries(presetData)) {
+      const existing = merged.get(hexcode) ?? []
+      merged.set(hexcode, [...new Set([...existing, ...toArray(names)])])
+    }
+  }
+
+  return merged
+}
+
+function buildEmojibaseIndex() {
+  const dataPath = join(projectRoot, 'node_modules', 'emojibase-data', 'en', 'data.json')
+
+  if (!existsSync(dataPath)) {
+    fail('emojibase-data is not installed. Run: npm install --save-dev emojibase-data')
+  }
+
+  const entries = JSON.parse(readFileSync(dataPath, 'utf8'))
+  const shortcodeMap = loadShortcodeMap()
+  const index = new Map()
+
+  /* Skin-tone variants are intentionally not indexed: our GIFs are
+     skin-color-neutral and don't have per-tone assets. */
+  for (const entry of entries) {
+    index.set(stripVariationSelectors(entry.emoji), {
+      group: entry.group,
+      tags: entry.tags ?? [],
+      shortcodes: shortcodeMap.get(entry.hexcode) ?? [],
+    })
+  }
+
+  return index
+}
+
+function classifyRegistry() {
+  const rows = parseRegistry()
+  const emojibaseIndex = buildEmojibaseIndex()
+  const classified = []
+  const unmatched = []
+  const noShortcode = []
+  const tabCounts = {}
+
+  for (const { emoji, code } of rows) {
+    const entry = emojibaseIndex.get(stripVariationSelectors(emoji))
+    const tab = entry ? GROUP_TO_TAB[entry.group] : undefined
+
+    if (!tab) {
+      unmatched.push(emoji)
+      continue
+    }
+
+    if (entry.shortcodes.length === 0) {
+      noShortcode.push(emoji)
+    }
+
+    classified.push({ emoji, code, category: tab, tags: entry.tags, shortcodes: entry.shortcodes })
+    tabCounts[tab] = (tabCounts[tab] ?? 0) + 1
+  }
+
+  mkdirSync(emojiDir, { recursive: true })
+  writeFileSync(categoriesPath, `${JSON.stringify(classified, null, 2)}\n`, 'utf8')
+
+  console.log(`Classified ${classified.length} of ${rows.length} emoji into ${categoriesPath}`)
+
+  for (const [tab, count] of Object.entries(tabCounts)) {
+    console.log(`  ${tab}: ${count}`)
+  }
+
+  if (unmatched.length > 0) {
+    console.warn(`\n${unmatched.length} emoji had no emojibase match (not categorized):`)
+    console.warn(unmatched.join(' '))
+  }
+
+  if (noShortcode.length > 0) {
+    console.warn(`\n${noShortcode.length} categorized emoji had no :shortcode: name:`)
+    console.warn(noShortcode.join(' '))
+  }
+}
+
 const [command, emoji, codeOrPath, sourcePath] = process.argv.slice(2)
 
 switch (command) {
@@ -256,6 +389,10 @@ switch (command) {
 
   case 'check':
     checkRegistry()
+    break
+
+  case 'classify':
+    classifyRegistry()
     break
 
   case '-h':

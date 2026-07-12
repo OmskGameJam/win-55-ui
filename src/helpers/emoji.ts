@@ -40,7 +40,8 @@ function parseEmojiRegistry(csv: string): EmojiRegistry {
     const separatorIndex = line.indexOf(',')
 
     if (separatorIndex === -1) {
-      throw new Error(`Could not parse emoji registry row ${index + 1}: missing comma`)
+      console.warn(`[win-55-ui] Skipping emoji registry row ${index + 1}: missing comma`)
+      continue
     }
 
     const emoji = line.slice(0, separatorIndex).trim()
@@ -148,3 +149,7 @@ export async function hasEmoji(
   const loadedRegistry = await loadEmojiRegistry(options)
   return emoji in loadedRegistry
 }
+
+/* Kick off the default registry fetch as soon as this module is imported,
+   rather than waiting for the first v-emoji-bound element to mount. */
+void loadEmojiRegistry()

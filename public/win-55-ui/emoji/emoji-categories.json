@@ -1,0 +1,11591 @@
+[
+  {
+    "emoji": "☀",
+    "code": "000",
+    "category": "Objects & Places",
+    "tags": [
+      "bright",
+      "rays",
+      "space",
+      "sunny",
+      "weather"
+    ],
+    "shortcodes": [
+      "sunny",
+      "sun"
+    ]
+  },
+  {
+    "emoji": "☁",
+    "code": "001",
+    "category": "Objects & Places",
+    "tags": [
+      "weather"
+    ],
+    "shortcodes": [
+      "cloud"
+    ]
+  },
+  {
+    "emoji": "☔",
+    "code": "002",
+    "category": "Objects & Places",
+    "tags": [
+      "clothing",
+      "drop",
+      "drops",
+      "rain",
+      "umbrella",
+      "weather"
+    ],
+    "shortcodes": [
+      "umbrella",
+      "umbrella_with_rain_drops"
+    ]
+  },
+  {
+    "emoji": "⛄",
+    "code": "003",
+    "category": "Objects & Places",
+    "tags": [
+      "cold",
+      "man",
+      "snow",
+      "snowman"
+    ],
+    "shortcodes": [
+      "snowman",
+      "snowman_without_snow"
+    ]
+  },
+  {
+    "emoji": "⚡",
+    "code": "004",
+    "category": "Objects & Places",
+    "tags": [
+      "danger",
+      "electric",
+      "electricity",
+      "high",
+      "lightning",
+      "nature",
+      "thunder",
+      "thunderbolt",
+      "voltage",
+      "zap"
+    ],
+    "shortcodes": [
+      "zap",
+      "high_voltage"
+    ]
+  },
+  {
+    "emoji": "🌀",
+    "code": "005",
+    "category": "Objects & Places",
+    "tags": [
+      "dizzy",
+      "hurricane",
+      "twister",
+      "typhoon",
+      "weather"
+    ],
+    "shortcodes": [
+      "cyclone"
+    ]
+  },
+  {
+    "emoji": "🌁",
+    "code": "006",
+    "category": "Objects & Places",
+    "tags": [
+      "fog"
+    ],
+    "shortcodes": [
+      "foggy"
+    ]
+  },
+  {
+    "emoji": "🌂",
+    "code": "007",
+    "category": "Objects & Places",
+    "tags": [
+      "closed",
+      "clothing",
+      "rain",
+      "umbrella"
+    ],
+    "shortcodes": [
+      "closed_umbrella"
+    ]
+  },
+  {
+    "emoji": "🌃",
+    "code": "008",
+    "category": "Objects & Places",
+    "tags": [
+      "night",
+      "star",
+      "stars"
+    ],
+    "shortcodes": [
+      "night_with_stars"
+    ]
+  },
+  {
+    "emoji": "🌄",
+    "code": "009",
+    "category": "Objects & Places",
+    "tags": [
+      "morning",
+      "mountains",
+      "over",
+      "sun",
+      "sunrise"
+    ],
+    "shortcodes": [
+      "sunrise_over_mountains"
+    ]
+  },
+  {
+    "emoji": "🌅",
+    "code": "00A",
+    "category": "Objects & Places",
+    "tags": [
+      "morning",
+      "nature",
+      "sun"
+    ],
+    "shortcodes": [
+      "sunrise"
+    ]
+  },
+  {
+    "emoji": "🌆",
+    "code": "00B",
+    "category": "Objects & Places",
+    "tags": [
+      "at",
+      "building",
+      "city",
+      "cityscape",
+      "dusk",
+      "evening",
+      "landscape",
+      "sun",
+      "sunset"
+    ],
+    "shortcodes": [
+      "city_sunset",
+      "city_dusk"
+    ]
+  },
+  {
+    "emoji": "🌇",
+    "code": "00C",
+    "category": "Objects & Places",
+    "tags": [
+      "building",
+      "dusk",
+      "sun"
+    ],
+    "shortcodes": [
+      "city_sunrise",
+      "city_sunset",
+      "sunset"
+    ]
+  },
+  {
+    "emoji": "🌈",
+    "code": "00D",
+    "category": "Objects & Places",
+    "tags": [
+      "gay",
+      "genderqueer",
+      "glbt",
+      "glbtq",
+      "lesbian",
+      "lgbt",
+      "lgbtq",
+      "lgbtqia",
+      "nature",
+      "pride",
+      "queer",
+      "rain",
+      "trans",
+      "transgender",
+      "weather"
+    ],
+    "shortcodes": [
+      "rainbow"
+    ]
+  },
+  {
+    "emoji": "❄",
+    "code": "00E",
+    "category": "Objects & Places",
+    "tags": [
+      "cold",
+      "snow",
+      "weather"
+    ],
+    "shortcodes": [
+      "snowflake"
+    ]
+  },
+  {
+    "emoji": "⛅",
+    "code": "00F",
+    "category": "Objects & Places",
+    "tags": [
+      "behind",
+      "cloud",
+      "cloudy",
+      "sun",
+      "weather"
+    ],
+    "shortcodes": [
+      "partly_sunny"
+    ]
+  },
+  {
+    "emoji": "🌉",
+    "code": "010",
+    "category": "Objects & Places",
+    "tags": [
+      "at",
+      "bridge",
+      "night"
+    ],
+    "shortcodes": [
+      "bridge_at_night"
+    ]
+  },
+  {
+    "emoji": "🌑",
+    "code": "011",
+    "category": "Objects & Places",
+    "tags": [
+      "dark",
+      "moon",
+      "new",
+      "space"
+    ],
+    "shortcodes": [
+      "new_moon"
+    ]
+  },
+  {
+    "emoji": "🌔",
+    "code": "012",
+    "category": "Objects & Places",
+    "tags": [
+      "gibbous",
+      "moon",
+      "space",
+      "waxing"
+    ],
+    "shortcodes": [
+      "moon",
+      "waxing_gibbous_moon"
+    ]
+  },
+  {
+    "emoji": "🌓",
+    "code": "013",
+    "category": "Objects & Places",
+    "tags": [
+      "first",
+      "moon",
+      "quarter",
+      "space"
+    ],
+    "shortcodes": [
+      "first_quarter_moon"
+    ]
+  },
+  {
+    "emoji": "🌙",
+    "code": "014",
+    "category": "Objects & Places",
+    "tags": [
+      "crescent",
+      "moon",
+      "ramadan",
+      "space"
+    ],
+    "shortcodes": [
+      "crescent_moon"
+    ]
+  },
+  {
+    "emoji": "🌕",
+    "code": "015",
+    "category": "Objects & Places",
+    "tags": [
+      "full",
+      "moon",
+      "space"
+    ],
+    "shortcodes": [
+      "full_moon"
+    ]
+  },
+  {
+    "emoji": "🌛",
+    "code": "016",
+    "category": "Objects & Places",
+    "tags": [
+      "face",
+      "first",
+      "moon",
+      "quarter",
+      "space"
+    ],
+    "shortcodes": [
+      "first_quarter_moon_with_face"
+    ]
+  },
+  {
+    "emoji": "🎑",
+    "code": "017",
+    "category": "Objects & Places",
+    "tags": [
+      "celebration",
+      "ceremony",
+      "moon",
+      "viewing"
+    ],
+    "shortcodes": [
+      "rice_scene"
+    ]
+  },
+  {
+    "emoji": "🔜",
+    "code": "018",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "brb",
+      "omw",
+      "soon"
+    ],
+    "shortcodes": [
+      "soon",
+      "soon_arrow"
+    ]
+  },
+  {
+    "emoji": "🔛",
+    "code": "019",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "mark",
+      "on!"
+    ],
+    "shortcodes": [
+      "on",
+      "on_arrow"
+    ]
+  },
+  {
+    "emoji": "🔚",
+    "code": "01A",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "end"
+    ],
+    "shortcodes": [
+      "end",
+      "end_arrow"
+    ]
+  },
+  {
+    "emoji": "⏳",
+    "code": "01B",
+    "category": "Objects & Places",
+    "tags": [
+      "done",
+      "flowing",
+      "hourglass",
+      "hours",
+      "not",
+      "sand",
+      "timer",
+      "waiting",
+      "yolo"
+    ],
+    "shortcodes": [
+      "hourglass_flowing_sand"
+    ]
+  },
+  {
+    "emoji": "⌛",
+    "code": "01C",
+    "category": "Objects & Places",
+    "tags": [
+      "done",
+      "hourglass",
+      "sand",
+      "time",
+      "timer"
+    ],
+    "shortcodes": [
+      "hourglass"
+    ]
+  },
+  {
+    "emoji": "⌚",
+    "code": "01D",
+    "category": "Objects & Places",
+    "tags": [
+      "clock",
+      "time"
+    ],
+    "shortcodes": [
+      "watch"
+    ]
+  },
+  {
+    "emoji": "🕐",
+    "code": "01E",
+    "category": "Objects & Places",
+    "tags": [
+      "1",
+      "1:00",
+      "clock",
+      "one",
+      "o’clock",
+      "time"
+    ],
+    "shortcodes": [
+      "clock1",
+      "one_oclock"
+    ]
+  },
+  {
+    "emoji": "🕑",
+    "code": "01F",
+    "category": "Objects & Places",
+    "tags": [
+      "2",
+      "2:00",
+      "clock",
+      "o’clock",
+      "time",
+      "two"
+    ],
+    "shortcodes": [
+      "clock2",
+      "two_oclock"
+    ]
+  },
+  {
+    "emoji": "🕒",
+    "code": "020",
+    "category": "Objects & Places",
+    "tags": [
+      "3",
+      "3:00",
+      "clock",
+      "o’clock",
+      "three",
+      "time"
+    ],
+    "shortcodes": [
+      "clock3",
+      "three_oclock"
+    ]
+  },
+  {
+    "emoji": "🕓",
+    "code": "021",
+    "category": "Objects & Places",
+    "tags": [
+      "4",
+      "4:00",
+      "clock",
+      "four",
+      "o’clock",
+      "time"
+    ],
+    "shortcodes": [
+      "clock4",
+      "four_oclock"
+    ]
+  },
+  {
+    "emoji": "🕔",
+    "code": "022",
+    "category": "Objects & Places",
+    "tags": [
+      "5",
+      "5:00",
+      "clock",
+      "five",
+      "o’clock",
+      "time"
+    ],
+    "shortcodes": [
+      "clock5",
+      "five_oclock"
+    ]
+  },
+  {
+    "emoji": "🕕",
+    "code": "023",
+    "category": "Objects & Places",
+    "tags": [
+      "6",
+      "6:00",
+      "clock",
+      "o’clock",
+      "six",
+      "time"
+    ],
+    "shortcodes": [
+      "clock6",
+      "six_oclock"
+    ]
+  },
+  {
+    "emoji": "🕖",
+    "code": "024",
+    "category": "Objects & Places",
+    "tags": [
+      "0",
+      "7",
+      "7:00",
+      "clock",
+      "o’clock",
+      "seven"
+    ],
+    "shortcodes": [
+      "clock7",
+      "seven_oclock"
+    ]
+  },
+  {
+    "emoji": "🕗",
+    "code": "025",
+    "category": "Objects & Places",
+    "tags": [
+      "8",
+      "8:00",
+      "clock",
+      "eight",
+      "o’clock",
+      "time"
+    ],
+    "shortcodes": [
+      "clock8",
+      "eight_oclock"
+    ]
+  },
+  {
+    "emoji": "🕘",
+    "code": "026",
+    "category": "Objects & Places",
+    "tags": [
+      "9",
+      "9:00",
+      "clock",
+      "nine",
+      "o’clock",
+      "time"
+    ],
+    "shortcodes": [
+      "clock9",
+      "nine_oclock"
+    ]
+  },
+  {
+    "emoji": "🕙",
+    "code": "027",
+    "category": "Objects & Places",
+    "tags": [
+      "0",
+      "10",
+      "10:00",
+      "clock",
+      "o’clock",
+      "ten"
+    ],
+    "shortcodes": [
+      "clock10",
+      "ten_oclock"
+    ]
+  },
+  {
+    "emoji": "🕚",
+    "code": "028",
+    "category": "Objects & Places",
+    "tags": [
+      "11",
+      "11:00",
+      "clock",
+      "eleven",
+      "o’clock",
+      "time"
+    ],
+    "shortcodes": [
+      "clock11",
+      "eleven_oclock"
+    ]
+  },
+  {
+    "emoji": "🕛",
+    "code": "029",
+    "category": "Objects & Places",
+    "tags": [
+      "12",
+      "12:00",
+      "clock",
+      "o’clock",
+      "time",
+      "twelve"
+    ],
+    "shortcodes": [
+      "clock12",
+      "twelve_oclock"
+    ]
+  },
+  {
+    "emoji": "⏰",
+    "code": "02A",
+    "category": "Objects & Places",
+    "tags": [
+      "alarm",
+      "clock",
+      "hours",
+      "hrs",
+      "late",
+      "time",
+      "waiting"
+    ],
+    "shortcodes": [
+      "alarm_clock"
+    ]
+  },
+  {
+    "emoji": "♈",
+    "code": "02B",
+    "category": "Symbols & Flags",
+    "tags": [
+      "aries",
+      "horoscope",
+      "ram",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "aries"
+    ]
+  },
+  {
+    "emoji": "♉",
+    "code": "02C",
+    "category": "Symbols & Flags",
+    "tags": [
+      "bull",
+      "horoscope",
+      "ox",
+      "taurus",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "taurus"
+    ]
+  },
+  {
+    "emoji": "♊",
+    "code": "02D",
+    "category": "Symbols & Flags",
+    "tags": [
+      "gemini",
+      "horoscope",
+      "twins",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "gemini"
+    ]
+  },
+  {
+    "emoji": "♋",
+    "code": "02E",
+    "category": "Symbols & Flags",
+    "tags": [
+      "cancer",
+      "crab",
+      "horoscope",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "cancer"
+    ]
+  },
+  {
+    "emoji": "♌",
+    "code": "02F",
+    "category": "Symbols & Flags",
+    "tags": [
+      "horoscope",
+      "leo",
+      "lion",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "leo"
+    ]
+  },
+  {
+    "emoji": "♍",
+    "code": "030",
+    "category": "Symbols & Flags",
+    "tags": [
+      "horoscope",
+      "virgo",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "virgo"
+    ]
+  },
+  {
+    "emoji": "♎",
+    "code": "031",
+    "category": "Symbols & Flags",
+    "tags": [
+      "balance",
+      "horoscope",
+      "justice",
+      "libra",
+      "scales",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "libra"
+    ]
+  },
+  {
+    "emoji": "♏",
+    "code": "032",
+    "category": "Symbols & Flags",
+    "tags": [
+      "horoscope",
+      "scorpio",
+      "scorpion",
+      "scorpius",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "scorpius",
+      "scorpio"
+    ]
+  },
+  {
+    "emoji": "♐",
+    "code": "033",
+    "category": "Symbols & Flags",
+    "tags": [
+      "archer",
+      "horoscope",
+      "sagittarius",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "sagittarius"
+    ]
+  },
+  {
+    "emoji": "♑",
+    "code": "034",
+    "category": "Symbols & Flags",
+    "tags": [
+      "capricorn",
+      "goat",
+      "horoscope",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "capricorn"
+    ]
+  },
+  {
+    "emoji": "♒",
+    "code": "035",
+    "category": "Symbols & Flags",
+    "tags": [
+      "aquarius",
+      "bearer",
+      "horoscope",
+      "water",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "aquarius"
+    ]
+  },
+  {
+    "emoji": "♓",
+    "code": "036",
+    "category": "Symbols & Flags",
+    "tags": [
+      "fish",
+      "horoscope",
+      "pisces",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "pisces"
+    ]
+  },
+  {
+    "emoji": "⛎",
+    "code": "037",
+    "category": "Symbols & Flags",
+    "tags": [
+      "bearer",
+      "ophiuchus",
+      "serpent",
+      "snake",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "ophiuchus"
+    ]
+  },
+  {
+    "emoji": "🌊",
+    "code": "038",
+    "category": "Objects & Places",
+    "tags": [
+      "nature",
+      "ocean",
+      "surf",
+      "surfer",
+      "surfing",
+      "water",
+      "wave"
+    ],
+    "shortcodes": [
+      "ocean",
+      "water_wave"
+    ]
+  },
+  {
+    "emoji": "🌏",
+    "code": "039",
+    "category": "Objects & Places",
+    "tags": [
+      "asia",
+      "asia-australia",
+      "australia",
+      "earth",
+      "globe",
+      "showing",
+      "world"
+    ],
+    "shortcodes": [
+      "earth_asia"
+    ]
+  },
+  {
+    "emoji": "🌋",
+    "code": "03A",
+    "category": "Objects & Places",
+    "tags": [
+      "eruption",
+      "mountain",
+      "nature"
+    ],
+    "shortcodes": [
+      "volcano"
+    ]
+  },
+  {
+    "emoji": "🌌",
+    "code": "03B",
+    "category": "Objects & Places",
+    "tags": [
+      "milky",
+      "space",
+      "way"
+    ],
+    "shortcodes": [
+      "milky_way"
+    ]
+  },
+  {
+    "emoji": "🍀",
+    "code": "03C",
+    "category": "Animals & Nature",
+    "tags": [
+      "4",
+      "clover",
+      "four",
+      "four-leaf",
+      "irish",
+      "leaf",
+      "lucky",
+      "plant"
+    ],
+    "shortcodes": [
+      "four_leaf_clover"
+    ]
+  },
+  {
+    "emoji": "🌷",
+    "code": "03D",
+    "category": "Animals & Nature",
+    "tags": [
+      "blossom",
+      "flower",
+      "growth",
+      "plant"
+    ],
+    "shortcodes": [
+      "tulip"
+    ]
+  },
+  {
+    "emoji": "🌱",
+    "code": "03E",
+    "category": "Animals & Nature",
+    "tags": [
+      "plant",
+      "sapling",
+      "sprout",
+      "young"
+    ],
+    "shortcodes": [
+      "seedling"
+    ]
+  },
+  {
+    "emoji": "🍁",
+    "code": "03F",
+    "category": "Animals & Nature",
+    "tags": [
+      "falling",
+      "leaf",
+      "maple"
+    ],
+    "shortcodes": [
+      "maple_leaf"
+    ]
+  },
+  {
+    "emoji": "🌸",
+    "code": "040",
+    "category": "Animals & Nature",
+    "tags": [
+      "blossom",
+      "cherry",
+      "flower",
+      "plant",
+      "spring",
+      "springtime"
+    ],
+    "shortcodes": [
+      "cherry_blossom"
+    ]
+  },
+  {
+    "emoji": "🌹",
+    "code": "041",
+    "category": "Animals & Nature",
+    "tags": [
+      "beauty",
+      "elegant",
+      "flower",
+      "love",
+      "plant",
+      "red",
+      "valentine"
+    ],
+    "shortcodes": [
+      "rose"
+    ]
+  },
+  {
+    "emoji": "🍂",
+    "code": "042",
+    "category": "Animals & Nature",
+    "tags": [
+      "autumn",
+      "fall",
+      "fallen",
+      "falling",
+      "leaf"
+    ],
+    "shortcodes": [
+      "fallen_leaf"
+    ]
+  },
+  {
+    "emoji": "🍃",
+    "code": "043",
+    "category": "Animals & Nature",
+    "tags": [
+      "blow",
+      "flutter",
+      "fluttering",
+      "leaf",
+      "wind"
+    ],
+    "shortcodes": [
+      "leaves"
+    ]
+  },
+  {
+    "emoji": "🔰",
+    "code": "044",
+    "category": "Symbols & Flags",
+    "tags": [
+      "beginner",
+      "chevron",
+      "green",
+      "japanese",
+      "leaf",
+      "symbol",
+      "tool",
+      "yellow"
+    ],
+    "shortcodes": [
+      "beginner"
+    ]
+  },
+  {
+    "emoji": "🌺",
+    "code": "045",
+    "category": "Animals & Nature",
+    "tags": [
+      "flower",
+      "plant"
+    ],
+    "shortcodes": [
+      "hibiscus"
+    ]
+  },
+  {
+    "emoji": "🌻",
+    "code": "046",
+    "category": "Animals & Nature",
+    "tags": [
+      "flower",
+      "outdoors",
+      "plant",
+      "sun"
+    ],
+    "shortcodes": [
+      "sunflower"
+    ]
+  },
+  {
+    "emoji": "🌴",
+    "code": "047",
+    "category": "Animals & Nature",
+    "tags": [
+      "beach",
+      "palm",
+      "plant",
+      "tree",
+      "tropical"
+    ],
+    "shortcodes": [
+      "palm_tree"
+    ]
+  },
+  {
+    "emoji": "🌵",
+    "code": "048",
+    "category": "Animals & Nature",
+    "tags": [
+      "desert",
+      "drought",
+      "nature",
+      "plant"
+    ],
+    "shortcodes": [
+      "cactus"
+    ]
+  },
+  {
+    "emoji": "🌾",
+    "code": "049",
+    "category": "Animals & Nature",
+    "tags": [
+      "ear",
+      "grain",
+      "grains",
+      "plant",
+      "rice",
+      "sheaf"
+    ],
+    "shortcodes": [
+      "ear_of_rice",
+      "sheaf_of_rice"
+    ]
+  },
+  {
+    "emoji": "🌽",
+    "code": "04A",
+    "category": "Food & Drink",
+    "tags": [
+      "corn",
+      "crops",
+      "ear",
+      "farm",
+      "maize",
+      "maze"
+    ],
+    "shortcodes": [
+      "corn",
+      "ear_of_corn"
+    ]
+  },
+  {
+    "emoji": "🍄",
+    "code": "04B",
+    "category": "Animals & Nature",
+    "tags": [
+      "fungus",
+      "toadstool"
+    ],
+    "shortcodes": [
+      "mushroom"
+    ]
+  },
+  {
+    "emoji": "🌰",
+    "code": "04C",
+    "category": "Food & Drink",
+    "tags": [
+      "almond",
+      "plant"
+    ],
+    "shortcodes": [
+      "chestnut"
+    ]
+  },
+  {
+    "emoji": "🌼",
+    "code": "04D",
+    "category": "Animals & Nature",
+    "tags": [
+      "buttercup",
+      "dandelion",
+      "flower",
+      "plant"
+    ],
+    "shortcodes": [
+      "blossom"
+    ]
+  },
+  {
+    "emoji": "🌿",
+    "code": "04E",
+    "category": "Animals & Nature",
+    "tags": [
+      "leaf",
+      "plant"
+    ],
+    "shortcodes": [
+      "herb"
+    ]
+  },
+  {
+    "emoji": "🍒",
+    "code": "04F",
+    "category": "Food & Drink",
+    "tags": [
+      "berries",
+      "cherry",
+      "fruit",
+      "red"
+    ],
+    "shortcodes": [
+      "cherries"
+    ]
+  },
+  {
+    "emoji": "🍌",
+    "code": "050",
+    "category": "Food & Drink",
+    "tags": [
+      "fruit",
+      "potassium"
+    ],
+    "shortcodes": [
+      "banana"
+    ]
+  },
+  {
+    "emoji": "🍎",
+    "code": "051",
+    "category": "Food & Drink",
+    "tags": [
+      "apple",
+      "diet",
+      "food",
+      "fruit",
+      "health",
+      "red",
+      "ripe"
+    ],
+    "shortcodes": [
+      "apple",
+      "red_apple"
+    ]
+  },
+  {
+    "emoji": "🍊",
+    "code": "052",
+    "category": "Food & Drink",
+    "tags": [
+      "c",
+      "citrus",
+      "fruit",
+      "nectarine",
+      "orange",
+      "vitamin"
+    ],
+    "shortcodes": [
+      "mandarin",
+      "orange",
+      "tangerine"
+    ]
+  },
+  {
+    "emoji": "🍓",
+    "code": "053",
+    "category": "Food & Drink",
+    "tags": [
+      "berry",
+      "fruit"
+    ],
+    "shortcodes": [
+      "strawberry"
+    ]
+  },
+  {
+    "emoji": "🍉",
+    "code": "054",
+    "category": "Food & Drink",
+    "tags": [
+      "fruit"
+    ],
+    "shortcodes": [
+      "watermelon"
+    ]
+  },
+  {
+    "emoji": "🍅",
+    "code": "055",
+    "category": "Food & Drink",
+    "tags": [
+      "food",
+      "fruit",
+      "vegetable"
+    ],
+    "shortcodes": [
+      "tomato"
+    ]
+  },
+  {
+    "emoji": "🍆",
+    "code": "056",
+    "category": "Food & Drink",
+    "tags": [
+      "aubergine",
+      "vegetable"
+    ],
+    "shortcodes": [
+      "eggplant"
+    ]
+  },
+  {
+    "emoji": "🍈",
+    "code": "057",
+    "category": "Food & Drink",
+    "tags": [
+      "cantaloupe",
+      "fruit"
+    ],
+    "shortcodes": [
+      "melon"
+    ]
+  },
+  {
+    "emoji": "🍍",
+    "code": "058",
+    "category": "Food & Drink",
+    "tags": [
+      "colada",
+      "fruit",
+      "pina",
+      "tropical"
+    ],
+    "shortcodes": [
+      "pineapple"
+    ]
+  },
+  {
+    "emoji": "🍇",
+    "code": "059",
+    "category": "Food & Drink",
+    "tags": [
+      "dionysus",
+      "fruit",
+      "grape"
+    ],
+    "shortcodes": [
+      "grapes"
+    ]
+  },
+  {
+    "emoji": "🍑",
+    "code": "05A",
+    "category": "Food & Drink",
+    "tags": [
+      "fruit"
+    ],
+    "shortcodes": [
+      "peach"
+    ]
+  },
+  {
+    "emoji": "🍏",
+    "code": "05B",
+    "category": "Food & Drink",
+    "tags": [
+      "apple",
+      "fruit",
+      "green"
+    ],
+    "shortcodes": [
+      "green_apple"
+    ]
+  },
+  {
+    "emoji": "👀",
+    "code": "190",
+    "category": "Smileys & People",
+    "tags": [
+      "body",
+      "eye",
+      "face",
+      "googly",
+      "look",
+      "looking",
+      "omg",
+      "peep",
+      "see",
+      "seeing"
+    ],
+    "shortcodes": [
+      "eyes"
+    ]
+  },
+  {
+    "emoji": "👂",
+    "code": "191",
+    "category": "Smileys & People",
+    "tags": [
+      "body",
+      "ears",
+      "hear",
+      "hearing",
+      "listen",
+      "listening",
+      "sound"
+    ],
+    "shortcodes": [
+      "ear"
+    ]
+  },
+  {
+    "emoji": "👃",
+    "code": "192",
+    "category": "Smileys & People",
+    "tags": [
+      "body",
+      "noses",
+      "nosey",
+      "odor",
+      "smell",
+      "smells"
+    ],
+    "shortcodes": [
+      "nose"
+    ]
+  },
+  {
+    "emoji": "👄",
+    "code": "193",
+    "category": "Smileys & People",
+    "tags": [
+      "beauty",
+      "body",
+      "kiss",
+      "kissing",
+      "lips",
+      "lipstick"
+    ],
+    "shortcodes": [
+      "lips",
+      "mouth"
+    ]
+  },
+  {
+    "emoji": "👅",
+    "code": "194",
+    "category": "Smileys & People",
+    "tags": [
+      "body",
+      "lick",
+      "slurp"
+    ],
+    "shortcodes": [
+      "tongue"
+    ]
+  },
+  {
+    "emoji": "💄",
+    "code": "195",
+    "category": "Objects & Places",
+    "tags": [
+      "cosmetics",
+      "date",
+      "makeup"
+    ],
+    "shortcodes": [
+      "lipstick"
+    ]
+  },
+  {
+    "emoji": "💅",
+    "code": "196",
+    "category": "Smileys & People",
+    "tags": [
+      "bored",
+      "care",
+      "cosmetics",
+      "done",
+      "makeup",
+      "manicure",
+      "nail",
+      "polish",
+      "whatever"
+    ],
+    "shortcodes": [
+      "nail_care",
+      "nail_polish"
+    ]
+  },
+  {
+    "emoji": "💆",
+    "code": "197",
+    "category": "Smileys & People",
+    "tags": [
+      "face",
+      "getting",
+      "headache",
+      "massage",
+      "person",
+      "relax",
+      "relaxing",
+      "salon",
+      "soothe",
+      "spa",
+      "tension",
+      "therapy",
+      "treatment"
+    ],
+    "shortcodes": [
+      "massage",
+      "person_getting_massage"
+    ]
+  },
+  {
+    "emoji": "💇",
+    "code": "198",
+    "category": "Smileys & People",
+    "tags": [
+      "barber",
+      "beauty",
+      "chop",
+      "cosmetology",
+      "cut",
+      "groom",
+      "hair",
+      "haircut",
+      "parlor",
+      "person",
+      "shears",
+      "style"
+    ],
+    "shortcodes": [
+      "haircut",
+      "person_getting_haircut"
+    ]
+  },
+  {
+    "emoji": "💈",
+    "code": "199",
+    "category": "Objects & Places",
+    "tags": [
+      "barber",
+      "cut",
+      "fresh",
+      "haircut",
+      "pole",
+      "shave"
+    ],
+    "shortcodes": [
+      "barber",
+      "barber_pole"
+    ]
+  },
+  {
+    "emoji": "👤",
+    "code": "19A",
+    "category": "Smileys & People",
+    "tags": [
+      "bust",
+      "mysterious",
+      "shadow",
+      "silhouette"
+    ],
+    "shortcodes": [
+      "bust_in_silhouette"
+    ]
+  },
+  {
+    "emoji": "👦",
+    "code": "19B",
+    "category": "Smileys & People",
+    "tags": [
+      "bright-eyed",
+      "child",
+      "grandson",
+      "kid",
+      "son",
+      "young",
+      "younger"
+    ],
+    "shortcodes": [
+      "boy"
+    ]
+  },
+  {
+    "emoji": "👧",
+    "code": "19C",
+    "category": "Smileys & People",
+    "tags": [
+      "bright-eyed",
+      "child",
+      "daughter",
+      "granddaughter",
+      "kid",
+      "virgo",
+      "young",
+      "younger",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "girl"
+    ]
+  },
+  {
+    "emoji": "👨",
+    "code": "19D",
+    "category": "Smileys & People",
+    "tags": [
+      "adult",
+      "bro"
+    ],
+    "shortcodes": [
+      "man"
+    ]
+  },
+  {
+    "emoji": "👩",
+    "code": "19E",
+    "category": "Smileys & People",
+    "tags": [
+      "adult",
+      "lady"
+    ],
+    "shortcodes": [
+      "woman"
+    ]
+  },
+  {
+    "emoji": "👪",
+    "code": "19F",
+    "category": "Smileys & People",
+    "tags": [
+      "child"
+    ],
+    "shortcodes": [
+      "family"
+    ]
+  },
+  {
+    "emoji": "👫",
+    "code": "1A0",
+    "category": "Smileys & People",
+    "tags": [
+      "bae",
+      "bestie",
+      "bff",
+      "couple",
+      "dating",
+      "flirt",
+      "friends",
+      "hand",
+      "hold",
+      "man",
+      "twins",
+      "woman"
+    ],
+    "shortcodes": [
+      "couple",
+      "man_and_woman_holding_hands",
+      "woman_and_man_holding_hands"
+    ]
+  },
+  {
+    "emoji": "👮",
+    "code": "1A1",
+    "category": "Smileys & People",
+    "tags": [
+      "apprehend",
+      "arrest",
+      "citation",
+      "cop",
+      "law",
+      "officer",
+      "over",
+      "police",
+      "pulled",
+      "undercover"
+    ],
+    "shortcodes": [
+      "cop",
+      "police_officer"
+    ]
+  },
+  {
+    "emoji": "👯",
+    "code": "1A2",
+    "category": "Smileys & People",
+    "tags": [
+      "bestie",
+      "bff",
+      "bunny",
+      "counterpart",
+      "dancer",
+      "double",
+      "ear",
+      "identical",
+      "pair",
+      "party",
+      "partying",
+      "people",
+      "soulmate",
+      "twin",
+      "twinsies"
+    ],
+    "shortcodes": [
+      "dancers",
+      "people_with_bunny_ears_partying"
+    ]
+  },
+  {
+    "emoji": "👰",
+    "code": "1A3",
+    "category": "Smileys & People",
+    "tags": [
+      "person",
+      "veil",
+      "wedding"
+    ],
+    "shortcodes": [
+      "person_with_veil",
+      "bride_with_veil"
+    ]
+  },
+  {
+    "emoji": "👱",
+    "code": "1A4",
+    "category": "Smileys & People",
+    "tags": [
+      "blond",
+      "blond-haired",
+      "human",
+      "person"
+    ],
+    "shortcodes": [
+      "blond_haired_person",
+      "person_with_blond_hair"
+    ]
+  },
+  {
+    "emoji": "👲",
+    "code": "1A5",
+    "category": "Smileys & People",
+    "tags": [
+      "cap",
+      "chinese",
+      "gua",
+      "guapi",
+      "hat",
+      "mao",
+      "person",
+      "pi",
+      "skullcap"
+    ],
+    "shortcodes": [
+      "man_with_gua_pi_mao",
+      "man_with_chinese_cap"
+    ]
+  },
+  {
+    "emoji": "👳",
+    "code": "1A6",
+    "category": "Smileys & People",
+    "tags": [
+      "person",
+      "turban",
+      "wearing"
+    ],
+    "shortcodes": [
+      "person_with_turban",
+      "man_with_turban",
+      "person_wearing_turban"
+    ]
+  },
+  {
+    "emoji": "👴",
+    "code": "1A7",
+    "category": "Smileys & People",
+    "tags": [
+      "adult",
+      "bald",
+      "elderly",
+      "gramps",
+      "grandfather",
+      "grandpa",
+      "man",
+      "old",
+      "wise"
+    ],
+    "shortcodes": [
+      "older_man",
+      "old_man"
+    ]
+  },
+  {
+    "emoji": "👵",
+    "code": "1A8",
+    "category": "Smileys & People",
+    "tags": [
+      "adult",
+      "elderly",
+      "grandma",
+      "grandmother",
+      "granny",
+      "lady",
+      "old",
+      "wise",
+      "woman"
+    ],
+    "shortcodes": [
+      "older_woman",
+      "grandma",
+      "old_woman"
+    ]
+  },
+  {
+    "emoji": "👶",
+    "code": "1A9",
+    "category": "Smileys & People",
+    "tags": [
+      "babies",
+      "children",
+      "goo",
+      "infant",
+      "newborn",
+      "pregnant",
+      "young"
+    ],
+    "shortcodes": [
+      "baby"
+    ]
+  },
+  {
+    "emoji": "👷",
+    "code": "1AA",
+    "category": "Smileys & People",
+    "tags": [
+      "build",
+      "construction",
+      "fix",
+      "hardhat",
+      "hat",
+      "man",
+      "person",
+      "rebuild",
+      "remodel",
+      "repair",
+      "work",
+      "worker"
+    ],
+    "shortcodes": [
+      "construction_worker"
+    ]
+  },
+  {
+    "emoji": "👸",
+    "code": "1AB",
+    "category": "Smileys & People",
+    "tags": [
+      "crown",
+      "fairy",
+      "fairytale",
+      "fantasy",
+      "queen",
+      "royal",
+      "royalty",
+      "tale"
+    ],
+    "shortcodes": [
+      "princess"
+    ]
+  },
+  {
+    "emoji": "👹",
+    "code": "1AC",
+    "category": "Smileys & People",
+    "tags": [
+      "creature",
+      "devil",
+      "face",
+      "fairy",
+      "fairytale",
+      "fantasy",
+      "mask",
+      "monster",
+      "scary",
+      "tale"
+    ],
+    "shortcodes": [
+      "japanese_ogre",
+      "ogre"
+    ]
+  },
+  {
+    "emoji": "👺",
+    "code": "1AD",
+    "category": "Smileys & People",
+    "tags": [
+      "angry",
+      "creature",
+      "face",
+      "fairy",
+      "fairytale",
+      "fantasy",
+      "mask",
+      "mean",
+      "monster",
+      "tale"
+    ],
+    "shortcodes": [
+      "japanese_goblin",
+      "goblin"
+    ]
+  },
+  {
+    "emoji": "👻",
+    "code": "1AE",
+    "category": "Smileys & People",
+    "tags": [
+      "boo",
+      "creature",
+      "excited",
+      "face",
+      "fairy",
+      "fairytale",
+      "fantasy",
+      "halloween",
+      "haunting",
+      "monster",
+      "scary",
+      "silly",
+      "tale"
+    ],
+    "shortcodes": [
+      "ghost"
+    ]
+  },
+  {
+    "emoji": "👼",
+    "code": "1AF",
+    "category": "Smileys & People",
+    "tags": [
+      "angel",
+      "baby",
+      "church",
+      "face",
+      "fairy",
+      "fairytale",
+      "fantasy",
+      "tale"
+    ],
+    "shortcodes": [
+      "angel",
+      "baby_angel"
+    ]
+  },
+  {
+    "emoji": "👽",
+    "code": "1B0",
+    "category": "Smileys & People",
+    "tags": [
+      "creature",
+      "extraterrestrial",
+      "face",
+      "fairy",
+      "fairytale",
+      "fantasy",
+      "monster",
+      "space",
+      "tale",
+      "ufo"
+    ],
+    "shortcodes": [
+      "alien"
+    ]
+  },
+  {
+    "emoji": "👾",
+    "code": "1B1",
+    "category": "Smileys & People",
+    "tags": [
+      "alien",
+      "creature",
+      "extraterrestrial",
+      "face",
+      "fairy",
+      "fairytale",
+      "fantasy",
+      "game",
+      "gamer",
+      "games",
+      "monster",
+      "pixelated",
+      "space",
+      "tale",
+      "ufo"
+    ],
+    "shortcodes": [
+      "space_invader",
+      "alien_monster"
+    ]
+  },
+  {
+    "emoji": "👿",
+    "code": "1B2",
+    "category": "Smileys & People",
+    "tags": [
+      "angry",
+      "demon",
+      "devil",
+      "evil",
+      "face",
+      "fairy",
+      "fairytale",
+      "fantasy",
+      "horns",
+      "imp",
+      "mischievous",
+      "purple",
+      "shade",
+      "tale"
+    ],
+    "shortcodes": [
+      "imp"
+    ]
+  },
+  {
+    "emoji": "💀",
+    "code": "1B3",
+    "category": "Smileys & People",
+    "tags": [
+      "body",
+      "dead",
+      "death",
+      "face",
+      "fairy",
+      "fairytale",
+      "i’m",
+      "lmao",
+      "monster",
+      "tale",
+      "yolo"
+    ],
+    "shortcodes": [
+      "skull",
+      "skeleton"
+    ]
+  },
+  {
+    "emoji": "💁",
+    "code": "1B4",
+    "category": "Smileys & People",
+    "tags": [
+      "fetch",
+      "flick",
+      "flip",
+      "gossip",
+      "hand",
+      "person",
+      "sarcasm",
+      "sarcastic",
+      "sassy",
+      "seriously",
+      "tipping",
+      "whatever"
+    ],
+    "shortcodes": [
+      "information_desk_person",
+      "tipping_hand_person",
+      "person_tipping_hand"
+    ]
+  },
+  {
+    "emoji": "💂",
+    "code": "1B5",
+    "category": "Smileys & People",
+    "tags": [
+      "buckingham",
+      "helmet",
+      "london",
+      "palace"
+    ],
+    "shortcodes": [
+      "guard",
+      "guardsman"
+    ]
+  },
+  {
+    "emoji": "💃",
+    "code": "1B6",
+    "category": "Smileys & People",
+    "tags": [
+      "dance",
+      "dancer",
+      "dancing",
+      "elegant",
+      "festive",
+      "flair",
+      "flamenco",
+      "groove",
+      "let’s",
+      "salsa",
+      "tango",
+      "woman"
+    ],
+    "shortcodes": [
+      "dancer",
+      "woman_dancing"
+    ]
+  },
+  {
+    "emoji": "🐶",
+    "code": "1B7",
+    "category": "Animals & Nature",
+    "tags": [
+      "adorbs",
+      "animal",
+      "dog",
+      "face",
+      "pet",
+      "puppies",
+      "puppy"
+    ],
+    "shortcodes": [
+      "dog",
+      "dog_face"
+    ]
+  },
+  {
+    "emoji": "🐱",
+    "code": "1B8",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "cat",
+      "face",
+      "kitten",
+      "kitty",
+      "pet"
+    ],
+    "shortcodes": [
+      "cat",
+      "cat_face"
+    ]
+  },
+  {
+    "emoji": "🐌",
+    "code": "1B9",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "escargot",
+      "garden",
+      "nature",
+      "slug"
+    ],
+    "shortcodes": [
+      "snail"
+    ]
+  },
+  {
+    "emoji": "🐤",
+    "code": "1BA",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "baby",
+      "bird",
+      "chick",
+      "ornithology"
+    ],
+    "shortcodes": [
+      "baby_chick"
+    ]
+  },
+  {
+    "emoji": "🐥",
+    "code": "1BB",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "baby",
+      "bird",
+      "chick",
+      "front-facing",
+      "newborn",
+      "ornithology"
+    ],
+    "shortcodes": [
+      "hatched_chick"
+    ]
+  },
+  {
+    "emoji": "🐧",
+    "code": "1BC",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "antarctica",
+      "bird",
+      "ornithology"
+    ],
+    "shortcodes": [
+      "penguin"
+    ]
+  },
+  {
+    "emoji": "🐟",
+    "code": "1BD",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "dinner",
+      "fishes",
+      "fishing",
+      "pisces",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "fish"
+    ]
+  },
+  {
+    "emoji": "🐴",
+    "code": "1BE",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "dressage",
+      "equine",
+      "face",
+      "farm",
+      "horse",
+      "horses"
+    ],
+    "shortcodes": [
+      "horse",
+      "horse_face"
+    ]
+  },
+  {
+    "emoji": "🐷",
+    "code": "1BF",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "bacon",
+      "face",
+      "farm",
+      "pig",
+      "pork"
+    ],
+    "shortcodes": [
+      "pig",
+      "pig_face"
+    ]
+  },
+  {
+    "emoji": "🐯",
+    "code": "1C0",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "big",
+      "cat",
+      "face",
+      "predator",
+      "tiger"
+    ],
+    "shortcodes": [
+      "tiger",
+      "tiger_face"
+    ]
+  },
+  {
+    "emoji": "🐻",
+    "code": "1C1",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "face",
+      "grizzly",
+      "growl",
+      "honey"
+    ],
+    "shortcodes": [
+      "bear"
+    ]
+  },
+  {
+    "emoji": "🐭",
+    "code": "1C2",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "face",
+      "mouse"
+    ],
+    "shortcodes": [
+      "mouse",
+      "mouse_face"
+    ]
+  },
+  {
+    "emoji": "🐳",
+    "code": "1C3",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "beach",
+      "face",
+      "ocean",
+      "spouting",
+      "whale"
+    ],
+    "shortcodes": [
+      "whale"
+    ]
+  },
+  {
+    "emoji": "🐵",
+    "code": "1C4",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "banana",
+      "face",
+      "monkey"
+    ],
+    "shortcodes": [
+      "monkey_face"
+    ]
+  },
+  {
+    "emoji": "🐙",
+    "code": "1C5",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "creature",
+      "ocean"
+    ],
+    "shortcodes": [
+      "octopus"
+    ]
+  },
+  {
+    "emoji": "🐚",
+    "code": "1C6",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "beach",
+      "conch",
+      "sea",
+      "shell",
+      "spiral"
+    ],
+    "shortcodes": [
+      "shell",
+      "spiral_shell"
+    ]
+  },
+  {
+    "emoji": "🐬",
+    "code": "1C7",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "beach",
+      "flipper",
+      "ocean"
+    ],
+    "shortcodes": [
+      "dolphin",
+      "flipper"
+    ]
+  },
+  {
+    "emoji": "🐦",
+    "code": "1C8",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "ornithology"
+    ],
+    "shortcodes": [
+      "bird"
+    ]
+  },
+  {
+    "emoji": "🐠",
+    "code": "1C9",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "fish",
+      "fishes",
+      "tropical"
+    ],
+    "shortcodes": [
+      "tropical_fish"
+    ]
+  },
+  {
+    "emoji": "🐹",
+    "code": "1CA",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "face",
+      "pet"
+    ],
+    "shortcodes": [
+      "hamster"
+    ]
+  },
+  {
+    "emoji": "🐛",
+    "code": "1CB",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "garden",
+      "insect"
+    ],
+    "shortcodes": [
+      "bug"
+    ]
+  },
+  {
+    "emoji": "🐘",
+    "code": "1CC",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal"
+    ],
+    "shortcodes": [
+      "elephant"
+    ]
+  },
+  {
+    "emoji": "🐨",
+    "code": "1CD",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "australia",
+      "bear",
+      "down",
+      "face",
+      "marsupial",
+      "under"
+    ],
+    "shortcodes": [
+      "koala"
+    ]
+  },
+  {
+    "emoji": "🐒",
+    "code": "1CE",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "banana"
+    ],
+    "shortcodes": [
+      "monkey"
+    ]
+  },
+  {
+    "emoji": "🐑",
+    "code": "1CF",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "baa",
+      "farm",
+      "female",
+      "fluffy",
+      "lamb",
+      "sheep",
+      "wool"
+    ],
+    "shortcodes": [
+      "sheep",
+      "ewe"
+    ]
+  },
+  {
+    "emoji": "🐺",
+    "code": "1D0",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "face"
+    ],
+    "shortcodes": [
+      "wolf"
+    ]
+  },
+  {
+    "emoji": "🐮",
+    "code": "1D1",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "cow",
+      "face",
+      "farm",
+      "milk",
+      "moo"
+    ],
+    "shortcodes": [
+      "cow",
+      "cow_face"
+    ]
+  },
+  {
+    "emoji": "🐰",
+    "code": "1D2",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "bunny",
+      "face",
+      "pet",
+      "rabbit"
+    ],
+    "shortcodes": [
+      "rabbit",
+      "rabbit_face"
+    ]
+  },
+  {
+    "emoji": "🐍",
+    "code": "1D3",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "bearer",
+      "ophiuchus",
+      "serpent",
+      "zodiac"
+    ],
+    "shortcodes": [
+      "snake"
+    ]
+  },
+  {
+    "emoji": "🐔",
+    "code": "1D4",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "bird",
+      "ornithology"
+    ],
+    "shortcodes": [
+      "chicken"
+    ]
+  },
+  {
+    "emoji": "🐗",
+    "code": "1D5",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "pig"
+    ],
+    "shortcodes": [
+      "boar"
+    ]
+  },
+  {
+    "emoji": "🐫",
+    "code": "1D6",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "bactrian",
+      "camel",
+      "desert",
+      "hump",
+      "two",
+      "two-hump"
+    ],
+    "shortcodes": [
+      "camel"
+    ]
+  },
+  {
+    "emoji": "🐸",
+    "code": "1D7",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "face"
+    ],
+    "shortcodes": [
+      "frog"
+    ]
+  },
+  {
+    "emoji": "🐩",
+    "code": "1D8",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "dog",
+      "fluffy"
+    ],
+    "shortcodes": [
+      "poodle"
+    ]
+  },
+  {
+    "emoji": "🐡",
+    "code": "1D9",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "fish"
+    ],
+    "shortcodes": [
+      "blowfish"
+    ]
+  },
+  {
+    "emoji": "🐜",
+    "code": "1DA",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "garden",
+      "insect"
+    ],
+    "shortcodes": [
+      "ant"
+    ]
+  },
+  {
+    "emoji": "🐾",
+    "code": "1DB",
+    "category": "Animals & Nature",
+    "tags": [
+      "feet",
+      "paw",
+      "paws",
+      "print",
+      "prints"
+    ],
+    "shortcodes": [
+      "feet",
+      "paw_prints"
+    ]
+  },
+  {
+    "emoji": "🐢",
+    "code": "1DC",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "terrapin",
+      "tortoise"
+    ],
+    "shortcodes": [
+      "turtle"
+    ]
+  },
+  {
+    "emoji": "🐣",
+    "code": "1DD",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "baby",
+      "bird",
+      "chick",
+      "egg",
+      "hatching"
+    ],
+    "shortcodes": [
+      "hatching_chick"
+    ]
+  },
+  {
+    "emoji": "🐲",
+    "code": "1DE",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "dragon",
+      "face",
+      "fairy",
+      "fairytale",
+      "tale"
+    ],
+    "shortcodes": [
+      "dragon_face"
+    ]
+  },
+  {
+    "emoji": "🐼",
+    "code": "1DF",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "bamboo",
+      "face"
+    ],
+    "shortcodes": [
+      "panda_face",
+      "panda"
+    ]
+  },
+  {
+    "emoji": "🐽",
+    "code": "1E0",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "face",
+      "farm",
+      "nose",
+      "pig",
+      "smell",
+      "snout"
+    ],
+    "shortcodes": [
+      "pig_nose"
+    ]
+  },
+  {
+    "emoji": "😠",
+    "code": "320",
+    "category": "Smileys & People",
+    "tags": [
+      "anger",
+      "angry",
+      "blame",
+      "face",
+      "feels",
+      "frustrated",
+      "mad",
+      "maddening",
+      "rage",
+      "shade",
+      "unhappy",
+      "upset"
+    ],
+    "shortcodes": [
+      "angry",
+      "angry_face"
+    ]
+  },
+  {
+    "emoji": "😩",
+    "code": "321",
+    "category": "Smileys & People",
+    "tags": [
+      "crying",
+      "face",
+      "fail",
+      "feels",
+      "hungry",
+      "mad",
+      "nooo",
+      "sad",
+      "sleepy",
+      "tired",
+      "unhappy",
+      "weary"
+    ],
+    "shortcodes": [
+      "weary",
+      "weary_face"
+    ]
+  },
+  {
+    "emoji": "😲",
+    "code": "322",
+    "category": "Smileys & People",
+    "tags": [
+      "astonished",
+      "cost",
+      "face",
+      "no",
+      "omg",
+      "shocked",
+      "totally",
+      "way"
+    ],
+    "shortcodes": [
+      "astonished"
+    ]
+  },
+  {
+    "emoji": "😞",
+    "code": "323",
+    "category": "Smileys & People",
+    "tags": [
+      "awful",
+      "blame",
+      "dejected",
+      "disappointed",
+      "face",
+      "fail",
+      "losing",
+      "sad",
+      "unhappy"
+    ],
+    "shortcodes": [
+      "disappointed"
+    ]
+  },
+  {
+    "emoji": "😵",
+    "code": "324",
+    "category": "Smileys & People",
+    "tags": [
+      "crossed-out",
+      "dead",
+      "dizzy",
+      "eyes",
+      "face",
+      "feels",
+      "knocked",
+      "out",
+      "sick",
+      "tired"
+    ],
+    "shortcodes": [
+      "dizzy_face"
+    ]
+  },
+  {
+    "emoji": "😰",
+    "code": "325",
+    "category": "Smileys & People",
+    "tags": [
+      "anxious",
+      "blue",
+      "cold",
+      "eek",
+      "face",
+      "mouth",
+      "nervous",
+      "open",
+      "rushed",
+      "scared",
+      "sweat",
+      "yikes"
+    ],
+    "shortcodes": [
+      "cold_sweat"
+    ]
+  },
+  {
+    "emoji": "😒",
+    "code": "326",
+    "category": "Smileys & People",
+    "tags": [
+      "...",
+      "bored",
+      "face",
+      "fine",
+      "jealous",
+      "jel",
+      "jelly",
+      "pissed",
+      "smh",
+      "ugh",
+      "uhh",
+      "unamused",
+      "unhappy",
+      "weird",
+      "whatever"
+    ],
+    "shortcodes": [
+      "unamused",
+      "unamused_face"
+    ]
+  },
+  {
+    "emoji": "😍",
+    "code": "327",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "bae",
+      "eye",
+      "face",
+      "feels",
+      "heart-eyes",
+      "hearts",
+      "ily",
+      "kisses",
+      "love",
+      "romance",
+      "romantic",
+      "smile",
+      "xoxo"
+    ],
+    "shortcodes": [
+      "heart_eyes"
+    ]
+  },
+  {
+    "emoji": "😤",
+    "code": "328",
+    "category": "Smileys & People",
+    "tags": [
+      "anger",
+      "angry",
+      "face",
+      "feels",
+      "fume",
+      "fuming",
+      "furious",
+      "fury",
+      "mad",
+      "nose",
+      "steam",
+      "triumph",
+      "unhappy",
+      "won"
+    ],
+    "shortcodes": [
+      "triumph"
+    ]
+  },
+  {
+    "emoji": "😜",
+    "code": "329",
+    "category": "Smileys & People",
+    "tags": [
+      "crazy",
+      "epic",
+      "eye",
+      "face",
+      "funny",
+      "joke",
+      "loopy",
+      "nutty",
+      "party",
+      "stuck-out",
+      "tongue",
+      "wacky",
+      "weirdo",
+      "wink",
+      "winking",
+      "yolo"
+    ],
+    "shortcodes": [
+      "stuck_out_tongue_winking_eye"
+    ]
+  },
+  {
+    "emoji": "😝",
+    "code": "32A",
+    "category": "Smileys & People",
+    "tags": [
+      "closed",
+      "eye",
+      "eyes",
+      "face",
+      "gross",
+      "horrible",
+      "omg",
+      "squinting",
+      "stuck-out",
+      "taste",
+      "tongue",
+      "whatever",
+      "yolo"
+    ],
+    "shortcodes": [
+      "stuck_out_tongue_closed_eyes"
+    ]
+  },
+  {
+    "emoji": "😋",
+    "code": "32B",
+    "category": "Smileys & People",
+    "tags": [
+      "delicious",
+      "eat",
+      "face",
+      "food",
+      "full",
+      "hungry",
+      "savor",
+      "smile",
+      "smiling",
+      "tasty",
+      "um",
+      "yum",
+      "yummy"
+    ],
+    "shortcodes": [
+      "yum"
+    ]
+  },
+  {
+    "emoji": "😘",
+    "code": "32C",
+    "category": "Smileys & People",
+    "tags": [
+      "adorbs",
+      "bae",
+      "blowing",
+      "face",
+      "flirt",
+      "heart",
+      "ily",
+      "kiss",
+      "love",
+      "lover",
+      "miss",
+      "muah",
+      "romantic",
+      "smooch",
+      "xoxo",
+      "you"
+    ],
+    "shortcodes": [
+      "kissing_heart"
+    ]
+  },
+  {
+    "emoji": "😚",
+    "code": "32D",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "bae",
+      "blush",
+      "closed",
+      "date",
+      "dating",
+      "eye",
+      "eyes",
+      "face",
+      "flirt",
+      "ily",
+      "kisses",
+      "kissing",
+      "smooches",
+      "xoxo"
+    ],
+    "shortcodes": [
+      "kissing_closed_eyes"
+    ]
+  },
+  {
+    "emoji": "😷",
+    "code": "32E",
+    "category": "Smileys & People",
+    "tags": [
+      "cold",
+      "dentist",
+      "dermatologist",
+      "doctor",
+      "dr",
+      "face",
+      "germs",
+      "mask",
+      "medical",
+      "medicine",
+      "sick"
+    ],
+    "shortcodes": [
+      "mask"
+    ]
+  },
+  {
+    "emoji": "😳",
+    "code": "32F",
+    "category": "Smileys & People",
+    "tags": [
+      "amazed",
+      "awkward",
+      "crazy",
+      "dazed",
+      "dead",
+      "disbelief",
+      "embarrassed",
+      "face",
+      "flushed",
+      "geez",
+      "heat",
+      "hot",
+      "impressed",
+      "jeez",
+      "what",
+      "wow"
+    ],
+    "shortcodes": [
+      "flushed",
+      "flushed_face"
+    ]
+  },
+  {
+    "emoji": "😃",
+    "code": "330",
+    "category": "Smileys & People",
+    "tags": [
+      "awesome",
+      "big",
+      "eyes",
+      "face",
+      "grin",
+      "grinning",
+      "happy",
+      "mouth",
+      "open",
+      "smile",
+      "smiling",
+      "teeth",
+      "yay"
+    ],
+    "shortcodes": [
+      "smiley"
+    ]
+  },
+  {
+    "emoji": "😅",
+    "code": "331",
+    "category": "Smileys & People",
+    "tags": [
+      "cold",
+      "dejected",
+      "excited",
+      "face",
+      "grinning",
+      "mouth",
+      "nervous",
+      "open",
+      "smile",
+      "smiling",
+      "stress",
+      "stressed",
+      "sweat"
+    ],
+    "shortcodes": [
+      "sweat_smile"
+    ]
+  },
+  {
+    "emoji": "😆",
+    "code": "332",
+    "category": "Smileys & People",
+    "tags": [
+      "closed",
+      "eyes",
+      "face",
+      "grinning",
+      "haha",
+      "hahaha",
+      "happy",
+      "laugh",
+      "lol",
+      "mouth",
+      "open",
+      "rofl",
+      "smile",
+      "smiling",
+      "squinting"
+    ],
+    "shortcodes": [
+      "laughing",
+      "satisfied"
+    ]
+  },
+  {
+    "emoji": "😁",
+    "code": "333",
+    "category": "Smileys & People",
+    "tags": [
+      "beaming",
+      "eye",
+      "eyes",
+      "face",
+      "grin",
+      "grinning",
+      "happy",
+      "nice",
+      "smile",
+      "smiling",
+      "teeth"
+    ],
+    "shortcodes": [
+      "grin"
+    ]
+  },
+  {
+    "emoji": "😂",
+    "code": "334",
+    "category": "Smileys & People",
+    "tags": [
+      "crying",
+      "face",
+      "feels",
+      "funny",
+      "haha",
+      "happy",
+      "hehe",
+      "hilarious",
+      "joy",
+      "laugh",
+      "lmao",
+      "lol",
+      "rofl",
+      "roflmao",
+      "tear"
+    ],
+    "shortcodes": [
+      "joy"
+    ]
+  },
+  {
+    "emoji": "😊",
+    "code": "335",
+    "category": "Smileys & People",
+    "tags": [
+      "blush",
+      "eye",
+      "eyes",
+      "face",
+      "glad",
+      "satisfied",
+      "smile",
+      "smiling"
+    ],
+    "shortcodes": [
+      "blush"
+    ]
+  },
+  {
+    "emoji": "☺",
+    "code": "336",
+    "category": "Smileys & People",
+    "tags": [
+      "face",
+      "happy",
+      "outlined",
+      "relaxed",
+      "smile",
+      "smiling"
+    ],
+    "shortcodes": [
+      "relaxed",
+      "smiling_face"
+    ]
+  },
+  {
+    "emoji": "😄",
+    "code": "338",
+    "category": "Smileys & People",
+    "tags": [
+      "eye",
+      "eyes",
+      "face",
+      "grin",
+      "grinning",
+      "happy",
+      "laugh",
+      "lol",
+      "mouth",
+      "open",
+      "smile",
+      "smiling"
+    ],
+    "shortcodes": [
+      "smile"
+    ]
+  },
+  {
+    "emoji": "😢",
+    "code": "339",
+    "category": "Smileys & People",
+    "tags": [
+      "awful",
+      "cry",
+      "crying",
+      "face",
+      "feels",
+      "miss",
+      "sad",
+      "tear",
+      "triste",
+      "unhappy"
+    ],
+    "shortcodes": [
+      "cry",
+      "crying_face"
+    ]
+  },
+  {
+    "emoji": "😭",
+    "code": "33A",
+    "category": "Smileys & People",
+    "tags": [
+      "bawling",
+      "cry",
+      "crying",
+      "face",
+      "loudly",
+      "sad",
+      "sob",
+      "tear",
+      "tears",
+      "unhappy"
+    ],
+    "shortcodes": [
+      "sob"
+    ]
+  },
+  {
+    "emoji": "😨",
+    "code": "33B",
+    "category": "Smileys & People",
+    "tags": [
+      "afraid",
+      "anxious",
+      "blame",
+      "face",
+      "fear",
+      "fearful",
+      "scared",
+      "worried"
+    ],
+    "shortcodes": [
+      "fearful",
+      "fearful_face"
+    ]
+  },
+  {
+    "emoji": "😣",
+    "code": "33C",
+    "category": "Smileys & People",
+    "tags": [
+      "concentrate",
+      "concentration",
+      "face",
+      "focus",
+      "headache",
+      "persevere",
+      "persevering"
+    ],
+    "shortcodes": [
+      "persevere"
+    ]
+  },
+  {
+    "emoji": "😡",
+    "code": "33D",
+    "category": "Smileys & People",
+    "tags": [
+      "anger",
+      "angry",
+      "enraged",
+      "face",
+      "feels",
+      "mad",
+      "maddening",
+      "pouting",
+      "rage",
+      "red",
+      "shade",
+      "unhappy",
+      "upset"
+    ],
+    "shortcodes": [
+      "pout",
+      "rage",
+      "pouting_face"
+    ]
+  },
+  {
+    "emoji": "😌",
+    "code": "33E",
+    "category": "Smileys & People",
+    "tags": [
+      "calm",
+      "face",
+      "peace",
+      "relief",
+      "relieved",
+      "zen"
+    ],
+    "shortcodes": [
+      "relieved",
+      "relieved_face"
+    ]
+  },
+  {
+    "emoji": "😖",
+    "code": "33F",
+    "category": "Smileys & People",
+    "tags": [
+      "annoyed",
+      "confounded",
+      "confused",
+      "cringe",
+      "distraught",
+      "face",
+      "feels",
+      "frustrated",
+      "mad",
+      "sad"
+    ],
+    "shortcodes": [
+      "confounded"
+    ]
+  },
+  {
+    "emoji": "😔",
+    "code": "340",
+    "category": "Smileys & People",
+    "tags": [
+      "awful",
+      "bored",
+      "dejected",
+      "died",
+      "disappointed",
+      "face",
+      "losing",
+      "lost",
+      "pensive",
+      "sad",
+      "sucks"
+    ],
+    "shortcodes": [
+      "pensive",
+      "pensive_face"
+    ]
+  },
+  {
+    "emoji": "😱",
+    "code": "341",
+    "category": "Smileys & People",
+    "tags": [
+      "epic",
+      "face",
+      "fear",
+      "fearful",
+      "munch",
+      "scared",
+      "scream",
+      "screamer",
+      "screaming",
+      "shocked",
+      "surprised",
+      "woah"
+    ],
+    "shortcodes": [
+      "scream"
+    ]
+  },
+  {
+    "emoji": "😪",
+    "code": "342",
+    "category": "Smileys & People",
+    "tags": [
+      "crying",
+      "face",
+      "good",
+      "night",
+      "sad",
+      "sleep",
+      "sleeping",
+      "sleepy",
+      "tired"
+    ],
+    "shortcodes": [
+      "sleepy",
+      "sleepy_face"
+    ]
+  },
+  {
+    "emoji": "😏",
+    "code": "343",
+    "category": "Smileys & People",
+    "tags": [
+      "boss",
+      "dapper",
+      "face",
+      "flirt",
+      "homie",
+      "kidding",
+      "leer",
+      "shade",
+      "slick",
+      "sly",
+      "smirk",
+      "smug",
+      "snicker",
+      "suave",
+      "suspicious",
+      "swag"
+    ],
+    "shortcodes": [
+      "smirk",
+      "smirking_face"
+    ]
+  },
+  {
+    "emoji": "😓",
+    "code": "344",
+    "category": "Smileys & People",
+    "tags": [
+      "close",
+      "cold",
+      "downcast",
+      "face",
+      "feels",
+      "headache",
+      "nervous",
+      "sad",
+      "scared",
+      "sweat",
+      "yikes"
+    ],
+    "shortcodes": [
+      "sweat"
+    ]
+  },
+  {
+    "emoji": "😥",
+    "code": "345",
+    "category": "Smileys & People",
+    "tags": [
+      "anxious",
+      "call",
+      "close",
+      "complicated",
+      "disappointed",
+      "face",
+      "not",
+      "relieved",
+      "sad",
+      "sweat",
+      "time",
+      "whew"
+    ],
+    "shortcodes": [
+      "disappointed_relieved"
+    ]
+  },
+  {
+    "emoji": "😫",
+    "code": "346",
+    "category": "Smileys & People",
+    "tags": [
+      "cost",
+      "face",
+      "feels",
+      "nap",
+      "sad",
+      "sneeze",
+      "tired"
+    ],
+    "shortcodes": [
+      "tired_face"
+    ]
+  },
+  {
+    "emoji": "😉",
+    "code": "347",
+    "category": "Smileys & People",
+    "tags": [
+      "face",
+      "flirt",
+      "heartbreaker",
+      "sexy",
+      "slide",
+      "tease",
+      "wink",
+      "winking",
+      "winks"
+    ],
+    "shortcodes": [
+      "wink",
+      "winking_face"
+    ]
+  },
+  {
+    "emoji": "😺",
+    "code": "348",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "cat",
+      "face",
+      "grinning",
+      "mouth",
+      "open",
+      "smile",
+      "smiling"
+    ],
+    "shortcodes": [
+      "smiley_cat",
+      "grinning_cat"
+    ]
+  },
+  {
+    "emoji": "😸",
+    "code": "349",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "cat",
+      "eye",
+      "eyes",
+      "face",
+      "grin",
+      "grinning",
+      "smile",
+      "smiling"
+    ],
+    "shortcodes": [
+      "smile_cat"
+    ]
+  },
+  {
+    "emoji": "😹",
+    "code": "34A",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "cat",
+      "face",
+      "joy",
+      "laugh",
+      "laughing",
+      "lol",
+      "tear",
+      "tears"
+    ],
+    "shortcodes": [
+      "joy_cat"
+    ]
+  },
+  {
+    "emoji": "😽",
+    "code": "34B",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "cat",
+      "closed",
+      "eye",
+      "eyes",
+      "face",
+      "kiss",
+      "kissing"
+    ],
+    "shortcodes": [
+      "kissing_cat"
+    ]
+  },
+  {
+    "emoji": "😻",
+    "code": "34C",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "cat",
+      "eye",
+      "face",
+      "heart",
+      "heart-eyes",
+      "love",
+      "smile",
+      "smiling"
+    ],
+    "shortcodes": [
+      "heart_eyes_cat"
+    ]
+  },
+  {
+    "emoji": "😿",
+    "code": "34D",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "cat",
+      "cry",
+      "crying",
+      "face",
+      "sad",
+      "tear"
+    ],
+    "shortcodes": [
+      "crying_cat_face",
+      "crying_cat"
+    ]
+  },
+  {
+    "emoji": "😾",
+    "code": "34E",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "cat",
+      "face",
+      "pouting"
+    ],
+    "shortcodes": [
+      "pouting_cat"
+    ]
+  },
+  {
+    "emoji": "😼",
+    "code": "34F",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "cat",
+      "face",
+      "ironic",
+      "smile",
+      "wry"
+    ],
+    "shortcodes": [
+      "smirk_cat"
+    ]
+  },
+  {
+    "emoji": "🙀",
+    "code": "350",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "cat",
+      "face",
+      "oh",
+      "surprised",
+      "weary"
+    ],
+    "shortcodes": [
+      "scream_cat",
+      "weary_cat"
+    ]
+  },
+  {
+    "emoji": "🙅",
+    "code": "351",
+    "category": "Smileys & People",
+    "tags": [
+      "forbidden",
+      "gesture",
+      "hand",
+      "no",
+      "not",
+      "person",
+      "prohibit"
+    ],
+    "shortcodes": [
+      "no_good",
+      "person_gesturing_no"
+    ]
+  },
+  {
+    "emoji": "🙆",
+    "code": "352",
+    "category": "Smileys & People",
+    "tags": [
+      "exercise",
+      "gesture",
+      "gesturing",
+      "hand",
+      "ok",
+      "omg",
+      "person"
+    ],
+    "shortcodes": [
+      "ok_person",
+      "ok_woman",
+      "person_gesturing_ok"
+    ]
+  },
+  {
+    "emoji": "🙇",
+    "code": "353",
+    "category": "Smileys & People",
+    "tags": [
+      "apology",
+      "ask",
+      "beg",
+      "bow",
+      "bowing",
+      "favor",
+      "forgive",
+      "gesture",
+      "meditate",
+      "meditation",
+      "person",
+      "pity",
+      "regret",
+      "sorry"
+    ],
+    "shortcodes": [
+      "bow",
+      "person_bowing"
+    ]
+  },
+  {
+    "emoji": "🙈",
+    "code": "354",
+    "category": "Smileys & People",
+    "tags": [
+      "embarrassed",
+      "evil",
+      "face",
+      "forbidden",
+      "forgot",
+      "gesture",
+      "hide",
+      "monkey",
+      "no",
+      "omg",
+      "prohibited",
+      "scared",
+      "secret",
+      "smh",
+      "watch"
+    ],
+    "shortcodes": [
+      "see_no_evil"
+    ]
+  },
+  {
+    "emoji": "🙊",
+    "code": "355",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "evil",
+      "face",
+      "forbidden",
+      "gesture",
+      "monkey",
+      "no",
+      "not",
+      "oops",
+      "prohibited",
+      "quiet",
+      "secret",
+      "speak",
+      "stealth"
+    ],
+    "shortcodes": [
+      "speak_no_evil"
+    ]
+  },
+  {
+    "emoji": "🙉",
+    "code": "356",
+    "category": "Smileys & People",
+    "tags": [
+      "animal",
+      "ears",
+      "evil",
+      "face",
+      "forbidden",
+      "gesture",
+      "hear",
+      "listen",
+      "monkey",
+      "no",
+      "not",
+      "prohibited",
+      "secret",
+      "shh",
+      "tmi"
+    ],
+    "shortcodes": [
+      "hear_no_evil"
+    ]
+  },
+  {
+    "emoji": "🙋",
+    "code": "357",
+    "category": "Smileys & People",
+    "tags": [
+      "gesture",
+      "hand",
+      "here",
+      "know",
+      "me",
+      "person",
+      "pick",
+      "question",
+      "raise",
+      "raising"
+    ],
+    "shortcodes": [
+      "raising_hand",
+      "person_raising_hand"
+    ]
+  },
+  {
+    "emoji": "🙌",
+    "code": "358",
+    "category": "Smileys & People",
+    "tags": [
+      "celebration",
+      "gesture",
+      "hand",
+      "hands",
+      "hooray",
+      "praise",
+      "raised",
+      "raising"
+    ],
+    "shortcodes": [
+      "raised_hands",
+      "raising_hands"
+    ]
+  },
+  {
+    "emoji": "🙍",
+    "code": "359",
+    "category": "Smileys & People",
+    "tags": [
+      "annoyed",
+      "disappointed",
+      "disgruntled",
+      "disturbed",
+      "frown",
+      "frowning",
+      "frustrated",
+      "gesture",
+      "irritated",
+      "person",
+      "upset"
+    ],
+    "shortcodes": [
+      "frowning_person",
+      "person_frowning"
+    ]
+  },
+  {
+    "emoji": "🙎",
+    "code": "35A",
+    "category": "Smileys & People",
+    "tags": [
+      "disappointed",
+      "downtrodden",
+      "frown",
+      "grimace",
+      "person",
+      "pouting",
+      "scowl",
+      "sulk",
+      "upset",
+      "whine"
+    ],
+    "shortcodes": [
+      "pouting_face",
+      "person_with_pouting_face",
+      "person_pouting"
+    ]
+  },
+  {
+    "emoji": "🙏",
+    "code": "35B",
+    "category": "Smileys & People",
+    "tags": [
+      "appreciate",
+      "ask",
+      "beg",
+      "blessed",
+      "bow",
+      "cmon",
+      "five",
+      "folded",
+      "gesture",
+      "hand",
+      "high",
+      "please",
+      "pray",
+      "thanks",
+      "thx"
+    ],
+    "shortcodes": [
+      "pray",
+      "folded_hands"
+    ]
+  },
+  {
+    "emoji": "🏠",
+    "code": "4B0",
+    "category": "Objects & Places",
+    "tags": [
+      "building",
+      "country",
+      "heart",
+      "home",
+      "ranch",
+      "settle",
+      "simple",
+      "suburban",
+      "suburbia",
+      "where"
+    ],
+    "shortcodes": [
+      "house"
+    ]
+  },
+  {
+    "emoji": "🏡",
+    "code": "4B1",
+    "category": "Objects & Places",
+    "tags": [
+      "building",
+      "country",
+      "garden",
+      "heart",
+      "home",
+      "house",
+      "ranch",
+      "settle",
+      "simple",
+      "suburban",
+      "suburbia",
+      "where"
+    ],
+    "shortcodes": [
+      "house_with_garden"
+    ]
+  },
+  {
+    "emoji": "🏢",
+    "code": "4B2",
+    "category": "Objects & Places",
+    "tags": [
+      "building",
+      "city",
+      "cubical",
+      "job",
+      "office"
+    ],
+    "shortcodes": [
+      "office"
+    ]
+  },
+  {
+    "emoji": "🏣",
+    "code": "4B3",
+    "category": "Objects & Places",
+    "tags": [
+      "building",
+      "japanese",
+      "office",
+      "post"
+    ],
+    "shortcodes": [
+      "post_office"
+    ]
+  },
+  {
+    "emoji": "🏥",
+    "code": "4B4",
+    "category": "Objects & Places",
+    "tags": [
+      "building",
+      "doctor",
+      "medicine"
+    ],
+    "shortcodes": [
+      "hospital"
+    ]
+  },
+  {
+    "emoji": "🏦",
+    "code": "4B5",
+    "category": "Objects & Places",
+    "tags": [
+      "building"
+    ],
+    "shortcodes": [
+      "bank"
+    ]
+  },
+  {
+    "emoji": "🏧",
+    "code": "4B6",
+    "category": "Symbols & Flags",
+    "tags": [
+      "atm",
+      "automated",
+      "bank",
+      "cash",
+      "money",
+      "sign",
+      "teller"
+    ],
+    "shortcodes": [
+      "atm"
+    ]
+  },
+  {
+    "emoji": "🏨",
+    "code": "4B7",
+    "category": "Objects & Places",
+    "tags": [
+      "building"
+    ],
+    "shortcodes": [
+      "hotel"
+    ]
+  },
+  {
+    "emoji": "🏩",
+    "code": "4B8",
+    "category": "Objects & Places",
+    "tags": [
+      "building",
+      "hotel",
+      "love"
+    ],
+    "shortcodes": [
+      "love_hotel"
+    ]
+  },
+  {
+    "emoji": "🏪",
+    "code": "4B9",
+    "category": "Objects & Places",
+    "tags": [
+      "24",
+      "building",
+      "convenience",
+      "hours",
+      "store"
+    ],
+    "shortcodes": [
+      "convenience_store"
+    ]
+  },
+  {
+    "emoji": "🏫",
+    "code": "4BA",
+    "category": "Objects & Places",
+    "tags": [
+      "building"
+    ],
+    "shortcodes": [
+      "school"
+    ]
+  },
+  {
+    "emoji": "⛪",
+    "code": "4BB",
+    "category": "Objects & Places",
+    "tags": [
+      "bless",
+      "chapel",
+      "christian",
+      "cross",
+      "religion"
+    ],
+    "shortcodes": [
+      "church"
+    ]
+  },
+  {
+    "emoji": "⛲",
+    "code": "4BC",
+    "category": "Objects & Places",
+    "tags": [
+      "fountain"
+    ],
+    "shortcodes": [
+      "fountain"
+    ]
+  },
+  {
+    "emoji": "🏬",
+    "code": "4BD",
+    "category": "Objects & Places",
+    "tags": [
+      "building",
+      "department",
+      "store"
+    ],
+    "shortcodes": [
+      "department_store"
+    ]
+  },
+  {
+    "emoji": "🏯",
+    "code": "4BE",
+    "category": "Objects & Places",
+    "tags": [
+      "building",
+      "castle",
+      "japanese"
+    ],
+    "shortcodes": [
+      "japanese_castle"
+    ]
+  },
+  {
+    "emoji": "🏰",
+    "code": "4BF",
+    "category": "Objects & Places",
+    "tags": [
+      "building",
+      "european"
+    ],
+    "shortcodes": [
+      "european_castle",
+      "castle"
+    ]
+  },
+  {
+    "emoji": "🏭",
+    "code": "4C0",
+    "category": "Objects & Places",
+    "tags": [
+      "building"
+    ],
+    "shortcodes": [
+      "factory"
+    ]
+  },
+  {
+    "emoji": "⚓",
+    "code": "4C1",
+    "category": "Objects & Places",
+    "tags": [
+      "ship",
+      "tool"
+    ],
+    "shortcodes": [
+      "anchor"
+    ]
+  },
+  {
+    "emoji": "🏮",
+    "code": "4C2",
+    "category": "Objects & Places",
+    "tags": [
+      "bar",
+      "lantern",
+      "light",
+      "paper",
+      "red",
+      "restaurant"
+    ],
+    "shortcodes": [
+      "izakaya_lantern",
+      "lantern"
+    ]
+  },
+  {
+    "emoji": "🗻",
+    "code": "4C3",
+    "category": "Objects & Places",
+    "tags": [
+      "fuji",
+      "mount",
+      "mountain",
+      "nature"
+    ],
+    "shortcodes": [
+      "mount_fuji"
+    ]
+  },
+  {
+    "emoji": "🗼",
+    "code": "4C4",
+    "category": "Objects & Places",
+    "tags": [
+      "tokyo",
+      "tower"
+    ],
+    "shortcodes": [
+      "tokyo_tower"
+    ]
+  },
+  {
+    "emoji": "🗽",
+    "code": "4C6",
+    "category": "Objects & Places",
+    "tags": [
+      "liberty",
+      "new",
+      "ny",
+      "nyc",
+      "statue",
+      "york"
+    ],
+    "shortcodes": [
+      "statue_of_liberty"
+    ]
+  },
+  {
+    "emoji": "🗾",
+    "code": "4C7",
+    "category": "Objects & Places",
+    "tags": [
+      "japan",
+      "map"
+    ],
+    "shortcodes": [
+      "japan",
+      "map_of_japan"
+    ]
+  },
+  {
+    "emoji": "🗿",
+    "code": "4C8",
+    "category": "Objects & Places",
+    "tags": [
+      "face",
+      "moyai",
+      "statue",
+      "stoneface",
+      "travel"
+    ],
+    "shortcodes": [
+      "moyai",
+      "moai"
+    ]
+  },
+  {
+    "emoji": "🔧",
+    "code": "4C9",
+    "category": "Objects & Places",
+    "tags": [
+      "home",
+      "improvement",
+      "spanner",
+      "tool"
+    ],
+    "shortcodes": [
+      "wrench"
+    ]
+  },
+  {
+    "emoji": "🔨",
+    "code": "4CA",
+    "category": "Objects & Places",
+    "tags": [
+      "home",
+      "improvement",
+      "repairs",
+      "tool"
+    ],
+    "shortcodes": [
+      "hammer"
+    ]
+  },
+  {
+    "emoji": "🔩",
+    "code": "4CB",
+    "category": "Objects & Places",
+    "tags": [
+      "bolt",
+      "home",
+      "improvement",
+      "nut",
+      "tool"
+    ],
+    "shortcodes": [
+      "nut_and_bolt"
+    ]
+  },
+  {
+    "emoji": "👞",
+    "code": "4CC",
+    "category": "Objects & Places",
+    "tags": [
+      "brown",
+      "clothes",
+      "clothing",
+      "feet",
+      "foot",
+      "kick",
+      "man",
+      "man’s",
+      "shoe",
+      "shoes",
+      "shopping"
+    ],
+    "shortcodes": [
+      "mans_shoe",
+      "shoe"
+    ]
+  },
+  {
+    "emoji": "👟",
+    "code": "4CD",
+    "category": "Objects & Places",
+    "tags": [
+      "athletic",
+      "clothes",
+      "clothing",
+      "fast",
+      "kick",
+      "running",
+      "shoe",
+      "shoes",
+      "shopping",
+      "sneaker",
+      "tennis"
+    ],
+    "shortcodes": [
+      "athletic_shoe",
+      "running_shoe"
+    ]
+  },
+  {
+    "emoji": "👓",
+    "code": "4CE",
+    "category": "Objects & Places",
+    "tags": [
+      "clothing",
+      "eye",
+      "eyeglasses",
+      "eyewear"
+    ],
+    "shortcodes": [
+      "eyeglasses",
+      "glasses"
+    ]
+  },
+  {
+    "emoji": "👕",
+    "code": "4CF",
+    "category": "Objects & Places",
+    "tags": [
+      "blue",
+      "casual",
+      "clothes",
+      "clothing",
+      "collar",
+      "dressed",
+      "shirt",
+      "shopping",
+      "tshirt",
+      "weekend"
+    ],
+    "shortcodes": [
+      "shirt",
+      "tshirt",
+      "t_shirt"
+    ]
+  },
+  {
+    "emoji": "👖",
+    "code": "4D0",
+    "category": "Objects & Places",
+    "tags": [
+      "blue",
+      "casual",
+      "clothes",
+      "clothing",
+      "denim",
+      "dressed",
+      "pants",
+      "shopping",
+      "trousers",
+      "weekend"
+    ],
+    "shortcodes": [
+      "jeans"
+    ]
+  },
+  {
+    "emoji": "👑",
+    "code": "4D1",
+    "category": "Objects & Places",
+    "tags": [
+      "clothing",
+      "family",
+      "king",
+      "medieval",
+      "queen",
+      "royal",
+      "royalty",
+      "win"
+    ],
+    "shortcodes": [
+      "crown"
+    ]
+  },
+  {
+    "emoji": "🔱",
+    "code": "4D2",
+    "category": "Symbols & Flags",
+    "tags": [
+      "anchor",
+      "emblem",
+      "poseidon",
+      "ship",
+      "tool",
+      "trident"
+    ],
+    "shortcodes": [
+      "trident"
+    ]
+  },
+  {
+    "emoji": "👔",
+    "code": "4D3",
+    "category": "Objects & Places",
+    "tags": [
+      "clothing",
+      "employed",
+      "serious",
+      "shirt",
+      "tie"
+    ],
+    "shortcodes": [
+      "necktie"
+    ]
+  },
+  {
+    "emoji": "👒",
+    "code": "4D4",
+    "category": "Objects & Places",
+    "tags": [
+      "clothes",
+      "clothing",
+      "garden",
+      "hat",
+      "hats",
+      "party",
+      "woman",
+      "woman’s"
+    ],
+    "shortcodes": [
+      "womans_hat"
+    ]
+  },
+  {
+    "emoji": "👗",
+    "code": "4D5",
+    "category": "Objects & Places",
+    "tags": [
+      "clothes",
+      "clothing",
+      "dressed",
+      "fancy",
+      "shopping"
+    ],
+    "shortcodes": [
+      "dress"
+    ]
+  },
+  {
+    "emoji": "👠",
+    "code": "4D6",
+    "category": "Objects & Places",
+    "tags": [
+      "clothes",
+      "clothing",
+      "dress",
+      "fashion",
+      "heel",
+      "heels",
+      "high-heeled",
+      "shoe",
+      "shoes",
+      "shopping",
+      "stiletto",
+      "woman"
+    ],
+    "shortcodes": [
+      "high_heel"
+    ]
+  },
+  {
+    "emoji": "👡",
+    "code": "4D7",
+    "category": "Objects & Places",
+    "tags": [
+      "clothing",
+      "sandal",
+      "shoe",
+      "woman",
+      "woman’s"
+    ],
+    "shortcodes": [
+      "sandal",
+      "womans_sandal"
+    ]
+  },
+  {
+    "emoji": "👢",
+    "code": "4D8",
+    "category": "Objects & Places",
+    "tags": [
+      "boot",
+      "clothes",
+      "clothing",
+      "dress",
+      "shoe",
+      "shoes",
+      "shopping",
+      "woman",
+      "woman’s"
+    ],
+    "shortcodes": [
+      "boot",
+      "womans_boot"
+    ]
+  },
+  {
+    "emoji": "👘",
+    "code": "4D9",
+    "category": "Objects & Places",
+    "tags": [
+      "clothing",
+      "comfortable"
+    ],
+    "shortcodes": [
+      "kimono"
+    ]
+  },
+  {
+    "emoji": "👙",
+    "code": "4DA",
+    "category": "Objects & Places",
+    "tags": [
+      "bathing",
+      "beach",
+      "clothing",
+      "pool",
+      "suit",
+      "swim"
+    ],
+    "shortcodes": [
+      "bikini"
+    ]
+  },
+  {
+    "emoji": "👚",
+    "code": "4DB",
+    "category": "Objects & Places",
+    "tags": [
+      "blouse",
+      "clothes",
+      "clothing",
+      "collar",
+      "dress",
+      "dressed",
+      "lady",
+      "shirt",
+      "shopping",
+      "woman",
+      "woman’s"
+    ],
+    "shortcodes": [
+      "womans_clothes"
+    ]
+  },
+  {
+    "emoji": "👛",
+    "code": "4DC",
+    "category": "Objects & Places",
+    "tags": [
+      "clothes",
+      "clothing",
+      "coin",
+      "dress",
+      "fancy",
+      "handbag",
+      "shopping"
+    ],
+    "shortcodes": [
+      "purse"
+    ]
+  },
+  {
+    "emoji": "💰",
+    "code": "4DD",
+    "category": "Objects & Places",
+    "tags": [
+      "bag",
+      "bank",
+      "bet",
+      "billion",
+      "cash",
+      "cost",
+      "dollar",
+      "gold",
+      "million",
+      "money",
+      "moneybag",
+      "paid",
+      "paying",
+      "pot",
+      "rich",
+      "win"
+    ],
+    "shortcodes": [
+      "moneybag",
+      "money_bag"
+    ]
+  },
+  {
+    "emoji": "💱",
+    "code": "4DE",
+    "category": "Symbols & Flags",
+    "tags": [
+      "bank",
+      "currency",
+      "exchange",
+      "money"
+    ],
+    "shortcodes": [
+      "currency_exchange"
+    ]
+  },
+  {
+    "emoji": "💹",
+    "code": "4DF",
+    "category": "Objects & Places",
+    "tags": [
+      "bank",
+      "chart",
+      "currency",
+      "graph",
+      "growth",
+      "increasing",
+      "market",
+      "money",
+      "rise",
+      "trend",
+      "upward",
+      "yen"
+    ],
+    "shortcodes": [
+      "chart"
+    ]
+  },
+  {
+    "emoji": "💲",
+    "code": "4E0",
+    "category": "Symbols & Flags",
+    "tags": [
+      "billion",
+      "cash",
+      "charge",
+      "currency",
+      "dollar",
+      "heavy",
+      "million",
+      "money",
+      "pay",
+      "sign"
+    ],
+    "shortcodes": [
+      "heavy_dollar_sign"
+    ]
+  },
+  {
+    "emoji": "💳",
+    "code": "4E1",
+    "category": "Objects & Places",
+    "tags": [
+      "bank",
+      "card",
+      "cash",
+      "charge",
+      "credit",
+      "money",
+      "pay"
+    ],
+    "shortcodes": [
+      "credit_card"
+    ]
+  },
+  {
+    "emoji": "💴",
+    "code": "4E2",
+    "category": "Objects & Places",
+    "tags": [
+      "bank",
+      "banknote",
+      "bill",
+      "currency",
+      "money",
+      "note",
+      "yen"
+    ],
+    "shortcodes": [
+      "yen",
+      "yen_banknote"
+    ]
+  },
+  {
+    "emoji": "💵",
+    "code": "4E3",
+    "category": "Objects & Places",
+    "tags": [
+      "bank",
+      "banknote",
+      "bill",
+      "currency",
+      "dollar",
+      "money",
+      "note"
+    ],
+    "shortcodes": [
+      "dollar"
+    ]
+  },
+  {
+    "emoji": "💸",
+    "code": "4E4",
+    "category": "Objects & Places",
+    "tags": [
+      "bank",
+      "banknote",
+      "bill",
+      "billion",
+      "cash",
+      "dollar",
+      "fly",
+      "million",
+      "money",
+      "note",
+      "pay",
+      "wings"
+    ],
+    "shortcodes": [
+      "money_with_wings"
+    ]
+  },
+  {
+    "emoji": "🇯🇵",
+    "code": "4E5",
+    "category": "Symbols & Flags",
+    "tags": [
+      "JP",
+      "flag"
+    ],
+    "shortcodes": [
+      "jp",
+      "flag-jp",
+      "flag_jp"
+    ]
+  },
+  {
+    "emoji": "🇺🇸",
+    "code": "4E6",
+    "category": "Symbols & Flags",
+    "tags": [
+      "US",
+      "flag"
+    ],
+    "shortcodes": [
+      "us",
+      "flag-us",
+      "flag_us"
+    ]
+  },
+  {
+    "emoji": "🇫🇷",
+    "code": "4E7",
+    "category": "Symbols & Flags",
+    "tags": [
+      "FR",
+      "flag"
+    ],
+    "shortcodes": [
+      "fr",
+      "flag-fr",
+      "flag_fr"
+    ]
+  },
+  {
+    "emoji": "🇩🇪",
+    "code": "4E8",
+    "category": "Symbols & Flags",
+    "tags": [
+      "DE",
+      "flag"
+    ],
+    "shortcodes": [
+      "de",
+      "flag-de",
+      "flag_de"
+    ]
+  },
+  {
+    "emoji": "🇮🇹",
+    "code": "4E9",
+    "category": "Symbols & Flags",
+    "tags": [
+      "IT",
+      "flag"
+    ],
+    "shortcodes": [
+      "it",
+      "flag-it",
+      "flag_it"
+    ]
+  },
+  {
+    "emoji": "🇬🇧",
+    "code": "4EA",
+    "category": "Symbols & Flags",
+    "tags": [
+      "GB",
+      "flag"
+    ],
+    "shortcodes": [
+      "gb",
+      "uk",
+      "flag-gb",
+      "flag_gb"
+    ]
+  },
+  {
+    "emoji": "🇪🇸",
+    "code": "4EB",
+    "category": "Symbols & Flags",
+    "tags": [
+      "ES",
+      "flag"
+    ],
+    "shortcodes": [
+      "es",
+      "flag-es",
+      "flag_es"
+    ]
+  },
+  {
+    "emoji": "🇷🇺",
+    "code": "4EC",
+    "category": "Symbols & Flags",
+    "tags": [
+      "RU",
+      "flag"
+    ],
+    "shortcodes": [
+      "ru",
+      "flag-ru",
+      "flag_ru"
+    ]
+  },
+  {
+    "emoji": "🇨🇳",
+    "code": "4ED",
+    "category": "Symbols & Flags",
+    "tags": [
+      "CN",
+      "flag"
+    ],
+    "shortcodes": [
+      "cn",
+      "flag-cn",
+      "flag_cn"
+    ]
+  },
+  {
+    "emoji": "🇰🇷",
+    "code": "4EE",
+    "category": "Symbols & Flags",
+    "tags": [
+      "KR",
+      "flag"
+    ],
+    "shortcodes": [
+      "kr",
+      "flag-kr",
+      "flag_kr"
+    ]
+  },
+  {
+    "emoji": "📷",
+    "code": "4EF",
+    "category": "Objects & Places",
+    "tags": [
+      "photo",
+      "selfie",
+      "snap",
+      "tbt",
+      "trip",
+      "video"
+    ],
+    "shortcodes": [
+      "camera"
+    ]
+  },
+  {
+    "emoji": "👜",
+    "code": "4F0",
+    "category": "Objects & Places",
+    "tags": [
+      "bag",
+      "clothes",
+      "clothing",
+      "dress",
+      "lady",
+      "purse",
+      "shopping"
+    ],
+    "shortcodes": [
+      "handbag"
+    ]
+  },
+  {
+    "emoji": "👝",
+    "code": "4F1",
+    "category": "Objects & Places",
+    "tags": [
+      "bag",
+      "clothes",
+      "clothing",
+      "clutch",
+      "dress",
+      "handbag",
+      "pouch",
+      "purse"
+    ],
+    "shortcodes": [
+      "pouch",
+      "clutch_bag"
+    ]
+  },
+  {
+    "emoji": "🔔",
+    "code": "4F2",
+    "category": "Objects & Places",
+    "tags": [
+      "break",
+      "church",
+      "sound"
+    ],
+    "shortcodes": [
+      "bell"
+    ]
+  },
+  {
+    "emoji": "🚪",
+    "code": "4F3",
+    "category": "Objects & Places",
+    "tags": [
+      "back",
+      "closet",
+      "front"
+    ],
+    "shortcodes": [
+      "door"
+    ]
+  },
+  {
+    "emoji": "💩",
+    "code": "4F4",
+    "category": "Smileys & People",
+    "tags": [
+      "bs",
+      "comic",
+      "doo",
+      "dung",
+      "face",
+      "fml",
+      "monster",
+      "pile",
+      "poo",
+      "poop",
+      "smelly",
+      "smh",
+      "stink",
+      "stinks",
+      "stinky",
+      "turd"
+    ],
+    "shortcodes": [
+      "hankey",
+      "poop",
+      "shit",
+      "poo",
+      "pile_of_poo"
+    ]
+  },
+  {
+    "emoji": "🔫",
+    "code": "4F5",
+    "category": "Objects & Places",
+    "tags": [
+      "gun",
+      "handgun",
+      "pistol",
+      "revolver",
+      "tool",
+      "water",
+      "weapon"
+    ],
+    "shortcodes": [
+      "gun",
+      "pistol"
+    ]
+  },
+  {
+    "emoji": "🔥",
+    "code": "4F6",
+    "category": "Objects & Places",
+    "tags": [
+      "af",
+      "burn",
+      "flame",
+      "hot",
+      "lit",
+      "litaf",
+      "tool"
+    ],
+    "shortcodes": [
+      "fire",
+      "flame"
+    ]
+  },
+  {
+    "emoji": "🔮",
+    "code": "4F7",
+    "category": "Objects & Places",
+    "tags": [
+      "ball",
+      "crystal",
+      "fairy",
+      "fairytale",
+      "fantasy",
+      "fortune",
+      "future",
+      "magic",
+      "tale",
+      "tool"
+    ],
+    "shortcodes": [
+      "crystal_ball"
+    ]
+  },
+  {
+    "emoji": "🔯",
+    "code": "4F8",
+    "category": "Symbols & Flags",
+    "tags": [
+      "dotted",
+      "fortune",
+      "jewish",
+      "judaism",
+      "six-pointed",
+      "star"
+    ],
+    "shortcodes": [
+      "six_pointed_star"
+    ]
+  },
+  {
+    "emoji": "📹",
+    "code": "4F9",
+    "category": "Objects & Places",
+    "tags": [
+      "camcorder",
+      "camera",
+      "tbt",
+      "video"
+    ],
+    "shortcodes": [
+      "video_camera"
+    ]
+  },
+  {
+    "emoji": "🔪",
+    "code": "4FA",
+    "category": "Food & Drink",
+    "tags": [
+      "chef",
+      "cooking",
+      "hocho",
+      "kitchen",
+      "knife",
+      "tool",
+      "weapon"
+    ],
+    "shortcodes": [
+      "hocho",
+      "knife",
+      "kitchen_knife"
+    ]
+  },
+  {
+    "emoji": "🔦",
+    "code": "4FB",
+    "category": "Objects & Places",
+    "tags": [
+      "electric",
+      "light",
+      "tool",
+      "torch"
+    ],
+    "shortcodes": [
+      "flashlight"
+    ]
+  },
+  {
+    "emoji": "🔋",
+    "code": "4FC",
+    "category": "Objects & Places",
+    "tags": [
+      "battery"
+    ],
+    "shortcodes": [
+      "battery"
+    ]
+  },
+  {
+    "emoji": "📜",
+    "code": "4FD",
+    "category": "Objects & Places",
+    "tags": [
+      "paper"
+    ],
+    "shortcodes": [
+      "scroll"
+    ]
+  },
+  {
+    "emoji": "🔌",
+    "code": "4FE",
+    "category": "Objects & Places",
+    "tags": [
+      "electric",
+      "electricity",
+      "plug"
+    ],
+    "shortcodes": [
+      "electric_plug"
+    ]
+  },
+  {
+    "emoji": "📗",
+    "code": "4FF",
+    "category": "Objects & Places",
+    "tags": [
+      "book",
+      "education",
+      "fantasy",
+      "green",
+      "library",
+      "reading"
+    ],
+    "shortcodes": [
+      "green_book"
+    ]
+  },
+  {
+    "emoji": "📘",
+    "code": "500",
+    "category": "Objects & Places",
+    "tags": [
+      "blue",
+      "book",
+      "education",
+      "fantasy",
+      "library",
+      "reading"
+    ],
+    "shortcodes": [
+      "blue_book"
+    ]
+  },
+  {
+    "emoji": "📙",
+    "code": "501",
+    "category": "Objects & Places",
+    "tags": [
+      "book",
+      "education",
+      "fantasy",
+      "library",
+      "orange",
+      "reading"
+    ],
+    "shortcodes": [
+      "orange_book"
+    ]
+  },
+  {
+    "emoji": "📕",
+    "code": "502",
+    "category": "Objects & Places",
+    "tags": [
+      "book",
+      "closed",
+      "education"
+    ],
+    "shortcodes": [
+      "closed_book"
+    ]
+  },
+  {
+    "emoji": "📚",
+    "code": "503",
+    "category": "Objects & Places",
+    "tags": [
+      "book",
+      "education",
+      "fantasy",
+      "knowledge",
+      "library",
+      "novels",
+      "reading",
+      "school",
+      "study"
+    ],
+    "shortcodes": [
+      "books"
+    ]
+  },
+  {
+    "emoji": "📛",
+    "code": "504",
+    "category": "Symbols & Flags",
+    "tags": [
+      "badge",
+      "name"
+    ],
+    "shortcodes": [
+      "name_badge"
+    ]
+  },
+  {
+    "emoji": "🛀",
+    "code": "505",
+    "category": "Smileys & People",
+    "tags": [
+      "bath",
+      "bathtub",
+      "person",
+      "taking",
+      "tub"
+    ],
+    "shortcodes": [
+      "bath"
+    ]
+  },
+  {
+    "emoji": "🚻",
+    "code": "506",
+    "category": "Symbols & Flags",
+    "tags": [
+      "bathroom",
+      "lavatory",
+      "toilet",
+      "wc"
+    ],
+    "shortcodes": [
+      "restroom"
+    ]
+  },
+  {
+    "emoji": "🚽",
+    "code": "507",
+    "category": "Objects & Places",
+    "tags": [
+      "bathroom"
+    ],
+    "shortcodes": [
+      "toilet"
+    ]
+  },
+  {
+    "emoji": "🚾",
+    "code": "508",
+    "category": "Symbols & Flags",
+    "tags": [
+      "bathroom",
+      "closet",
+      "lavatory",
+      "restroom",
+      "toilet",
+      "water",
+      "wc"
+    ],
+    "shortcodes": [
+      "wc",
+      "water_closet"
+    ]
+  },
+  {
+    "emoji": "💉",
+    "code": "509",
+    "category": "Objects & Places",
+    "tags": [
+      "doctor",
+      "flu",
+      "medicine",
+      "needle",
+      "shot",
+      "sick",
+      "tool",
+      "vaccination"
+    ],
+    "shortcodes": [
+      "syringe"
+    ]
+  },
+  {
+    "emoji": "💊",
+    "code": "50A",
+    "category": "Objects & Places",
+    "tags": [
+      "doctor",
+      "drugs",
+      "medicated",
+      "medicine",
+      "pills",
+      "sick",
+      "vitamin"
+    ],
+    "shortcodes": [
+      "pill"
+    ]
+  },
+  {
+    "emoji": "🅰",
+    "code": "50B",
+    "category": "Symbols & Flags",
+    "tags": [
+      "blood",
+      "button",
+      "type"
+    ],
+    "shortcodes": [
+      "a"
+    ]
+  },
+  {
+    "emoji": "🅱",
+    "code": "50C",
+    "category": "Symbols & Flags",
+    "tags": [
+      "b",
+      "blood",
+      "button",
+      "type"
+    ],
+    "shortcodes": [
+      "b"
+    ]
+  },
+  {
+    "emoji": "🆎",
+    "code": "50D",
+    "category": "Symbols & Flags",
+    "tags": [
+      "ab",
+      "blood",
+      "button",
+      "type"
+    ],
+    "shortcodes": [
+      "ab"
+    ]
+  },
+  {
+    "emoji": "🅾",
+    "code": "50E",
+    "category": "Symbols & Flags",
+    "tags": [
+      "blood",
+      "button",
+      "o",
+      "type"
+    ],
+    "shortcodes": [
+      "o2"
+    ]
+  },
+  {
+    "emoji": "🎀",
+    "code": "50F",
+    "category": "Objects & Places",
+    "tags": [
+      "celebration"
+    ],
+    "shortcodes": [
+      "ribbon"
+    ]
+  },
+  {
+    "emoji": "🎁",
+    "code": "510",
+    "category": "Objects & Places",
+    "tags": [
+      "birthday",
+      "bow",
+      "box",
+      "celebration",
+      "christmas",
+      "gift",
+      "present",
+      "surprise",
+      "wrapped"
+    ],
+    "shortcodes": [
+      "gift",
+      "wrapped_gift"
+    ]
+  },
+  {
+    "emoji": "🎂",
+    "code": "511",
+    "category": "Food & Drink",
+    "tags": [
+      "bday",
+      "birthday",
+      "cake",
+      "celebration",
+      "dessert",
+      "happy",
+      "pastry",
+      "sweet"
+    ],
+    "shortcodes": [
+      "birthday",
+      "birthday_cake"
+    ]
+  },
+  {
+    "emoji": "🎄",
+    "code": "512",
+    "category": "Objects & Places",
+    "tags": [
+      "celebration",
+      "christmas",
+      "tree"
+    ],
+    "shortcodes": [
+      "christmas_tree"
+    ]
+  },
+  {
+    "emoji": "🎅",
+    "code": "513",
+    "category": "Smileys & People",
+    "tags": [
+      "celebration",
+      "christmas",
+      "claus",
+      "fairy",
+      "fantasy",
+      "father",
+      "holiday",
+      "merry",
+      "santa",
+      "tale",
+      "xmas"
+    ],
+    "shortcodes": [
+      "santa",
+      "santa_claus"
+    ]
+  },
+  {
+    "emoji": "🎌",
+    "code": "514",
+    "category": "Symbols & Flags",
+    "tags": [
+      "celebration",
+      "cross",
+      "crossed",
+      "flags",
+      "japanese"
+    ],
+    "shortcodes": [
+      "crossed_flags"
+    ]
+  },
+  {
+    "emoji": "🎆",
+    "code": "515",
+    "category": "Objects & Places",
+    "tags": [
+      "boom",
+      "celebration",
+      "entertainment",
+      "yolo"
+    ],
+    "shortcodes": [
+      "fireworks"
+    ]
+  },
+  {
+    "emoji": "🎈",
+    "code": "516",
+    "category": "Objects & Places",
+    "tags": [
+      "birthday",
+      "celebrate",
+      "celebration"
+    ],
+    "shortcodes": [
+      "balloon"
+    ]
+  },
+  {
+    "emoji": "🎉",
+    "code": "517",
+    "category": "Objects & Places",
+    "tags": [
+      "awesome",
+      "birthday",
+      "celebrate",
+      "celebration",
+      "excited",
+      "hooray",
+      "party",
+      "popper",
+      "tada",
+      "woohoo"
+    ],
+    "shortcodes": [
+      "tada",
+      "party_popper"
+    ]
+  },
+  {
+    "emoji": "🎍",
+    "code": "518",
+    "category": "Objects & Places",
+    "tags": [
+      "bamboo",
+      "celebration",
+      "decoration",
+      "japanese",
+      "pine",
+      "plant"
+    ],
+    "shortcodes": [
+      "bamboo"
+    ]
+  },
+  {
+    "emoji": "🎎",
+    "code": "519",
+    "category": "Objects & Places",
+    "tags": [
+      "celebration",
+      "doll",
+      "dolls",
+      "festival",
+      "japanese"
+    ],
+    "shortcodes": [
+      "dolls"
+    ]
+  },
+  {
+    "emoji": "🎓",
+    "code": "51A",
+    "category": "Objects & Places",
+    "tags": [
+      "cap",
+      "celebration",
+      "clothing",
+      "education",
+      "graduation",
+      "hat",
+      "scholar"
+    ],
+    "shortcodes": [
+      "mortar_board"
+    ]
+  },
+  {
+    "emoji": "🎒",
+    "code": "51B",
+    "category": "Objects & Places",
+    "tags": [
+      "backpacking",
+      "bag",
+      "bookbag",
+      "education",
+      "rucksack",
+      "satchel",
+      "school"
+    ],
+    "shortcodes": [
+      "school_satchel",
+      "backpack"
+    ]
+  },
+  {
+    "emoji": "🎏",
+    "code": "51C",
+    "category": "Objects & Places",
+    "tags": [
+      "carp",
+      "celebration",
+      "streamer"
+    ],
+    "shortcodes": [
+      "flags",
+      "carp_streamer"
+    ]
+  },
+  {
+    "emoji": "🎇",
+    "code": "51D",
+    "category": "Objects & Places",
+    "tags": [
+      "boom",
+      "celebration",
+      "fireworks",
+      "sparkle"
+    ],
+    "shortcodes": [
+      "sparkler"
+    ]
+  },
+  {
+    "emoji": "🎐",
+    "code": "51E",
+    "category": "Objects & Places",
+    "tags": [
+      "bell",
+      "celebration",
+      "chime",
+      "wind"
+    ],
+    "shortcodes": [
+      "wind_chime"
+    ]
+  },
+  {
+    "emoji": "🎃",
+    "code": "51F",
+    "category": "Objects & Places",
+    "tags": [
+      "celebration",
+      "halloween",
+      "jack",
+      "lantern",
+      "pumpkin"
+    ],
+    "shortcodes": [
+      "jack_o_lantern"
+    ]
+  },
+  {
+    "emoji": "🎊",
+    "code": "520",
+    "category": "Objects & Places",
+    "tags": [
+      "ball",
+      "celebrate",
+      "celebration",
+      "confetti",
+      "party",
+      "woohoo"
+    ],
+    "shortcodes": [
+      "confetti_ball"
+    ]
+  },
+  {
+    "emoji": "🎋",
+    "code": "521",
+    "category": "Objects & Places",
+    "tags": [
+      "banner",
+      "celebration",
+      "japanese",
+      "tanabata",
+      "tree"
+    ],
+    "shortcodes": [
+      "tanabata_tree"
+    ]
+  },
+  {
+    "emoji": "📟",
+    "code": "522",
+    "category": "Objects & Places",
+    "tags": [
+      "communication"
+    ],
+    "shortcodes": [
+      "pager"
+    ]
+  },
+  {
+    "emoji": "☎",
+    "code": "523",
+    "category": "Objects & Places",
+    "tags": [
+      "phone"
+    ],
+    "shortcodes": [
+      "phone",
+      "telephone"
+    ]
+  },
+  {
+    "emoji": "📞",
+    "code": "524",
+    "category": "Objects & Places",
+    "tags": [
+      "communication",
+      "phone",
+      "receiver",
+      "telephone",
+      "voip"
+    ],
+    "shortcodes": [
+      "telephone_receiver"
+    ]
+  },
+  {
+    "emoji": "📱",
+    "code": "525",
+    "category": "Objects & Places",
+    "tags": [
+      "cell",
+      "communication",
+      "mobile",
+      "phone",
+      "telephone"
+    ],
+    "shortcodes": [
+      "iphone",
+      "mobile_phone"
+    ]
+  },
+  {
+    "emoji": "📲",
+    "code": "526",
+    "category": "Objects & Places",
+    "tags": [
+      "arrow",
+      "build",
+      "call",
+      "cell",
+      "communication",
+      "mobile",
+      "phone",
+      "receive",
+      "telephone"
+    ],
+    "shortcodes": [
+      "calling"
+    ]
+  },
+  {
+    "emoji": "📝",
+    "code": "527",
+    "category": "Objects & Places",
+    "tags": [
+      "communication",
+      "media",
+      "notes",
+      "pencil"
+    ],
+    "shortcodes": [
+      "memo",
+      "pencil"
+    ]
+  },
+  {
+    "emoji": "📠",
+    "code": "528",
+    "category": "Objects & Places",
+    "tags": [
+      "communication",
+      "fax",
+      "machine"
+    ],
+    "shortcodes": [
+      "fax",
+      "fax_machine"
+    ]
+  },
+  {
+    "emoji": "✉",
+    "code": "529",
+    "category": "Objects & Places",
+    "tags": [
+      "e-mail",
+      "email",
+      "letter"
+    ],
+    "shortcodes": [
+      "envelope",
+      "email"
+    ]
+  },
+  {
+    "emoji": "📨",
+    "code": "52A",
+    "category": "Objects & Places",
+    "tags": [
+      "delivering",
+      "e-mail",
+      "email",
+      "envelope",
+      "incoming",
+      "letter",
+      "mail",
+      "receive",
+      "sent"
+    ],
+    "shortcodes": [
+      "incoming_envelope"
+    ]
+  },
+  {
+    "emoji": "📩",
+    "code": "52B",
+    "category": "Objects & Places",
+    "tags": [
+      "arrow",
+      "communication",
+      "down",
+      "e-mail",
+      "email",
+      "envelope",
+      "letter",
+      "mail",
+      "outgoing",
+      "send",
+      "sent"
+    ],
+    "shortcodes": [
+      "envelope_with_arrow"
+    ]
+  },
+  {
+    "emoji": "📪",
+    "code": "52C",
+    "category": "Objects & Places",
+    "tags": [
+      "closed",
+      "flag",
+      "lowered",
+      "mail",
+      "mailbox",
+      "postbox"
+    ],
+    "shortcodes": [
+      "mailbox_closed"
+    ]
+  },
+  {
+    "emoji": "📫",
+    "code": "52D",
+    "category": "Objects & Places",
+    "tags": [
+      "closed",
+      "communication",
+      "flag",
+      "mail",
+      "mailbox",
+      "postbox",
+      "raised"
+    ],
+    "shortcodes": [
+      "mailbox"
+    ]
+  },
+  {
+    "emoji": "📮",
+    "code": "52E",
+    "category": "Objects & Places",
+    "tags": [
+      "mail",
+      "mailbox"
+    ],
+    "shortcodes": [
+      "postbox"
+    ]
+  },
+  {
+    "emoji": "📢",
+    "code": "52F",
+    "category": "Objects & Places",
+    "tags": [
+      "address",
+      "communication",
+      "loud",
+      "public",
+      "sound"
+    ],
+    "shortcodes": [
+      "loudspeaker"
+    ]
+  },
+  {
+    "emoji": "📣",
+    "code": "530",
+    "category": "Objects & Places",
+    "tags": [
+      "cheering",
+      "sound"
+    ],
+    "shortcodes": [
+      "mega",
+      "megaphone"
+    ]
+  },
+  {
+    "emoji": "📡",
+    "code": "531",
+    "category": "Objects & Places",
+    "tags": [
+      "aliens",
+      "antenna",
+      "contact",
+      "dish",
+      "satellite",
+      "science"
+    ],
+    "shortcodes": [
+      "satellite",
+      "satellite_antenna"
+    ]
+  },
+  {
+    "emoji": "💬",
+    "code": "532",
+    "category": "Smileys & People",
+    "tags": [
+      "balloon",
+      "bubble",
+      "comic",
+      "dialog",
+      "message",
+      "sms",
+      "speech",
+      "talk",
+      "text",
+      "typing"
+    ],
+    "shortcodes": [
+      "speech_balloon"
+    ]
+  },
+  {
+    "emoji": "📤",
+    "code": "533",
+    "category": "Objects & Places",
+    "tags": [
+      "box",
+      "email",
+      "letter",
+      "mail",
+      "outbox",
+      "sent",
+      "tray"
+    ],
+    "shortcodes": [
+      "outbox_tray"
+    ]
+  },
+  {
+    "emoji": "📥",
+    "code": "534",
+    "category": "Objects & Places",
+    "tags": [
+      "box",
+      "email",
+      "inbox",
+      "letter",
+      "mail",
+      "receive",
+      "tray",
+      "zero"
+    ],
+    "shortcodes": [
+      "inbox_tray"
+    ]
+  },
+  {
+    "emoji": "📦",
+    "code": "535",
+    "category": "Objects & Places",
+    "tags": [
+      "box",
+      "communication",
+      "delivery",
+      "parcel",
+      "shipping"
+    ],
+    "shortcodes": [
+      "package"
+    ]
+  },
+  {
+    "emoji": "✒",
+    "code": "536",
+    "category": "Objects & Places",
+    "tags": [
+      "black",
+      "nib",
+      "pen"
+    ],
+    "shortcodes": [
+      "black_nib"
+    ]
+  },
+  {
+    "emoji": "💺",
+    "code": "537",
+    "category": "Objects & Places",
+    "tags": [
+      "chair"
+    ],
+    "shortcodes": [
+      "seat"
+    ]
+  },
+  {
+    "emoji": "💻",
+    "code": "538",
+    "category": "Objects & Places",
+    "tags": [
+      "computer",
+      "office",
+      "pc",
+      "personal"
+    ],
+    "shortcodes": [
+      "computer"
+    ]
+  },
+  {
+    "emoji": "✏",
+    "code": "539",
+    "category": "Objects & Places",
+    "tags": [
+      "pencil"
+    ],
+    "shortcodes": [
+      "pencil2"
+    ]
+  },
+  {
+    "emoji": "📎",
+    "code": "53A",
+    "category": "Objects & Places",
+    "tags": [
+      "paperclip"
+    ],
+    "shortcodes": [
+      "paperclip"
+    ]
+  },
+  {
+    "emoji": "💼",
+    "code": "53B",
+    "category": "Objects & Places",
+    "tags": [
+      "office"
+    ],
+    "shortcodes": [
+      "briefcase"
+    ]
+  },
+  {
+    "emoji": "💽",
+    "code": "53C",
+    "category": "Objects & Places",
+    "tags": [
+      "computer",
+      "disk",
+      "minidisk",
+      "optical"
+    ],
+    "shortcodes": [
+      "minidisc",
+      "computer_disk"
+    ]
+  },
+  {
+    "emoji": "💾",
+    "code": "53D",
+    "category": "Objects & Places",
+    "tags": [
+      "computer",
+      "disk",
+      "floppy"
+    ],
+    "shortcodes": [
+      "floppy_disk"
+    ]
+  },
+  {
+    "emoji": "✂",
+    "code": "53E",
+    "category": "Objects & Places",
+    "tags": [
+      "cut",
+      "cutting",
+      "paper",
+      "tool"
+    ],
+    "shortcodes": [
+      "scissors"
+    ]
+  },
+  {
+    "emoji": "📍",
+    "code": "53F",
+    "category": "Objects & Places",
+    "tags": [
+      "location",
+      "map",
+      "pin",
+      "pushpin",
+      "round"
+    ],
+    "shortcodes": [
+      "round_pushpin"
+    ]
+  },
+  {
+    "emoji": "📃",
+    "code": "540",
+    "category": "Objects & Places",
+    "tags": [
+      "curl",
+      "document",
+      "page",
+      "paper"
+    ],
+    "shortcodes": [
+      "page_with_curl"
+    ]
+  },
+  {
+    "emoji": "📄",
+    "code": "541",
+    "category": "Objects & Places",
+    "tags": [
+      "document",
+      "facing",
+      "page",
+      "paper",
+      "up"
+    ],
+    "shortcodes": [
+      "page_facing_up"
+    ]
+  },
+  {
+    "emoji": "📅",
+    "code": "542",
+    "category": "Objects & Places",
+    "tags": [
+      "date"
+    ],
+    "shortcodes": [
+      "date"
+    ]
+  },
+  {
+    "emoji": "📁",
+    "code": "543",
+    "category": "Objects & Places",
+    "tags": [
+      "file",
+      "folder"
+    ],
+    "shortcodes": [
+      "file_folder"
+    ]
+  },
+  {
+    "emoji": "📂",
+    "code": "544",
+    "category": "Objects & Places",
+    "tags": [
+      "file",
+      "folder",
+      "open"
+    ],
+    "shortcodes": [
+      "open_file_folder"
+    ]
+  },
+  {
+    "emoji": "📓",
+    "code": "545",
+    "category": "Objects & Places",
+    "tags": [
+      "notebook"
+    ],
+    "shortcodes": [
+      "notebook"
+    ]
+  },
+  {
+    "emoji": "📖",
+    "code": "546",
+    "category": "Objects & Places",
+    "tags": [
+      "book",
+      "education",
+      "fantasy",
+      "knowledge",
+      "library",
+      "novels",
+      "open",
+      "reading"
+    ],
+    "shortcodes": [
+      "book",
+      "open_book"
+    ]
+  },
+  {
+    "emoji": "📔",
+    "code": "547",
+    "category": "Objects & Places",
+    "tags": [
+      "book",
+      "cover",
+      "decorated",
+      "decorative",
+      "education",
+      "notebook",
+      "school",
+      "writing"
+    ],
+    "shortcodes": [
+      "notebook_with_decorative_cover"
+    ]
+  },
+  {
+    "emoji": "📋",
+    "code": "548",
+    "category": "Objects & Places",
+    "tags": [
+      "do",
+      "list",
+      "notes"
+    ],
+    "shortcodes": [
+      "clipboard"
+    ]
+  },
+  {
+    "emoji": "📆",
+    "code": "549",
+    "category": "Objects & Places",
+    "tags": [
+      "calendar",
+      "tear-off"
+    ],
+    "shortcodes": [
+      "calendar"
+    ]
+  },
+  {
+    "emoji": "📊",
+    "code": "54A",
+    "category": "Objects & Places",
+    "tags": [
+      "bar",
+      "chart",
+      "data",
+      "graph"
+    ],
+    "shortcodes": [
+      "bar_chart"
+    ]
+  },
+  {
+    "emoji": "📈",
+    "code": "54B",
+    "category": "Objects & Places",
+    "tags": [
+      "chart",
+      "data",
+      "graph",
+      "growth",
+      "increasing",
+      "right",
+      "trend",
+      "up",
+      "upward"
+    ],
+    "shortcodes": [
+      "chart_with_upwards_trend"
+    ]
+  },
+  {
+    "emoji": "📉",
+    "code": "54C",
+    "category": "Objects & Places",
+    "tags": [
+      "chart",
+      "data",
+      "decreasing",
+      "down",
+      "downward",
+      "graph",
+      "negative",
+      "trend"
+    ],
+    "shortcodes": [
+      "chart_with_downwards_trend"
+    ]
+  },
+  {
+    "emoji": "📇",
+    "code": "54D",
+    "category": "Objects & Places",
+    "tags": [
+      "card",
+      "index",
+      "old",
+      "rolodex",
+      "school"
+    ],
+    "shortcodes": [
+      "card_index"
+    ]
+  },
+  {
+    "emoji": "📌",
+    "code": "54E",
+    "category": "Objects & Places",
+    "tags": [
+      "collage",
+      "pin"
+    ],
+    "shortcodes": [
+      "pushpin"
+    ]
+  },
+  {
+    "emoji": "📒",
+    "code": "54F",
+    "category": "Objects & Places",
+    "tags": [
+      "notebook"
+    ],
+    "shortcodes": [
+      "ledger"
+    ]
+  },
+  {
+    "emoji": "📏",
+    "code": "550",
+    "category": "Objects & Places",
+    "tags": [
+      "angle",
+      "edge",
+      "math",
+      "ruler",
+      "straight",
+      "straightedge"
+    ],
+    "shortcodes": [
+      "straight_ruler"
+    ]
+  },
+  {
+    "emoji": "📐",
+    "code": "551",
+    "category": "Objects & Places",
+    "tags": [
+      "angle",
+      "math",
+      "rule",
+      "ruler",
+      "set",
+      "slide",
+      "triangle",
+      "triangular"
+    ],
+    "shortcodes": [
+      "triangular_ruler"
+    ]
+  },
+  {
+    "emoji": "📑",
+    "code": "552",
+    "category": "Objects & Places",
+    "tags": [
+      "bookmark",
+      "mark",
+      "marker",
+      "tabs"
+    ],
+    "shortcodes": [
+      "bookmark_tabs"
+    ]
+  },
+  {
+    "emoji": "👣",
+    "code": "553",
+    "category": "Smileys & People",
+    "tags": [
+      "barefoot",
+      "clothing",
+      "footprint",
+      "omw",
+      "print",
+      "walk"
+    ],
+    "shortcodes": [
+      "footprints"
+    ]
+  },
+  {
+    "emoji": "🎽",
+    "code": "7D0",
+    "category": "Objects & Places",
+    "tags": [
+      "athletics",
+      "running",
+      "sash",
+      "shirt"
+    ],
+    "shortcodes": [
+      "running_shirt_with_sash",
+      "running_shirt"
+    ]
+  },
+  {
+    "emoji": "⚾",
+    "code": "7D1",
+    "category": "Objects & Places",
+    "tags": [
+      "ball",
+      "sport"
+    ],
+    "shortcodes": [
+      "baseball"
+    ]
+  },
+  {
+    "emoji": "⛳",
+    "code": "7D2",
+    "category": "Objects & Places",
+    "tags": [
+      "flag",
+      "golf",
+      "hole",
+      "sport"
+    ],
+    "shortcodes": [
+      "golf",
+      "flag_in_hole"
+    ]
+  },
+  {
+    "emoji": "🎾",
+    "code": "7D3",
+    "category": "Objects & Places",
+    "tags": [
+      "ball",
+      "racquet",
+      "sport"
+    ],
+    "shortcodes": [
+      "tennis"
+    ]
+  },
+  {
+    "emoji": "⚽",
+    "code": "7D4",
+    "category": "Objects & Places",
+    "tags": [
+      "ball",
+      "football",
+      "futbol",
+      "soccer",
+      "sport"
+    ],
+    "shortcodes": [
+      "soccer",
+      "soccer_ball"
+    ]
+  },
+  {
+    "emoji": "🎿",
+    "code": "7D5",
+    "category": "Objects & Places",
+    "tags": [
+      "ski",
+      "snow",
+      "sport"
+    ],
+    "shortcodes": [
+      "ski",
+      "skis"
+    ]
+  },
+  {
+    "emoji": "🏀",
+    "code": "7D6",
+    "category": "Objects & Places",
+    "tags": [
+      "ball",
+      "hoop",
+      "sport"
+    ],
+    "shortcodes": [
+      "basketball"
+    ]
+  },
+  {
+    "emoji": "🏁",
+    "code": "7D7",
+    "category": "Symbols & Flags",
+    "tags": [
+      "checkered",
+      "chequered",
+      "finish",
+      "flag",
+      "flags",
+      "game",
+      "race",
+      "racing",
+      "sport",
+      "win"
+    ],
+    "shortcodes": [
+      "checkered_flag"
+    ]
+  },
+  {
+    "emoji": "🏂",
+    "code": "7D8",
+    "category": "Smileys & People",
+    "tags": [
+      "ski",
+      "snow",
+      "snowboard",
+      "sport"
+    ],
+    "shortcodes": [
+      "snowboarder"
+    ]
+  },
+  {
+    "emoji": "🏃",
+    "code": "7D9",
+    "category": "Smileys & People",
+    "tags": [
+      "fast",
+      "hurry",
+      "marathon",
+      "move",
+      "person",
+      "quick",
+      "race",
+      "racing",
+      "run",
+      "rush",
+      "speed"
+    ],
+    "shortcodes": [
+      "runner",
+      "running",
+      "person_running"
+    ]
+  },
+  {
+    "emoji": "🏄",
+    "code": "7DA",
+    "category": "Smileys & People",
+    "tags": [
+      "beach",
+      "ocean",
+      "person",
+      "sport",
+      "surf",
+      "surfer",
+      "surfing",
+      "swell",
+      "waves"
+    ],
+    "shortcodes": [
+      "surfer",
+      "person_surfing"
+    ]
+  },
+  {
+    "emoji": "🏆",
+    "code": "7DB",
+    "category": "Objects & Places",
+    "tags": [
+      "champion",
+      "champs",
+      "prize",
+      "slay",
+      "sport",
+      "victory",
+      "win",
+      "winning"
+    ],
+    "shortcodes": [
+      "trophy"
+    ]
+  },
+  {
+    "emoji": "🐎",
+    "code": "7DC",
+    "category": "Animals & Nature",
+    "tags": [
+      "animal",
+      "equestrian",
+      "farm",
+      "racehorse",
+      "racing"
+    ],
+    "shortcodes": [
+      "racehorse"
+    ]
+  },
+  {
+    "emoji": "🏈",
+    "code": "7DD",
+    "category": "Objects & Places",
+    "tags": [
+      "american",
+      "ball",
+      "bowl",
+      "football",
+      "sport",
+      "super"
+    ],
+    "shortcodes": [
+      "football"
+    ]
+  },
+  {
+    "emoji": "🏊",
+    "code": "7DE",
+    "category": "Smileys & People",
+    "tags": [
+      "freestyle",
+      "person",
+      "sport",
+      "swim",
+      "swimmer",
+      "swimming",
+      "triathlon"
+    ],
+    "shortcodes": [
+      "swimmer",
+      "person_swimming"
+    ]
+  },
+  {
+    "emoji": "🚃",
+    "code": "7DF",
+    "category": "Objects & Places",
+    "tags": [
+      "car",
+      "electric",
+      "railway",
+      "train",
+      "tram",
+      "travel",
+      "trolleybus"
+    ],
+    "shortcodes": [
+      "railway_car"
+    ]
+  },
+  {
+    "emoji": "🚇",
+    "code": "7E0",
+    "category": "Objects & Places",
+    "tags": [
+      "subway",
+      "travel"
+    ],
+    "shortcodes": [
+      "metro"
+    ]
+  },
+  {
+    "emoji": "Ⓜ",
+    "code": "7E1",
+    "category": "Symbols & Flags",
+    "tags": [
+      "circle",
+      "circled",
+      "m"
+    ],
+    "shortcodes": [
+      "m",
+      "circled_m"
+    ]
+  },
+  {
+    "emoji": "🚄",
+    "code": "7E2",
+    "category": "Objects & Places",
+    "tags": [
+      "high-speed",
+      "railway",
+      "shinkansen",
+      "speed",
+      "train"
+    ],
+    "shortcodes": [
+      "bullettrain_side"
+    ]
+  },
+  {
+    "emoji": "🚅",
+    "code": "7E3",
+    "category": "Objects & Places",
+    "tags": [
+      "bullet",
+      "high-speed",
+      "nose",
+      "railway",
+      "shinkansen",
+      "speed",
+      "train",
+      "travel"
+    ],
+    "shortcodes": [
+      "bullettrain_front",
+      "bullet_train"
+    ]
+  },
+  {
+    "emoji": "🚗",
+    "code": "7E4",
+    "category": "Objects & Places",
+    "tags": [
+      "car",
+      "driving",
+      "vehicle"
+    ],
+    "shortcodes": [
+      "car",
+      "red_car",
+      "automobile"
+    ]
+  },
+  {
+    "emoji": "🚙",
+    "code": "7E5",
+    "category": "Objects & Places",
+    "tags": [
+      "car",
+      "drive",
+      "recreational",
+      "sport",
+      "sportutility",
+      "utility",
+      "vehicle"
+    ],
+    "shortcodes": [
+      "blue_car"
+    ]
+  },
+  {
+    "emoji": "🚌",
+    "code": "7E6",
+    "category": "Objects & Places",
+    "tags": [
+      "school",
+      "vehicle"
+    ],
+    "shortcodes": [
+      "bus"
+    ]
+  },
+  {
+    "emoji": "🚏",
+    "code": "7E7",
+    "category": "Objects & Places",
+    "tags": [
+      "bus",
+      "busstop",
+      "stop"
+    ],
+    "shortcodes": [
+      "busstop",
+      "bus_stop"
+    ]
+  },
+  {
+    "emoji": "🚢",
+    "code": "7E8",
+    "category": "Objects & Places",
+    "tags": [
+      "boat",
+      "passenger",
+      "travel"
+    ],
+    "shortcodes": [
+      "ship"
+    ]
+  },
+  {
+    "emoji": "✈",
+    "code": "7E9",
+    "category": "Objects & Places",
+    "tags": [
+      "aeroplane",
+      "fly",
+      "flying",
+      "jet",
+      "plane",
+      "travel"
+    ],
+    "shortcodes": [
+      "airplane"
+    ]
+  },
+  {
+    "emoji": "⛵",
+    "code": "7EA",
+    "category": "Objects & Places",
+    "tags": [
+      "boat",
+      "resort",
+      "sailing",
+      "sea",
+      "yacht"
+    ],
+    "shortcodes": [
+      "boat",
+      "sailboat"
+    ]
+  },
+  {
+    "emoji": "🚲",
+    "code": "7EB",
+    "category": "Objects & Places",
+    "tags": [
+      "bike",
+      "class",
+      "cycle",
+      "cycling",
+      "cyclist",
+      "gang",
+      "ride",
+      "spin",
+      "spinning"
+    ],
+    "shortcodes": [
+      "bike",
+      "bicycle"
+    ]
+  },
+  {
+    "emoji": "🚉",
+    "code": "7EC",
+    "category": "Objects & Places",
+    "tags": [
+      "railway",
+      "train"
+    ],
+    "shortcodes": [
+      "station"
+    ]
+  },
+  {
+    "emoji": "🚀",
+    "code": "7ED",
+    "category": "Objects & Places",
+    "tags": [
+      "launch",
+      "rockets",
+      "space",
+      "travel"
+    ],
+    "shortcodes": [
+      "rocket"
+    ]
+  },
+  {
+    "emoji": "🚤",
+    "code": "7EE",
+    "category": "Objects & Places",
+    "tags": [
+      "billionaire",
+      "boat",
+      "lake",
+      "luxury",
+      "millionaire",
+      "summer",
+      "travel"
+    ],
+    "shortcodes": [
+      "speedboat"
+    ]
+  },
+  {
+    "emoji": "🚕",
+    "code": "7EF",
+    "category": "Objects & Places",
+    "tags": [
+      "cab",
+      "cabbie",
+      "car",
+      "drive",
+      "vehicle",
+      "yellow"
+    ],
+    "shortcodes": [
+      "taxi"
+    ]
+  },
+  {
+    "emoji": "🚶",
+    "code": "7F0",
+    "category": "Smileys & People",
+    "tags": [
+      "amble",
+      "gait",
+      "hike",
+      "man",
+      "pace",
+      "pedestrian",
+      "person",
+      "stride",
+      "stroll",
+      "walk",
+      "walking"
+    ],
+    "shortcodes": [
+      "walking",
+      "person_walking"
+    ]
+  },
+  {
+    "emoji": "🚚",
+    "code": "7F1",
+    "category": "Objects & Places",
+    "tags": [
+      "car",
+      "delivery",
+      "drive",
+      "truck",
+      "vehicle"
+    ],
+    "shortcodes": [
+      "truck"
+    ]
+  },
+  {
+    "emoji": "🚒",
+    "code": "7F2",
+    "category": "Objects & Places",
+    "tags": [
+      "engine",
+      "fire",
+      "truck"
+    ],
+    "shortcodes": [
+      "fire_engine"
+    ]
+  },
+  {
+    "emoji": "🚑",
+    "code": "7F3",
+    "category": "Objects & Places",
+    "tags": [
+      "emergency",
+      "vehicle"
+    ],
+    "shortcodes": [
+      "ambulance"
+    ]
+  },
+  {
+    "emoji": "🚓",
+    "code": "7F4",
+    "category": "Objects & Places",
+    "tags": [
+      "5–0",
+      "car",
+      "cops",
+      "patrol",
+      "police"
+    ],
+    "shortcodes": [
+      "police_car"
+    ]
+  },
+  {
+    "emoji": "⛽",
+    "code": "7F5",
+    "category": "Objects & Places",
+    "tags": [
+      "diesel",
+      "fuel",
+      "fuelpump",
+      "gas",
+      "gasoline",
+      "pump",
+      "station"
+    ],
+    "shortcodes": [
+      "fuelpump",
+      "fuel_pump"
+    ]
+  },
+  {
+    "emoji": "🅿",
+    "code": "7F6",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "p",
+      "parking"
+    ],
+    "shortcodes": [
+      "parking"
+    ]
+  },
+  {
+    "emoji": "🚥",
+    "code": "7F7",
+    "category": "Objects & Places",
+    "tags": [
+      "horizontal",
+      "intersection",
+      "light",
+      "signal",
+      "stop",
+      "stoplight",
+      "traffic"
+    ],
+    "shortcodes": [
+      "traffic_light"
+    ]
+  },
+  {
+    "emoji": "🚧",
+    "code": "7F8",
+    "category": "Objects & Places",
+    "tags": [
+      "barrier"
+    ],
+    "shortcodes": [
+      "construction"
+    ]
+  },
+  {
+    "emoji": "🚨",
+    "code": "7F9",
+    "category": "Objects & Places",
+    "tags": [
+      "alarm",
+      "alert",
+      "beacon",
+      "car",
+      "emergency",
+      "light",
+      "police",
+      "revolving",
+      "siren"
+    ],
+    "shortcodes": [
+      "rotating_light"
+    ]
+  },
+  {
+    "emoji": "♨",
+    "code": "7FA",
+    "category": "Objects & Places",
+    "tags": [
+      "hot",
+      "hotsprings",
+      "springs",
+      "steaming"
+    ],
+    "shortcodes": [
+      "hotsprings",
+      "hot_springs"
+    ]
+  },
+  {
+    "emoji": "⛺",
+    "code": "7FB",
+    "category": "Objects & Places",
+    "tags": [
+      "camping"
+    ],
+    "shortcodes": [
+      "tent"
+    ]
+  },
+  {
+    "emoji": "🎠",
+    "code": "7FC",
+    "category": "Objects & Places",
+    "tags": [
+      "carousel",
+      "entertainment",
+      "horse"
+    ],
+    "shortcodes": [
+      "carousel_horse"
+    ]
+  },
+  {
+    "emoji": "🎡",
+    "code": "7FD",
+    "category": "Objects & Places",
+    "tags": [
+      "amusement",
+      "ferris",
+      "park",
+      "theme",
+      "wheel"
+    ],
+    "shortcodes": [
+      "ferris_wheel"
+    ]
+  },
+  {
+    "emoji": "🎢",
+    "code": "7FE",
+    "category": "Objects & Places",
+    "tags": [
+      "amusement",
+      "coaster",
+      "park",
+      "roller",
+      "theme"
+    ],
+    "shortcodes": [
+      "roller_coaster"
+    ]
+  },
+  {
+    "emoji": "🎣",
+    "code": "7FF",
+    "category": "Objects & Places",
+    "tags": [
+      "entertainment",
+      "fish",
+      "fishing",
+      "pole",
+      "sport"
+    ],
+    "shortcodes": [
+      "fishing_pole_and_fish",
+      "fishing_pole"
+    ]
+  },
+  {
+    "emoji": "🎤",
+    "code": "800",
+    "category": "Objects & Places",
+    "tags": [
+      "karaoke",
+      "mic",
+      "music",
+      "sing",
+      "sound"
+    ],
+    "shortcodes": [
+      "microphone"
+    ]
+  },
+  {
+    "emoji": "🎥",
+    "code": "801",
+    "category": "Objects & Places",
+    "tags": [
+      "bollywood",
+      "camera",
+      "cinema",
+      "film",
+      "hollywood",
+      "movie",
+      "record"
+    ],
+    "shortcodes": [
+      "movie_camera"
+    ]
+  },
+  {
+    "emoji": "🎦",
+    "code": "802",
+    "category": "Symbols & Flags",
+    "tags": [
+      "camera",
+      "film",
+      "movie"
+    ],
+    "shortcodes": [
+      "cinema"
+    ]
+  },
+  {
+    "emoji": "🎧",
+    "code": "803",
+    "category": "Objects & Places",
+    "tags": [
+      "earbud",
+      "sound"
+    ],
+    "shortcodes": [
+      "headphones",
+      "headphone"
+    ]
+  },
+  {
+    "emoji": "🎨",
+    "code": "804",
+    "category": "Objects & Places",
+    "tags": [
+      "art",
+      "artist",
+      "artsy",
+      "arty",
+      "colorful",
+      "creative",
+      "entertainment",
+      "museum",
+      "painter",
+      "painting",
+      "palette"
+    ],
+    "shortcodes": [
+      "art"
+    ]
+  },
+  {
+    "emoji": "🎩",
+    "code": "805",
+    "category": "Objects & Places",
+    "tags": [
+      "clothes",
+      "clothing",
+      "fancy",
+      "formal",
+      "hat",
+      "magic",
+      "top",
+      "tophat"
+    ],
+    "shortcodes": [
+      "tophat",
+      "top_hat"
+    ]
+  },
+  {
+    "emoji": "🎪",
+    "code": "806",
+    "category": "Objects & Places",
+    "tags": [
+      "circus",
+      "tent"
+    ],
+    "shortcodes": [
+      "circus_tent"
+    ]
+  },
+  {
+    "emoji": "🎫",
+    "code": "807",
+    "category": "Objects & Places",
+    "tags": [
+      "admission",
+      "stub"
+    ],
+    "shortcodes": [
+      "ticket"
+    ]
+  },
+  {
+    "emoji": "🎬",
+    "code": "808",
+    "category": "Objects & Places",
+    "tags": [
+      "action",
+      "board",
+      "clapper",
+      "movie"
+    ],
+    "shortcodes": [
+      "clapper",
+      "clapper_board"
+    ]
+  },
+  {
+    "emoji": "🎭",
+    "code": "809",
+    "category": "Objects & Places",
+    "tags": [
+      "actor",
+      "actress",
+      "art",
+      "arts",
+      "entertainment",
+      "mask",
+      "performing",
+      "theater",
+      "theatre",
+      "thespian"
+    ],
+    "shortcodes": [
+      "performing_arts"
+    ]
+  },
+  {
+    "emoji": "🎮",
+    "code": "80A",
+    "category": "Objects & Places",
+    "tags": [
+      "controller",
+      "entertainment",
+      "game",
+      "video"
+    ],
+    "shortcodes": [
+      "video_game"
+    ]
+  },
+  {
+    "emoji": "🀄",
+    "code": "80B",
+    "category": "Objects & Places",
+    "tags": [
+      "dragon",
+      "game",
+      "mahjong",
+      "red"
+    ],
+    "shortcodes": [
+      "mahjong"
+    ]
+  },
+  {
+    "emoji": "🎯",
+    "code": "80C",
+    "category": "Objects & Places",
+    "tags": [
+      "bull",
+      "dart",
+      "direct",
+      "entertainment",
+      "game",
+      "hit",
+      "target"
+    ],
+    "shortcodes": [
+      "dart",
+      "direct_hit"
+    ]
+  },
+  {
+    "emoji": "🎰",
+    "code": "80D",
+    "category": "Objects & Places",
+    "tags": [
+      "casino",
+      "gamble",
+      "gambling",
+      "game",
+      "machine",
+      "slot",
+      "slots"
+    ],
+    "shortcodes": [
+      "slot_machine"
+    ]
+  },
+  {
+    "emoji": "🎱",
+    "code": "80E",
+    "category": "Objects & Places",
+    "tags": [
+      "8",
+      "8ball",
+      "ball",
+      "billiard",
+      "eight",
+      "game",
+      "pool"
+    ],
+    "shortcodes": [
+      "8ball"
+    ]
+  },
+  {
+    "emoji": "🎲",
+    "code": "80F",
+    "category": "Objects & Places",
+    "tags": [
+      "dice",
+      "die",
+      "entertainment",
+      "game"
+    ],
+    "shortcodes": [
+      "game_die"
+    ]
+  },
+  {
+    "emoji": "🎳",
+    "code": "810",
+    "category": "Objects & Places",
+    "tags": [
+      "ball",
+      "game",
+      "sport",
+      "strike"
+    ],
+    "shortcodes": [
+      "bowling"
+    ]
+  },
+  {
+    "emoji": "🎴",
+    "code": "811",
+    "category": "Objects & Places",
+    "tags": [
+      "card",
+      "cards",
+      "flower",
+      "game",
+      "japanese",
+      "playing"
+    ],
+    "shortcodes": [
+      "flower_playing_cards"
+    ]
+  },
+  {
+    "emoji": "🃏",
+    "code": "812",
+    "category": "Objects & Places",
+    "tags": [
+      "card",
+      "game",
+      "wildcard"
+    ],
+    "shortcodes": [
+      "black_joker",
+      "joker"
+    ]
+  },
+  {
+    "emoji": "🎵",
+    "code": "813",
+    "category": "Objects & Places",
+    "tags": [
+      "music",
+      "musical",
+      "note",
+      "sound"
+    ],
+    "shortcodes": [
+      "musical_note"
+    ]
+  },
+  {
+    "emoji": "🎶",
+    "code": "814",
+    "category": "Objects & Places",
+    "tags": [
+      "music",
+      "musical",
+      "note",
+      "notes",
+      "sound"
+    ],
+    "shortcodes": [
+      "notes",
+      "musical_notes"
+    ]
+  },
+  {
+    "emoji": "🎷",
+    "code": "815",
+    "category": "Objects & Places",
+    "tags": [
+      "instrument",
+      "music",
+      "sax"
+    ],
+    "shortcodes": [
+      "saxophone"
+    ]
+  },
+  {
+    "emoji": "🎸",
+    "code": "816",
+    "category": "Objects & Places",
+    "tags": [
+      "instrument",
+      "music",
+      "strat"
+    ],
+    "shortcodes": [
+      "guitar"
+    ]
+  },
+  {
+    "emoji": "🎹",
+    "code": "817",
+    "category": "Objects & Places",
+    "tags": [
+      "instrument",
+      "keyboard",
+      "music",
+      "musical",
+      "piano"
+    ],
+    "shortcodes": [
+      "musical_keyboard"
+    ]
+  },
+  {
+    "emoji": "🎺",
+    "code": "818",
+    "category": "Objects & Places",
+    "tags": [
+      "instrument",
+      "music"
+    ],
+    "shortcodes": [
+      "trumpet"
+    ]
+  },
+  {
+    "emoji": "🎻",
+    "code": "819",
+    "category": "Objects & Places",
+    "tags": [
+      "instrument",
+      "music"
+    ],
+    "shortcodes": [
+      "violin"
+    ]
+  },
+  {
+    "emoji": "🎼",
+    "code": "81A",
+    "category": "Objects & Places",
+    "tags": [
+      "music",
+      "musical",
+      "note",
+      "score"
+    ],
+    "shortcodes": [
+      "musical_score"
+    ]
+  },
+  {
+    "emoji": "〽",
+    "code": "81B",
+    "category": "Symbols & Flags",
+    "tags": [
+      "alternation",
+      "mark",
+      "part"
+    ],
+    "shortcodes": [
+      "part_alternation_mark"
+    ]
+  },
+  {
+    "emoji": "📺",
+    "code": "81C",
+    "category": "Objects & Places",
+    "tags": [
+      "tv",
+      "video"
+    ],
+    "shortcodes": [
+      "tv",
+      "television"
+    ]
+  },
+  {
+    "emoji": "💿",
+    "code": "81D",
+    "category": "Objects & Places",
+    "tags": [
+      "blu-ray",
+      "cd",
+      "computer",
+      "disk",
+      "dvd",
+      "optical"
+    ],
+    "shortcodes": [
+      "cd",
+      "optical_disk"
+    ]
+  },
+  {
+    "emoji": "📀",
+    "code": "81E",
+    "category": "Objects & Places",
+    "tags": [
+      "blu-ray",
+      "cd",
+      "computer",
+      "disk",
+      "optical"
+    ],
+    "shortcodes": [
+      "dvd"
+    ]
+  },
+  {
+    "emoji": "📻",
+    "code": "81F",
+    "category": "Objects & Places",
+    "tags": [
+      "entertainment",
+      "tbt",
+      "video"
+    ],
+    "shortcodes": [
+      "radio"
+    ]
+  },
+  {
+    "emoji": "📼",
+    "code": "820",
+    "category": "Objects & Places",
+    "tags": [
+      "old",
+      "school",
+      "tape",
+      "vcr",
+      "vhs",
+      "video"
+    ],
+    "shortcodes": [
+      "vhs",
+      "videocassette"
+    ]
+  },
+  {
+    "emoji": "🔊",
+    "code": "821",
+    "category": "Objects & Places",
+    "tags": [
+      "high",
+      "loud",
+      "music",
+      "sound",
+      "speaker",
+      "volume"
+    ],
+    "shortcodes": [
+      "loud_sound"
+    ]
+  },
+  {
+    "emoji": "📰",
+    "code": "822",
+    "category": "Objects & Places",
+    "tags": [
+      "communication",
+      "news",
+      "paper"
+    ],
+    "shortcodes": [
+      "newspaper"
+    ]
+  },
+  {
+    "emoji": "💋",
+    "code": "823",
+    "category": "Smileys & People",
+    "tags": [
+      "dating",
+      "emotion",
+      "heart",
+      "kiss",
+      "kissing",
+      "lips",
+      "mark",
+      "romance",
+      "sexy"
+    ],
+    "shortcodes": [
+      "kiss",
+      "kiss_mark"
+    ]
+  },
+  {
+    "emoji": "💌",
+    "code": "824",
+    "category": "Smileys & People",
+    "tags": [
+      "heart",
+      "letter",
+      "love",
+      "mail",
+      "romance",
+      "valentine"
+    ],
+    "shortcodes": [
+      "love_letter"
+    ]
+  },
+  {
+    "emoji": "💍",
+    "code": "825",
+    "category": "Objects & Places",
+    "tags": [
+      "diamond",
+      "engaged",
+      "engagement",
+      "married",
+      "romance",
+      "shiny",
+      "sparkling",
+      "wedding"
+    ],
+    "shortcodes": [
+      "ring"
+    ]
+  },
+  {
+    "emoji": "💎",
+    "code": "826",
+    "category": "Objects & Places",
+    "tags": [
+      "diamond",
+      "engagement",
+      "gem",
+      "jewel",
+      "money",
+      "romance",
+      "stone",
+      "wedding"
+    ],
+    "shortcodes": [
+      "gem",
+      "gem_stone"
+    ]
+  },
+  {
+    "emoji": "💏",
+    "code": "827",
+    "category": "Smileys & People",
+    "tags": [
+      "anniversary",
+      "babe",
+      "bae",
+      "couple",
+      "date",
+      "dating",
+      "heart",
+      "love",
+      "mwah",
+      "person",
+      "romance",
+      "together",
+      "xoxo"
+    ],
+    "shortcodes": [
+      "couplekiss"
+    ]
+  },
+  {
+    "emoji": "💐",
+    "code": "828",
+    "category": "Animals & Nature",
+    "tags": [
+      "anniversary",
+      "birthday",
+      "date",
+      "flower",
+      "love",
+      "plant",
+      "romance"
+    ],
+    "shortcodes": [
+      "bouquet"
+    ]
+  },
+  {
+    "emoji": "💑",
+    "code": "829",
+    "category": "Smileys & People",
+    "tags": [
+      "anniversary",
+      "babe",
+      "bae",
+      "couple",
+      "dating",
+      "heart",
+      "kiss",
+      "love",
+      "person",
+      "relationship",
+      "romance",
+      "together",
+      "you"
+    ],
+    "shortcodes": [
+      "couple_with_heart"
+    ]
+  },
+  {
+    "emoji": "💒",
+    "code": "82A",
+    "category": "Objects & Places",
+    "tags": [
+      "chapel",
+      "hitched",
+      "nuptials",
+      "romance"
+    ],
+    "shortcodes": [
+      "wedding"
+    ]
+  },
+  {
+    "emoji": "➰",
+    "code": "82B",
+    "category": "Symbols & Flags",
+    "tags": [
+      "curl",
+      "curly",
+      "loop"
+    ],
+    "shortcodes": [
+      "curly_loop"
+    ]
+  },
+  {
+    "emoji": "#⃣",
+    "code": "82C",
+    "category": "Symbols & Flags",
+    "tags": [
+      "keycap"
+    ],
+    "shortcodes": [
+      "hash"
+    ]
+  },
+  {
+    "emoji": "*⃣",
+    "code": "82D",
+    "category": "Symbols & Flags",
+    "tags": [
+      "keycap"
+    ],
+    "shortcodes": [
+      "asterisk",
+      "keycap_star",
+      "keycap_asterisk"
+    ]
+  },
+  {
+    "emoji": "1⃣",
+    "code": "82E",
+    "category": "Symbols & Flags",
+    "tags": [
+      "1",
+      "keycap",
+      "one"
+    ],
+    "shortcodes": [
+      "one"
+    ]
+  },
+  {
+    "emoji": "2⃣",
+    "code": "82F",
+    "category": "Symbols & Flags",
+    "tags": [
+      "2",
+      "keycap",
+      "two"
+    ],
+    "shortcodes": [
+      "two"
+    ]
+  },
+  {
+    "emoji": "3⃣",
+    "code": "830",
+    "category": "Symbols & Flags",
+    "tags": [
+      "3",
+      "keycap",
+      "three"
+    ],
+    "shortcodes": [
+      "three"
+    ]
+  },
+  {
+    "emoji": "4⃣",
+    "code": "831",
+    "category": "Symbols & Flags",
+    "tags": [
+      "4",
+      "four",
+      "keycap"
+    ],
+    "shortcodes": [
+      "four"
+    ]
+  },
+  {
+    "emoji": "5⃣",
+    "code": "832",
+    "category": "Symbols & Flags",
+    "tags": [
+      "5",
+      "five",
+      "keycap"
+    ],
+    "shortcodes": [
+      "five"
+    ]
+  },
+  {
+    "emoji": "6⃣",
+    "code": "833",
+    "category": "Symbols & Flags",
+    "tags": [
+      "6",
+      "keycap",
+      "six"
+    ],
+    "shortcodes": [
+      "six"
+    ]
+  },
+  {
+    "emoji": "7⃣",
+    "code": "834",
+    "category": "Symbols & Flags",
+    "tags": [
+      "7",
+      "keycap",
+      "seven"
+    ],
+    "shortcodes": [
+      "seven"
+    ]
+  },
+  {
+    "emoji": "8⃣",
+    "code": "835",
+    "category": "Symbols & Flags",
+    "tags": [
+      "8",
+      "eight",
+      "keycap"
+    ],
+    "shortcodes": [
+      "eight"
+    ]
+  },
+  {
+    "emoji": "9⃣",
+    "code": "836",
+    "category": "Symbols & Flags",
+    "tags": [
+      "9",
+      "keycap",
+      "nine"
+    ],
+    "shortcodes": [
+      "nine"
+    ]
+  },
+  {
+    "emoji": "0⃣",
+    "code": "837",
+    "category": "Symbols & Flags",
+    "tags": [
+      "0",
+      "keycap",
+      "zero"
+    ],
+    "shortcodes": [
+      "zero"
+    ]
+  },
+  {
+    "emoji": "📶",
+    "code": "838",
+    "category": "Symbols & Flags",
+    "tags": [
+      "antenna",
+      "bar",
+      "bars",
+      "cell",
+      "communication",
+      "mobile",
+      "phone",
+      "signal",
+      "telephone"
+    ],
+    "shortcodes": [
+      "signal_strength",
+      "antenna_bars"
+    ]
+  },
+  {
+    "emoji": "📳",
+    "code": "839",
+    "category": "Symbols & Flags",
+    "tags": [
+      "cell",
+      "communication",
+      "mobile",
+      "mode",
+      "phone",
+      "telephone",
+      "vibration"
+    ],
+    "shortcodes": [
+      "vibration_mode"
+    ]
+  },
+  {
+    "emoji": "📴",
+    "code": "83A",
+    "category": "Symbols & Flags",
+    "tags": [
+      "cell",
+      "mobile",
+      "off",
+      "phone",
+      "telephone"
+    ],
+    "shortcodes": [
+      "mobile_phone_off"
+    ]
+  },
+  {
+    "emoji": "🔟",
+    "code": "83B",
+    "category": "Symbols & Flags",
+    "tags": [
+      "keycap"
+    ],
+    "shortcodes": [
+      "keycap_ten"
+    ]
+  },
+  {
+    "emoji": "🍔",
+    "code": "960",
+    "category": "Food & Drink",
+    "tags": [
+      "burger",
+      "eat",
+      "fast",
+      "food",
+      "hungry"
+    ],
+    "shortcodes": [
+      "hamburger"
+    ]
+  },
+  {
+    "emoji": "🍙",
+    "code": "961",
+    "category": "Food & Drink",
+    "tags": [
+      "ball",
+      "food",
+      "japanese",
+      "rice"
+    ],
+    "shortcodes": [
+      "rice_ball"
+    ]
+  },
+  {
+    "emoji": "🍰",
+    "code": "962",
+    "category": "Food & Drink",
+    "tags": [
+      "cake",
+      "dessert",
+      "pastry",
+      "slice",
+      "sweet"
+    ],
+    "shortcodes": [
+      "cake",
+      "shortcake"
+    ]
+  },
+  {
+    "emoji": "🍜",
+    "code": "963",
+    "category": "Food & Drink",
+    "tags": [
+      "bowl",
+      "chopsticks",
+      "food",
+      "noodle",
+      "pho",
+      "ramen",
+      "soup",
+      "steaming"
+    ],
+    "shortcodes": [
+      "ramen",
+      "steaming_bowl"
+    ]
+  },
+  {
+    "emoji": "🍞",
+    "code": "964",
+    "category": "Food & Drink",
+    "tags": [
+      "carbs",
+      "food",
+      "grain",
+      "loaf",
+      "restaurant",
+      "toast",
+      "wheat"
+    ],
+    "shortcodes": [
+      "bread"
+    ]
+  },
+  {
+    "emoji": "🍳",
+    "code": "965",
+    "category": "Food & Drink",
+    "tags": [
+      "breakfast",
+      "easy",
+      "egg",
+      "fry",
+      "frying",
+      "over",
+      "pan",
+      "restaurant",
+      "side",
+      "sunny",
+      "up"
+    ],
+    "shortcodes": [
+      "fried_egg",
+      "cooking"
+    ]
+  },
+  {
+    "emoji": "🍦",
+    "code": "966",
+    "category": "Food & Drink",
+    "tags": [
+      "cream",
+      "dessert",
+      "food",
+      "ice",
+      "icecream",
+      "restaurant",
+      "serve",
+      "soft",
+      "sweet"
+    ],
+    "shortcodes": [
+      "icecream"
+    ]
+  },
+  {
+    "emoji": "🍟",
+    "code": "967",
+    "category": "Food & Drink",
+    "tags": [
+      "fast",
+      "food",
+      "french",
+      "fries"
+    ],
+    "shortcodes": [
+      "fries",
+      "french_fries"
+    ]
+  },
+  {
+    "emoji": "🍡",
+    "code": "968",
+    "category": "Food & Drink",
+    "tags": [
+      "dessert",
+      "japanese",
+      "skewer",
+      "stick",
+      "sweet"
+    ],
+    "shortcodes": [
+      "dango"
+    ]
+  },
+  {
+    "emoji": "🍘",
+    "code": "969",
+    "category": "Food & Drink",
+    "tags": [
+      "cracker",
+      "food",
+      "rice"
+    ],
+    "shortcodes": [
+      "rice_cracker"
+    ]
+  },
+  {
+    "emoji": "🍚",
+    "code": "96A",
+    "category": "Food & Drink",
+    "tags": [
+      "cooked",
+      "food",
+      "rice"
+    ],
+    "shortcodes": [
+      "rice",
+      "cooked_rice"
+    ]
+  },
+  {
+    "emoji": "🍝",
+    "code": "96B",
+    "category": "Food & Drink",
+    "tags": [
+      "food",
+      "meatballs",
+      "pasta",
+      "restaurant"
+    ],
+    "shortcodes": [
+      "spaghetti"
+    ]
+  },
+  {
+    "emoji": "🍛",
+    "code": "96C",
+    "category": "Food & Drink",
+    "tags": [
+      "curry",
+      "food",
+      "rice"
+    ],
+    "shortcodes": [
+      "curry",
+      "curry_rice"
+    ]
+  },
+  {
+    "emoji": "🍢",
+    "code": "96D",
+    "category": "Food & Drink",
+    "tags": [
+      "food",
+      "kebab",
+      "restaurant",
+      "seafood",
+      "skewer",
+      "stick"
+    ],
+    "shortcodes": [
+      "oden"
+    ]
+  },
+  {
+    "emoji": "🍣",
+    "code": "96E",
+    "category": "Food & Drink",
+    "tags": [
+      "food"
+    ],
+    "shortcodes": [
+      "sushi"
+    ]
+  },
+  {
+    "emoji": "🍱",
+    "code": "96F",
+    "category": "Food & Drink",
+    "tags": [
+      "bento",
+      "box",
+      "food"
+    ],
+    "shortcodes": [
+      "bento",
+      "bento_box"
+    ]
+  },
+  {
+    "emoji": "🍲",
+    "code": "970",
+    "category": "Food & Drink",
+    "tags": [
+      "food",
+      "pot",
+      "soup",
+      "stew"
+    ],
+    "shortcodes": [
+      "stew",
+      "pot_of_food"
+    ]
+  },
+  {
+    "emoji": "🍧",
+    "code": "971",
+    "category": "Food & Drink",
+    "tags": [
+      "dessert",
+      "ice",
+      "restaurant",
+      "shaved",
+      "sweet"
+    ],
+    "shortcodes": [
+      "shaved_ice"
+    ]
+  },
+  {
+    "emoji": "🍖",
+    "code": "972",
+    "category": "Food & Drink",
+    "tags": [
+      "bone",
+      "meat"
+    ],
+    "shortcodes": [
+      "meat_on_bone"
+    ]
+  },
+  {
+    "emoji": "🍥",
+    "code": "973",
+    "category": "Food & Drink",
+    "tags": [
+      "cake",
+      "fish",
+      "food",
+      "pastry",
+      "restaurant",
+      "swirl"
+    ],
+    "shortcodes": [
+      "fish_cake"
+    ]
+  },
+  {
+    "emoji": "🍠",
+    "code": "974",
+    "category": "Food & Drink",
+    "tags": [
+      "food",
+      "potato",
+      "roasted",
+      "sweet"
+    ],
+    "shortcodes": [
+      "sweet_potato"
+    ]
+  },
+  {
+    "emoji": "🍕",
+    "code": "975",
+    "category": "Food & Drink",
+    "tags": [
+      "cheese",
+      "food",
+      "hungry",
+      "pepperoni",
+      "slice"
+    ],
+    "shortcodes": [
+      "pizza"
+    ]
+  },
+  {
+    "emoji": "🍗",
+    "code": "976",
+    "category": "Food & Drink",
+    "tags": [
+      "bone",
+      "chicken",
+      "drumstick",
+      "hungry",
+      "leg",
+      "poultry",
+      "turkey"
+    ],
+    "shortcodes": [
+      "poultry_leg"
+    ]
+  },
+  {
+    "emoji": "🍨",
+    "code": "977",
+    "category": "Food & Drink",
+    "tags": [
+      "cream",
+      "dessert",
+      "food",
+      "ice",
+      "restaurant",
+      "sweet"
+    ],
+    "shortcodes": [
+      "ice_cream"
+    ]
+  },
+  {
+    "emoji": "🍩",
+    "code": "978",
+    "category": "Food & Drink",
+    "tags": [
+      "breakfast",
+      "dessert",
+      "donut",
+      "food",
+      "sweet"
+    ],
+    "shortcodes": [
+      "doughnut"
+    ]
+  },
+  {
+    "emoji": "🍪",
+    "code": "979",
+    "category": "Food & Drink",
+    "tags": [
+      "chip",
+      "chocolate",
+      "dessert",
+      "sweet"
+    ],
+    "shortcodes": [
+      "cookie"
+    ]
+  },
+  {
+    "emoji": "🍫",
+    "code": "97A",
+    "category": "Food & Drink",
+    "tags": [
+      "bar",
+      "candy",
+      "chocolate",
+      "dessert",
+      "halloween",
+      "sweet",
+      "tooth"
+    ],
+    "shortcodes": [
+      "chocolate_bar"
+    ]
+  },
+  {
+    "emoji": "🍬",
+    "code": "97B",
+    "category": "Food & Drink",
+    "tags": [
+      "cavities",
+      "dessert",
+      "halloween",
+      "restaurant",
+      "sweet",
+      "tooth",
+      "wrapper"
+    ],
+    "shortcodes": [
+      "candy"
+    ]
+  },
+  {
+    "emoji": "🍭",
+    "code": "97C",
+    "category": "Food & Drink",
+    "tags": [
+      "candy",
+      "dessert",
+      "food",
+      "restaurant",
+      "sweet"
+    ],
+    "shortcodes": [
+      "lollipop"
+    ]
+  },
+  {
+    "emoji": "🍮",
+    "code": "97D",
+    "category": "Food & Drink",
+    "tags": [
+      "dessert",
+      "pudding",
+      "sweet"
+    ],
+    "shortcodes": [
+      "custard",
+      "pudding",
+      "flan"
+    ]
+  },
+  {
+    "emoji": "🍯",
+    "code": "97E",
+    "category": "Food & Drink",
+    "tags": [
+      "barrel",
+      "bear",
+      "food",
+      "honey",
+      "honeypot",
+      "jar",
+      "pot",
+      "sweet"
+    ],
+    "shortcodes": [
+      "honey_pot"
+    ]
+  },
+  {
+    "emoji": "🍤",
+    "code": "97F",
+    "category": "Food & Drink",
+    "tags": [
+      "fried",
+      "prawn",
+      "shrimp",
+      "tempura"
+    ],
+    "shortcodes": [
+      "fried_shrimp"
+    ]
+  },
+  {
+    "emoji": "🍴",
+    "code": "980",
+    "category": "Food & Drink",
+    "tags": [
+      "breakfast",
+      "breaky",
+      "cooking",
+      "cutlery",
+      "delicious",
+      "dinner",
+      "eat",
+      "feed",
+      "food",
+      "fork",
+      "hungry",
+      "knife",
+      "lunch",
+      "restaurant",
+      "yum",
+      "yummy"
+    ],
+    "shortcodes": [
+      "fork_and_knife"
+    ]
+  },
+  {
+    "emoji": "☕",
+    "code": "981",
+    "category": "Food & Drink",
+    "tags": [
+      "beverage",
+      "cafe",
+      "caffeine",
+      "chai",
+      "coffee",
+      "drink",
+      "hot",
+      "morning",
+      "steaming",
+      "tea"
+    ],
+    "shortcodes": [
+      "coffee",
+      "hot_beverage"
+    ]
+  },
+  {
+    "emoji": "🍸",
+    "code": "982",
+    "category": "Food & Drink",
+    "tags": [
+      "alcohol",
+      "bar",
+      "booze",
+      "club",
+      "cocktail",
+      "drink",
+      "drinking",
+      "drinks",
+      "glass",
+      "mad",
+      "martini",
+      "men"
+    ],
+    "shortcodes": [
+      "cocktail"
+    ]
+  },
+  {
+    "emoji": "🍺",
+    "code": "983",
+    "category": "Food & Drink",
+    "tags": [
+      "alcohol",
+      "ale",
+      "bar",
+      "beer",
+      "booze",
+      "drink",
+      "drinking",
+      "drinks",
+      "mug",
+      "octoberfest",
+      "oktoberfest",
+      "pint",
+      "stein",
+      "summer"
+    ],
+    "shortcodes": [
+      "beer",
+      "beer_mug"
+    ]
+  },
+  {
+    "emoji": "🍵",
+    "code": "984",
+    "category": "Food & Drink",
+    "tags": [
+      "beverage",
+      "cup",
+      "drink",
+      "handle",
+      "oolong",
+      "tea",
+      "teacup"
+    ],
+    "shortcodes": [
+      "tea"
+    ]
+  },
+  {
+    "emoji": "🍶",
+    "code": "985",
+    "category": "Food & Drink",
+    "tags": [
+      "bar",
+      "beverage",
+      "bottle",
+      "cup",
+      "drink",
+      "restaurant"
+    ],
+    "shortcodes": [
+      "sake"
+    ]
+  },
+  {
+    "emoji": "🍷",
+    "code": "986",
+    "category": "Food & Drink",
+    "tags": [
+      "alcohol",
+      "bar",
+      "beverage",
+      "booze",
+      "club",
+      "drink",
+      "drinking",
+      "drinks",
+      "glass",
+      "restaurant",
+      "wine"
+    ],
+    "shortcodes": [
+      "wine_glass"
+    ]
+  },
+  {
+    "emoji": "🍻",
+    "code": "987",
+    "category": "Food & Drink",
+    "tags": [
+      "alcohol",
+      "bar",
+      "beer",
+      "booze",
+      "bottoms",
+      "cheers",
+      "clink",
+      "clinking",
+      "drinking",
+      "drinks",
+      "mugs"
+    ],
+    "shortcodes": [
+      "beers"
+    ]
+  },
+  {
+    "emoji": "🍹",
+    "code": "988",
+    "category": "Food & Drink",
+    "tags": [
+      "alcohol",
+      "bar",
+      "booze",
+      "club",
+      "cocktail",
+      "drink",
+      "drinking",
+      "drinks",
+      "drunk",
+      "mai",
+      "party",
+      "tai",
+      "tropical",
+      "tropics"
+    ],
+    "shortcodes": [
+      "tropical_drink"
+    ]
+  },
+  {
+    "emoji": "↗",
+    "code": "AF0",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "direction",
+      "intercardinal",
+      "northeast",
+      "up-right"
+    ],
+    "shortcodes": [
+      "arrow_upper_right"
+    ]
+  },
+  {
+    "emoji": "↘",
+    "code": "AF1",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "direction",
+      "down-right",
+      "intercardinal",
+      "southeast"
+    ],
+    "shortcodes": [
+      "arrow_lower_right"
+    ]
+  },
+  {
+    "emoji": "↖",
+    "code": "AF2",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "direction",
+      "intercardinal",
+      "northwest",
+      "up-left"
+    ],
+    "shortcodes": [
+      "arrow_upper_left",
+      "up_left_arrow"
+    ]
+  },
+  {
+    "emoji": "↙",
+    "code": "AF3",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "direction",
+      "down-left",
+      "intercardinal",
+      "southwest"
+    ],
+    "shortcodes": [
+      "arrow_lower_left"
+    ]
+  },
+  {
+    "emoji": "⤴",
+    "code": "AF4",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "curving",
+      "right",
+      "up"
+    ],
+    "shortcodes": [
+      "arrow_heading_up"
+    ]
+  },
+  {
+    "emoji": "⤵",
+    "code": "AF5",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "curving",
+      "down",
+      "right"
+    ],
+    "shortcodes": [
+      "arrow_heading_down"
+    ]
+  },
+  {
+    "emoji": "↔",
+    "code": "AF6",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "left-right"
+    ],
+    "shortcodes": [
+      "left_right_arrow"
+    ]
+  },
+  {
+    "emoji": "↕",
+    "code": "AF7",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "up-down"
+    ],
+    "shortcodes": [
+      "arrow_up_down",
+      "up_down_arrow"
+    ]
+  },
+  {
+    "emoji": "⬆",
+    "code": "AF8",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "cardinal",
+      "direction",
+      "north",
+      "up"
+    ],
+    "shortcodes": [
+      "arrow_up",
+      "up_arrow"
+    ]
+  },
+  {
+    "emoji": "⬇",
+    "code": "AF9",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "cardinal",
+      "direction",
+      "down",
+      "south"
+    ],
+    "shortcodes": [
+      "arrow_down",
+      "down_arrow"
+    ]
+  },
+  {
+    "emoji": "➡",
+    "code": "AFA",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "cardinal",
+      "direction",
+      "east",
+      "right"
+    ],
+    "shortcodes": [
+      "arrow_right",
+      "right_arrow"
+    ]
+  },
+  {
+    "emoji": "⬅",
+    "code": "AFB",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "cardinal",
+      "direction",
+      "left",
+      "west"
+    ],
+    "shortcodes": [
+      "arrow_left",
+      "left_arrow"
+    ]
+  },
+  {
+    "emoji": "▶",
+    "code": "AFC",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "button",
+      "play",
+      "right",
+      "triangle"
+    ],
+    "shortcodes": [
+      "arrow_forward"
+    ]
+  },
+  {
+    "emoji": "◀",
+    "code": "AFD",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "button",
+      "left",
+      "reverse",
+      "triangle"
+    ],
+    "shortcodes": [
+      "arrow_backward"
+    ]
+  },
+  {
+    "emoji": "⌛",
+    "code": "AFE",
+    "category": "Objects & Places",
+    "tags": [
+      "done",
+      "hourglass",
+      "sand",
+      "time",
+      "timer"
+    ],
+    "shortcodes": [
+      "hourglass"
+    ]
+  },
+  {
+    "emoji": "⏪",
+    "code": "AFF",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "button",
+      "double",
+      "fast",
+      "reverse",
+      "rewind"
+    ],
+    "shortcodes": [
+      "rewind"
+    ]
+  },
+  {
+    "emoji": "🔽",
+    "code": "B00",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "button",
+      "down",
+      "downwards",
+      "red"
+    ],
+    "shortcodes": [
+      "arrow_down_small"
+    ]
+  },
+  {
+    "emoji": "🔼",
+    "code": "B01",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "button",
+      "red",
+      "up",
+      "upwards"
+    ],
+    "shortcodes": [
+      "arrow_up_small"
+    ]
+  },
+  {
+    "emoji": "⏬",
+    "code": "B02",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "button",
+      "double",
+      "down",
+      "fast"
+    ],
+    "shortcodes": [
+      "arrow_double_down"
+    ]
+  },
+  {
+    "emoji": "⏫",
+    "code": "B03",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "button",
+      "double",
+      "fast",
+      "up"
+    ],
+    "shortcodes": [
+      "arrow_double_up"
+    ]
+  },
+  {
+    "emoji": "❗",
+    "code": "B04",
+    "category": "Symbols & Flags",
+    "tags": [
+      "!",
+      "exclamation",
+      "mark",
+      "punctuation",
+      "red"
+    ],
+    "shortcodes": [
+      "exclamation",
+      "heavy_exclamation_mark"
+    ]
+  },
+  {
+    "emoji": "⁉",
+    "code": "B05",
+    "category": "Symbols & Flags",
+    "tags": [
+      "!",
+      "!?",
+      "?",
+      "exclamation",
+      "interrobang",
+      "mark",
+      "punctuation",
+      "question"
+    ],
+    "shortcodes": [
+      "interrobang"
+    ]
+  },
+  {
+    "emoji": "‼",
+    "code": "B06",
+    "category": "Symbols & Flags",
+    "tags": [
+      "!",
+      "!!",
+      "bangbang",
+      "double",
+      "exclamation",
+      "mark",
+      "punctuation"
+    ],
+    "shortcodes": [
+      "bangbang"
+    ]
+  },
+  {
+    "emoji": "〰",
+    "code": "B07",
+    "category": "Symbols & Flags",
+    "tags": [
+      "dash",
+      "punctuation",
+      "wavy"
+    ],
+    "shortcodes": [
+      "wavy_dash"
+    ]
+  },
+  {
+    "emoji": "➰",
+    "code": "B08",
+    "category": "Symbols & Flags",
+    "tags": [
+      "curl",
+      "curly",
+      "loop"
+    ],
+    "shortcodes": [
+      "curly_loop"
+    ]
+  },
+  {
+    "emoji": "❓",
+    "code": "B09",
+    "category": "Symbols & Flags",
+    "tags": [
+      "?",
+      "mark",
+      "punctuation",
+      "question",
+      "red"
+    ],
+    "shortcodes": [
+      "question",
+      "question_mark"
+    ]
+  },
+  {
+    "emoji": "❔",
+    "code": "B0A",
+    "category": "Symbols & Flags",
+    "tags": [
+      "?",
+      "mark",
+      "outlined",
+      "punctuation",
+      "question",
+      "white"
+    ],
+    "shortcodes": [
+      "grey_question"
+    ]
+  },
+  {
+    "emoji": "❕",
+    "code": "B0B",
+    "category": "Symbols & Flags",
+    "tags": [
+      "!",
+      "exclamation",
+      "mark",
+      "outlined",
+      "punctuation",
+      "white"
+    ],
+    "shortcodes": [
+      "grey_exclamation"
+    ]
+  },
+  {
+    "emoji": "❤",
+    "code": "B0C",
+    "category": "Smileys & People",
+    "tags": [
+      "emotion",
+      "heart",
+      "love",
+      "red"
+    ],
+    "shortcodes": [
+      "heart",
+      "red_heart"
+    ]
+  },
+  {
+    "emoji": "💓",
+    "code": "B0D",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "beating",
+      "cardio",
+      "emotion",
+      "heart",
+      "heartbeat",
+      "ily",
+      "love",
+      "pulsating",
+      "pulse"
+    ],
+    "shortcodes": [
+      "heartbeat",
+      "beating_heart"
+    ]
+  },
+  {
+    "emoji": "💔",
+    "code": "B0E",
+    "category": "Smileys & People",
+    "tags": [
+      "break",
+      "broken",
+      "crushed",
+      "emotion",
+      "heart",
+      "heartbroken",
+      "lonely",
+      "sad"
+    ],
+    "shortcodes": [
+      "broken_heart"
+    ]
+  },
+  {
+    "emoji": "💕",
+    "code": "B0F",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "anniversary",
+      "date",
+      "dating",
+      "emotion",
+      "heart",
+      "hearts",
+      "ily",
+      "kisses",
+      "love",
+      "loving",
+      "two",
+      "xoxo"
+    ],
+    "shortcodes": [
+      "two_hearts"
+    ]
+  },
+  {
+    "emoji": "💖",
+    "code": "B10",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "emotion",
+      "excited",
+      "good",
+      "heart",
+      "ily",
+      "kisses",
+      "morning",
+      "night",
+      "sparkle",
+      "sparkling",
+      "xoxo"
+    ],
+    "shortcodes": [
+      "sparkling_heart"
+    ]
+  },
+  {
+    "emoji": "💗",
+    "code": "B11",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "emotion",
+      "excited",
+      "growing",
+      "heart",
+      "heartpulse",
+      "ily",
+      "kisses",
+      "muah",
+      "nervous",
+      "pulse",
+      "xoxo"
+    ],
+    "shortcodes": [
+      "heartpulse",
+      "growing_heart"
+    ]
+  },
+  {
+    "emoji": "💘",
+    "code": "B12",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "adorbs",
+      "arrow",
+      "cupid",
+      "date",
+      "emotion",
+      "heart",
+      "ily",
+      "love",
+      "romance",
+      "valentine"
+    ],
+    "shortcodes": [
+      "cupid"
+    ]
+  },
+  {
+    "emoji": "💙",
+    "code": "B13",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "blue",
+      "emotion",
+      "heart",
+      "ily",
+      "love",
+      "romance"
+    ],
+    "shortcodes": [
+      "blue_heart"
+    ]
+  },
+  {
+    "emoji": "💚",
+    "code": "B14",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "emotion",
+      "green",
+      "heart",
+      "ily",
+      "love",
+      "romantic"
+    ],
+    "shortcodes": [
+      "green_heart"
+    ]
+  },
+  {
+    "emoji": "💛",
+    "code": "B15",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "cardiac",
+      "emotion",
+      "heart",
+      "ily",
+      "love",
+      "yellow"
+    ],
+    "shortcodes": [
+      "yellow_heart"
+    ]
+  },
+  {
+    "emoji": "💜",
+    "code": "B16",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "bestest",
+      "emotion",
+      "heart",
+      "ily",
+      "love",
+      "purple"
+    ],
+    "shortcodes": [
+      "purple_heart"
+    ]
+  },
+  {
+    "emoji": "💝",
+    "code": "B17",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "anniversary",
+      "emotion",
+      "heart",
+      "ily",
+      "kisses",
+      "ribbon",
+      "valentine",
+      "xoxo"
+    ],
+    "shortcodes": [
+      "gift_heart"
+    ]
+  },
+  {
+    "emoji": "💞",
+    "code": "B18",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "adorbs",
+      "anniversary",
+      "emotion",
+      "heart",
+      "hearts",
+      "revolving"
+    ],
+    "shortcodes": [
+      "revolving_hearts"
+    ]
+  },
+  {
+    "emoji": "💟",
+    "code": "B19",
+    "category": "Smileys & People",
+    "tags": [
+      "143",
+      "decoration",
+      "emotion",
+      "heart",
+      "hearth",
+      "purple",
+      "white"
+    ],
+    "shortcodes": [
+      "heart_decoration"
+    ]
+  },
+  {
+    "emoji": "♥",
+    "code": "B1A",
+    "category": "Objects & Places",
+    "tags": [
+      "card",
+      "emotion",
+      "game",
+      "heart",
+      "hearts",
+      "suit"
+    ],
+    "shortcodes": [
+      "hearts",
+      "heart_suit"
+    ]
+  },
+  {
+    "emoji": "♠",
+    "code": "B1B",
+    "category": "Objects & Places",
+    "tags": [
+      "card",
+      "game",
+      "spade",
+      "suit"
+    ],
+    "shortcodes": [
+      "spades",
+      "spade_suit"
+    ]
+  },
+  {
+    "emoji": "♦",
+    "code": "B1C",
+    "category": "Objects & Places",
+    "tags": [
+      "card",
+      "diamond",
+      "game",
+      "suit"
+    ],
+    "shortcodes": [
+      "diamonds",
+      "diamond_suit"
+    ]
+  },
+  {
+    "emoji": "♣",
+    "code": "B1D",
+    "category": "Objects & Places",
+    "tags": [
+      "card",
+      "club",
+      "clubs",
+      "game",
+      "suit"
+    ],
+    "shortcodes": [
+      "clubs",
+      "club_suit"
+    ]
+  },
+  {
+    "emoji": "🚬",
+    "code": "B1E",
+    "category": "Objects & Places",
+    "tags": [
+      "smoking"
+    ],
+    "shortcodes": [
+      "smoking",
+      "cigarette"
+    ]
+  },
+  {
+    "emoji": "🚭",
+    "code": "B1F",
+    "category": "Symbols & Flags",
+    "tags": [
+      "forbidden",
+      "no",
+      "not",
+      "prohibited",
+      "smoke",
+      "smoking"
+    ],
+    "shortcodes": [
+      "no_smoking"
+    ]
+  },
+  {
+    "emoji": "♿",
+    "code": "B20",
+    "category": "Symbols & Flags",
+    "tags": [
+      "access",
+      "handicap",
+      "symbol",
+      "wheelchair"
+    ],
+    "shortcodes": [
+      "wheelchair"
+    ]
+  },
+  {
+    "emoji": "🆓",
+    "code": "B21",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "free"
+    ],
+    "shortcodes": [
+      "free"
+    ]
+  },
+  {
+    "emoji": "🚩",
+    "code": "B22",
+    "category": "Symbols & Flags",
+    "tags": [
+      "construction",
+      "flag",
+      "golf",
+      "post",
+      "triangular"
+    ],
+    "shortcodes": [
+      "triangular_flag_on_post"
+    ]
+  },
+  {
+    "emoji": "⚠",
+    "code": "B23",
+    "category": "Symbols & Flags",
+    "tags": [
+      "caution"
+    ],
+    "shortcodes": [
+      "warning"
+    ]
+  },
+  {
+    "emoji": "🈁",
+    "code": "B24",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "here",
+      "japanese",
+      "katakana"
+    ],
+    "shortcodes": [
+      "koko"
+    ]
+  },
+  {
+    "emoji": "🔞",
+    "code": "B25",
+    "category": "Symbols & Flags",
+    "tags": [
+      "18",
+      "age",
+      "eighteen",
+      "forbidden",
+      "no",
+      "not",
+      "one",
+      "prohibited",
+      "restriction",
+      "underage"
+    ],
+    "shortcodes": [
+      "underage"
+    ]
+  },
+  {
+    "emoji": "⛔",
+    "code": "B26",
+    "category": "Symbols & Flags",
+    "tags": [
+      "do",
+      "entry",
+      "fail",
+      "forbidden",
+      "no",
+      "not",
+      "pass",
+      "prohibited",
+      "traffic"
+    ],
+    "shortcodes": [
+      "no_entry"
+    ]
+  },
+  {
+    "emoji": "🆗",
+    "code": "B27",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "ok",
+      "okay"
+    ],
+    "shortcodes": [
+      "ok"
+    ]
+  },
+  {
+    "emoji": "🆖",
+    "code": "B28",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "ng"
+    ],
+    "shortcodes": [
+      "ng"
+    ]
+  },
+  {
+    "emoji": "©",
+    "code": "B29",
+    "category": "Symbols & Flags",
+    "tags": [
+      "c"
+    ],
+    "shortcodes": [
+      "copyright"
+    ]
+  },
+  {
+    "emoji": "™",
+    "code": "B2A",
+    "category": "Symbols & Flags",
+    "tags": [
+      "mark",
+      "tm",
+      "trade",
+      "trademark"
+    ],
+    "shortcodes": [
+      "tm",
+      "trade_mark"
+    ]
+  },
+  {
+    "emoji": "㊙",
+    "code": "B2B",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "ideograph",
+      "japanese",
+      "secret"
+    ],
+    "shortcodes": [
+      "secret"
+    ]
+  },
+  {
+    "emoji": "♻",
+    "code": "B2C",
+    "category": "Symbols & Flags",
+    "tags": [
+      "recycle",
+      "recycling",
+      "symbol"
+    ],
+    "shortcodes": [
+      "recycle"
+    ]
+  },
+  {
+    "emoji": "®",
+    "code": "B2D",
+    "category": "Symbols & Flags",
+    "tags": [
+      "r"
+    ],
+    "shortcodes": [
+      "registered"
+    ]
+  },
+  {
+    "emoji": "🈲",
+    "code": "B2E",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "ideograph",
+      "japanese",
+      "prohibited"
+    ],
+    "shortcodes": [
+      "u7981"
+    ]
+  },
+  {
+    "emoji": "🈳",
+    "code": "B2F",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "ideograph",
+      "japanese",
+      "vacancy"
+    ],
+    "shortcodes": [
+      "u7a7a"
+    ]
+  },
+  {
+    "emoji": "🈴",
+    "code": "B30",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "grade",
+      "ideograph",
+      "japanese",
+      "passing"
+    ],
+    "shortcodes": [
+      "u5408"
+    ]
+  },
+  {
+    "emoji": "🈵",
+    "code": "B31",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "ideograph",
+      "japanese",
+      "no",
+      "vacancy"
+    ],
+    "shortcodes": [
+      "u6e80"
+    ]
+  },
+  {
+    "emoji": "🆚",
+    "code": "B32",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "versus",
+      "vs"
+    ],
+    "shortcodes": [
+      "vs"
+    ]
+  },
+  {
+    "emoji": "🚹",
+    "code": "B33",
+    "category": "Symbols & Flags",
+    "tags": [
+      "bathroom",
+      "lavatory",
+      "man",
+      "men’s",
+      "restroom",
+      "room",
+      "toilet",
+      "wc"
+    ],
+    "shortcodes": [
+      "mens",
+      "mens_room"
+    ]
+  },
+  {
+    "emoji": "🚺",
+    "code": "B34",
+    "category": "Symbols & Flags",
+    "tags": [
+      "bathroom",
+      "lavatory",
+      "restroom",
+      "room",
+      "toilet",
+      "wc",
+      "woman",
+      "women’s"
+    ],
+    "shortcodes": [
+      "womens",
+      "womens_room"
+    ]
+  },
+  {
+    "emoji": "🚼",
+    "code": "B35",
+    "category": "Symbols & Flags",
+    "tags": [
+      "baby",
+      "changing",
+      "symbol"
+    ],
+    "shortcodes": [
+      "baby_symbol"
+    ]
+  },
+  {
+    "emoji": "🆕",
+    "code": "B36",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "new"
+    ],
+    "shortcodes": [
+      "new"
+    ]
+  },
+  {
+    "emoji": "🆙",
+    "code": "B37",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "mark",
+      "up",
+      "up!"
+    ],
+    "shortcodes": [
+      "up"
+    ]
+  },
+  {
+    "emoji": "🆒",
+    "code": "B38",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "cool"
+    ],
+    "shortcodes": [
+      "cool"
+    ]
+  },
+  {
+    "emoji": "🈶",
+    "code": "B39",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "charge",
+      "free",
+      "ideograph",
+      "japanese",
+      "not"
+    ],
+    "shortcodes": [
+      "u6709"
+    ]
+  },
+  {
+    "emoji": "🈚",
+    "code": "B3A",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "charge",
+      "free",
+      "ideograph",
+      "japanese"
+    ],
+    "shortcodes": [
+      "u7121"
+    ]
+  },
+  {
+    "emoji": "🈷",
+    "code": "B3B",
+    "category": "Symbols & Flags",
+    "tags": [
+      "amount",
+      "button",
+      "ideograph",
+      "japanese",
+      "monthly"
+    ],
+    "shortcodes": [
+      "u6708"
+    ]
+  },
+  {
+    "emoji": "🈸",
+    "code": "B3C",
+    "category": "Symbols & Flags",
+    "tags": [
+      "application",
+      "button",
+      "ideograph",
+      "japanese"
+    ],
+    "shortcodes": [
+      "u7533"
+    ]
+  },
+  {
+    "emoji": "🉐",
+    "code": "B3D",
+    "category": "Symbols & Flags",
+    "tags": [
+      "bargain",
+      "button",
+      "ideograph",
+      "japanese"
+    ],
+    "shortcodes": [
+      "ideograph_advantage"
+    ]
+  },
+  {
+    "emoji": "🈹",
+    "code": "B3E",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "discount",
+      "ideograph",
+      "japanese"
+    ],
+    "shortcodes": [
+      "u5272"
+    ]
+  },
+  {
+    "emoji": "🈂",
+    "code": "B3F",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "charge",
+      "japanese",
+      "katakana",
+      "service"
+    ],
+    "shortcodes": [
+      "sa"
+    ]
+  },
+  {
+    "emoji": "🈯",
+    "code": "B40",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "ideograph",
+      "japanese",
+      "reserved"
+    ],
+    "shortcodes": [
+      "u6307"
+    ]
+  },
+  {
+    "emoji": "🈺",
+    "code": "B41",
+    "category": "Symbols & Flags",
+    "tags": [
+      "business",
+      "button",
+      "ideograph",
+      "japanese",
+      "open"
+    ],
+    "shortcodes": [
+      "u55b6"
+    ]
+  },
+  {
+    "emoji": "🔝",
+    "code": "B42",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "homie",
+      "top",
+      "up"
+    ],
+    "shortcodes": [
+      "top",
+      "top_arrow"
+    ]
+  },
+  {
+    "emoji": "㊗",
+    "code": "B43",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "congratulations",
+      "ideograph",
+      "japanese"
+    ],
+    "shortcodes": [
+      "congratulations"
+    ]
+  },
+  {
+    "emoji": "⭕",
+    "code": "B44",
+    "category": "Symbols & Flags",
+    "tags": [
+      "circle",
+      "heavy",
+      "hollow",
+      "large",
+      "o",
+      "red"
+    ],
+    "shortcodes": [
+      "o"
+    ]
+  },
+  {
+    "emoji": "❌",
+    "code": "B45",
+    "category": "Symbols & Flags",
+    "tags": [
+      "cancel",
+      "cross",
+      "mark",
+      "multiplication",
+      "multiply",
+      "x",
+      "×"
+    ],
+    "shortcodes": [
+      "x",
+      "cross_mark"
+    ]
+  },
+  {
+    "emoji": "❎",
+    "code": "B46",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "cross",
+      "mark",
+      "multiplication",
+      "multiply",
+      "square",
+      "x",
+      "×"
+    ],
+    "shortcodes": [
+      "negative_squared_cross_mark"
+    ]
+  },
+  {
+    "emoji": "ℹ",
+    "code": "B47",
+    "category": "Symbols & Flags",
+    "tags": [
+      "i"
+    ],
+    "shortcodes": [
+      "information_source",
+      "information"
+    ]
+  },
+  {
+    "emoji": "🚫",
+    "code": "B48",
+    "category": "Symbols & Flags",
+    "tags": [
+      "entry",
+      "forbidden",
+      "no",
+      "not",
+      "smoke"
+    ],
+    "shortcodes": [
+      "no_entry_sign",
+      "prohibited"
+    ]
+  },
+  {
+    "emoji": "✔",
+    "code": "B49",
+    "category": "Symbols & Flags",
+    "tags": [
+      "check",
+      "checked",
+      "checkmark",
+      "done",
+      "heavy",
+      "mark",
+      "tick",
+      "✓"
+    ],
+    "shortcodes": [
+      "heavy_check_mark",
+      "check_mark"
+    ]
+  },
+  {
+    "emoji": "✅",
+    "code": "B4A",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "check",
+      "checked",
+      "checkmark",
+      "complete",
+      "completed",
+      "done",
+      "fixed",
+      "mark",
+      "tick",
+      "✓"
+    ],
+    "shortcodes": [
+      "white_check_mark"
+    ]
+  },
+  {
+    "emoji": "🔗",
+    "code": "B4B",
+    "category": "Objects & Places",
+    "tags": [
+      "links"
+    ],
+    "shortcodes": [
+      "link"
+    ]
+  },
+  {
+    "emoji": "🆘",
+    "code": "B4F",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "help",
+      "sos"
+    ],
+    "shortcodes": [
+      "sos"
+    ]
+  },
+  {
+    "emoji": "🉑",
+    "code": "B50",
+    "category": "Symbols & Flags",
+    "tags": [
+      "acceptable",
+      "button",
+      "ideograph",
+      "japanese"
+    ],
+    "shortcodes": [
+      "accept"
+    ]
+  },
+  {
+    "emoji": "➕",
+    "code": "B51",
+    "category": "Symbols & Flags",
+    "tags": [
+      "+"
+    ],
+    "shortcodes": [
+      "heavy_plus_sign"
+    ]
+  },
+  {
+    "emoji": "➖",
+    "code": "B52",
+    "category": "Symbols & Flags",
+    "tags": [
+      "-",
+      "heavy",
+      "math",
+      "sign",
+      "−"
+    ],
+    "shortcodes": [
+      "heavy_minus_sign"
+    ]
+  },
+  {
+    "emoji": "✖",
+    "code": "B53",
+    "category": "Symbols & Flags",
+    "tags": [
+      "cancel",
+      "multiplication",
+      "sign",
+      "x",
+      "×"
+    ],
+    "shortcodes": [
+      "heavy_multiplication_x"
+    ]
+  },
+  {
+    "emoji": "➗",
+    "code": "B54",
+    "category": "Symbols & Flags",
+    "tags": [
+      "division",
+      "heavy",
+      "math",
+      "sign",
+      "÷"
+    ],
+    "shortcodes": [
+      "heavy_division_sign"
+    ]
+  },
+  {
+    "emoji": "💠",
+    "code": "B55",
+    "category": "Symbols & Flags",
+    "tags": [
+      "comic",
+      "diamond",
+      "dot",
+      "geometric"
+    ],
+    "shortcodes": [
+      "diamond_shape_with_a_dot_inside"
+    ]
+  },
+  {
+    "emoji": "💡",
+    "code": "B56",
+    "category": "Objects & Places",
+    "tags": [
+      "bulb",
+      "comic",
+      "electric",
+      "idea",
+      "light"
+    ],
+    "shortcodes": [
+      "bulb",
+      "light_bulb"
+    ]
+  },
+  {
+    "emoji": "💢",
+    "code": "B57",
+    "category": "Smileys & People",
+    "tags": [
+      "anger",
+      "angry",
+      "comic",
+      "mad",
+      "symbol",
+      "upset"
+    ],
+    "shortcodes": [
+      "anger"
+    ]
+  },
+  {
+    "emoji": "💣",
+    "code": "B58",
+    "category": "Objects & Places",
+    "tags": [
+      "boom",
+      "comic",
+      "dangerous",
+      "explosion",
+      "hot"
+    ],
+    "shortcodes": [
+      "bomb"
+    ]
+  },
+  {
+    "emoji": "💤",
+    "code": "B59",
+    "category": "Smileys & People",
+    "tags": [
+      "comic",
+      "good",
+      "goodnight",
+      "night",
+      "sleep",
+      "sleeping",
+      "sleepy",
+      "tired",
+      "zzz"
+    ],
+    "shortcodes": [
+      "zzz"
+    ]
+  },
+  {
+    "emoji": "💥",
+    "code": "B5A",
+    "category": "Smileys & People",
+    "tags": [
+      "bomb",
+      "boom",
+      "collide",
+      "comic",
+      "explode"
+    ],
+    "shortcodes": [
+      "boom",
+      "collision"
+    ]
+  },
+  {
+    "emoji": "💦",
+    "code": "B5B",
+    "category": "Smileys & People",
+    "tags": [
+      "comic",
+      "drip",
+      "droplet",
+      "droplets",
+      "drops",
+      "splashing",
+      "squirt",
+      "sweat",
+      "water",
+      "wet",
+      "work",
+      "workout"
+    ],
+    "shortcodes": [
+      "sweat_drops"
+    ]
+  },
+  {
+    "emoji": "💧",
+    "code": "B5C",
+    "category": "Objects & Places",
+    "tags": [
+      "cold",
+      "comic",
+      "drop",
+      "nature",
+      "sad",
+      "sweat",
+      "tear",
+      "water",
+      "weather"
+    ],
+    "shortcodes": [
+      "droplet"
+    ]
+  },
+  {
+    "emoji": "💨",
+    "code": "B5D",
+    "category": "Smileys & People",
+    "tags": [
+      "away",
+      "cloud",
+      "comic",
+      "dash",
+      "dashing",
+      "fart",
+      "fast",
+      "go",
+      "gone",
+      "gotta",
+      "running",
+      "smoke"
+    ],
+    "shortcodes": [
+      "dash",
+      "dashing_away"
+    ]
+  },
+  {
+    "emoji": "💪",
+    "code": "B5E",
+    "category": "Smileys & People",
+    "tags": [
+      "arm",
+      "beast",
+      "bench",
+      "biceps",
+      "bodybuilder",
+      "bro",
+      "curls",
+      "flex",
+      "gains",
+      "gym",
+      "jacked",
+      "muscle",
+      "press",
+      "ripped",
+      "strong",
+      "weightlift"
+    ],
+    "shortcodes": [
+      "muscle",
+      "flexed_biceps"
+    ]
+  },
+  {
+    "emoji": "💫",
+    "code": "B5F",
+    "category": "Smileys & People",
+    "tags": [
+      "comic",
+      "shining",
+      "shooting",
+      "star",
+      "stars"
+    ],
+    "shortcodes": [
+      "dizzy"
+    ]
+  },
+  {
+    "emoji": "✨",
+    "code": "B60",
+    "category": "Objects & Places",
+    "tags": [
+      "*",
+      "magic",
+      "sparkle",
+      "star"
+    ],
+    "shortcodes": [
+      "sparkles"
+    ]
+  },
+  {
+    "emoji": "✴",
+    "code": "B61",
+    "category": "Symbols & Flags",
+    "tags": [
+      "*",
+      "eight-pointed",
+      "star"
+    ],
+    "shortcodes": [
+      "eight_pointed_black_star"
+    ]
+  },
+  {
+    "emoji": "✳",
+    "code": "B62",
+    "category": "Symbols & Flags",
+    "tags": [
+      "*",
+      "asterisk",
+      "eight-spoked"
+    ],
+    "shortcodes": [
+      "eight_spoked_asterisk"
+    ]
+  },
+  {
+    "emoji": "🔴",
+    "code": "B63",
+    "category": "Symbols & Flags",
+    "tags": [
+      "circle",
+      "geometric",
+      "red"
+    ],
+    "shortcodes": [
+      "red_circle"
+    ]
+  },
+  {
+    "emoji": "🔵",
+    "code": "B64",
+    "category": "Symbols & Flags",
+    "tags": [
+      "blue",
+      "circle",
+      "geometric"
+    ],
+    "shortcodes": [
+      "large_blue_circle",
+      "blue_circle"
+    ]
+  },
+  {
+    "emoji": "⚪",
+    "code": "B65",
+    "category": "Symbols & Flags",
+    "tags": [
+      "circle",
+      "geometric",
+      "white"
+    ],
+    "shortcodes": [
+      "white_circle"
+    ]
+  },
+  {
+    "emoji": "⚫",
+    "code": "B66",
+    "category": "Symbols & Flags",
+    "tags": [
+      "black",
+      "circle",
+      "geometric"
+    ],
+    "shortcodes": [
+      "black_circle"
+    ]
+  },
+  {
+    "emoji": "🔳",
+    "code": "B67",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "geometric",
+      "outlined",
+      "square",
+      "white"
+    ],
+    "shortcodes": [
+      "white_square_button"
+    ]
+  },
+  {
+    "emoji": "⭐",
+    "code": "B68",
+    "category": "Objects & Places",
+    "tags": [
+      "astronomy",
+      "medium",
+      "stars",
+      "white"
+    ],
+    "shortcodes": [
+      "star"
+    ]
+  },
+  {
+    "emoji": "🌟",
+    "code": "B69",
+    "category": "Objects & Places",
+    "tags": [
+      "glittery",
+      "glow",
+      "glowing",
+      "night",
+      "shining",
+      "sparkle",
+      "star",
+      "win"
+    ],
+    "shortcodes": [
+      "star2",
+      "glowing_star"
+    ]
+  },
+  {
+    "emoji": "🌠",
+    "code": "B6A",
+    "category": "Objects & Places",
+    "tags": [
+      "falling",
+      "night",
+      "shooting",
+      "space",
+      "star"
+    ],
+    "shortcodes": [
+      "stars",
+      "shooting_star"
+    ]
+  },
+  {
+    "emoji": "⬜",
+    "code": "B6B",
+    "category": "Symbols & Flags",
+    "tags": [
+      "geometric",
+      "large",
+      "square",
+      "white"
+    ],
+    "shortcodes": [
+      "white_large_square"
+    ]
+  },
+  {
+    "emoji": "⬛",
+    "code": "B6C",
+    "category": "Symbols & Flags",
+    "tags": [
+      "black",
+      "geometric",
+      "large",
+      "square"
+    ],
+    "shortcodes": [
+      "black_large_square"
+    ]
+  },
+  {
+    "emoji": "▫",
+    "code": "B6D",
+    "category": "Symbols & Flags",
+    "tags": [
+      "geometric",
+      "small",
+      "square",
+      "white"
+    ],
+    "shortcodes": [
+      "white_small_square"
+    ]
+  },
+  {
+    "emoji": "▪",
+    "code": "B6E",
+    "category": "Symbols & Flags",
+    "tags": [
+      "black",
+      "geometric",
+      "small",
+      "square"
+    ],
+    "shortcodes": [
+      "black_small_square"
+    ]
+  },
+  {
+    "emoji": "◽",
+    "code": "B6F",
+    "category": "Symbols & Flags",
+    "tags": [
+      "geometric",
+      "medium-small",
+      "square",
+      "white"
+    ],
+    "shortcodes": [
+      "white_medium_small_square"
+    ]
+  },
+  {
+    "emoji": "◾",
+    "code": "B70",
+    "category": "Symbols & Flags",
+    "tags": [
+      "black",
+      "geometric",
+      "medium-small",
+      "square"
+    ],
+    "shortcodes": [
+      "black_medium_small_square"
+    ]
+  },
+  {
+    "emoji": "◻",
+    "code": "B71",
+    "category": "Symbols & Flags",
+    "tags": [
+      "geometric",
+      "medium",
+      "square",
+      "white"
+    ],
+    "shortcodes": [
+      "white_medium_square"
+    ]
+  },
+  {
+    "emoji": "◼",
+    "code": "B72",
+    "category": "Symbols & Flags",
+    "tags": [
+      "black",
+      "geometric",
+      "medium",
+      "square"
+    ],
+    "shortcodes": [
+      "black_medium_square"
+    ]
+  },
+  {
+    "emoji": "🔶",
+    "code": "B73",
+    "category": "Symbols & Flags",
+    "tags": [
+      "diamond",
+      "geometric",
+      "large",
+      "orange"
+    ],
+    "shortcodes": [
+      "large_orange_diamond"
+    ]
+  },
+  {
+    "emoji": "🔷",
+    "code": "B74",
+    "category": "Symbols & Flags",
+    "tags": [
+      "blue",
+      "diamond",
+      "geometric",
+      "large"
+    ],
+    "shortcodes": [
+      "large_blue_diamond"
+    ]
+  },
+  {
+    "emoji": "🔸",
+    "code": "B75",
+    "category": "Symbols & Flags",
+    "tags": [
+      "diamond",
+      "geometric",
+      "orange",
+      "small"
+    ],
+    "shortcodes": [
+      "small_orange_diamond"
+    ]
+  },
+  {
+    "emoji": "🔹",
+    "code": "B76",
+    "category": "Symbols & Flags",
+    "tags": [
+      "blue",
+      "diamond",
+      "geometric",
+      "small"
+    ],
+    "shortcodes": [
+      "small_blue_diamond"
+    ]
+  },
+  {
+    "emoji": "❇",
+    "code": "B77",
+    "category": "Symbols & Flags",
+    "tags": [
+      "*"
+    ],
+    "shortcodes": [
+      "sparkle"
+    ]
+  },
+  {
+    "emoji": "🔺",
+    "code": "B78",
+    "category": "Symbols & Flags",
+    "tags": [
+      "geometric",
+      "pointed",
+      "red",
+      "triangle",
+      "up"
+    ],
+    "shortcodes": [
+      "small_red_triangle"
+    ]
+  },
+  {
+    "emoji": "🔻",
+    "code": "B79",
+    "category": "Symbols & Flags",
+    "tags": [
+      "down",
+      "geometric",
+      "pointed",
+      "red",
+      "triangle"
+    ],
+    "shortcodes": [
+      "small_red_triangle_down"
+    ]
+  },
+  {
+    "emoji": "💮",
+    "code": "B7A",
+    "category": "Animals & Nature",
+    "tags": [
+      "flower",
+      "white"
+    ],
+    "shortcodes": [
+      "white_flower"
+    ]
+  },
+  {
+    "emoji": "💯",
+    "code": "B7B",
+    "category": "Smileys & People",
+    "tags": [
+      "100",
+      "a+",
+      "agree",
+      "clearly",
+      "definitely",
+      "faithful",
+      "fleek",
+      "full",
+      "hundred",
+      "keep",
+      "perfect",
+      "point",
+      "score",
+      "true",
+      "truth",
+      "yup"
+    ],
+    "shortcodes": [
+      "100"
+    ]
+  },
+  {
+    "emoji": "🔠",
+    "code": "B7C",
+    "category": "Symbols & Flags",
+    "tags": [
+      "abcd",
+      "input",
+      "latin",
+      "letters",
+      "uppercase"
+    ],
+    "shortcodes": [
+      "capital_abcd"
+    ]
+  },
+  {
+    "emoji": "🔡",
+    "code": "B7D",
+    "category": "Symbols & Flags",
+    "tags": [
+      "abcd",
+      "input",
+      "latin",
+      "letters",
+      "lowercase"
+    ],
+    "shortcodes": [
+      "abcd"
+    ]
+  },
+  {
+    "emoji": "🔢",
+    "code": "B7E",
+    "category": "Symbols & Flags",
+    "tags": [
+      "1234",
+      "input",
+      "numbers"
+    ],
+    "shortcodes": [
+      "1234",
+      "input_numbers"
+    ]
+  },
+  {
+    "emoji": "🔣",
+    "code": "B7F",
+    "category": "Symbols & Flags",
+    "tags": [
+      "%",
+      "&",
+      "input",
+      "symbols",
+      "♪",
+      "〒"
+    ],
+    "shortcodes": [
+      "symbols",
+      "input_symbols"
+    ]
+  },
+  {
+    "emoji": "🔤",
+    "code": "B80",
+    "category": "Symbols & Flags",
+    "tags": [
+      "abc",
+      "alphabet",
+      "input",
+      "latin",
+      "letters"
+    ],
+    "shortcodes": [
+      "abc"
+    ]
+  },
+  {
+    "emoji": "🆔",
+    "code": "B81",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "id",
+      "identity"
+    ],
+    "shortcodes": [
+      "id"
+    ]
+  },
+  {
+    "emoji": "🔑",
+    "code": "B82",
+    "category": "Objects & Places",
+    "tags": [
+      "keys",
+      "lock",
+      "major",
+      "password",
+      "unlock"
+    ],
+    "shortcodes": [
+      "key"
+    ]
+  },
+  {
+    "emoji": "↩",
+    "code": "B83",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "curving",
+      "left",
+      "right"
+    ],
+    "shortcodes": [
+      "leftwards_arrow_with_hook"
+    ]
+  },
+  {
+    "emoji": "🆑",
+    "code": "B84",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "cl"
+    ],
+    "shortcodes": [
+      "cl"
+    ]
+  },
+  {
+    "emoji": "🔍",
+    "code": "B85",
+    "category": "Objects & Places",
+    "tags": [
+      "glass",
+      "lab",
+      "left",
+      "left-pointing",
+      "magnifying",
+      "science",
+      "search",
+      "tilted",
+      "tool"
+    ],
+    "shortcodes": [
+      "mag"
+    ]
+  },
+  {
+    "emoji": "🔒",
+    "code": "B86",
+    "category": "Objects & Places",
+    "tags": [
+      "closed",
+      "lock",
+      "private"
+    ],
+    "shortcodes": [
+      "lock",
+      "locked"
+    ]
+  },
+  {
+    "emoji": "🔓",
+    "code": "B87",
+    "category": "Objects & Places",
+    "tags": [
+      "cracked",
+      "lock",
+      "open",
+      "unlock"
+    ],
+    "shortcodes": [
+      "unlock",
+      "unlocked"
+    ]
+  },
+  {
+    "emoji": "↪",
+    "code": "B88",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "curving",
+      "left",
+      "right"
+    ],
+    "shortcodes": [
+      "arrow_right_hook"
+    ]
+  },
+  {
+    "emoji": "🔐",
+    "code": "B8A",
+    "category": "Objects & Places",
+    "tags": [
+      "bike",
+      "closed",
+      "key",
+      "lock",
+      "locked",
+      "secure"
+    ],
+    "shortcodes": [
+      "closed_lock_with_key"
+    ]
+  },
+  {
+    "emoji": "☑",
+    "code": "B8B",
+    "category": "Symbols & Flags",
+    "tags": [
+      "ballot",
+      "box",
+      "check",
+      "checked",
+      "done",
+      "off",
+      "tick",
+      "✓"
+    ],
+    "shortcodes": [
+      "ballot_box_with_check"
+    ]
+  },
+  {
+    "emoji": "🔘",
+    "code": "B8C",
+    "category": "Symbols & Flags",
+    "tags": [
+      "button",
+      "geometric",
+      "radio"
+    ],
+    "shortcodes": [
+      "radio_button"
+    ]
+  },
+  {
+    "emoji": "🔎",
+    "code": "B8D",
+    "category": "Objects & Places",
+    "tags": [
+      "contact",
+      "glass",
+      "lab",
+      "magnifying",
+      "right",
+      "right-pointing",
+      "science",
+      "search",
+      "tilted",
+      "tool"
+    ],
+    "shortcodes": [
+      "mag_right"
+    ]
+  },
+  {
+    "emoji": "🔙",
+    "code": "B8E",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "back"
+    ],
+    "shortcodes": [
+      "back",
+      "back_arrow"
+    ]
+  },
+  {
+    "emoji": "🔖",
+    "code": "B8F",
+    "category": "Objects & Places",
+    "tags": [
+      "mark"
+    ],
+    "shortcodes": [
+      "bookmark"
+    ]
+  },
+  {
+    "emoji": "🔏",
+    "code": "B90",
+    "category": "Objects & Places",
+    "tags": [
+      "ink",
+      "lock",
+      "locked",
+      "nib",
+      "pen",
+      "privacy"
+    ],
+    "shortcodes": [
+      "lock_with_ink_pen"
+    ]
+  },
+  {
+    "emoji": "🔃",
+    "code": "B91",
+    "category": "Symbols & Flags",
+    "tags": [
+      "arrow",
+      "arrows",
+      "clockwise",
+      "refresh",
+      "reload",
+      "vertical"
+    ],
+    "shortcodes": [
+      "arrows_clockwise"
+    ]
+  },
+  {
+    "emoji": "📧",
+    "code": "B92",
+    "category": "Objects & Places",
+    "tags": [
+      "email",
+      "letter",
+      "mail"
+    ],
+    "shortcodes": [
+      "e-mail",
+      "email",
+      "e_mail"
+    ]
+  },
+  {
+    "emoji": "✊",
+    "code": "B93",
+    "category": "Smileys & People",
+    "tags": [
+      "clenched",
+      "fist",
+      "hand",
+      "punch",
+      "raised",
+      "solidarity"
+    ],
+    "shortcodes": [
+      "fist",
+      "fist_raised",
+      "raised_fist"
+    ]
+  },
+  {
+    "emoji": "✌",
+    "code": "B94",
+    "category": "Smileys & People",
+    "tags": [
+      "hand",
+      "peace",
+      "v",
+      "victory"
+    ],
+    "shortcodes": [
+      "v",
+      "victory_hand"
+    ]
+  },
+  {
+    "emoji": "✋",
+    "code": "B95",
+    "category": "Smileys & People",
+    "tags": [
+      "5",
+      "five",
+      "hand",
+      "high",
+      "raised",
+      "stop"
+    ],
+    "shortcodes": [
+      "hand",
+      "raised_hand"
+    ]
+  },
+  {
+    "emoji": "👊",
+    "code": "B96",
+    "category": "Smileys & People",
+    "tags": [
+      "absolutely",
+      "agree",
+      "boom",
+      "bro",
+      "bruh",
+      "bump",
+      "clenched",
+      "correct",
+      "fist",
+      "hand",
+      "knuckle",
+      "oncoming",
+      "pound",
+      "punch",
+      "rock",
+      "ttyl"
+    ],
+    "shortcodes": [
+      "facepunch",
+      "fist_oncoming",
+      "punch",
+      "oncoming_fist"
+    ]
+  },
+  {
+    "emoji": "👍",
+    "code": "B97",
+    "category": "Smileys & People",
+    "tags": [
+      "+1",
+      "good",
+      "hand",
+      "like",
+      "thumb",
+      "up",
+      "yes"
+    ],
+    "shortcodes": [
+      "+1",
+      "thumbsup",
+      "thumbup",
+      "thumbs_up"
+    ]
+  },
+  {
+    "emoji": "☝",
+    "code": "B98",
+    "category": "Smileys & People",
+    "tags": [
+      "finger",
+      "hand",
+      "index",
+      "point",
+      "pointing",
+      "this",
+      "up"
+    ],
+    "shortcodes": [
+      "point_up"
+    ]
+  },
+  {
+    "emoji": "👆",
+    "code": "B99",
+    "category": "Smileys & People",
+    "tags": [
+      "backhand",
+      "finger",
+      "hand",
+      "index",
+      "point",
+      "pointing",
+      "up"
+    ],
+    "shortcodes": [
+      "point_up_2"
+    ]
+  },
+  {
+    "emoji": "👇",
+    "code": "B9A",
+    "category": "Smileys & People",
+    "tags": [
+      "backhand",
+      "down",
+      "finger",
+      "hand",
+      "index",
+      "point",
+      "pointing"
+    ],
+    "shortcodes": [
+      "point_down"
+    ]
+  },
+  {
+    "emoji": "👈",
+    "code": "B9B",
+    "category": "Smileys & People",
+    "tags": [
+      "backhand",
+      "finger",
+      "hand",
+      "index",
+      "left",
+      "point",
+      "pointing"
+    ],
+    "shortcodes": [
+      "point_left"
+    ]
+  },
+  {
+    "emoji": "👉",
+    "code": "B9C",
+    "category": "Smileys & People",
+    "tags": [
+      "backhand",
+      "finger",
+      "hand",
+      "index",
+      "point",
+      "pointing",
+      "right"
+    ],
+    "shortcodes": [
+      "point_right"
+    ]
+  },
+  {
+    "emoji": "👋",
+    "code": "B9D",
+    "category": "Smileys & People",
+    "tags": [
+      "bye",
+      "cya",
+      "g2g",
+      "greetings",
+      "gtg",
+      "hand",
+      "hello",
+      "hey",
+      "hi",
+      "later",
+      "outtie",
+      "ttfn",
+      "ttyl",
+      "wave",
+      "yo",
+      "you"
+    ],
+    "shortcodes": [
+      "wave",
+      "waving_hand"
+    ]
+  },
+  {
+    "emoji": "👏",
+    "code": "B9E",
+    "category": "Smileys & People",
+    "tags": [
+      "applause",
+      "approval",
+      "awesome",
+      "clap",
+      "congrats",
+      "congratulations",
+      "excited",
+      "good",
+      "great",
+      "hand",
+      "homie",
+      "job",
+      "nice",
+      "prayed",
+      "well",
+      "yay"
+    ],
+    "shortcodes": [
+      "clap"
+    ]
+  },
+  {
+    "emoji": "👌",
+    "code": "B9F",
+    "category": "Smileys & People",
+    "tags": [
+      "awesome",
+      "bet",
+      "dope",
+      "fleek",
+      "fosho",
+      "got",
+      "gotcha",
+      "hand",
+      "legit",
+      "ok",
+      "okay",
+      "pinch",
+      "rad",
+      "sure",
+      "sweet",
+      "three"
+    ],
+    "shortcodes": [
+      "ok_hand"
+    ]
+  },
+  {
+    "emoji": "👎",
+    "code": "BA0",
+    "category": "Smileys & People",
+    "tags": [
+      "-1",
+      "bad",
+      "dislike",
+      "down",
+      "good",
+      "hand",
+      "no",
+      "nope",
+      "thumb",
+      "thumbs"
+    ],
+    "shortcodes": [
+      "-1",
+      "thumbsdown",
+      "thumbdown",
+      "thumbs_down"
+    ]
+  },
+  {
+    "emoji": "👐",
+    "code": "BA1",
+    "category": "Smileys & People",
+    "tags": [
+      "hand",
+      "hands",
+      "hug",
+      "jazz",
+      "open",
+      "swerve"
+    ],
+    "shortcodes": [
+      "open_hands"
+    ]
+  }
+]

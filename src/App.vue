@@ -59,6 +59,14 @@ const exampleTextInputState = ref('sample')
 const scrollableTextInputState = ref('aasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdfaasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdfaasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\n')
 const exampleCheckboxState = ref(false)
 const exampleRadioState = ref('sample')
+
+// Simulates text arriving after the initial render (e.g. from an API call),
+// mixing registered emoji (rendered as our GIFs) and unregistered ones
+// (rendered via the canvas fallback) with plain text.
+const delayedEmojiText = ref('')
+setTimeout(() => {
+  delayedEmojiText.value = 'Loaded later: pizza night 🍕🐶 party time 🎉✨ and also 😀🥳🦄 surprise!'
+}, 2000)
 </script>
 
 <template>
@@ -88,6 +96,12 @@ const exampleRadioState = ref('sample')
       </div>
       <div>
         {{ exampleTextInputState }}
+      </div>
+      <div>
+        {{ delayedEmojiText || 'Loading later...' }}
+      </div>
+      <div v-emoji>
+        Nested v-emoji (should not double-render): 🍕🐶
       </div>
     </Box>
 
@@ -352,5 +366,12 @@ const exampleRadioState = ref('sample')
         </BaseDropdown>
       </div>
     </div>
+  </Typography>
+
+  <!-- Independent of the v-emoji above (not a descendant of it): verifies
+       multiple separate v-emoji instances on the same page both work. -->
+  <Typography v-emoji font-color="black">
+    <h2>Second, independent v-emoji instance</h2>
+    <div>🎉✨ party over here too</div>
   </Typography>
 </template>
