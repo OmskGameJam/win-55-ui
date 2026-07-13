@@ -122,6 +122,9 @@ setTimeout(() => {
       <RichText allow-links>
         Sizes disabled here: [size=24]this should render as plain text[/size]
       </RichText>
+      <RichText>
+        Emoji outside the registry (rasterized fallback, not plain text): 🦖
+      </RichText>
     </Box>
 
     <Box type="panel-d-2" :extra-styles="containerStyle">

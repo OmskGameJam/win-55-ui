@@ -1,6 +1,8 @@
+import { EMOJI_DETECTION_PATTERN } from './emoji'
+
 export type RichNode =
   | { type: 'text'; value: string }
-  | { type: 'emoji'; emoji: string; code: string }
+  | { type: 'emoji'; emoji: string; code?: string }
   | { type: 'break' }
   | { type: 'bold' | 'italic' | 'underline' | 'strike'; children: RichNode[] }
   | { type: 'color'; value: string; children: RichNode[] }
@@ -121,15 +123,27 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-const rawEmojiRegexCache = new WeakMap<EmojiRegistryLookup, RegExp | null>()
+const rawEmojiRegexCache = new WeakMap<EmojiRegistryLookup, RegExp>()
+const noRegistryEmojiRegex = new RegExp(EMOJI_DETECTION_PATTERN, 'gu')
 
-function getRawEmojiRegex(registry: EmojiRegistryLookup): RegExp | null {
+/**
+ * Registry emoji first (longest first, so multi-codepoint sequences win over
+ * prefixes), then the generic pictographic pattern so unicode emoji outside
+ * the registry are still recognized (and get a rasterized fallback glyph
+ * downstream instead of being left as plain text).
+ */
+function getRawEmojiRegex(registry: EmojiRegistryLookup | null): RegExp {
+  if (!registry) return noRegistryEmojiRegex
+
   const cached = rawEmojiRegexCache.get(registry)
 
-  if (cached !== undefined) return cached
+  if (cached) return cached
 
-  const emojis = Object.keys(registry).sort((a, b) => b.length - a.length).map(escapeRegExp)
-  const regex = emojis.length > 0 ? new RegExp(emojis.join('|'), 'gu') : null
+  const registryEmojis = Object.keys(registry).sort((a, b) => b.length - a.length).map(escapeRegExp)
+  const pattern = registryEmojis.length > 0
+    ? `${registryEmojis.join('|')}|${EMOJI_DETECTION_PATTERN}`
+    : EMOJI_DETECTION_PATTERN
+  const regex = new RegExp(pattern, 'gu')
 
   rawEmojiRegexCache.set(registry, regex)
 
@@ -137,19 +151,16 @@ function getRawEmojiRegex(registry: EmojiRegistryLookup): RegExp | null {
 }
 
 /**
- * Splits out raw (already-unicode, not `:shortcode:`) emoji characters that
- * exist in the registry, so they render through the same Vue-native `emoji`
- * RichNode as shortcodes — never via the `v-emoji` directive's own DOM
- * splicing, which would race RichText's own reactive re-renders. Unicode
- * emoji that aren't in the registry are left as plain text (no fallback
- * glyph rendering inside RichText).
+ * Splits out raw (already-unicode, not `:shortcode:`) emoji characters, so
+ * they render through the same Vue-native `emoji` RichNode as shortcodes —
+ * never via the `v-emoji` directive's own DOM splicing, which would race
+ * RichText's own reactive re-renders. Emoji present in the registry carry a
+ * `code` (rendered as the registry GIF); emoji outside the registry carry no
+ * `code`, leaving the renderer to rasterize a fallback glyph, matching the
+ * `v-emoji` directive's own fallback behavior.
  */
 function splitRawEmoji(text: string, registry: EmojiRegistryLookup | null): RichNode[] {
-  if (!registry) return [{ type: 'text', value: text }]
-
   const regex = getRawEmojiRegex(registry)
-
-  if (!regex) return [{ type: 'text', value: text }]
 
   const nodes: RichNode[] = []
   let lastIndex = 0
@@ -159,7 +170,7 @@ function splitRawEmoji(text: string, registry: EmojiRegistryLookup | null): Rich
 
   while ((match = regex.exec(text))) {
     const emoji = match[0]
-    const code = registry[emoji]
+    const code = registry?.[emoji]
 
     if (match.index > lastIndex) {
       nodes.push({ type: 'text', value: text.slice(lastIndex, match.index) })

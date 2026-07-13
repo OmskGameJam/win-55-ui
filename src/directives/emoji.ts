@@ -1,5 +1,6 @@
 import type { Directive, DirectiveBinding } from 'vue'
 import {
+  EMOJI_DETECTION_PATTERN,
   getEmojiGifPathFromCode,
   loadEmojiRegistry,
   type EmojiRegistry,
@@ -59,12 +60,7 @@ export const FALLBACK_EMOJI_PALETTE = [
 ] as const
 
 const FALLBACK_EMOJI_PALETTE_RGB = parseHexPalette(FALLBACK_EMOJI_PALETTE)
-const FALLBACK_EMOJI_PATTERN = [
-  '[\\u{1F1E6}-\\u{1F1FF}]{2}',
-  '[0-9#*]\\uFE0F?\\u20E3',
-  '\\p{Extended_Pictographic}(?:\\uFE0F|\\uFE0E)?(?:\\u200D\\p{Extended_Pictographic}(?:\\uFE0F|\\uFE0E)?)*',
-  '\\p{Emoji_Presentation}',
-].join('|')
+const FALLBACK_EMOJI_PATTERN = EMOJI_DETECTION_PATTERN
 const IGNORED_TAGS = new Set([
   'SCRIPT',
   'STYLE',
@@ -281,7 +277,7 @@ function smoothCanvas(
   context.putImageData(imageData, 0, 0)
 }
 
-function getFallbackEmojiImageSrc(emoji: string): string {
+export function getFallbackEmojiImageSrc(emoji: string): string {
   const cachedImageSrc = fallbackEmojiImageCache.get(emoji)
 
   if (cachedImageSrc) {

@@ -1,6 +1,19 @@
 const DEFAULT_EMOJI_BASE_PATH = '/win-55-ui/emoji'
 const DEFAULT_EMOJI_REGISTRY_URL = `${DEFAULT_EMOJI_BASE_PATH}/emoji-registry.csv`
 
+/**
+ * Matches any unicode emoji-ish grapheme, not just ones present in the
+ * registry CSV. Shared by the `v-emoji` directive (canvas rasterization
+ * fallback) and `RichText`'s own emoji-node splitting, so both agree on what
+ * counts as "an emoji" even when it has no registry GIF.
+ */
+export const EMOJI_DETECTION_PATTERN = [
+  '[\\u{1F1E6}-\\u{1F1FF}]{2}',
+  '[0-9#*]\\uFE0F?\\u20E3',
+  '\\p{Extended_Pictographic}(?:\\uFE0F|\\uFE0E)?(?:\\u200D\\p{Extended_Pictographic}(?:\\uFE0F|\\uFE0E)?)*',
+  '\\p{Emoji_Presentation}',
+].join('|')
+
 export interface EmojiRegistry {
   [emoji: string]: string
 }

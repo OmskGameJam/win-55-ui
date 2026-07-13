@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import Typography from './Typography.vue'
 import { getEmojiGifPathFromCode } from '../helpers/emoji'
+import { getFallbackEmojiImageSrc } from '../directives/emoji'
 import type { RichNode } from '../helpers/richText'
 
 withDefaults(defineProps<{ node: RichNode; allowLinks?: boolean; allowSizes?: boolean }>(), {
   allowLinks: false,
   allowSizes: false,
 })
+
+function emojiImageSrc(code: string | undefined, emoji: string): string {
+  return code ? getEmojiGifPathFromCode(code) : getFallbackEmojiImageSrc(emoji)
+}
 </script>
 
 <template>
@@ -66,6 +71,6 @@ withDefaults(defineProps<{ node: RichNode; allowLinks?: boolean; allowSizes?: bo
     :data-win55-emoji="node.emoji"
     style="--win55-emoji-size: 30px;"
   >
-    <img class="win55-emoji-image" :src="getEmojiGifPathFromCode(node.code)" :alt="node.emoji" draggable="false" />
+    <img class="win55-emoji-image" :src="emojiImageSrc(node.code, node.emoji)" :alt="node.emoji" draggable="false" />
   </span>
 </template>
