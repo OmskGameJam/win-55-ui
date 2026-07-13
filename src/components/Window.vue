@@ -286,8 +286,7 @@ watch(() => [props.resizable, props.resizableHorizontally, props.resizableVertic
           flex: '1',
           overflowX: props.overflowX ?? 'auto',
           overflowY: props.overflowY ?? 'auto',
-          margin: '2px',
-          marginTop: '0',
+          marginTop: '4px',
           boxSizing: 'border-box'
         }"
       >
