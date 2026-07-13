@@ -4,7 +4,7 @@ export type RichNode = {
 } | {
     type: 'emoji';
     emoji: string;
-    code: string;
+    code?: string;
 } | {
     type: 'break';
 } | {

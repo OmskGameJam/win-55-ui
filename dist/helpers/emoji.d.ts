@@ -1,3 +1,10 @@
+/**
+ * Matches any unicode emoji-ish grapheme, not just ones present in the
+ * registry CSV. Shared by the `v-emoji` directive (canvas rasterization
+ * fallback) and `RichText`'s own emoji-node splitting, so both agree on what
+ * counts as "an emoji" even when it has no registry GIF.
+ */
+export declare const EMOJI_DETECTION_PATTERN: string;
 export interface EmojiRegistry {
     [emoji: string]: string;
 }
