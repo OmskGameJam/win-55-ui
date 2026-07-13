@@ -9,6 +9,7 @@ import {
   getTextWithCustomEmoji,
 } from '../helpers/emojiDom'
 import { findNearestColor, parseHexPalette } from '../helpers/color'
+import { isFirefox } from '../helpers/browser'
 
 export interface EmojiDirectiveOptions extends EmojiRegistryOptions {
   className?: string
@@ -20,6 +21,7 @@ const DEFAULT_CLASS_NAME = 'win55-emoji'
 const DEFAULT_IMAGE_CLASS_NAME = 'win55-emoji-image'
 const BASE_EMOJI_SIZE = 15
 const UI_SCALE = 2
+const FIREFOX_CARET_WORKAROUNDS = isFirefox()
 
 export const FALLBACK_EMOJI_PALETTE = [
 "#000000",
@@ -429,23 +431,36 @@ function replaceEmojiInTextNode(
     matched = true
 
     /*
-     * Always insert a (possibly empty) text node before this emoji, even
-     * when it's immediately adjacent to the previous one (index === lastIndex).
-     * Two contenteditable="false" atoms with nothing between them hit the
-     * same Firefox caret-placement problem as a trailing atom — there needs
-     * to be a real node between them to land a caret on.
+     * Firefox-only: always insert a (possibly empty) text node before this
+     * emoji, even when it's immediately adjacent to the previous one
+     * (index === lastIndex). Two contenteditable="false" atoms with nothing
+     * between them hit the same Firefox caret-placement problem as a
+     * trailing atom — there needs to be a real node between them to land a
+     * caret on. Chrome doesn't need the empty placeholder, and inserting one
+     * anyway plays badly with Chrome's native IME/OS emoji-panel input, so
+     * only add it there when there's actual text to carry.
      */
-    const beforeText = document.createTextNode(text.slice(lastIndex, index))
+    const beforeSlice = text.slice(lastIndex, index)
 
-    if (
+    if (FIREFOX_CARET_WORKAROUNDS || beforeSlice.length > 0) {
+      const beforeText = document.createTextNode(beforeSlice)
+
+      if (
+        caretOffset !== null &&
+        caretOffset >= lastIndex &&
+        caretOffset <= index
+      ) {
+        rememberCaret(beforeText, caretOffset - lastIndex)
+      }
+
+      fragment.append(beforeText)
+    } else if (
       caretOffset !== null &&
       caretOffset >= lastIndex &&
       caretOffset <= index
     ) {
-      rememberCaret(beforeText, caretOffset - lastIndex)
+      rememberCaret(parent, Array.prototype.indexOf.call(parent.childNodes, textNode) + fragment.childNodes.length)
     }
-
-    fragment.append(beforeText)
 
     const emojiElement = createEmojiElement(emoji, imageSrc, options)
     fragment.append(emojiElement)
@@ -466,19 +481,27 @@ function replaceEmojiInTextNode(
   }
 
   /*
-   * Always leave a (possibly empty) text node after the last emoji, even
-   * when the match ran to the end of the original text. Firefox refuses to
-   * place/render a caret immediately after a trailing contenteditable="false"
-   * atom with no following node — Chrome is more lenient and doesn't need
-   * this, but the empty text node is harmless there either way.
+   * Firefox-only: always leave a (possibly empty) text node after the last
+   * emoji, even when the match ran to the end of the original text. Firefox
+   * refuses to place/render a caret immediately after a trailing
+   * contenteditable="false" atom with no following node. Chrome doesn't need
+   * it, and — unlike the "harmless either way" this used to assume — an
+   * empty trailing text node interferes with Chrome's native IME/OS
+   * emoji-panel input, so only add it there when there's real text to carry.
    */
-  const afterText = document.createTextNode(text.slice(lastIndex))
+  const afterSlice = text.slice(lastIndex)
 
-  if (caretOffset !== null && caretOffset >= lastIndex) {
-    rememberCaret(afterText, caretOffset - lastIndex)
+  if (FIREFOX_CARET_WORKAROUNDS || afterSlice.length > 0) {
+    const afterText = document.createTextNode(afterSlice)
+
+    if (caretOffset !== null && caretOffset >= lastIndex) {
+      rememberCaret(afterText, caretOffset - lastIndex)
+    }
+
+    fragment.append(afterText)
+  } else if (caretOffset !== null && caretOffset >= lastIndex) {
+    rememberCaret(parent, Array.prototype.indexOf.call(parent.childNodes, textNode) + fragment.childNodes.length)
   }
-
-  fragment.append(afterText)
 
   textNode.replaceWith(fragment)
 

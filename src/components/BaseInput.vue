@@ -8,6 +8,7 @@ import { renderCustomEmoji } from '../directives/emoji'
 import { getEmojiGifPathFromCode } from '../helpers/emoji'
 import { graphemeLength, sliceGraphemes } from '../helpers/graphemes'
 import { getCaretClientRect } from '../helpers/caretPosition'
+import { isFirefox } from '../helpers/browser'
 import { searchShortcodes, resolveShortcode, type ShortcodeMatch } from '../helpers/shortcodes'
 import {
   registerActiveInput,
@@ -735,6 +736,7 @@ const deleteAdjacentEmoji = (
  * leave that native behavior alone.
  */
 const jumpOverAdjacentEmoji = (e: KeyboardEvent): boolean => {
+  if (!isFirefox()) return false
   if (e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return false
   if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return false
   if (!el.value) return false

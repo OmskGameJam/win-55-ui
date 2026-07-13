@@ -29,6 +29,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "npm run build:lib",
+    "release": "node scripts/release.js",
     "emoji": "node scripts/emoji-cli.js"
   },
   "peerDependencies": {
