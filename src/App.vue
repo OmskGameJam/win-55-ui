@@ -113,7 +113,7 @@ setTimeout(() => {
       <RichText allow-links>
         Plain text, [b]bold[/b], [i]italic (no strike! tell anton to fix fonts)[/i],
         [u]underline[/u], [s]strike[/s], [color=#aa0000]red[/color], [size=24]big[/size],
-        [url=https://example.com]a link[/url], and an emoji :smile: :book:
+        [url=https://example.com]a link[/url], and :smile: an emoji 
         Also, real emoji! ☀ 🌈 😄 🚀 💾
       </RichText>
       <RichText>

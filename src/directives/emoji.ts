@@ -123,6 +123,18 @@ function getDirectiveOptions(
   return {}
 }
 
+/*
+ * Marks the root of a self-managed dynamic subtree (e.g. `RichText`) that
+ * renders its own emoji reactively. The ambient `v-emoji` directive's
+ * MutationObserver-driven background scan must not reach into it: its raw
+ * `textNode.replaceWith(fragment)` splices detach DOM nodes Vue still owns,
+ * so when the subtree's own reactive re-render lands later it patches nodes
+ * that are no longer in the live tree, corrupting the output. Standalone,
+ * explicitly-triggered calls (`renderCustomEmoji`) are unaffected by this
+ * boundary — it only blocks the ambient/automatic scan.
+ */
+const RICHTEXT_BOUNDARY_ATTRIBUTE = 'data-win55-richtext'
+
 function shouldSkipElement(element: Element): boolean {
   return (
     IGNORED_TAGS.has(element.tagName) ||
@@ -155,13 +167,17 @@ function hasEmojiAncestor(el: HTMLElement): boolean {
   return false
 }
 
-function collectTextNodes(root: HTMLElement): Text[] {
+function collectTextNodes(root: HTMLElement, respectRichTextBoundary: boolean): Text[] {
   const textNodes: Text[] = []
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode(node) {
       const parent = node.parentElement
 
       if (!parent || shouldSkipElement(parent)) {
+        return NodeFilter.FILTER_REJECT
+      }
+
+      if (respectRichTextBoundary && parent.closest(`[${RICHTEXT_BOUNDARY_ATTRIBUTE}]`)) {
         return NodeFilter.FILTER_REJECT
       }
 
@@ -402,22 +418,6 @@ function replaceEmojiInTextNode(
       continue
     }
 
-    matched = true
-
-    if (index > lastIndex) {
-      const beforeText = document.createTextNode(text.slice(lastIndex, index))
-
-      if (
-        caretOffset !== null &&
-        caretOffset >= lastIndex &&
-        caretOffset <= index
-      ) {
-        rememberCaret(beforeText, caretOffset - lastIndex)
-      }
-
-      fragment.append(beforeText)
-    }
-
     const imageSrc = code
       ? getEmojiGifPathFromCode(code, options)
       : getFallbackEmojiImageSrc(emoji)
@@ -425,6 +425,27 @@ function replaceEmojiInTextNode(
     if (!imageSrc) {
       continue
     }
+
+    matched = true
+
+    /*
+     * Always insert a (possibly empty) text node before this emoji, even
+     * when it's immediately adjacent to the previous one (index === lastIndex).
+     * Two contenteditable="false" atoms with nothing between them hit the
+     * same Firefox caret-placement problem as a trailing atom — there needs
+     * to be a real node between them to land a caret on.
+     */
+    const beforeText = document.createTextNode(text.slice(lastIndex, index))
+
+    if (
+      caretOffset !== null &&
+      caretOffset >= lastIndex &&
+      caretOffset <= index
+    ) {
+      rememberCaret(beforeText, caretOffset - lastIndex)
+    }
+
+    fragment.append(beforeText)
 
     const emojiElement = createEmojiElement(emoji, imageSrc, options)
     fragment.append(emojiElement)
@@ -444,17 +465,20 @@ function replaceEmojiInTextNode(
     return
   }
 
-  if (lastIndex < text.length) {
-    const afterText = document.createTextNode(text.slice(lastIndex))
+  /*
+   * Always leave a (possibly empty) text node after the last emoji, even
+   * when the match ran to the end of the original text. Firefox refuses to
+   * place/render a caret immediately after a trailing contenteditable="false"
+   * atom with no following node — Chrome is more lenient and doesn't need
+   * this, but the empty text node is harmless there either way.
+   */
+  const afterText = document.createTextNode(text.slice(lastIndex))
 
-    if (caretOffset !== null && caretOffset >= lastIndex) {
-      rememberCaret(afterText, caretOffset - lastIndex)
-    }
-
-    fragment.append(afterText)
-  } else if (caretOffset !== null && caretOffset >= lastIndex) {
-    rememberCaret(parent, Array.prototype.indexOf.call(parent.childNodes, textNode) + fragment.childNodes.length)
+  if (caretOffset !== null && caretOffset >= lastIndex) {
+    rememberCaret(afterText, caretOffset - lastIndex)
   }
+
+  fragment.append(afterText)
 
   textNode.replaceWith(fragment)
 
@@ -471,6 +495,7 @@ function replaceEmojiInElement(
   el: HTMLElement,
   registry: EmojiRegistry,
   options: EmojiDirectiveOptions,
+  respectRichTextBoundary: boolean,
 ): void {
   const regex = getEmojiRegex(registry)
 
@@ -478,7 +503,7 @@ function replaceEmojiInElement(
     return
   }
 
-  for (const textNode of collectTextNodes(el)) {
+  for (const textNode of collectTextNodes(el, respectRichTextBoundary)) {
     replaceEmojiInTextNode(textNode, regex, registry, options)
   }
 }
@@ -503,7 +528,7 @@ export async function renderCustomEmoji(
     return
   }
 
-  replaceEmojiInElement(el, registry, options)
+  replaceEmojiInElement(el, registry, options, false)
 }
 
 async function renderEmoji(
@@ -528,7 +553,7 @@ async function renderEmoji(
     return
   }
 
-  replaceEmojiInElement(el, registry, options)
+  replaceEmojiInElement(el, registry, options, true)
 }
 
 function scheduleRender(

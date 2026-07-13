@@ -624,16 +624,25 @@ const deleteTextRangeAtEmojiBoundary = (
   return true
 }
 
+const findEmojiAtCaretBoundary = (
+  container: Node,
+  offset: number,
+  direction: 'backward' | 'forward',
+): HTMLElement | null => {
+  const candidate = direction === 'backward'
+    ? getPreviousCaretNode(container, offset)
+    : getNextCaretNode(container, offset)
+
+  return findAdjacentEmojiElement(candidate, direction)
+}
+
 const deleteAdjacentEmojiFromPosition = (
   container: Node,
   startOffset: number,
   direction: 'backward' | 'forward',
   beforeDelete: () => void,
 ): boolean => {
-  const candidate = direction === 'backward'
-    ? getPreviousCaretNode(container, startOffset)
-    : getNextCaretNode(container, startOffset)
-  const emojiElement = findAdjacentEmojiElement(candidate, direction)
+  const emojiElement = findEmojiAtCaretBoundary(container, startOffset, direction)
 
   if (!emojiElement || !emojiElement.parentNode) {
     return false
@@ -718,6 +727,37 @@ const deleteAdjacentEmoji = (
   )
 }
 
+/*
+ * Firefox doesn't reliably step the caret across a contenteditable="false"
+ * emoji atom with plain ArrowLeft/ArrowRight (it can get stuck at the
+ * boundary) — so this jumps it across manually, treating the emoji as one
+ * unit. Skipped when a modifier is held (shift-select, word-jump, etc.) to
+ * leave that native behavior alone.
+ */
+const jumpOverAdjacentEmoji = (e: KeyboardEvent): boolean => {
+  if (e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return false
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return false
+  if (!el.value) return false
+
+  const selection = window.getSelection()
+
+  if (!selection || selection.rangeCount === 0 || !selection.isCollapsed) return false
+
+  const range = selection.getRangeAt(0)
+
+  if (!el.value.contains(range.startContainer)) return false
+
+  const direction = e.key === 'ArrowLeft' ? 'backward' : 'forward'
+  const emojiElement = findEmojiAtCaretBoundary(range.startContainer, range.startOffset, direction)
+
+  if (!emojiElement || !emojiElement.parentNode) return false
+
+  e.preventDefault()
+  setCaret(emojiElement.parentNode, getChildIndex(emojiElement) + (direction === 'forward' ? 1 : 0))
+
+  return true
+}
+
 const handleKeyDown = (e: KeyboardEvent) => {
   if (shortcodeOpen.value) {
     if (e.key === 'ArrowDown') {
@@ -755,6 +795,8 @@ const handleKeyDown = (e: KeyboardEvent) => {
   if (e.key === 'Tab') {
     e.preventDefault()
   }
+
+  jumpOverAdjacentEmoji(e)
 }
 
 const handleBeforeInput = (e: InputEvent) => {

@@ -11,6 +11,9 @@ export interface ShortcodeLookup {
   get(name: string): { emoji: string; code: string } | undefined
 }
 
+/** Raw unicode emoji -> registry code, e.g. the `EmojiRegistry` from helpers/emoji.ts. */
+export type EmojiRegistryLookup = Record<string, string>
+
 type TagType = 'bold' | 'italic' | 'underline' | 'strike' | 'color' | 'size' | 'url'
 
 /*
@@ -85,7 +88,7 @@ function findLastFrameIndex(stack: Frame[], tagType: TagType): number {
   return -1
 }
 
-function splitEmoji(raw: string, shortcodes: ShortcodeLookup | null): RichNode[] {
+function splitShortcodeEmoji(raw: string, shortcodes: ShortcodeLookup | null): RichNode[] {
   if (!raw) return []
   if (!shortcodes) return [{ type: 'text', value: raw }]
 
@@ -114,13 +117,94 @@ function splitEmoji(raw: string, shortcodes: ShortcodeLookup | null): RichNode[]
   return nodes.length > 0 ? nodes : [{ type: 'text', value: raw }]
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+const rawEmojiRegexCache = new WeakMap<EmojiRegistryLookup, RegExp | null>()
+
+function getRawEmojiRegex(registry: EmojiRegistryLookup): RegExp | null {
+  const cached = rawEmojiRegexCache.get(registry)
+
+  if (cached !== undefined) return cached
+
+  const emojis = Object.keys(registry).sort((a, b) => b.length - a.length).map(escapeRegExp)
+  const regex = emojis.length > 0 ? new RegExp(emojis.join('|'), 'gu') : null
+
+  rawEmojiRegexCache.set(registry, regex)
+
+  return regex
+}
+
+/**
+ * Splits out raw (already-unicode, not `:shortcode:`) emoji characters that
+ * exist in the registry, so they render through the same Vue-native `emoji`
+ * RichNode as shortcodes — never via the `v-emoji` directive's own DOM
+ * splicing, which would race RichText's own reactive re-renders. Unicode
+ * emoji that aren't in the registry are left as plain text (no fallback
+ * glyph rendering inside RichText).
+ */
+function splitRawEmoji(text: string, registry: EmojiRegistryLookup | null): RichNode[] {
+  if (!registry) return [{ type: 'text', value: text }]
+
+  const regex = getRawEmojiRegex(registry)
+
+  if (!regex) return [{ type: 'text', value: text }]
+
+  const nodes: RichNode[] = []
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+
+  regex.lastIndex = 0
+
+  while ((match = regex.exec(text))) {
+    const emoji = match[0]
+    const code = registry[emoji]
+
+    if (match.index > lastIndex) {
+      nodes.push({ type: 'text', value: text.slice(lastIndex, match.index) })
+    }
+
+    nodes.push({ type: 'emoji', emoji, code })
+    lastIndex = match.index + emoji.length
+  }
+
+  if (lastIndex < text.length) {
+    nodes.push({ type: 'text', value: text.slice(lastIndex) })
+  }
+
+  return nodes.length > 0 ? nodes : [{ type: 'text', value: text }]
+}
+
+function splitEmoji(
+  raw: string,
+  shortcodes: ShortcodeLookup | null,
+  registry: EmojiRegistryLookup | null,
+): RichNode[] {
+  const result: RichNode[] = []
+
+  for (const node of splitShortcodeEmoji(raw, shortcodes)) {
+    if (node.type === 'text') {
+      result.push(...splitRawEmoji(node.value, registry))
+    } else {
+      result.push(node)
+    }
+  }
+
+  return result
+}
+
 /**
  * Parses a limited BBCode subset ([b] [i] [u] [s]/[strike] [color=] [size=]
  * [url]/[url=] [br]) plus `:shortcode:` emoji into a tree of RichNode.
  * Unknown tags and unmatched/malformed brackets pass through as literal
  * text rather than being stripped.
  */
-export function parseRichText(text: string, shortcodes: ShortcodeLookup | null): RichNode[] {
+export function parseRichText(
+  text: string,
+  shortcodes: ShortcodeLookup | null,
+  registry: EmojiRegistryLookup | null = null,
+): RichNode[] {
   const root: RichNode[] = []
   const stack: Frame[] = []
   const tagPattern = /\[(\/?)(\w+)(?:=([^\]]*))?\]/g
@@ -129,7 +213,7 @@ export function parseRichText(text: string, shortcodes: ShortcodeLookup | null):
   let match: RegExpExecArray | null
 
   const currentChildren = (): RichNode[] => (stack.length ? stack[stack.length - 1].children : root)
-  const pushText = (raw: string) => currentChildren().push(...splitEmoji(raw, shortcodes))
+  const pushText = (raw: string) => currentChildren().push(...splitEmoji(raw, shortcodes, registry))
 
   while ((match = tagPattern.exec(text))) {
     const [full, closing, rawTag, rawValue] = match
