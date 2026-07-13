@@ -120,3 +120,11 @@ onUnmounted(() => {
     </div>
   </div>
 </template>
+
+<style>
+ .win55-emoji {
+    vertical-align: top;
+    position: relative;
+    top: -4px;
+ }
+</style>

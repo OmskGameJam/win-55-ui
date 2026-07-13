@@ -221,7 +221,7 @@ setTimeout(() => {
       </Window>
       
       <!-- Second window is in faux mode, behaving as a div -->
-      <Window faux title="Title" placeholder-buttons>
+      <Window faux title="Title 👀😀🥳🦄🎉✨ " placeholder-buttons>
         Sample
       </Window>
     </div>
