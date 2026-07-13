@@ -2068,8 +2068,7 @@ const No = { style: { height: "0", overflow: "visible" } }, Fo = { class: "title
               flex: "1",
               overflowX: t.overflowX ?? "auto",
               overflowY: t.overflowY ?? "auto",
-              margin: "2px",
-              marginTop: "0",
+              marginTop: "4px",
               boxSizing: "border-box"
             })
           }, [
