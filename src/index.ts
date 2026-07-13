@@ -17,6 +17,7 @@ export { default as Tooltip } from './components/Tooltip.vue'
 export { default as Typography } from './components/Typography.vue'
 export { default as Window } from './components/Window.vue'
 export { default as NamedPanel } from './components/NamedPanel.vue'
+export { default as EmojiPickerWindow } from './components/EmojiPickerWindow.vue'
 
 // Directives
 export { default as emojiDirective, customEmojiDirective } from './directives/emoji'
@@ -39,6 +40,16 @@ export {
   getTextWithCustomEmoji,
   restoreSelectionOffset,
 } from './helpers/emojiDom'
+export {
+  activeTarget,
+  closePicker,
+  insertEmoji,
+  openPicker,
+  pickerOpen,
+  pickerPosition,
+  pickNextButtonIcon,
+  registerActiveInput,
+} from './helpers/emojiPickerStore'
 
 // Types
 export type { BoxType } from './components/Box.vue'
@@ -46,3 +57,4 @@ export type { TypographySettings } from './helpers/typography'
 export type { RichNode } from './helpers/richText'
 export type { EmojiDirectiveBindingValue, EmojiDirectiveOptions } from './directives/emoji'
 export type { EmojiRegistry, EmojiRegistryOptions } from './helpers/emoji'
+export type { EmojiInsertTarget, PickerPosition } from './helpers/emojiPickerStore'
