@@ -110,14 +110,17 @@ setTimeout(() => {
 
     <Box type="border-groove" :extra-styles="containerStyle">
       <h2>RichText (BBCode + :shortcodes:)</h2>
-      <RichText allow-links>
+      <RichText allow-links allow-sizes>
         Plain text, [b]bold[/b], [i]italic (no strike! tell anton to fix fonts)[/i],
         [u]underline[/u], [s]strike[/s], [color=#aa0000]red[/color], [size=24]big[/size],
-        [url=https://example.com]a link[/url], and :smile: an emoji 
+        [url=https://example.com]a link[/url], and :smile: an emoji
         Also, real emoji! ☀ 🌈 😄 🚀 💾
       </RichText>
       <RichText>
         Links disabled here: [url=https://example.com]this should render as plain text[/url]
+      </RichText>
+      <RichText allow-links>
+        Sizes disabled here: [size=24]this should render as plain text[/size]
       </RichText>
     </Box>
 

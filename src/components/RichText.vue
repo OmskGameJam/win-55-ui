@@ -5,8 +5,9 @@ import { loadShortcodeIndex } from '../helpers/shortcodes'
 import { loadEmojiRegistry, type EmojiRegistry } from '../helpers/emoji'
 import { parseRichText, type ShortcodeLookup } from '../helpers/richText'
 
-const props = withDefaults(defineProps<{ allowLinks?: boolean }>(), {
+const props = withDefaults(defineProps<{ allowLinks?: boolean; allowSizes?: boolean }>(), {
   allowLinks: false,
+  allowSizes: false,
 })
 
 const slots = useSlots()
@@ -58,6 +59,6 @@ const nodes = computed(() =>
 
 <template>
   <span data-win55-richtext style="display: contents;">
-    <RichTextNode v-for="(node, i) in nodes" :key="i" :node="node" :allow-links="props.allowLinks" />
+    <RichTextNode v-for="(node, i) in nodes" :key="i" :node="node" :allow-links="props.allowLinks" :allow-sizes="props.allowSizes" />
   </span>
 </template>

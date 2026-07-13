@@ -3,8 +3,9 @@ import Typography from './Typography.vue'
 import { getEmojiGifPathFromCode } from '../helpers/emoji'
 import type { RichNode } from '../helpers/richText'
 
-withDefaults(defineProps<{ node: RichNode; allowLinks?: boolean }>(), {
+withDefaults(defineProps<{ node: RichNode; allowLinks?: boolean; allowSizes?: boolean }>(), {
   allowLinks: false,
+  allowSizes: false,
 })
 </script>
 
@@ -14,28 +15,33 @@ withDefaults(defineProps<{ node: RichNode; allowLinks?: boolean }>(), {
   <br v-else-if="node.type === 'break'" />
 
   <Typography v-else-if="node.type === 'bold'" is-bold>
-    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" />
+    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" :allow-sizes="allowSizes" />
   </Typography>
 
   <Typography v-else-if="node.type === 'italic'" is-italic>
-    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" />
+    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" :allow-sizes="allowSizes" />
   </Typography>
 
   <span v-else-if="node.type === 'underline'" style="text-decoration: underline;">
-    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" />
+    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" :allow-sizes="allowSizes" />
   </span>
 
   <span v-else-if="node.type === 'strike'" style="text-decoration: line-through;">
-    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" />
+    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" :allow-sizes="allowSizes" />
   </span>
 
   <Typography v-else-if="node.type === 'color'" :font-color="node.value">
-    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" />
+    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" :allow-sizes="allowSizes" />
   </Typography>
 
-  <Typography v-else-if="node.type === 'size'" :font-size="node.value">
-    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" />
+  <Typography v-else-if="node.type === 'size' && allowSizes" :font-size="node.value">
+    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" :allow-sizes="allowSizes" />
   </Typography>
+
+  <!-- [size] with sizes disabled silently fails: renders its children unwrapped, no size change. -->
+  <template v-else-if="node.type === 'size'">
+    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" :allow-sizes="allowSizes" />
+  </template>
 
   <!-- [url] with links disabled silently fails: renders its children unwrapped, no <a>. -->
   <a
@@ -45,11 +51,11 @@ withDefaults(defineProps<{ node: RichNode; allowLinks?: boolean }>(), {
     rel="noopener noreferrer"
     class="richtext-link"
   >
-    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" />
+    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" :allow-sizes="allowSizes" />
   </a>
 
   <template v-else-if="node.type === 'url'">
-    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" />
+    <RichTextNode v-for="(child, i) in node.children" :key="i" :node="child" :allow-links="allowLinks" :allow-sizes="allowSizes" />
   </template>
 
   <span
