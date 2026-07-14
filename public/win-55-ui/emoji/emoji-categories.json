@@ -11587,5 +11587,48 @@
     "shortcodes": [
       "open_hands"
     ]
+  },
+  {
+    "emoji": "🫃",
+    "code": "C00",
+    "category": "Smileys & People",
+    "tags": [
+      "belly",
+      "bloated",
+      "full",
+      "man",
+      "overeat",
+      "pregnant"
+    ],
+    "shortcodes": [
+      "pregnant_man"
+    ]
+  },
+  {
+    "emoji": "🤣",
+    "code": "C01",
+    "category": "Smileys & People",
+    "tags": [
+      "crying",
+      "face",
+      "floor",
+      "funny",
+      "haha",
+      "happy",
+      "hehe",
+      "hilarious",
+      "joy",
+      "laugh",
+      "lmao",
+      "lol",
+      "rofl",
+      "roflmao",
+      "rolling",
+      "tear"
+    ],
+    "shortcodes": [
+      "rofl",
+      "rolling_on_the_floor_laughing"
+    ]
   }
 ]

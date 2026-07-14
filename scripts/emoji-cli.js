@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, extname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const projectRoot = resolve(__dirname, '..')
 const emojiDir = join(projectRoot, 'public', 'win-55-ui', 'emoji')
+const xEmojiDir = join(projectRoot, 'public', 'win-55-ui', 'x-emoji')
 const registryPath = join(emojiDir, 'emoji-registry.csv')
 const header = 'emoji,code'
 
@@ -19,6 +20,7 @@ function usage(exitCode = 0) {
     '  npm run emoji -- replace <emoji> <code|gif-path> [gif-path]',
     '  npm run emoji -- remove <emoji>',
     '  npm run emoji -- classify',
+    '  npm run emoji -- import',
     '',
     'Examples:',
     '  npm run emoji -- add 😀 123',
@@ -382,6 +384,104 @@ function classifyRegistry() {
   }
 }
 
+/* x-emoji/ assets are named by alias (e.g. "rofl.gif") rather than emoji
+   character. Invert emojibase-data's hexcode->shortcodes map into
+   alias->emoji so a filename can be resolved to a real unicode emoji. */
+function buildAliasIndex() {
+  const dataPath = join(projectRoot, 'node_modules', 'emojibase-data', 'en', 'data.json')
+
+  if (!existsSync(dataPath)) {
+    fail('emojibase-data is not installed. Run: npm install --save-dev emojibase-data')
+  }
+
+  const entries = JSON.parse(readFileSync(dataPath, 'utf8'))
+  const shortcodeMap = loadShortcodeMap()
+  const index = new Map()
+
+  for (const entry of entries) {
+    if (entry.group === 2) {
+      continue
+    }
+
+    for (const alias of shortcodeMap.get(entry.hexcode) ?? []) {
+      if (!index.has(alias)) {
+        index.set(alias, entry.emoji)
+      }
+    }
+  }
+
+  return index
+}
+
+/* New x-emoji codes are allocated from the historic Shift-JIS-derived Cxx
+   range, distinct from the sequential 000-BA1 range used by the original
+   registry. */
+function allocateXEmojiCode(existingCodes) {
+  for (let value = 0xc00; value <= 0xfff; value += 1) {
+    const code = value.toString(16).toUpperCase().padStart(3, '0')
+
+    if (!existingCodes.has(code)) {
+      existingCodes.add(code)
+      return code
+    }
+  }
+
+  fail('no free codes remaining in the Cxx range')
+}
+
+function importXEmoji() {
+  if (!existsSync(xEmojiDir)) {
+    console.log(`Nothing to import: ${xEmojiDir} does not exist`)
+    return
+  }
+
+  const files = readdirSync(xEmojiDir).filter((file) => extname(file).toLowerCase() === '.gif')
+
+  if (files.length === 0) {
+    console.log(`Nothing to import: no gifs found in ${xEmojiDir}`)
+    return
+  }
+
+  const aliasIndex = buildAliasIndex()
+  const rows = parseRegistry()
+  const existingCodes = new Set(rows.map((row) => row.code))
+
+  const resolved = files.map((file) => {
+    const alias = basename(file, '.gif')
+    const emoji = aliasIndex.get(alias)
+
+    if (!emoji) {
+      fail(`no emoji found for alias "${alias}" (from ${file}) in the github/iamcal/joypixels shortcode presets`)
+    }
+
+    return { file, alias, emoji }
+  })
+
+  const plan = resolved.map(({ file, alias, emoji }) => {
+    const existingIndex = rows.findIndex((row) => row.emoji === emoji)
+    const code = existingIndex === -1 ? allocateXEmojiCode(existingCodes) : rows[existingIndex].code
+    return { file, alias, emoji, code, replace: existingIndex !== -1, existingIndex }
+  })
+
+  for (const { emoji, code, replace, existingIndex } of plan) {
+    if (replace) {
+      rows[existingIndex] = { emoji, code }
+    } else {
+      rows.push({ emoji, code })
+    }
+  }
+
+  writeRegistry(rows)
+
+  for (const { file, alias, emoji, code, replace } of plan) {
+    mkdirSync(emojiDir, { recursive: true })
+    copyFileSync(join(xEmojiDir, file), join(emojiDir, `${code}.gif`))
+    console.log(`${replace ? 'Replaced' : 'Imported'} ${alias} -> ${emoji},${code}`)
+  }
+
+  classifyRegistry()
+}
+
 const [command, emoji, codeOrPath, sourcePath] = process.argv.slice(2)
 
 switch (command) {
@@ -415,6 +515,10 @@ switch (command) {
 
   case 'classify':
     classifyRegistry()
+    break
+
+  case 'import':
+    importXEmoji()
     break
 
   case '-h':

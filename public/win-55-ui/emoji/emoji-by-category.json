@@ -1114,6 +1114,21 @@
         "shortcodes": [
           "open_hands"
         ]
+      },
+      {
+        "emoji": "🫃",
+        "code": "C00",
+        "shortcodes": [
+          "pregnant_man"
+        ]
+      },
+      {
+        "emoji": "🤣",
+        "code": "C01",
+        "shortcodes": [
+          "rofl",
+          "rolling_on_the_floor_laughing"
+        ]
       }
     ]
   },
