@@ -9,7 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build:lib` — library build: Vite (ESM bundle + CSS) + vue-tsc (декларации типов) → `dist/`
 - `npm run lint` — ESLint
 - `npm run preview` — предпросмотр production-сборки
-- `npm run emoji -- <command>` — обслуживание `public/win-55-ui/emoji/emoji-registry.csv` (`add`, `replace`, `remove`, `list`, `sort`, `check`)
+- `npm run emoji -- <command>` — обслуживание `public/win-55-ui/emoji/emoji-registry.csv` (`add`, `replace`, `remove`, `list`, `sort`, `check`, `classify`, `import`)
+- `npm run release` — `scripts/release.js`: `build:lib` + `git add -A` + коммит `Publish <version>` (версия берётся из `package.json`, бампается вручную перед запуском)
 
 Требуется Node.js 20.19+ или 22.12+ (указан в `.nvmrc`).
 
@@ -63,6 +64,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **useSineWave.ts** — composable (`ref` + `requestAnimationFrame`) для анимированных sine/cosine значений с configurable FPS. Нормализует высоты для постоянной суммы.
 - **imgErrors.ts** — `registerGlobalImageErrorHandler` — глобальный fallback на `broken-image.png` при ошибках загрузки изображений (capture phase listener).
 - **emoji.ts** — runtime emoji registry loader. Загружает `public/win-55-ui/emoji/emoji-registry.csv` в браузере через `fetch`, читает его как простой `emoji,code` key-value файл и кэширует результат. Не генерировать TS-реестр; для обновления CSV использовать `npm run emoji -- add/replace/remove/...`.
+- **browser.ts** — `isFirefox()` (UA sniff). Используется в `emoji.ts`-директиве и `BaseInput` для Firefox-only костылей вокруг размещения каретки рядом с custom-emoji атомами (лишние пустые текстовые ноды, ручная обработка стрелок) — в Chrome эти костыли не нужны и мешают нативному OS emoji-панели.
 
 ## Conventions
 
@@ -83,8 +85,14 @@ Plain CSS (`index.css`, `scrollbar.css`) + inline `CSSProperties`. Без CSS-м
 
 Emoji GIF-ассеты и runtime registry лежат в `/public/win-55-ui/emoji/`. CSV должен публиковаться вместе с ассетами и читаться на runtime. `npm run emoji -- classify` дополнительно генерирует `emoji-categories.json` (плоский, для автокомплита/шорткодов) и `emoji-by-category.json` (сгруппированный по категориям, для `EmojiPickerWindow`) — оба публикуются рядом с CSV и не редактируются вручную.
 
+`/public/win-55-ui/x-emoji/` — staging-папка для нестандартных emoji-гифок, названных по алиасу (например `rofl.gif`), а не по символу. `npm run emoji -- import` резолвит алиас → unicode-эмодзи через github/iamcal/joypixels shortcode-пресеты `emojibase-data`, копирует гифку в `emoji/` под новым кодом из зарезервированного диапазона `C00`–`FFF` (отдельного от секвенциального `000`–`BA1` основного реестра) и сразу перезапускает `classify`.
+
 `scrollbar.css` — кастомные `::-webkit-scrollbar-*`. Кнопки-стрелки обязательно квалифицированы `:start`/`:end` (без этого WebKit рисует обе кнопки на обоих концах). Хелпер-классы для конфигурации стрелок: `.scrollbar-arrows-none`, `.scrollbar-arrows-normal`, `.scrollbar-arrows-start`, `.scrollbar-arrows-end`.
 
 ### TypeScript
 
 Strict mode включён. ESLint запрещает unused locals/parameters, fallthrough switch cases.
+
+## Workflow
+
+Claude does not run/observe the dev server or take screenshots to verify UI changes — the user does that themselves (visual observation, feedback, iteration is their job, not Claude's). After making a change, it's enough to type-check (`vue-tsc -b`) and lint; add demo entries to `App.vue`'s kitchen sink so the user can look at the change, then stop and let them look.

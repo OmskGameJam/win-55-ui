@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Box, { type BoxType } from './components/Box.vue'
 import Button from './components/Button.vue'
 import BaseDropdown from './components/BaseDropdown.vue'
@@ -15,6 +15,7 @@ import Tooltip from './components/Tooltip.vue'
 import Balloon from './components/Balloon.vue'
 import NamedPanel from './components/NamedPanel.vue'
 import EmojiPickerWindow from './components/EmojiPickerWindow.vue'
+import Emoji from './components/Emoji.vue'
 import RichText from './components/RichText.vue'
 import emojiDirective from './directives/emoji'
 
@@ -58,7 +59,6 @@ const resizableVertically = computed(() => resizeMode.value === 'vertical' || re
 const handleClick = () => window.alert('Click!')
 
 const exampleTextInputState = ref('sample')
-const scrollableTextInputState = ref('aasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdfaasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdfaasdfasdfasdfasdfasdfasdf\naasdfasdfasdfasdfasdfasdf\n')
 const exampleCheckboxState = ref(false)
 const exampleRadioState = ref('sample')
 
@@ -69,6 +69,47 @@ const delayedEmojiText = ref('')
 setTimeout(() => {
   delayedEmojiText.value = 'Loaded later: pizza night 🍕🐶 party time 🎉✨ and also 😀🥳🦄 surprise!'
 }, 2000)
+
+const DONUT_EMOJI_COUNT = 32
+const DONUT_EMOJI_POOL = ['🍕', '🐶', '🎉', '✨', '😀', '🥳', '🦄', '☀', '🌈', '🚀', '💾', '🦖']
+const DONUT_RADIUS_Y = 24
+const DONUT_SPIN_SPEED = (Math.PI * 2) / 3000
+const DONUT_SQUASH_SPEED = (Math.PI * 2) / 8000
+
+const donutEmojis = Array.from(
+  { length: DONUT_EMOJI_COUNT },
+  () => DONUT_EMOJI_POOL[Math.floor(Math.random() * DONUT_EMOJI_POOL.length)],
+)
+
+const donutTime = ref(0)
+let donutFrame = 0
+
+function tickDonut(timestamp: number): void {
+  donutTime.value = timestamp
+  donutFrame = requestAnimationFrame(tickDonut)
+}
+
+onMounted(() => {
+  donutFrame = requestAnimationFrame(tickDonut)
+})
+
+onUnmounted(() => {
+  cancelAnimationFrame(donutFrame)
+})
+
+const donutPositions = computed(() => {
+  const t = donutTime.value
+  const radiusX = DONUT_RADIUS_Y * Math.cos(t * DONUT_SQUASH_SPEED)
+
+  return donutEmojis.map((emoji, i) => {
+    const angle = (i / DONUT_EMOJI_COUNT) * Math.PI * 2 + t * DONUT_SPIN_SPEED
+    return {
+      emoji,
+      x: 32 + radiusX * Math.cos(angle),
+      y: 32 + DONUT_RADIUS_Y * Math.sin(angle),
+    }
+  })
+})
 </script>
 
 <template>
@@ -105,6 +146,35 @@ setTimeout(() => {
       </div>
       <div v-emoji>
         Nested v-emoji (should not double-render): 🍕🐶
+      </div>
+    </Box>
+
+    <Box type="border-groove" :extra-styles="containerStyle">
+      <h2>Emoji</h2>
+      <div>By literal emoji: <Emoji emoji="🍕" /></div>
+      <div>By shortcode alias: <Emoji emoji="pizza" /></div>
+      <div>Outside the registry: <Emoji emoji="🦖" /></div>
+      <div>Unresolvable alias: <Emoji emoji="not-a-real-alias" /></div>
+      <div>Custom size: <Emoji emoji="🍕" width="60" height="60" /></div>
+    </Box>
+
+    <Box type="border-groove" :extra-styles="containerStyle">
+      <h2>Spinning donut</h2>
+      <div style="position: relative; width: 64px; height: 64px;">
+        <Emoji
+          v-for="(item, i) in donutPositions"
+          :key="i"
+          :emoji="item.emoji"
+          width="12"
+          height="12"
+          :style="{
+            position: 'absolute',
+            left: `${item.x}px`,
+            top: `${item.y}px`,
+            transform: 'translate(-50%, -50%)',
+            zIndex: Math.round(item.y),
+          }"
+        />
       </div>
     </Box>
 
@@ -233,12 +303,6 @@ setTimeout(() => {
           This has a tooltip on hover
         </Button>
       </Tooltip>
-    </div>
-
-    <div>
-      <h2>Scrollable</h2>
-      <BaseInput style="width: 320px; height: 240px; white-space: pre;" v-model="scrollableTextInputState" multiline>
-      </BaseInput>
     </div>
 
     <div style=" 

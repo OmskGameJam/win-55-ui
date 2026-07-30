@@ -310,3 +310,11 @@ body {
   transform: translate(-50%, -50%);
   width: var(--win55-emoji-size, 30px);
 }
+
+/* Unlike .win55-emoji-image (absolutely centered inside a .win55-emoji
+   wrapper), this is a plain in-flow <img> with no wrapper: it must stay a
+   normal inline replaced element so it pushes surrounding content. */
+.win55-emoji-standalone {
+  image-rendering: pixelated;
+  vertical-align: -0.125em;
+}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import type { CSSProperties } from 'vue'
 import Titlebar from './Titlebar.vue'
 import Box from './Box.vue'
@@ -41,14 +41,8 @@ const edge = 6
 const minWidth = props.minWidth ?? 240
 const minHeight = props.minHeight ?? 40
 
-// resolve resize permissions
-const allowHorizontal =
-  (props.resizable !== undefined ? props.resizable : false) ||
-  (props.resizableHorizontally ?? false)
-
-const allowVertical =
-  (props.resizable !== undefined ? props.resizable : false) ||
-  (props.resizableVertically ?? false)
+const allowHorizontal = computed(() => (props.resizable ?? false) || (props.resizableHorizontally ?? false))
+const allowVertical = computed(() => (props.resizable ?? false) || (props.resizableVertically ?? false))
 
 let dragging = false
 let resizing = false
@@ -88,7 +82,7 @@ function startDrag(e: MouseEvent) {
 function startResize(e: MouseEvent) {
   if (props.faux) return
   if (!resizeDir) return
-  if (!allowHorizontal && !allowVertical) return
+  if (!allowHorizontal.value && !allowVertical.value) return
 
   resizing = true
   activeResizeDir = resizeDir
@@ -120,22 +114,22 @@ function onMove(e: MouseEvent) {
   if (resizing) {
     const dir = activeResizeDir
 
-    if (allowHorizontal && dir.includes('e')) {
+    if (allowHorizontal.value && dir.includes('e')) {
       width.value = Math.max(minWidth, startW + dx)
     }
 
-    if (allowVertical && dir.includes('s')) {
+    if (allowVertical.value && dir.includes('s')) {
       height.value = Math.max(minHeight, startH + dy)
     }
 
-    if (allowHorizontal && dir.includes('w')) {
+    if (allowHorizontal.value && dir.includes('w')) {
       const newWidth = startW - dx
       const clamped = Math.max(minWidth, newWidth)
       width.value = clamped
       x.value = startLeft + (startW - clamped)
     }
 
-    if (allowVertical && dir.includes('n')) {
+    if (allowVertical.value && dir.includes('n')) {
       const newHeight = startH - dy
       const clamped = Math.max(minHeight, newHeight)
       height.value = clamped
@@ -163,17 +157,8 @@ function detectEdge(e: MouseEvent) {
   }
 
   if (resizing) return
-  
-  // Recalculate allowHorizontal and allowVertical to ensure reactivity
-  const currentAllowHorizontal =
-    (props.resizable !== undefined ? props.resizable : false) ||
-    (props.resizableHorizontally ?? false)
 
-  const currentAllowVertical =
-    (props.resizable !== undefined ? props.resizable : false) ||
-    (props.resizableVertically ?? false)
-
-  if (!currentAllowHorizontal && !currentAllowVertical) {
+  if (!allowHorizontal.value && !allowVertical.value) {
     resizeDir = ''
     cursor.value = 'default'
     return
@@ -189,12 +174,12 @@ function detectEdge(e: MouseEvent) {
 
   let dir = ''
 
-  if (currentAllowVertical) {
+  if (allowVertical.value) {
     if (top < edge) dir += 'n'
     else if (bottom < edge) dir += 's'
   }
 
-  if (currentAllowHorizontal) {
+  if (allowHorizontal.value) {
     if (left < edge) dir += 'w'
     else if (right < edge) dir += 'e'
   }
@@ -214,25 +199,6 @@ function detectEdge(e: MouseEvent) {
 
   cursor.value = map[dir] ?? 'default'
 }
-
-// Watch for changes in resize props and update cursor accordingly
-watch(() => [props.resizable, props.resizableHorizontally, props.resizableVertically], () => {
-  // Force cursor update by re-running detectEdge logic with current mouse position
-  const box = document.querySelector(`[data-v-${Math.random().toString(36).substr(2, 9)}]`) as HTMLElement
-  if (box) {
-    const rect = box.getBoundingClientRect()
-    const centerX = rect.left + rect.width / 2
-    const centerY = rect.top + rect.height / 2
-    
-    const mockEvent = {
-      currentTarget: box,
-      clientX: centerX,
-      clientY: centerY
-    } as unknown as MouseEvent
-    
-    detectEdge(mockEvent)
-  }
-}, { immediate: true })
 </script>
 
 <template>
