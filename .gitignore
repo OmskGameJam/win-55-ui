@@ -16,6 +16,7 @@ dist/
 !scripts/
 !scripts/*.js
 scripts/font/dist/
+*.report.json
 
 # Dependencies
 node_modules/
