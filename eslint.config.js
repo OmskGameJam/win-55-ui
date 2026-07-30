@@ -5,7 +5,7 @@ import pluginVue from 'eslint-plugin-vue'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', '**/dist/**']),
   {
     files: ['**/*.{ts,vue}'],
     extends: [

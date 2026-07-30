@@ -55,7 +55,7 @@ table {
 body {
   line-height: 1;
   background-color: cyan;
-  font-family: 'Regular12';
+  font-family: 'Standard-Regular-12';
   font-size: 24px;
   backface-visibility: hidden;
   text-rendering: geometricPrecision;
@@ -78,19 +78,21 @@ body {
 }
 
 @font-face {
-  font-family: "Regular12";
-  src: url("/win-55-ui/font/LiberationSans-Regular-12.ttf")
+  font-family: "Standard-Regular-12";
+  src: url("/win-55-ui/font/Standard-Regular-12.ttf")
 }
 
 @font-face {
-  font-family: "Bold12";
-  src: url("/win-55-ui/font/LiberationSans-Bold-12.ttf")
+  font-family: "Standard-Bold-12";
+  src: url("/win-55-ui/font/Standard-Bold-12.ttf")
 }
 
 @font-face {
-  font-family: "Regular24";
-  src: url("/win-55-ui/font/LiberationSans-Regular-24.ttf")
+  font-family: "Standard-Regular-24";
+  src: url("/win-55-ui/font/Standard-Regular-24.ttf")
 }
+
+/* font-cli: new @font-face blocks are inserted above this line */
 
 .titlebar-text {
 	margin-top: 6px;

@@ -17,6 +17,7 @@ import NamedPanel from './components/NamedPanel.vue'
 import EmojiPickerWindow from './components/EmojiPickerWindow.vue'
 import Emoji from './components/Emoji.vue'
 import RichText from './components/RichText.vue'
+import FontTester from './components/FontTester.vue'
 import emojiDirective from './directives/emoji'
 
 const vEmoji = emojiDirective
@@ -121,6 +122,8 @@ const donutPositions = computed(() => {
       <Typography shorthand="Bold12">The quick brown fox jumps over the lazy dog</Typography>
       <Typography shorthand="Regular24">The quick brown fox jumps over the lazy dog</Typography>
       <h2>ABCDE</h2>
+      <h2>Font tester (pixel alignment)</h2>
+      <FontTester shorthand="Regular12" text="The quick brown fox jumps over the lazy dog" />
     </div>
     <Box type="border-groove" :extra-styles="containerStyle">
       <h2>Text input</h2>

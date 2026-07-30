@@ -15,6 +15,7 @@ dist/
 !dist/helpers/*.d.ts
 !scripts/
 !scripts/*.js
+scripts/font/dist/
 
 # Dependencies
 node_modules/
@@ -55,3 +56,6 @@ node_modules/
 *.tar.xz
 *.tar.zst
 ```
+
+
+desktop.ini
