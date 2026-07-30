@@ -283,7 +283,7 @@ const donutPositions = computed(() => {
         v-model:y="windowY" 
         v-model:width="windowWidth" 
         v-model:height="windowHeight"
-        title="Title" 
+        title="Title but long so we can see shit" 
         icon="/win-55-ui/icons/program.png" 
         placeholder-buttons
       >

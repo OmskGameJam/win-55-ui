@@ -48,7 +48,7 @@ table {
   image-rendering: pixelated;
 	outline: none;
   font-smooth: never;
-  -webkit-font-smoothing: never;
+  -webkit-font-smoothing: none;
   box-sizing: border-box;
 }
 
