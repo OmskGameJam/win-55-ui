@@ -78,6 +78,67 @@ test('buildTtf sets USE_TYPO_METRICS so browsers size line boxes from our exact 
   )
 })
 
+test('buildTtf writes a gasp table requesting grayscale rendering across the full ppem range', () => {
+  // This is what actually lets Windows render our already-grid-aligned, hint-less glyf outlines
+  // with zero antialiasing bleed — matches the old hand-made fonts' gasp table exactly. svg2ttf
+  // (the library producing our glyf/loca output) doesn't write a gasp table on its own, so
+  // build.ts splices one in afterward; this test guards that splice actually landing in the
+  // final bytes, not just build.ts calling the function.
+  const font = fixtureFont([
+    {
+      name: 'X',
+      encoding: 88,
+      swidth: [0, 0],
+      dwidth: [2, 0],
+      bbx: { w: 2, h: 2, xoff: 0, yoff: 0 },
+      bitmap: [
+        [1, 1],
+        [1, 1],
+      ],
+    },
+  ])
+
+  const { buffer } = buildTtf(font)
+  const view = new DataView(buffer)
+  const bytes = new Uint8Array(buffer)
+  const numTables = view.getUint16(4)
+
+  let gaspOffset = -1
+  for (let i = 0; i < numTables; i++) {
+    const rec = 12 + i * 16
+    const tag = String.fromCharCode(bytes[rec], bytes[rec + 1], bytes[rec + 2], bytes[rec + 3])
+    if (tag === 'gasp') gaspOffset = view.getUint32(rec + 8)
+  }
+
+  assert.ok(gaspOffset >= 0, 'gasp table must be present')
+  assert.equal(view.getUint16(gaspOffset), 0, 'gasp version')
+  assert.equal(view.getUint16(gaspOffset + 2), 1, 'gasp numRanges')
+  assert.equal(view.getUint16(gaspOffset + 4), 0xffff, 'range covers the full ppem range')
+  assert.equal(view.getUint16(gaspOffset + 6), 0x0002, 'DOGRAY behavior flag')
+})
+
+test('buildTtf output is real glyf/loca TrueType, not CFF', () => {
+  // opentype.js's own writer can only produce CFF-flavored OpenType — this is the whole reason
+  // build.ts moved to svg2ttf. Guard against silently regressing back to CFF output.
+  const font = fixtureFont([
+    {
+      name: 'X',
+      encoding: 88,
+      swidth: [0, 0],
+      dwidth: [2, 0],
+      bbx: { w: 2, h: 2, xoff: 0, yoff: 0 },
+      bitmap: [
+        [1, 1],
+        [1, 1],
+      ],
+    },
+  ])
+
+  const { buffer } = buildTtf(font)
+  const reparsed = opentype.parse(buffer)
+  assert.equal(reparsed.outlinesFormat, 'truetype')
+})
+
 test('a hard per-glyph error is skipped, not fatal — the rest of the font still builds', () => {
   // Simulates a corrupted/hand-edited glyph (e.g. a stray null row) that makes the tracer
   // throw. This should never happen for any glyph produced by our own bdf.ts parser, but a

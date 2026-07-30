@@ -1,6 +1,9 @@
 import opentype from 'opentype.js'
-import type { BdfFont, BdfGlyph, Bbx, Contour } from './types.js'
+import type { BdfFont, BdfGlyph } from './types.js'
 import { traceGlyphContours, signedArea } from './contours.js'
+import { contourToSvgPath, svgFontToTtf, type SvgGlyphSpec } from './svgFont.js'
+import { insertSfntTable, replaceSfntTable, getSfntTable, buildGaspTable, GASP_DOGRAY } from './sfnt.js'
+import { stripCmapFormat4 } from './cmap.js'
 
 export interface BuildReportEntry {
   name: string
@@ -29,29 +32,6 @@ export interface BuildOptions {
 
 const DEFAULT_SCALE = 100
 
-// OS/2 fsSelection bits. REGULAR mirrors opentype.js's own default (it doesn't know about our
-// style string). USE_TYPO_METRICS is the one that matters: without it, browsers by default size
-// line boxes from OS/2 usWinAscent/usWinDescent, which opentype.js auto-computes from the actual
-// glyph ink extents (max/min yMax/yMin across the built glyph set) — not from the ascender/
-// descender we pass in, so our sum-to-unitsPerEm fix there has no effect on rendering. Setting
-// this bit tells (spec-compliant) browsers to use sTypoAscender/sTypoDescender/sTypoLineGap
-// instead, which opentype.js always sets to our own ascender/descender/0 — exact by construction.
-const FS_SELECTION_REGULAR = 0x0040
-const FS_SELECTION_USE_TYPO_METRICS = 0x0080
-
-function emitContour(path: opentype.Path, contour: Contour, bbx: Bbx, scale: number): void {
-  const toFont = (p: { x: number; y: number }) => ({
-    x: (bbx.xoff + p.x) * scale,
-    y: (bbx.yoff + bbx.h - p.y) * scale,
-  })
-
-  const points = contour.map(toFont)
-
-  path.moveTo(points[0].x, points[0].y)
-  for (let i = 1; i < points.length; i++) path.lineTo(points[i].x, points[i].y)
-  path.close()
-}
-
 /** Raises a "degenerate contour" error the outer wrapper turns into a skip — see buildGlyph(). */
 class DegenerateContourError extends Error {}
 
@@ -60,7 +40,7 @@ function buildGlyphUnsafe(
   scale: number,
   issues: string[],
   seenEncodings: Map<number, string>,
-): opentype.Glyph {
+): SvgGlyphSpec {
   const bitmapHeight = bdfGlyph.bitmap.length
   const bitmapWidth = bdfGlyph.bitmap[0]?.length ?? 0
 
@@ -87,19 +67,16 @@ function buildGlyphUnsafe(
     issues.push(`contour area sum (${areaSum}) does not match ink pixel count (${inkCount}) — possible tracer defect`)
   }
 
-  const path = new opentype.Path()
-
   for (const contour of contours) {
     if (contour.length < 3) throw new DegenerateContourError(`degenerate contour (${contour.length} points)`)
-    emitContour(path, contour, bdfGlyph.bbx, scale)
   }
 
-  return new opentype.Glyph({
+  return {
     name: bdfGlyph.name,
     unicode: bdfGlyph.encoding,
     advanceWidth: bdfGlyph.dwidth[0] * scale,
-    path,
-  })
+    d: contourToSvgPath(contours, bdfGlyph.bbx, scale),
+  }
 }
 
 /**
@@ -116,10 +93,10 @@ function buildGlyph(
   flagged: BuildReportEntry[],
   skipped: BuildReportEntry[],
   seenEncodings: Map<number, string>,
-): opentype.Glyph | null {
+): SvgGlyphSpec | null {
   const issues: string[] = []
 
-  let glyph: opentype.Glyph
+  let glyph: SvgGlyphSpec
   try {
     glyph = buildGlyphUnsafe(bdfGlyph, scale, issues, seenEncodings)
   } catch (e) {
@@ -181,36 +158,47 @@ export function buildTtf(bdfFont: BdfFont, opts: BuildOptions = {}): BuildResult
 
   const family = opts.family ?? String(bdfFont.properties.FAMILY_NAME ?? 'Untitled')
   const style = opts.style ?? String(bdfFont.properties.WEIGHT_NAME ?? 'Regular')
-  const ascender = Math.round(Number(bdfFont.properties.FONT_ASCENT ?? pixelSize) * scale)
-  const descender = -Math.round(Number(bdfFont.properties.FONT_DESCENT ?? 0) * scale)
+  const ascent = Math.round(Number(bdfFont.properties.FONT_ASCENT ?? pixelSize) * scale)
+  const descent = -Math.round(Number(bdfFont.properties.FONT_DESCENT ?? 0) * scale)
 
   const flagged: BuildReportEntry[] = []
   const skipped: BuildReportEntry[] = []
   const seenEncodings = new Map<number, string>()
 
-  const notdef = new opentype.Glyph({ name: '.notdef', advanceWidth: Math.round(unitsPerEm / 2), path: new opentype.Path() })
-  const glyphs: opentype.Glyph[] = [notdef]
-
+  const glyphs: SvgGlyphSpec[] = []
   for (const bdfGlyph of bdfFont.glyphs) {
     const glyph = buildGlyph(bdfGlyph, scale, flagged, skipped, seenEncodings)
     if (glyph) glyphs.push(glyph)
   }
 
-  const font = new opentype.Font({
+  // svg2ttf writes real glyf/loca TrueType tables (opentype.js's writer is CFF-only — see the
+  // halo investigation this replaced). It already defaults OS/2 fsSelection to
+  // REGULAR|USE_TYPO_METRICS on its own, so browsers size line boxes from our exact
+  // ascent/descent instead of glyph-extent-derived usWinAscent/usWinDescent — no extra work
+  // needed for that part. It doesn't write a `gasp` table though, so we splice one in
+  // afterward: DOGRAY across the full ppem range matches the old hand-made fonts' table exactly,
+  // and is what lets Windows render already-grid-aligned outlines with zero antialiasing bleed.
+  const baseBuffer = svgFontToTtf({
     familyName: family,
     styleName: style,
     unitsPerEm,
-    ascender,
-    descender,
+    ascent,
+    descent,
+    missingGlyphAdvanceWidth: Math.round(unitsPerEm / 2),
     glyphs,
-    // @types/opentype.js mistypes fsSelection as `string`; the runtime source (font.js) uses it
-    // directly as a numeric bitmask.
-    fsSelection: (FS_SELECTION_REGULAR | FS_SELECTION_USE_TYPO_METRICS) as unknown as string,
   })
 
-  const buffer = font.toArrayBuffer()
+  const withGasp = insertSfntTable(baseBuffer, 'gasp', buildGaspTable([{ maxPpem: 0xffff, behavior: GASP_DOGRAY }]))
+
+  // svg2ttf's cmap format 4 subtable overflows its 16-bit idRangeOffset field once a font has
+  // enough BMP segments/glyphs (routine once fallback-merged into the thousands) — OTS then
+  // rejects the whole cmap table and browsers refuse to load the font at all. Format 12 (which
+  // svg2ttf also always writes) is a strict superset and is what every target browser already
+  // prefers when both are present, so we just drop the broken subtable rather than patch it.
+  const cmap = getSfntTable(withGasp, 'cmap')
+  const buffer = cmap ? replaceSfntTable(withGasp, 'cmap', stripCmapFormat4(cmap)) : withGasp
 
   selfCheckRoundTrip(buffer, bdfFont, scale, flagged, new Set(skipped.map((s) => s.encoding)))
 
-  return { buffer, report: { glyphCount: glyphs.length - 1, flagged, skipped } }
+  return { buffer, report: { glyphCount: glyphs.length, flagged, skipped } }
 }
