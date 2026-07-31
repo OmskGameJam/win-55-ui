@@ -1,3 +1,6 @@
+/* @font-face declarations, auto-generated from src-font/fonts.json - see generated-fonts.css */
+@import './generated-fonts.css';
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -76,23 +79,6 @@ body {
 	border: 12px solid transparent;
   border-image: var(--img) 12 fill repeat;
 }
-
-@font-face {
-  font-family: "Standard-Regular-12";
-  src: url("/win-55-ui/font/Standard-Regular-12.ttf")
-}
-
-@font-face {
-  font-family: "Standard-Bold-12";
-  src: url("/win-55-ui/font/Standard-Bold-12.ttf")
-}
-
-@font-face {
-  font-family: "Standard-Regular-24";
-  src: url("/win-55-ui/font/Standard-Regular-24.ttf")
-}
-
-/* font-cli: new @font-face blocks are inserted above this line */
 
 .titlebar-text {
 	margin-top: 6px;

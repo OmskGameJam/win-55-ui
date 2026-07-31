@@ -6,7 +6,9 @@ import { parseBdf, writeBdf } from './bdf.js'
 import { rasterizeFont, type Hinting, type RasterizeOptions } from './rasterize.js'
 import { mergeBdf, summarizeBackfill } from './merge.js'
 import { buildTtf } from './build.js'
-import { computeRegistrationPlan, insertFontFace, insertSupportedFace, isSizeRegistered } from './register.js'
+import { buildSupportedFacesModule, buildFontFaceCss } from './register.js'
+import { loadFontsManifest, type FaceEntry } from './fontsManifest.js'
+import { resolveVerticalMetrics } from './verticalMetrics.js'
 import { SIZES } from './registry.js'
 import type { BdfFont } from './types.js'
 
@@ -14,13 +16,22 @@ function usage(exitCode = 0): never {
   const output = [
     'Usage:',
     '  npm run font -- strike <source.ttf> <pixelSize> [--out bdf] [--hinting native|auto] [--charset chars] [--force]',
+    '    [--generate-kerning] [--right-side-count n] [--right-side-volume n] [--flat-right-side-gap n] [--tail-right-side-gap n]',
     '  npm run font -- fallback <source.ttf> <pixelSize> [--out bdf] [--hinting native|auto] [--charset chars] [--force]',
+    '    [--generate-kerning] [--right-side-count n] [--right-side-volume n] [--flat-right-side-gap n] [--tail-right-side-gap n]',
     '  npm run font -- merge <primary.bdf> <fallback.bdf> --out bdf [--skip cp,cp,...] [--report path.json] [--verbose]',
     '  npm run font -- build <bdf> [--out ttf] [--family name] [--style name] [--units-per-em-scale 100] [--report path.json]',
-    '  npm run font -- register <style> <size> [--ttf path] [--write] [--font-name Standard]',
     '  npm run font -- all <source.ttf> <style> <size> [--fallback-source ttf] [--force]',
     '  (strike/fallback/all refuse to overwrite an existing .bdf unless --force is given — existing BDFs may be hand-edited)',
     '  npm run font -- check <bdf>',
+    '',
+    '  Driven by src-font/fonts.json, no arguments. Existing files are skipped with a warning, not overwritten:',
+    '  npm run font -- strike-all      strike faces missing their "strikeBdf"',
+    '  npm run font -- fallback-all    strike (fallbackSource[i], fallbackBdf[i]) pairs missing fallbackBdf[i]',
+    '  npm run font -- merge-all       merge strikeBdf + fallbackBdf[] into "mergePath"',
+    '  npm run font -- build-all       build (mergePath ?? strikeBdf) into "ttf"',
+    '  npm run font -- push-fonts      copy every "ttf" to public/win-55-ui/font/ (always overwrites)',
+    '  npm run font -- update-register regenerate generatedFonts.ts + generated-fonts.css from fonts.json (always overwrites)',
   ].join('\n')
 
   if (exitCode === 0) console.log(output)
@@ -35,6 +46,14 @@ function fail(message: string): never {
 
 function inkCount(bitmap: number[][]): number {
   return bitmap.reduce((sum, row) => sum + row.filter((v) => v === 1).length, 0)
+}
+
+function parseOptionalInt(flags: Record<string, string | boolean>, key: string): number | undefined {
+  const raw = getFlag(flags, key)
+  if (raw === undefined) return undefined
+  const n = Number(raw)
+  if (!Number.isInteger(n)) fail(`--${key} must be an integer, got "${raw}"`)
+  return n
 }
 
 function parsePixelSize(raw: string | undefined): number {
@@ -53,6 +72,7 @@ async function runRasterizeToFile(
   outPath: string,
   opts: RasterizeOptions,
   force = false,
+  shareVerticalMetrics = false,
 ): Promise<BdfFont> {
   if (!SIZES.includes(pixelSize)) {
     console.warn(`font-cli: warning: ${pixelSize}px isn't in the known SIZES list (${SIZES.join(', ')}) — continuing anyway`)
@@ -65,6 +85,24 @@ async function runRasterizeToFile(
   }
 
   const bdfFont = await rasterizeFont(sourcePath, pixelSize, opts)
+
+  // Fallback strikes don't carry their own FONT_ASCENT/FONT_DESCENT into the final font (merge
+  // keeps the primary's properties untouched), so only primary strikes participate in the
+  // cross-style cache - a fallback measured first would otherwise seed it with the wrong values.
+  if (shareVerticalMetrics) {
+    const fontName = String(bdfFont.properties.FAMILY_NAME)
+    const { metrics, overflow } = resolveVerticalMetrics(fontName, pixelSize, {
+      fontAscent: Number(bdfFont.properties.FONT_ASCENT),
+      fontDescent: Number(bdfFont.properties.FONT_DESCENT),
+    })
+
+    bdfFont.properties.FONT_ASCENT = metrics.fontAscent
+    bdfFont.properties.FONT_DESCENT = metrics.fontDescent
+
+    for (const message of overflow) {
+      console.warn(`font-cli: warning: ${fontName} ${pixelSize}px: ${message} (glyph ink isn't clipped, but it can visually spill into the next line)`)
+    }
+  }
 
   mkdirSync(dirname(outPath), { recursive: true })
   writeFileSync(outPath, writeBdf(bdfFont), 'utf8')
@@ -85,7 +123,22 @@ async function cmdStrike(args: string[], suffix = ''): Promise<void> {
 
   const outPath = getFlag(flags, 'out') ? resolve(getFlag(flags, 'out')!) : defaultStrikeOut(sourcePath, pixelSize, suffix)
 
-  await runRasterizeToFile(resolve(sourcePath), pixelSize, outPath, { hinting, charset: getFlag(flags, 'charset') }, hasFlag(flags, 'force'))
+  await runRasterizeToFile(
+    resolve(sourcePath),
+    pixelSize,
+    outPath,
+    {
+      hinting,
+      charset: getFlag(flags, 'charset'),
+      generateKerning: hasFlag(flags, 'generate-kerning'),
+      rightSideCount: parseOptionalInt(flags, 'right-side-count'),
+      rightSideVolume: parseOptionalInt(flags, 'right-side-volume'),
+      flatRightSideGap: parseOptionalInt(flags, 'flat-right-side-gap'),
+      tailRightSideGap: parseOptionalInt(flags, 'tail-right-side-gap'),
+    },
+    hasFlag(flags, 'force'),
+    suffix === '', // primary strike ("strike"), not a fallback strike
+  )
 }
 
 function cmdMerge(args: string[]): void {
@@ -166,41 +219,227 @@ function cmdBuild(args: string[]): void {
   }
 }
 
-function cmdRegister(args: string[]): void {
-  const { positional, flags } = parseArgs(args)
-  const [style, sizeArg] = positional
-  if (!style || !sizeArg) usage(1)
+function faceLabel(face: FaceEntry): string {
+  return `${face.fontName}/${face.style}/${face.size}`
+}
 
-  const size = parsePixelSize(sizeArg)
-  const fontName = getFlag(flags, 'font-name') ?? 'Standard'
-  const plan = computeRegistrationPlan(style, size, fontName)
+/** Presence of `face.kerning` (even `{}`) is what turns auto-kerning on for strike-all/fallback-all. */
+function rasterizeOptionsFor(face: FaceEntry): RasterizeOptions {
+  return { style: face.style, family: face.fontName, generateKerning: face.kerning !== undefined, ...face.kerning }
+}
 
-  const cssPath = resolve(projectRoot, 'src', 'index.css')
-  const tsPath = resolve(projectRoot, 'src', 'helpers', 'typography.ts')
-  const tsText = readFileSync(tsPath, 'utf8')
+async function cmdStrikeAll(): Promise<void> {
+  const manifest = loadFontsManifest()
+  let struck = 0
+  let skipped = 0
 
-  console.log('--- add to src/index.css ---')
-  console.log(plan.cssBlock)
-  console.log('\n--- add to SUPPORTED_FACES in src/helpers/typography.ts ---')
-  console.log(plan.supportedFacesEntry)
+  for (const face of manifest.faces) {
+    if (!face.source || !face.strikeBdf) continue
 
-  if (!isSizeRegistered(tsText, size)) {
-    console.log(`\nnote: ${size} isn't in the SIZES array in typography.ts yet — add it by hand if this is a wholly new pixel size.`)
+    const sourcePath = resolve(srcFontDir, face.source)
+    const outPath = resolve(srcFontDir, face.strikeBdf)
+
+    if (existsSync(outPath)) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: ${face.strikeBdf} already exists`)
+      skipped++
+      continue
+    }
+    if (!existsSync(sourcePath)) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: source not found (${face.source})`)
+      skipped++
+      continue
+    }
+
+    await runRasterizeToFile(sourcePath, face.size, outPath, rasterizeOptionsFor(face), false, true)
+    struck++
   }
 
-  if (hasFlag(flags, 'write')) {
-    const ttfPath = getFlag(flags, 'ttf')
-    if (!ttfPath) fail('--write requires --ttf <path to the built .ttf>')
+  console.log(`font-cli: strike-all done - ${struck} struck, ${skipped} skipped`)
+}
 
-    mkdirSync(publicFontDir, { recursive: true })
-    copyFileSync(resolve(ttfPath), resolve(publicFontDir, plan.publicTtfFilename))
+async function cmdFallbackAll(): Promise<void> {
+  const manifest = loadFontsManifest()
+  let struck = 0
+  let skipped = 0
 
-    const cssText = readFileSync(cssPath, 'utf8')
-    writeFileSync(cssPath, insertFontFace(cssText, plan.cssBlock), 'utf8')
-    writeFileSync(tsPath, insertSupportedFace(tsText, plan.supportedFacesEntry), 'utf8')
+  for (const face of manifest.faces) {
+    if (!face.fallbackSource || !face.fallbackBdf) continue
 
-    console.log(`\nfont-cli: wrote ${plan.publicTtfFilename} to public/win-55-ui/font/ and patched index.css + typography.ts — review with git diff.`)
+    for (let i = 0; i < face.fallbackSource.length; i++) {
+      const sourcePath = resolve(srcFontDir, face.fallbackSource[i])
+      const outPath = resolve(srcFontDir, face.fallbackBdf[i])
+
+      if (existsSync(outPath)) {
+        console.warn(`font-cli: skip ${faceLabel(face)}: ${face.fallbackBdf[i]} already exists`)
+        skipped++
+        continue
+      }
+      if (!existsSync(sourcePath)) {
+        console.warn(`font-cli: skip ${faceLabel(face)}: fallback source not found (${face.fallbackSource[i]})`)
+        skipped++
+        continue
+      }
+
+      await runRasterizeToFile(sourcePath, face.size, outPath, rasterizeOptionsFor(face))
+      struck++
+    }
   }
+
+  console.log(`font-cli: fallback-all done - ${struck} struck, ${skipped} skipped`)
+}
+
+/**
+ * Sequentially folds strikeBdf + fallbackBdf[0..n] into one merged BDF, first to last, so a later
+ * fallback backfills whatever's still missing after every earlier one has already had a turn.
+ */
+function mergeChain(strikeBdfPath: string, fallbackBdfPaths: string[]): ReturnType<typeof mergeBdf> {
+  let primary = parseBdf(readFileSync(strikeBdfPath, 'utf8'))
+  let backfilled: ReturnType<typeof mergeBdf>['backfilled'] = []
+
+  for (const fallbackPath of fallbackBdfPaths) {
+    const fallback = parseBdf(readFileSync(fallbackPath, 'utf8'))
+    const result = mergeBdf(primary, fallback)
+    primary = result.merged
+    backfilled = backfilled.concat(result.backfilled)
+  }
+
+  return { merged: primary, backfilled }
+}
+
+function cmdMergeAll(): void {
+  const manifest = loadFontsManifest()
+  let merged = 0
+  let skipped = 0
+
+  for (const face of manifest.faces) {
+    if (!face.mergePath || !face.strikeBdf || !face.fallbackBdf || face.fallbackBdf.length === 0) continue
+
+    const outPath = resolve(srcFontDir, face.mergePath)
+    if (existsSync(outPath)) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: ${face.mergePath} already exists`)
+      skipped++
+      continue
+    }
+
+    const strikeBdfPath = resolve(srcFontDir, face.strikeBdf)
+    const fallbackBdfPaths = face.fallbackBdf.map((bdf) => resolve(srcFontDir, bdf))
+
+    const inputs = [
+      { rel: face.strikeBdf, abs: strikeBdfPath },
+      ...face.fallbackBdf.map((rel, i) => ({ rel, abs: fallbackBdfPaths[i] })),
+    ]
+    const missing = inputs.filter((input) => !existsSync(input.abs)).map((input) => input.rel)
+
+    if (missing.length > 0) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: missing input(s): ${missing.join(', ')}`)
+      skipped++
+      continue
+    }
+
+    let result: ReturnType<typeof mergeBdf>
+    try {
+      result = mergeChain(strikeBdfPath, fallbackBdfPaths)
+    } catch (e) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: ${(e as Error).message}`)
+      skipped++
+      continue
+    }
+
+    mkdirSync(dirname(outPath), { recursive: true })
+    writeFileSync(outPath, writeBdf(result.merged), 'utf8')
+
+    console.log(`font-cli: merged ${faceLabel(face)} -> ${face.mergePath} (${summarizeBackfill(result.backfilled)})`)
+    merged++
+  }
+
+  console.log(`font-cli: merge-all done - ${merged} merged, ${skipped} skipped`)
+}
+
+function cmdBuildAll(): void {
+  const manifest = loadFontsManifest()
+  let built = 0
+  let skipped = 0
+
+  for (const face of manifest.faces) {
+    const bdfRelPath = face.mergePath ?? face.strikeBdf
+    if (!bdfRelPath) continue
+
+    const bdfPath = resolve(srcFontDir, bdfRelPath)
+    const outPath = resolve(srcFontDir, face.ttf)
+
+    if (existsSync(outPath)) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: ${face.ttf} already exists`)
+      skipped++
+      continue
+    }
+    if (!existsSync(bdfPath)) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: ${bdfRelPath} not found`)
+      skipped++
+      continue
+    }
+
+    const bdfFont = parseBdf(readFileSync(bdfPath, 'utf8'))
+
+    let result: ReturnType<typeof buildTtf>
+    try {
+      result = buildTtf(bdfFont, { family: face.fontName, style: face.style })
+    } catch (e) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: ${(e as Error).message}`)
+      skipped++
+      continue
+    }
+
+    const tmpPath = `${outPath}.tmp`
+    mkdirSync(dirname(outPath), { recursive: true })
+    writeFileSync(tmpPath, Buffer.from(result.buffer))
+    renameSync(tmpPath, outPath)
+
+    if (result.report.flagged.length > 0 || result.report.skipped.length > 0) {
+      writeFileSync(`${outPath}.report.json`, JSON.stringify(result.report, null, 2) + '\n', 'utf8')
+    }
+
+    console.log(`font-cli: built ${faceLabel(face)} -> ${face.ttf} (${result.report.glyphCount} glyphs)`)
+    built++
+  }
+
+  console.log(`font-cli: build-all done - ${built} built, ${skipped} skipped`)
+}
+
+function cmdPushFonts(): void {
+  const manifest = loadFontsManifest()
+  let pushed = 0
+  let skipped = 0
+
+  mkdirSync(publicFontDir, { recursive: true })
+
+  for (const face of manifest.faces) {
+    const srcPath = resolve(srcFontDir, face.ttf)
+    const destPath = resolve(publicFontDir, face.ttf)
+
+    if (!existsSync(srcPath)) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: ${face.ttf} not found in src-font/`)
+      skipped++
+      continue
+    }
+
+    copyFileSync(srcPath, destPath)
+    console.log(`font-cli: pushed ${faceLabel(face)} -> public/win-55-ui/font/${face.ttf}`)
+    pushed++
+  }
+
+  console.log(`font-cli: push-fonts done - ${pushed} pushed, ${skipped} skipped`)
+}
+
+function cmdUpdateRegister(): void {
+  const manifest = loadFontsManifest()
+
+  const tsPath = resolve(projectRoot, 'src', 'helpers', 'generatedFonts.ts')
+  const cssPath = resolve(projectRoot, 'src', 'generated-fonts.css')
+
+  writeFileSync(tsPath, buildSupportedFacesModule(manifest), 'utf8')
+  writeFileSync(cssPath, buildFontFaceCss(manifest), 'utf8')
+
+  console.log(`font-cli: regenerated generatedFonts.ts and generated-fonts.css from ${manifest.faces.length} face(s) - review with git diff.`)
 }
 
 async function cmdAll(args: string[]): Promise<void> {
@@ -212,7 +451,7 @@ async function cmdAll(args: string[]): Promise<void> {
   const force = hasFlag(flags, 'force')
   const strikeOut = defaultStrikeOut(sourcePath, pixelSize)
 
-  await runRasterizeToFile(resolve(sourcePath), pixelSize, strikeOut, {}, force)
+  await runRasterizeToFile(resolve(sourcePath), pixelSize, strikeOut, {}, force, true)
 
   const fallbackSource = getFlag(flags, 'fallback-source')
   if (fallbackSource) {
@@ -290,14 +529,29 @@ async function main() {
     case 'build':
       cmdBuild(rest)
       break
-    case 'register':
-      cmdRegister(rest)
-      break
     case 'all':
       await cmdAll(rest)
       break
     case 'check':
       cmdCheck(rest)
+      break
+    case 'strike-all':
+      await cmdStrikeAll()
+      break
+    case 'fallback-all':
+      await cmdFallbackAll()
+      break
+    case 'merge-all':
+      cmdMergeAll()
+      break
+    case 'build-all':
+      cmdBuildAll()
+      break
+    case 'push-fonts':
+      cmdPushFonts()
+      break
+    case 'update-register':
+      cmdUpdateRegister()
       break
     default:
       fail(`unknown command: ${command}`)

@@ -18,6 +18,7 @@ import EmojiPickerWindow from './components/EmojiPickerWindow.vue'
 import Emoji from './components/Emoji.vue'
 import RichText from './components/RichText.vue'
 import FontTester from './components/FontTester.vue'
+import StrikeTester from './components/StrikeTester.vue'
 import emojiDirective from './directives/emoji'
 
 const vEmoji = emojiDirective
@@ -58,6 +59,8 @@ const resizableHorizontally = computed(() => resizeMode.value === 'horizontal' |
 const resizableVertically = computed(() => resizeMode.value === 'vertical' || resizeMode.value === 'both')
 
 const handleClick = () => window.alert('Click!')
+
+const strikeTesterOpen = ref(false)
 
 const exampleTextInputState = ref('sample')
 const exampleCheckboxState = ref(false)
@@ -114,16 +117,26 @@ const donutPositions = computed(() => {
 </script>
 
 <template>
-  <Typography v-emoji font-color="black">
+  <Typography v-emoji is-bold font-color="black">
     <h1>Kitchen sink</h1>
     <div>
       <h2>Currently prepared bitmap strikes</h2>
       <Typography shorthand="Regular12">The quick brown fox jumps over the lazy dog</Typography>
       <Typography shorthand="Bold12">The quick brown fox jumps over the lazy dog</Typography>
       <Typography shorthand="Regular24">The quick brown fox jumps over the lazy dog</Typography>
+      <Typography shorthand="Regular12">Съешь же ещё этих мягких французских булок, да выпей чаю</Typography>
+      <Typography shorthand="Bold12">Съешь же ещё этих мягких французских булок, да выпей чаю</Typography>
+      <Typography shorthand="Regular24">Съешь же ещё этих мягких французских булок, да выпей чаю</Typography>
+      
+
       <h2>ABCDE</h2>
       <h2>Font tester (pixel alignment)</h2>
       <FontTester shorthand="Regular12" text="The quick brown fox jumps over the lazy dog" />
+
+      <h2>Strike tester</h2>
+      <Button :extra-styles="{ margin: '8px' }" @click="strikeTesterOpen = true">
+        Open strike tester
+      </Button>
     </div>
     <Box type="border-groove" :extra-styles="containerStyle">
       <h2>Text input</h2>
@@ -466,4 +479,6 @@ const donutPositions = computed(() => {
 
   <!-- Global singleton: mounted once, shared by every BaseInput's emoji button -->
   <EmojiPickerWindow />
+
+  <StrikeTester v-model:open="strikeTesterOpen" />
 </template>

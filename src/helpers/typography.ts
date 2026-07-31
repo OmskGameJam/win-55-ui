@@ -1,4 +1,10 @@
 import type { CSSProperties } from 'vue'
+// SUPPORTED_FACES is generated from src-font/fonts.json (`npm run font -- update-register`), not
+// hand-maintained - see generatedFonts.ts. Requesting a style/size/fontName combination outside it
+// degrades (see resolveSupportedFace below) instead of silently rendering an unstyled system font,
+// which is what lets callers (e.g. a BBCode renderer) pass along styles we haven't shipped a
+// bitmap strike for yet without needing to know which combinations actually exist.
+import { SUPPORTED_FACES } from './generatedFonts'
 
 const SIZES = [10, 12, 14, 16, 24]
 
@@ -14,24 +20,6 @@ export interface TypographySettings {
   /** Which font family to use — an entry in SUPPORTED_FACES. Defaults to "Standard". */
   fontName?: string,
 }
-
-/*
- * The registry of font faces actually declared via @font-face in index.css.
- * Requesting a style/size (or fontName) combination outside this list degrades
- * instead of silently rendering an unstyled system font under a made-up family
- * name — this is what lets callers (e.g. a BBCode renderer) pass along styles
- * we haven't shipped a bitmap strike for yet (isItalic, unlisted sizes, a font
- * name we don't have at all, ...) without needing to know which combinations
- * exist. Keep in sync with the @font-face declarations in index.css. Physical
- * TTF filenames and CSS font-family strings both follow `{fontName}-{style}-{size}`
- * (e.g. `Standard-Regular-12`) — see `npm run font -- register`.
- */
-const SUPPORTED_FACES: ReadonlyArray<{ fontName: string; style: string; size: number }> = [
-  { fontName: 'Standard', style: 'Regular', size: 12 },
-  { fontName: 'Standard', style: 'Bold', size: 12 },
-  { fontName: 'Standard', style: 'Regular', size: 24 },
-  // font-cli: new entries are inserted above this line
-]
 
 const STYLE_FALLBACKS: Record<string, string[]> = {
   BoldItalic: ['BoldItalic', 'Bold', 'Italic', 'Regular'],

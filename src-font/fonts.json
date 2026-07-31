@@ -1,0 +1,37 @@
+{
+  "faces": [
+    {
+      "fontName": "Standard",
+      "style": "Regular",
+      "size": 12,
+      "source": "liberation_sans/LiberationSans-Regular.ttf",
+      "strikeBdf": "LiberationSans-Regular-12.bdf",
+      "fallbackSource": ["noto_sans_jp/NotoSansJP-Regular.ttf"],
+      "fallbackBdf": ["NotoSansJP-Regular-12.fallback.bdf"],
+      "mergePath": "Standard-Regular-12.bdf",
+      "ttf": "Standard-Regular-12.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 1,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Bold",
+      "size": 12,
+      "source": "liberation_sans/LiberationSans-Bold.ttf",
+      "strikeBdf": "LiberationSans-Bold-12.bdf",
+      "ttf": "Standard-Bold-12.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "Regular",
+      "size": 24,
+      "source": "liberation_sans/LiberationSans-Regular.ttf",
+      "strikeBdf": "LiberationSans-Regular-24.bdf",
+      "ttf": "Standard-Regular-24.ttf"
+    }
+  ]
+}

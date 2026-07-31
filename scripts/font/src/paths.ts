@@ -8,6 +8,9 @@ export const projectRoot = resolve(__dirname, '..', '..', '..')
 export const srcFontDir = resolve(projectRoot, 'src-font')
 export const publicFontDir = resolve(projectRoot, 'public', 'win-55-ui', 'font')
 
+/** The manifest driving strike-all/fallback-all/build-all/push-fonts/update-register. */
+export const fontsManifestPath = resolve(srcFontDir, 'fonts.json')
+
 /**
  * Frozen test fixtures, NOT `src-font/` — `src-font/*.bdf` is live working data the user
  * regenerates interactively, so tests that need a stable, real-world BDF sample (rather than
