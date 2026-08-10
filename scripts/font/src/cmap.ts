@@ -93,3 +93,83 @@ export function stripCmapFormat4(cmapData: Uint8Array): Uint8Array {
 
   return out
 }
+
+export interface CodepointRange {
+  /** Inclusive. */
+  start: number
+  /** Inclusive. */
+  end: number
+}
+
+/**
+ * Every valid Unicode scalar value, split around the surrogate gap (D800-DFFF, which can never
+ * be a real codepoint — only used in UTF-16 encoding, never a standalone character) — the entire
+ * Unicode space in exactly 3 contiguous ranges.
+ */
+export const FULL_UNICODE_RANGES: CodepointRange[] = [
+  { start: 0x0000, end: 0xd7ff },
+  { start: 0xe000, end: 0xffff },
+  { start: 0x10000, end: 0x10ffff },
+]
+
+/**
+ * cmap format 13 ("many-to-one range mappings") — same on-disk group layout as format 12
+ * (startCharCode/endCharCode/glyphID, 12 bytes each), but the lookup is `glyphId = startGlyphID`
+ * for the *entire* range, not `startGlyphID + (charCode - startCharCode)`. This is the format the
+ * OpenType spec describes as built for "last resort" fonts that map every codepoint to one of a
+ * handful of placeholder glyphs — exactly the TofuMaker use case, and why the whole Unicode space
+ * collapses to just `ranges.length` groups instead of one entry per codepoint.
+ */
+function buildFormat13Subtable(ranges: CodepointRange[], glyphId: number): Uint8Array {
+  const length = 2 + 2 + 4 + 4 + 4 + ranges.length * 12
+  const data = new Uint8Array(length)
+  const v = view(data)
+
+  v.setUint16(0, 13) // format
+  v.setUint16(2, 0) // reserved
+  v.setUint32(4, length)
+  v.setUint32(8, 0) // language
+  v.setUint32(12, ranges.length)
+
+  ranges.forEach((r, i) => {
+    const rec = 16 + i * 12
+    v.setUint32(rec, r.start)
+    v.setUint32(rec + 4, r.end)
+    v.setUint32(rec + 8, glyphId)
+  })
+
+  return data
+}
+
+/**
+ * Builds a complete, standalone cmap table (header + directory + subtable) that maps every
+ * codepoint in `ranges` to the single glyph `glyphId`, via format 13. Registered under both
+ * (0,4) "Unicode full repertoire" and (3,10) "Windows UCS-4" — the same pair svg2ttf uses for
+ * format 12 — sharing one physical subtable between them, same as svg2ttf does.
+ */
+export function buildTofuCmapTable(glyphId: number, ranges: CodepointRange[] = FULL_UNICODE_RANGES): Uint8Array {
+  const subtable = buildFormat13Subtable(ranges, glyphId)
+
+  const headers: CmapSubtableHeader[] = [
+    { platformID: 0, encodingID: 4, offset: 0 },
+    { platformID: 3, encodingID: 10, offset: 0 },
+  ]
+
+  const directorySize = 4 + headers.length * 8
+  const out = new Uint8Array(directorySize + subtable.length)
+  const outView = view(out)
+
+  outView.setUint16(0, 0) // cmap version
+  outView.setUint16(2, headers.length)
+
+  headers.forEach((h, i) => {
+    const rec = 4 + i * 8
+    outView.setUint16(rec, h.platformID)
+    outView.setUint16(rec + 2, h.encodingID)
+    outView.setUint32(rec + 4, directorySize) // both headers share the one subtable
+  })
+
+  out.set(subtable, directorySize)
+
+  return out
+}

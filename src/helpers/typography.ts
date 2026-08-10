@@ -68,8 +68,13 @@ export function typographyStyles(settings: TypographySettings): CSSProperties {
 
   const { fontName, style, size } = resolveSupportedFace(settings.fontName ?? DEFAULT_FONT_NAME, requestedStyle, requestedSize)
 
+  // The TofuMaker companion (see scripts/font/src/tofu.ts) maps every Unicode codepoint to this
+  // face's own '?' glyph - placed right after the real face and before any system font, so a
+  // codepoint we have no ink for renders as our own pixel-style '?' instead of falling through to
+  // a smooth system glyph. Arial/sans stays as a last-resort safety net in case that font itself
+  // somehow fails to load, not as the normal fallback path.
   const outStyle: CSSProperties = {
-    fontFamily: `${fontName}-${style}-${size}, Arial, sans`,
+    fontFamily: `${fontName}-${style}-${size}, ${fontName}-${style}-${size}-TofuMaker, Arial, sans`,
     fontSize: `${size * 2}px`,
     color: settings.fontColor,
   };

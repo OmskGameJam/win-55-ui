@@ -3,11 +3,12 @@ import { basename, dirname, extname, resolve } from 'node:path'
 import { parseArgs, getFlag, hasFlag } from './cli-args.js'
 import { projectRoot, srcFontDir, publicFontDir } from './paths.js'
 import { parseBdf, writeBdf } from './bdf.js'
-import { rasterizeFont, type Hinting, type RasterizeOptions } from './rasterize.js'
+import { rasterizeFont, type RasterizeOptions } from './rasterize.js'
 import { mergeBdf, summarizeBackfill } from './merge.js'
 import { buildTtf } from './build.js'
+import { buildTofuFont } from './tofu.js'
 import { buildSupportedFacesModule, buildFontFaceCss } from './register.js'
-import { loadFontsManifest, type FaceEntry } from './fontsManifest.js'
+import { loadFontsManifest, tofuTtfFilename, type FaceEntry } from './fontsManifest.js'
 import { resolveVerticalMetrics } from './verticalMetrics.js'
 import { SIZES } from './registry.js'
 import type { BdfFont } from './types.js'
@@ -15,12 +16,14 @@ import type { BdfFont } from './types.js'
 function usage(exitCode = 0): never {
   const output = [
     'Usage:',
-    '  npm run font -- strike <source.ttf> <pixelSize> [--out bdf] [--hinting native|auto] [--charset chars] [--force]',
+    '  npm run font -- strike <source.ttf> <pixelSize> [--out bdf] [--charset chars] [--force]',
     '    [--generate-kerning] [--right-side-count n] [--right-side-volume n] [--flat-right-side-gap n] [--tail-right-side-gap n]',
-    '  npm run font -- fallback <source.ttf> <pixelSize> [--out bdf] [--hinting native|auto] [--charset chars] [--force]',
+    '  npm run font -- fallback <source.ttf> <pixelSize> [--out bdf] [--charset chars] [--force]',
     '    [--generate-kerning] [--right-side-count n] [--right-side-volume n] [--flat-right-side-gap n] [--tail-right-side-gap n]',
     '  npm run font -- merge <primary.bdf> <fallback.bdf> --out bdf [--skip cp,cp,...] [--report path.json] [--verbose]',
     '  npm run font -- build <bdf> [--out ttf] [--family name] [--style name] [--units-per-em-scale 100] [--report path.json]',
+    '  npm run font -- tofu <bdf> [--out ttf] [--family name] [--style name] [--units-per-em-scale 100]',
+    '    builds a single-glyph TofuMaker font from <bdf>\'s own \'?\' glyph, mapped to every Unicode codepoint - see tofu.ts',
     '  npm run font -- all <source.ttf> <style> <size> [--fallback-source ttf] [--force]',
     '  (strike/fallback/all refuse to overwrite an existing .bdf unless --force is given — existing BDFs may be hand-edited)',
     '  npm run font -- check <bdf>',
@@ -30,8 +33,10 @@ function usage(exitCode = 0): never {
     '  npm run font -- fallback-all    strike (fallbackSource[i], fallbackBdf[i]) pairs missing fallbackBdf[i]',
     '  npm run font -- merge-all       merge strikeBdf + fallbackBdf[] into "mergePath"',
     '  npm run font -- build-all       build (mergePath ?? strikeBdf) into "ttf"',
-    '  npm run font -- push-fonts      copy every "ttf" to public/win-55-ui/font/ (always overwrites)',
+    '  npm run font -- tofu-all        build the TofuMaker companion for every face with a resolvable ttf source',
+    '  npm run font -- push-fonts      copy every "ttf" (+ TofuMaker companion) to public/win-55-ui/font/ (always overwrites)',
     '  npm run font -- update-register regenerate generatedFonts.ts + generated-fonts.css from fonts.json (always overwrites)',
+    '  npm run font -- full-pipeline-all   runs all seven of the above in order, with a stage progress bar',
   ].join('\n')
 
   if (exitCode === 0) console.log(output)
@@ -118,8 +123,6 @@ async function cmdStrike(args: string[], suffix = ''): Promise<void> {
   if (!sourcePath || !sizeArg) usage(1)
 
   const pixelSize = parsePixelSize(sizeArg)
-  const hinting = getFlag(flags, 'hinting') as Hinting | undefined
-  if (hinting && hinting !== 'native' && hinting !== 'auto') fail(`--hinting must be "native" or "auto", got "${hinting}"`)
 
   const outPath = getFlag(flags, 'out') ? resolve(getFlag(flags, 'out')!) : defaultStrikeOut(sourcePath, pixelSize, suffix)
 
@@ -128,7 +131,6 @@ async function cmdStrike(args: string[], suffix = ''): Promise<void> {
     pixelSize,
     outPath,
     {
-      hinting,
       charset: getFlag(flags, 'charset'),
       generateKerning: hasFlag(flags, 'generate-kerning'),
       rightSideCount: parseOptionalInt(flags, 'right-side-count'),
@@ -217,6 +219,35 @@ function cmdBuild(args: string[]): void {
   } else {
     console.log(`font-cli: built ${outPath} — ${result.report.glyphCount} glyphs, no issues flagged`)
   }
+}
+
+function cmdTofu(args: string[]): void {
+  const { positional, flags } = parseArgs(args)
+  const [bdfPath] = positional
+  if (!bdfPath) usage(1)
+
+  const bdfFont = parseBdf(readFileSync(resolve(bdfPath), 'utf8'))
+  const scaleArg = getFlag(flags, 'units-per-em-scale')
+
+  let buffer: ArrayBuffer
+  try {
+    buffer = buildTofuFont(bdfFont, {
+      family: getFlag(flags, 'family'),
+      style: getFlag(flags, 'style'),
+      unitsPerEmScale: scaleArg ? Number(scaleArg) : undefined,
+    })
+  } catch (e) {
+    fail((e as Error).message)
+  }
+
+  const outPath = resolve(getFlag(flags, 'out') ?? resolve(srcFontDir, `${basename(bdfPath, extname(bdfPath))}-TofuMaker.ttf`))
+  const tmpPath = `${outPath}.tmp`
+
+  mkdirSync(dirname(outPath), { recursive: true })
+  writeFileSync(tmpPath, Buffer.from(buffer))
+  renameSync(tmpPath, outPath)
+
+  console.log(`font-cli: built ${outPath} — every Unicode codepoint mapped to '?'`)
 }
 
 function faceLabel(face: FaceEntry): string {
@@ -405,6 +436,52 @@ function cmdBuildAll(): void {
   console.log(`font-cli: build-all done - ${built} built, ${skipped} skipped`)
 }
 
+function cmdTofuAll(): void {
+  const manifest = loadFontsManifest()
+  let built = 0
+  let skipped = 0
+
+  for (const face of manifest.faces) {
+    const bdfRelPath = face.mergePath ?? face.strikeBdf
+    if (!bdfRelPath) continue
+
+    const bdfPath = resolve(srcFontDir, bdfRelPath)
+    const outPath = resolve(srcFontDir, tofuTtfFilename(face))
+
+    if (existsSync(outPath)) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: ${tofuTtfFilename(face)} already exists`)
+      skipped++
+      continue
+    }
+    if (!existsSync(bdfPath)) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: ${bdfRelPath} not found`)
+      skipped++
+      continue
+    }
+
+    const bdfFont = parseBdf(readFileSync(bdfPath, 'utf8'))
+
+    let buffer: ArrayBuffer
+    try {
+      buffer = buildTofuFont(bdfFont, { family: face.fontName, style: face.style })
+    } catch (e) {
+      console.warn(`font-cli: skip ${faceLabel(face)}: ${(e as Error).message}`)
+      skipped++
+      continue
+    }
+
+    const tmpPath = `${outPath}.tmp`
+    mkdirSync(dirname(outPath), { recursive: true })
+    writeFileSync(tmpPath, Buffer.from(buffer))
+    renameSync(tmpPath, outPath)
+
+    console.log(`font-cli: built ${faceLabel(face)} -> ${tofuTtfFilename(face)}`)
+    built++
+  }
+
+  console.log(`font-cli: tofu-all done - ${built} built, ${skipped} skipped`)
+}
+
 function cmdPushFonts(): void {
   const manifest = loadFontsManifest()
   let pushed = 0
@@ -425,6 +502,19 @@ function cmdPushFonts(): void {
     copyFileSync(srcPath, destPath)
     console.log(`font-cli: pushed ${faceLabel(face)} -> public/win-55-ui/font/${face.ttf}`)
     pushed++
+
+    const tofuSrcPath = resolve(srcFontDir, tofuTtfFilename(face))
+    const tofuDestPath = resolve(publicFontDir, tofuTtfFilename(face))
+
+    if (!existsSync(tofuSrcPath)) {
+      console.warn(`font-cli: skip ${faceLabel(face)} TofuMaker: ${tofuTtfFilename(face)} not found in src-font/ (run tofu-all first)`)
+      skipped++
+      continue
+    }
+
+    copyFileSync(tofuSrcPath, tofuDestPath)
+    console.log(`font-cli: pushed ${faceLabel(face)} TofuMaker -> public/win-55-ui/font/${tofuTtfFilename(face)}`)
+    pushed++
   }
 
   console.log(`font-cli: push-fonts done - ${pushed} pushed, ${skipped} skipped`)
@@ -440,6 +530,33 @@ function cmdUpdateRegister(): void {
   writeFileSync(cssPath, buildFontFaceCss(manifest), 'utf8')
 
   console.log(`font-cli: regenerated generatedFonts.ts and generated-fonts.css from ${manifest.faces.length} face(s) - review with git diff.`)
+}
+
+const PIPELINE_STAGES: { label: string; run: () => void | Promise<void> }[] = [
+  { label: 'strike-all', run: cmdStrikeAll },
+  { label: 'fallback-all', run: cmdFallbackAll },
+  { label: 'merge-all', run: cmdMergeAll },
+  { label: 'build-all', run: cmdBuildAll },
+  { label: 'tofu-all', run: cmdTofuAll },
+  { label: 'push-fonts', run: cmdPushFonts },
+  { label: 'update-register', run: cmdUpdateRegister },
+]
+
+function printPipelineProgress(done: number, total: number, label: string): void {
+  const width = 24
+  const filled = Math.round((done / total) * width)
+  const bar = '#'.repeat(filled) + '-'.repeat(width - filled)
+  console.log(`\nfont-cli: [${bar}] ${done}/${total} - ${label}`)
+}
+
+/** Runs every manifest-driven stage in order - the "just BOOM and run everything" command. */
+async function cmdFullPipelineAll(): Promise<void> {
+  for (let i = 0; i < PIPELINE_STAGES.length; i++) {
+    const stage = PIPELINE_STAGES[i]
+    printPipelineProgress(i, PIPELINE_STAGES.length, `starting ${stage.label}`)
+    await stage.run()
+  }
+  printPipelineProgress(PIPELINE_STAGES.length, PIPELINE_STAGES.length, 'done')
 }
 
 async function cmdAll(args: string[]): Promise<void> {
@@ -529,6 +646,9 @@ async function main() {
     case 'build':
       cmdBuild(rest)
       break
+    case 'tofu':
+      cmdTofu(rest)
+      break
     case 'all':
       await cmdAll(rest)
       break
@@ -547,11 +667,17 @@ async function main() {
     case 'build-all':
       cmdBuildAll()
       break
+    case 'tofu-all':
+      cmdTofuAll()
+      break
     case 'push-fonts':
       cmdPushFonts()
       break
     case 'update-register':
       cmdUpdateRegister()
+      break
+    case 'full-pipeline-all':
+      await cmdFullPipelineAll()
       break
     default:
       fail(`unknown command: ${command}`)

@@ -4,5 +4,6 @@
 export const SUPPORTED_FACES: ReadonlyArray<{ fontName: string; style: string; size: number }> = [
   { fontName: 'Standard', style: 'Regular', size: 12 },
   { fontName: 'Standard', style: 'Bold', size: 12 },
+  { fontName: 'Standard', style: 'Italic', size: 12 },
   { fontName: 'Standard', style: 'Regular', size: 24 },
 ]

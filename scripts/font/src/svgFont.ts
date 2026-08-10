@@ -39,6 +39,8 @@ export interface SvgFontSpec {
   /** Negative, per OpenType convention. */
   descent: number
   missingGlyphAdvanceWidth: number
+  /** SVG path 'd' for .notdef itself, or omitted for the usual blank .notdef. */
+  missingGlyphD?: string
   glyphs: SvgGlyphSpec[]
 }
 
@@ -61,7 +63,9 @@ export function buildSvgFontXml(spec: SvgFontSpec): string {
     '<defs>',
     `<font id="${escapeXmlAttr(spec.familyName)}" horiz-adv-x="${spec.unitsPerEm}">`,
     `<font-face font-family="${escapeXmlAttr(spec.familyName)}" font-style="${escapeXmlAttr(spec.styleName)}" units-per-em="${spec.unitsPerEm}" ascent="${spec.ascent}" descent="${spec.descent}" />`,
-    `<missing-glyph horiz-adv-x="${spec.missingGlyphAdvanceWidth}" />`,
+    spec.missingGlyphD
+      ? `<missing-glyph horiz-adv-x="${spec.missingGlyphAdvanceWidth}" d="${spec.missingGlyphD}" />`
+      : `<missing-glyph horiz-adv-x="${spec.missingGlyphAdvanceWidth}" />`,
     glyphElements,
     '</font>',
     '</defs>',

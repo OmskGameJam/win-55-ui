@@ -2,7 +2,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import opentype from 'opentype.js'
 import svg2ttf from 'svg2ttf'
-import { stripCmapFormat4 } from './cmap.js'
+import { stripCmapFormat4, buildTofuCmapTable, FULL_UNICODE_RANGES } from './cmap.js'
 import { getSfntTable, replaceSfntTable } from './sfnt.js'
 
 function toArrayBuffer(bytes: Uint8Array): ArrayBuffer {
@@ -70,5 +70,42 @@ test('a font with format 4 stripped from cmap still resolves every glyph correct
     const glyph = parsed.charToGlyph(ch)
     const bbox = glyph.getBoundingBox()
     assert.deepEqual([bbox.x1, bbox.y1, bbox.x2, bbox.y2], [0, 0, 400, 400], `glyph "${ch}" must still resolve correctly`)
+  }
+})
+
+test('buildTofuCmapTable covers the full Unicode range in exactly 3 groups, sharing one subtable across both headers', () => {
+  const cmap = buildTofuCmapTable(1)
+  const view = new DataView(cmap.buffer, cmap.byteOffset, cmap.byteLength)
+
+  assert.equal(view.getUint16(2), 2, 'exactly 2 directory headers')
+  const offset0 = view.getUint32(4 + 4)
+  const offset1 = view.getUint32(4 + 8 + 4)
+  assert.equal(offset0, offset1, 'both headers must share the same physical subtable')
+
+  assert.equal(view.getUint16(offset0), 13, 'format 13')
+  assert.equal(view.getUint32(offset0 + 12), FULL_UNICODE_RANGES.length, 'one group per FULL_UNICODE_RANGES entry')
+
+  FULL_UNICODE_RANGES.forEach((r, i) => {
+    const rec = offset0 + 16 + i * 12
+    assert.equal(view.getUint32(rec), r.start)
+    assert.equal(view.getUint32(rec + 4), r.end)
+    assert.equal(view.getUint32(rec + 8), 1, 'every group maps to the same fixed glyph ID')
+  })
+})
+
+test('buildTofuCmapTable, patched into a real font, resolves arbitrary codepoints across the whole Unicode space to the same glyph', () => {
+  const ttf = svg2ttf(tinySvgFont(), {})
+  const buffer = toArrayBuffer(ttf.buffer)
+  const patched = replaceSfntTable(buffer, 'cmap', buildTofuCmapTable(1))
+
+  const parsed = opentype.parse(patched)
+  const glyphAIndex = parsed.charToGlyphIndex('A') // glyph 1 in tinySvgFont()
+
+  // Spans the gap around the surrogate range and both sides of the astral-plane boundary -
+  // every one of these must resolve, not just a few convenient BMP letters.
+  const sampleCodepoints = [0x0000, 0x0041, 0xd7ff, 0xe000, 0xffff, 0x10000, 0x1f600, 0x10ffff]
+  for (const cp of sampleCodepoints) {
+    const index = parsed.charToGlyphIndex(String.fromCodePoint(cp))
+    assert.equal(index, glyphAIndex, `U+${cp.toString(16).toUpperCase()} must resolve to the one mapped glyph`)
   }
 })

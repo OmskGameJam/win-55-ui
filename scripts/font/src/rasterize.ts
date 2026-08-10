@@ -1,70 +1,10 @@
 import { readFileSync } from 'node:fs'
 import { basename, extname } from 'node:path'
-// lv_font_conv doesn't declare package "exports" or types, and its wrapper around the bundled
-// FreeType WASM build is CommonJS — reach into it directly rather than going through the
-// package's own high-level (file-conversion) CLI, which only exposes a whole-font-to-embedded-
-// format pipeline, not raw per-glyph hinted bitmaps.
-import { createRequire } from 'node:module'
 import opentype from 'opentype.js'
 import type { BdfFont, BdfGlyph } from './types.js'
-
-const require = createRequire(import.meta.url)
-
-interface FreetypeFace {
-  ptr: number
-  font: number
-  units_per_em: number
-  ascender: number
-  descender: number
-  height: number
-}
-
-interface FreetypeGlyphRender {
-  x: number
-  y: number
-  width: number
-  height: number
-  advance_x: number
-  advance_y: number
-  pixels: number[][]
-  freetype: {
-    advance: { x: number; y: number }
-  }
-}
-
-interface FreetypeModule {
-  init(): Promise<void>
-  fontface_create(source: Uint8Array, size: number): FreetypeFace
-  fontface_destroy(face: FreetypeFace): void
-  glyph_exists(face: FreetypeFace, code: number): boolean
-  glyph_render(
-    face: FreetypeFace,
-    code: number,
-    opts: { mono?: boolean; autohint_off?: boolean },
-  ): FreetypeGlyphRender
-}
-
-const ft: FreetypeModule = require('lv_font_conv/lib/freetype')
-
-let ftInitialized = false
-
-async function ensureFreetypeInit(): Promise<void> {
-  if (!ftInitialized) {
-    await ft.init()
-    ftInitialized = true
-  }
-}
-
-export type Hinting = 'native' | 'auto'
+import { createFace, destroyFace, glyphExists, renderGlyph } from './directwrite.js'
 
 export interface RasterizeOptions {
-  /**
-   * 'native' uses the font's own hint instructions. Default, because it reproduces the old
-   * hand-made BDFs bit-for-bit for Liberation Sans (verified against LiberationSans-Regular-12.bdf's
-   * 'a' and 'o' — FreeType's autohinter measurably thickens stems/corners on this font instead).
-   * 'auto' forces FreeType's autohinter instead, for source fonts with poor/no native hints.
-   */
-  hinting?: Hinting
   /** Restrict rasterization to these characters instead of the source font's full cmap. */
   charset?: string
   /** Family/style label recorded in the BDF header properties (best-effort, informational). */
@@ -207,10 +147,7 @@ function deriveFamilyStyle(sourcePath: string): { family: string; style: string 
 }
 
 export async function rasterizeFont(sourcePath: string, pixelSize: number, opts: RasterizeOptions = {}): Promise<BdfFont> {
-  await ensureFreetypeInit()
-
   const buffer = readFileSync(sourcePath)
-  const bytes = new Uint8Array(buffer)
 
   const otFont = opentype.parse(buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength))
   const derived = deriveFamilyStyle(sourcePath)
@@ -221,8 +158,7 @@ export async function rasterizeFont(sourcePath: string, pixelSize: number, opts:
     ? [...new Set([...opts.charset].map((ch) => ch.codePointAt(0)!))].sort((a, b) => a - b)
     : cmapCodepoints(otFont)
 
-  const face = ft.fontface_create(bytes, pixelSize)
-  const autohintOff = (opts.hinting ?? 'native') === 'native'
+  const face = createFace(sourcePath, pixelSize)
 
   const kerningOpts: KerningRule = {
     rightSideCount: opts.rightSideCount ?? 1,
@@ -234,9 +170,9 @@ export async function rasterizeFont(sourcePath: string, pixelSize: number, opts:
   const glyphs: BdfGlyph[] = []
 
   for (const codepoint of codepoints) {
-    if (!ft.glyph_exists(face, codepoint)) continue
+    if (!glyphExists(face, codepoint)) continue
 
-    const rendered = ft.glyph_render(face, codepoint, { mono: true, autohint_off: autohintOff })
+    const rendered = renderGlyph(face, codepoint)
 
     const nonBilevel = rendered.pixels.flat().some((v) => v !== 0 && v !== 255)
     if (nonBilevel) {
@@ -262,7 +198,7 @@ export async function rasterizeFont(sourcePath: string, pixelSize: number, opts:
     })
   }
 
-  ft.fontface_destroy(face)
+  destroyFace(face)
 
   // build.ts uses FONT_ASCENT+FONT_DESCENT as the TTF's hhea/sTypo ascender/descender, which is
   // what a browser sizes the line box from at `line-height: 1` - see computeVerticalMetrics above

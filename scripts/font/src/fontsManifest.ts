@@ -38,6 +38,20 @@ export interface FontsManifest {
   faces: FaceEntry[]
 }
 
+/**
+ * TofuMaker companion filename for a face - `{name}.ttf` -> `{name}-TofuMaker.ttf`. Derived from
+ * `face.ttf` rather than a separate manifest field: it's a 1:1, always-present companion to every
+ * face's own ttf, not an independent thing to configure per face.
+ */
+export function tofuTtfFilename(face: FaceEntry): string {
+  return face.ttf.replace(/\.ttf$/i, '-TofuMaker.ttf')
+}
+
+/** Same derivation, for the CSS font-family string (`{fontName}-{style}-{size}-TofuMaker`). */
+export function tofuFamilyName(face: FaceEntry): string {
+  return `${face.fontName}-${face.style}-${face.size}-TofuMaker`
+}
+
 function assertString(value: unknown, path: string): asserts value is string {
   if (typeof value !== 'string' || value.length === 0) throw new Error(`fonts.json: ${path} must be a non-empty string`)
 }

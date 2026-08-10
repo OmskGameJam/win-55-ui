@@ -25,7 +25,7 @@ test('buildSupportedFacesModule carries the "do not edit" banner', () => {
   assert.match(out, /Do not edit by hand/)
 })
 
-test('buildFontFaceCss emits one @font-face block per face, family name matching typography.ts\'s reconstruction', () => {
+test('buildFontFaceCss emits a primary @font-face block per face, family name matching typography.ts\'s reconstruction', () => {
   const out = buildFontFaceCss(manifest)
 
   assert.match(out, /font-family: "Standard-Regular-12"/)
@@ -34,10 +34,26 @@ test('buildFontFaceCss emits one @font-face block per face, family name matching
   assert.match(out, /url\("\/win-55-ui\/font\/Standard-Bold-16\.ttf"\)/)
 })
 
+test('buildFontFaceCss also emits a TofuMaker companion @font-face block per face', () => {
+  const out = buildFontFaceCss(manifest)
+
+  assert.match(out, /font-family: "Standard-Regular-12-TofuMaker"/)
+  assert.match(out, /url\("\/win-55-ui\/font\/Standard-Regular-12-TofuMaker\.ttf"\)/)
+  assert.match(out, /font-family: "Standard-Bold-16-TofuMaker"/)
+  assert.match(out, /url\("\/win-55-ui\/font\/Standard-Bold-16-TofuMaker\.ttf"\)/)
+})
+
+test('buildFontFaceCss emits exactly two blocks per face (primary + TofuMaker)', () => {
+  const out = buildFontFaceCss(manifest)
+  const blockCount = (out.match(/@font-face/g) ?? []).length
+  assert.equal(blockCount, manifest.faces.length * 2)
+})
+
 test('buildFontFaceCss uses face.ttf verbatim for the url even if it diverges from the {fontName}-{style}-{size} convention', () => {
   const out = buildFontFaceCss({ faces: [{ fontName: 'Standard', style: 'Regular', size: 12, ttf: 'weird-legacy-name.ttf' }] })
   assert.match(out, /font-family: "Standard-Regular-12"/)
   assert.match(out, /url\("\/win-55-ui\/font\/weird-legacy-name\.ttf"\)/)
+  assert.match(out, /url\("\/win-55-ui\/font\/weird-legacy-name-TofuMaker\.ttf"\)/)
 })
 
 test('buildFontFaceCss carries the "do not edit" banner', () => {

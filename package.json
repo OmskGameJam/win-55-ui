@@ -47,7 +47,7 @@
     "eslint": "^9.39.1",
     "eslint-plugin-vue": "^10.8.0",
     "globals": "^16.5.0",
-    "lv_font_conv": "^1.5.3",
+    "koffi": "^3.1.4",
     "opentype.js": "^2.0.0",
     "svg2ttf": "^6.1.0",
     "typescript": "~5.9.3",

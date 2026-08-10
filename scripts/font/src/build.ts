@@ -33,9 +33,10 @@ export interface BuildOptions {
 const DEFAULT_SCALE = 100
 
 /** Raises a "degenerate contour" error the outer wrapper turns into a skip — see buildGlyph(). */
-class DegenerateContourError extends Error {}
+export class DegenerateContourError extends Error {}
 
-function buildGlyphUnsafe(
+/** Exported for reuse by tofu.ts, which builds a single glyph the same way but fails hard on any issue. */
+export function buildGlyphUnsafe(
   bdfGlyph: BdfGlyph,
   scale: number,
   issues: string[],

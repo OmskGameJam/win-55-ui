@@ -12,7 +12,7 @@
       "ttf": "Standard-Regular-12.ttf",
       "kerning": {
         "rightSideCount": 1,
-        "rightSideVolume": 1,
+        "rightSideVolume": 0,
         "flatRightSideGap": 1,
         "tailRightSideGap": 0
       }
@@ -23,7 +23,27 @@
       "size": 12,
       "source": "liberation_sans/LiberationSans-Bold.ttf",
       "strikeBdf": "LiberationSans-Bold-12.bdf",
-      "ttf": "Standard-Bold-12.ttf"
+      "ttf": "Standard-Bold-12.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Italic",
+      "size": 12,
+      "source": "liberation_sans/LiberationSans-Italic.ttf",
+      "strikeBdf": "LiberationSans-Italic-12.bdf",
+      "ttf": "Standard-Italic-12.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
     },
     {
       "fontName": "Standard",
@@ -31,7 +51,13 @@
       "size": 24,
       "source": "liberation_sans/LiberationSans-Regular.ttf",
       "strikeBdf": "LiberationSans-Regular-24.bdf",
-      "ttf": "Standard-Regular-24.ttf"
+      "ttf": "Standard-Regular-24.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
     }
   ]
 }
