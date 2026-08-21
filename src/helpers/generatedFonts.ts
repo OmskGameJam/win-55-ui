@@ -2,8 +2,28 @@
 // Do not edit by hand - changes here will be overwritten on the next run.
 
 export const SUPPORTED_FACES: ReadonlyArray<{ fontName: string; style: string; size: number }> = [
+  { fontName: 'Standard', style: 'Regular', size: 8 },
+  { fontName: 'Standard', style: 'Bold', size: 8 },
+  { fontName: 'Standard', style: 'Italic', size: 8 },
+  { fontName: 'Standard', style: 'BoldItalic', size: 8 },
+  { fontName: 'Standard', style: 'Regular', size: 10 },
+  { fontName: 'Standard', style: 'Bold', size: 10 },
+  { fontName: 'Standard', style: 'Italic', size: 10 },
+  { fontName: 'Standard', style: 'BoldItalic', size: 10 },
   { fontName: 'Standard', style: 'Regular', size: 12 },
   { fontName: 'Standard', style: 'Bold', size: 12 },
   { fontName: 'Standard', style: 'Italic', size: 12 },
+  { fontName: 'Standard', style: 'BoldItalic', size: 12 },
+  { fontName: 'Standard', style: 'Regular', size: 16 },
+  { fontName: 'Standard', style: 'Bold', size: 16 },
+  { fontName: 'Standard', style: 'Italic', size: 16 },
+  { fontName: 'Standard', style: 'BoldItalic', size: 16 },
+  { fontName: 'Standard', style: 'Regular', size: 18 },
+  { fontName: 'Standard', style: 'Bold', size: 18 },
+  { fontName: 'Standard', style: 'Italic', size: 18 },
+  { fontName: 'Standard', style: 'BoldItalic', size: 18 },
   { fontName: 'Standard', style: 'Regular', size: 24 },
+  { fontName: 'Standard', style: 'Bold', size: 24 },
+  { fontName: 'Standard', style: 'Italic', size: 24 },
+  { fontName: 'Standard', style: 'BoldItalic', size: 24 },
 ]

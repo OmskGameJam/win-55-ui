@@ -2,6 +2,86 @@
 /* Do not edit by hand - changes here will be overwritten on the next run. */
 
 @font-face {
+  font-family: "Standard-Regular-8";
+  src: url("/win-55-ui/font/Standard-Regular-8.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Regular-8-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Regular-8-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Bold-8";
+  src: url("/win-55-ui/font/Standard-Bold-8.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Bold-8-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Bold-8-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Italic-8";
+  src: url("/win-55-ui/font/Standard-Italic-8.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Italic-8-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Italic-8-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-8";
+  src: url("/win-55-ui/font/Standard-BoldItalic-8.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-8-TofuMaker";
+  src: url("/win-55-ui/font/Standard-BoldItalic-8-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Regular-10";
+  src: url("/win-55-ui/font/Standard-Regular-10.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Regular-10-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Regular-10-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Bold-10";
+  src: url("/win-55-ui/font/Standard-Bold-10.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Bold-10-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Bold-10-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Italic-10";
+  src: url("/win-55-ui/font/Standard-Italic-10.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Italic-10-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Italic-10-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-10";
+  src: url("/win-55-ui/font/Standard-BoldItalic-10.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-10-TofuMaker";
+  src: url("/win-55-ui/font/Standard-BoldItalic-10-TofuMaker.ttf")
+}
+
+@font-face {
   font-family: "Standard-Regular-12";
   src: url("/win-55-ui/font/Standard-Regular-12.ttf")
 }
@@ -32,6 +112,96 @@
 }
 
 @font-face {
+  font-family: "Standard-BoldItalic-12";
+  src: url("/win-55-ui/font/Standard-BoldItalic-12.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-12-TofuMaker";
+  src: url("/win-55-ui/font/Standard-BoldItalic-12-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Regular-16";
+  src: url("/win-55-ui/font/Standard-Regular-16.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Regular-16-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Regular-16-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Bold-16";
+  src: url("/win-55-ui/font/Standard-Bold-16.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Bold-16-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Bold-16-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Italic-16";
+  src: url("/win-55-ui/font/Standard-Italic-16.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Italic-16-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Italic-16-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-16";
+  src: url("/win-55-ui/font/Standard-BoldItalic-16.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-16-TofuMaker";
+  src: url("/win-55-ui/font/Standard-BoldItalic-16-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Regular-18";
+  src: url("/win-55-ui/font/Standard-Regular-18.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Regular-18-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Regular-18-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Bold-18";
+  src: url("/win-55-ui/font/Standard-Bold-18.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Bold-18-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Bold-18-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Italic-18";
+  src: url("/win-55-ui/font/Standard-Italic-18.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Italic-18-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Italic-18-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-18";
+  src: url("/win-55-ui/font/Standard-BoldItalic-18.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-18-TofuMaker";
+  src: url("/win-55-ui/font/Standard-BoldItalic-18-TofuMaker.ttf")
+}
+
+@font-face {
   font-family: "Standard-Regular-24";
   src: url("/win-55-ui/font/Standard-Regular-24.ttf")
 }
@@ -39,4 +209,34 @@
 @font-face {
   font-family: "Standard-Regular-24-TofuMaker";
   src: url("/win-55-ui/font/Standard-Regular-24-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Bold-24";
+  src: url("/win-55-ui/font/Standard-Bold-24.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Bold-24-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Bold-24-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Italic-24";
+  src: url("/win-55-ui/font/Standard-Italic-24.ttf")
+}
+
+@font-face {
+  font-family: "Standard-Italic-24-TofuMaker";
+  src: url("/win-55-ui/font/Standard-Italic-24-TofuMaker.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-24";
+  src: url("/win-55-ui/font/Standard-BoldItalic-24.ttf")
+}
+
+@font-face {
+  font-family: "Standard-BoldItalic-24-TofuMaker";
+  src: url("/win-55-ui/font/Standard-BoldItalic-24-TofuMaker.ttf")
 }

@@ -6,7 +6,7 @@ import type { CSSProperties } from 'vue'
 // bitmap strike for yet without needing to know which combinations actually exist.
 import { SUPPORTED_FACES } from './generatedFonts'
 
-const SIZES = [10, 12, 14, 16, 24]
+const SIZES = [8, 10, 12, 16, 18, 24]
 
 const DEFAULT_FONT_NAME = 'Standard'
 

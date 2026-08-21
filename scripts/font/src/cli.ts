@@ -9,6 +9,7 @@ import { buildTtf } from './build.js'
 import { buildTofuFont } from './tofu.js'
 import { buildSupportedFacesModule, buildFontFaceCss } from './register.js'
 import { loadFontsManifest, tofuTtfFilename, type FaceEntry } from './fontsManifest.js'
+import { faceLabel, mergeChain } from './facePipeline.js'
 import { resolveVerticalMetrics } from './verticalMetrics.js'
 import { SIZES } from './registry.js'
 import type { BdfFont } from './types.js'
@@ -250,10 +251,6 @@ function cmdTofu(args: string[]): void {
   console.log(`font-cli: built ${outPath} — every Unicode codepoint mapped to '?'`)
 }
 
-function faceLabel(face: FaceEntry): string {
-  return `${face.fontName}/${face.style}/${face.size}`
-}
-
 /** Presence of `face.kerning` (even `{}`) is what turns auto-kerning on for strike-all/fallback-all. */
 function rasterizeOptionsFor(face: FaceEntry): RasterizeOptions {
   return { style: face.style, family: face.fontName, generateKerning: face.kerning !== undefined, ...face.kerning }
@@ -317,24 +314,6 @@ async function cmdFallbackAll(): Promise<void> {
   }
 
   console.log(`font-cli: fallback-all done - ${struck} struck, ${skipped} skipped`)
-}
-
-/**
- * Sequentially folds strikeBdf + fallbackBdf[0..n] into one merged BDF, first to last, so a later
- * fallback backfills whatever's still missing after every earlier one has already had a turn.
- */
-function mergeChain(strikeBdfPath: string, fallbackBdfPaths: string[]): ReturnType<typeof mergeBdf> {
-  let primary = parseBdf(readFileSync(strikeBdfPath, 'utf8'))
-  let backfilled: ReturnType<typeof mergeBdf>['backfilled'] = []
-
-  for (const fallbackPath of fallbackBdfPaths) {
-    const fallback = parseBdf(readFileSync(fallbackPath, 'utf8'))
-    const result = mergeBdf(primary, fallback)
-    primary = result.merged
-    backfilled = backfilled.concat(result.backfilled)
-  }
-
-  return { merged: primary, backfilled }
 }
 
 function cmdMergeAll(): void {

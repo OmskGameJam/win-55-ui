@@ -11,6 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run preview` — предпросмотр production-сборки
 - `npm run emoji -- <command>` — обслуживание `public/win-55-ui/emoji/emoji-registry.csv` (`add`, `replace`, `remove`, `list`, `sort`, `check`, `classify`, `import`)
 - `npm run font -- <command>` - генерация bitmap-шрифтов: одиночные (`strike`, `fallback`, `merge`, `build`, `all`, `check`) и манифест-driven, по `src-font/fonts.json` (`strike-all`, `fallback-all`, `merge-all`, `build-all`, `push-fonts`, `update-register`), см. «Битмап-шрифты» ниже
+- `npm run charedit -- <bdf> [glyph]` - интерактивный TUI-редактор битмапа одного глифа BDF (стрелки - курсор, space - переключить пиксель, `[`/`]` - соседний глиф, `g` - перейти к глифу по имени/кодпоинту/символу, `s` - сохранить, `q`/`Esc` - выход); только битмап - остальные поля (BBX, DWIDTH, свойства) правятся прямо в текстовом `.bdf`. `<bdf>` без абсолютного пути резолвится относительно `src-font/`. При выходе, если была хоть одна сохранённая правка, для каждой грани `fonts.json`, ссылающейся на этот BDF, автоматически перезапускается remerge (если нужен) + build + tofu + push-fonts - `npm run dev` увидит новый TTF сразу (Vite сам делает full-reload на изменения в `public/`)
 - `npm run release` — `scripts/release.js`: `build:lib` + `git add -A` + коммит `Publish <version>` (версия берётся из `package.json`, бампается вручную перед запуском)
 
 Требуется Node.js 20.19+ или 22.12+ (указан в `.nvmrc`).
@@ -100,7 +101,7 @@ Emoji GIF-ассеты и runtime registry лежат в `/public/win-55-ui/emoj
 
 **TofuMaker**: каждая грань получает шрифт-компаньон `{fontName}-{style}-{size}-TofuMaker`, состоящий из ровно одного глифа (символ `?` из BDF этой самой грани), сопоставленного через cmap format 13 буквально каждому валидному Unicode-кодпоинту разом, без дублирования контура. Прописан в CSS font-family стеке в `typography.ts` сразу после основного шрифта, перед `Arial, sans` - гарантирует, что для любого символа, для которого нет своего пиксельного глифа, браузер отрисует наш собственный пиксельный `?`, а не соскочит на гладкий системный шрифт.
 
-`src-font/` - staging-директория пайплайна: `liberation_sans/`, `noto_sans_jp/` (исходные векторные TTF, не редактируются), `fonts.json` (манифест), плюс сгенерированные `.bdf`/`.ttf` по размеру/начертанию. Часть существующих `.bdf` в этой папке - артефакты ручного FontForge-процесса (в т.ч. битые из-за опечаток в размере страйка); доверять им не стоит, при необходимости перегенерировать через `strike`.
+`src-font/` - staging-директория пайплайна: `liberation_sans/`, `noto_sans_jp/` (исходные векторные TTF, не редактируются), `fonts.json` (манифест), плюс сгенерированные `.bdf`/`.ttf` по размеру/начертанию - все текущие `.bdf`/`.ttf` в этой папке порождены самим пайплайном (`full-pipeline-all`), не унаследованы из старого ручного FontForge-процесса.
 
 ### TypeScript
 
