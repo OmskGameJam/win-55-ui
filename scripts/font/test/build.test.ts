@@ -2,10 +2,10 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { resolve } from 'node:path'
 import opentype from 'opentype.js'
-import { buildTtf } from './build.js'
-import { rasterizeFont } from './rasterize.js'
-import { srcFontDir } from './paths.js'
-import type { BdfFont } from './types.js'
+import { buildTtf } from '../src/build.js'
+import { rasterizeFont } from '../src/rasterize.js'
+import { srcFontDir } from '../src/paths.js'
+import type { BdfFont } from '../src/types.js'
 
 function fixtureFont(glyphs: BdfFont['glyphs']): BdfFont {
   return {

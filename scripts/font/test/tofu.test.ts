@@ -2,10 +2,10 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { resolve } from 'node:path'
 import opentype from 'opentype.js'
-import { buildTofuFont } from './tofu.js'
-import { rasterizeFont } from './rasterize.js'
-import { srcFontDir } from './paths.js'
-import type { BdfFont } from './types.js'
+import { buildTofuFont } from '../src/tofu.js'
+import { rasterizeFont } from '../src/rasterize.js'
+import { srcFontDir } from '../src/paths.js'
+import type { BdfFont } from '../src/types.js'
 
 const sourceTtf = resolve(srcFontDir, 'liberation_sans', 'LiberationSans-Regular.ttf')
 

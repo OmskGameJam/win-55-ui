@@ -2,8 +2,8 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { parseBdf, writeBdf } from './bdf.js'
-import { fixturesDir } from './paths.js'
+import { parseBdf, writeBdf } from '../src/bdf.js'
+import { fixturesDir } from '../src/paths.js'
 
 function glyph(font: ReturnType<typeof parseBdf>, name: string) {
   const g = font.glyphs.find((g) => g.name === name)

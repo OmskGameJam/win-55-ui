@@ -2,8 +2,8 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { existsSync, unlinkSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { srcFontTestsDir } from './paths.js'
-import { resolveVerticalMetrics, readCachedVerticalMetrics } from './verticalMetrics.js'
+import { srcFontTestsDir } from '../src/paths.js'
+import { resolveVerticalMetrics, readCachedVerticalMetrics } from '../src/verticalMetrics.js'
 
 function withTempFontName(run: (fontName: string) => void): void {
   const fontName = `TestFakeFont${Math.random().toString(36).slice(2)}`

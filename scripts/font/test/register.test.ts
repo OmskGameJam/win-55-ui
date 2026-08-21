@@ -1,8 +1,8 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { buildSupportedFacesModule, buildFontFaceCss } from './register.js'
-import { publicUrlPrefix } from './paths.js'
-import type { FontsManifest } from './fontsManifest.js'
+import { buildSupportedFacesModule, buildFontFaceCss } from '../src/register.js'
+import { publicUrlPrefix } from '../src/paths.js'
+import type { FontsManifest } from '../src/fontsManifest.js'
 
 function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')

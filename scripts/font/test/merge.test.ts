@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mergeBdf, summarizeBackfill } from './merge.js'
-import type { BdfFont, BdfGlyph } from './types.js'
+import { mergeBdf, summarizeBackfill } from '../src/merge.js'
+import type { BdfFont, BdfGlyph } from '../src/types.js'
 
 function glyph(name: string, encoding: number, ink = true): BdfGlyph {
   return {

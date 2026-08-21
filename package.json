@@ -32,9 +32,9 @@
     "release": "node scripts/release.js",
     "emoji": "node scripts/emoji-cli.js",
     "font:build": "tsc -p scripts/font/tsconfig.json",
-    "font": "npm run font:build --silent && node scripts/font/dist/cli.js",
-    "font:test": "npm run font:build --silent && node --test \"scripts/font/dist/**/*.test.js\"",
-    "charedit": "npm run font:build --silent && node scripts/font/dist/charedit.js"
+    "font": "npm run font:build --silent && node scripts/font/dist/src/cli.js",
+    "font:test": "npm run font:build --silent && node --test \"scripts/font/dist/test/**/*.test.js\"",
+    "charedit": "npm run font:build --silent && node scripts/font/dist/src/charedit.js"
   },
   "peerDependencies": {
     "vue": "^3.5.0"

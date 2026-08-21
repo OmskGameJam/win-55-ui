@@ -1,8 +1,8 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import opentype from 'opentype.js'
-import { contourToSvgPath, buildSvgFontXml, svgFontToTtf } from './svgFont.js'
-import type { Bbx, Contour } from './types.js'
+import { contourToSvgPath, buildSvgFontXml, svgFontToTtf } from '../src/svgFont.js'
+import type { Bbx, Contour } from '../src/types.js'
 
 test('contourToSvgPath maps a single contour to font-unit, y-up, baseline-relative coordinates', () => {
   // A 2x2 ink square starting at the top-left of a 2x2 bbx sitting flush on the baseline.

@@ -2,11 +2,11 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { faceLabel, mergeChain, facesReferencingBdf } from './facePipeline.js'
-import { writeBdf } from './bdf.js'
-import { srcFontDir, srcFontTestsDir } from './paths.js'
-import type { BdfFont, BdfGlyph } from './types.js'
-import type { FaceEntry, FontsManifest } from './fontsManifest.js'
+import { faceLabel, mergeChain, facesReferencingBdf } from '../src/facePipeline.js'
+import { writeBdf } from '../src/bdf.js'
+import { srcFontDir, srcFontTestsDir } from '../src/paths.js'
+import type { BdfFont, BdfGlyph } from '../src/types.js'
+import type { FaceEntry, FontsManifest } from '../src/fontsManifest.js'
 
 function glyph(name: string, encoding: number, ink = true): BdfGlyph {
   return {

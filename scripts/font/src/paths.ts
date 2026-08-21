@@ -4,8 +4,10 @@ import { resolve } from 'node:path'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
-// scripts/font/dist -> scripts/font -> scripts -> project root
-export const projectRoot = resolve(__dirname, '..', '..', '..')
+// scripts/font/dist/src -> scripts/font/dist -> scripts/font -> scripts -> project root
+// (tsconfig.json's rootDir is scripts/font, spanning both src/ and test/, so dist/ mirrors that:
+// src/*.ts -> dist/src/*.js - one extra hop up compared to the old flat src/ -> dist/ mapping)
+export const projectRoot = resolve(__dirname, '..', '..', '..', '..')
 
 /**
  * Repo directory layout, read from `paths.config.json` at the project root instead of hardcoded

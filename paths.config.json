@@ -4,7 +4,7 @@
   "publicUrlPrefix": "/win-55-ui",
   "publicEmoji": "public/win-55-ui/emoji",
   "publicXEmoji": "public/win-55-ui/x-emoji",
-  "fontFixtures": "scripts/font/src/__fixtures__",
+  "fontFixtures": "scripts/font/test/__fixtures__",
   "srcFontTests": "src-font-tests",
   "generatedFontsTs": "src/helpers/generatedFonts.ts",
   "generatedFontsCss": "src/generated-fonts.css"

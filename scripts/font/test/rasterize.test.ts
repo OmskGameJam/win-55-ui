@@ -1,9 +1,9 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { resolve } from 'node:path'
-import { rasterizeFont } from './rasterize.js'
-import { traceGlyphContours, signedArea } from './contours.js'
-import { srcFontDir } from './paths.js'
+import { rasterizeFont } from '../src/rasterize.js'
+import { traceGlyphContours, signedArea } from '../src/contours.js'
+import { srcFontDir } from '../src/paths.js'
 
 const sourceTtf = resolve(srcFontDir, 'liberation_sans', 'LiberationSans-Regular.ttf')
 

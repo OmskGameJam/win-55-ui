@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { parseFontsManifest } from './fontsManifest.js'
+import { parseFontsManifest } from '../src/fontsManifest.js'
 
 test('parseFontsManifest accepts a minimal valid face (ttf only)', () => {
   const manifest = parseFontsManifest(JSON.stringify({ faces: [{ fontName: 'Standard', style: 'Bold', size: 12, ttf: 'Standard-Bold-12.ttf' }] }))

@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { parseArgs, getFlag, hasFlag } from './cli-args.js'
+import { parseArgs, getFlag, hasFlag } from '../src/cli-args.js'
 
 test('parseArgs separates positionals from --flag value pairs', () => {
   const { positional, flags } = parseArgs(['strike', 'font.ttf', '12', '--out', 'out.bdf', '--charset', 'AB'])

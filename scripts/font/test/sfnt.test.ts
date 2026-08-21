@@ -2,7 +2,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import opentype from 'opentype.js'
 import svg2ttf from 'svg2ttf'
-import { insertSfntTable, buildGaspTable, GASP_DOGRAY, GASP_GRIDFIT } from './sfnt.js'
+import { insertSfntTable, buildGaspTable, GASP_DOGRAY, GASP_GRIDFIT } from '../src/sfnt.js'
 
 function tinySvgFont(): string {
   // A single filled 4x4 square glyph, straight lines only — enough to exercise a real glyf/loca font.

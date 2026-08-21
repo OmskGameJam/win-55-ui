@@ -1,8 +1,8 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { resolve } from 'node:path'
-import { createFace, destroyFace, glyphExists, renderGlyph } from './directwrite.js'
-import { srcFontDir } from './paths.js'
+import { createFace, destroyFace, glyphExists, renderGlyph } from '../src/directwrite.js'
+import { srcFontDir } from '../src/paths.js'
 
 const sourceTtf = resolve(srcFontDir, 'liberation_sans', 'LiberationSans-Regular.ttf')
 

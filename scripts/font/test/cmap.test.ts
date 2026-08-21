@@ -2,8 +2,8 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import opentype from 'opentype.js'
 import svg2ttf from 'svg2ttf'
-import { stripCmapFormat4, buildTofuCmapTable, FULL_UNICODE_RANGES } from './cmap.js'
-import { getSfntTable, replaceSfntTable } from './sfnt.js'
+import { stripCmapFormat4, buildTofuCmapTable, FULL_UNICODE_RANGES } from '../src/cmap.js'
+import { getSfntTable, replaceSfntTable } from '../src/sfnt.js'
 
 function toArrayBuffer(bytes: Uint8Array): ArrayBuffer {
   return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer
