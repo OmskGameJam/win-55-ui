@@ -1,7 +1,17 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { buildSupportedFacesModule, buildFontFaceCss } from './register.js'
+import { publicUrlPrefix } from './paths.js'
 import type { FontsManifest } from './fontsManifest.js'
+
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+/** Matches register.ts's `url("${publicUrlPrefix}/font/<filename>")` - built from config, not hardcoded here. */
+function fontUrlRegex(filename: string): RegExp {
+  return new RegExp(`url\\("${escapeRegex(publicUrlPrefix)}/font/${escapeRegex(filename)}"\\)`)
+}
 
 const manifest: FontsManifest = {
   faces: [
@@ -29,18 +39,18 @@ test('buildFontFaceCss emits a primary @font-face block per face, family name ma
   const out = buildFontFaceCss(manifest)
 
   assert.match(out, /font-family: "Standard-Regular-12"/)
-  assert.match(out, /url\("\/win-55-ui\/font\/Standard-Regular-12\.ttf"\)/)
+  assert.match(out, fontUrlRegex('Standard-Regular-12.ttf'))
   assert.match(out, /font-family: "Standard-Bold-16"/)
-  assert.match(out, /url\("\/win-55-ui\/font\/Standard-Bold-16\.ttf"\)/)
+  assert.match(out, fontUrlRegex('Standard-Bold-16.ttf'))
 })
 
 test('buildFontFaceCss also emits a TofuMaker companion @font-face block per face', () => {
   const out = buildFontFaceCss(manifest)
 
   assert.match(out, /font-family: "Standard-Regular-12-TofuMaker"/)
-  assert.match(out, /url\("\/win-55-ui\/font\/Standard-Regular-12-TofuMaker\.ttf"\)/)
+  assert.match(out, fontUrlRegex('Standard-Regular-12-TofuMaker.ttf'))
   assert.match(out, /font-family: "Standard-Bold-16-TofuMaker"/)
-  assert.match(out, /url\("\/win-55-ui\/font\/Standard-Bold-16-TofuMaker\.ttf"\)/)
+  assert.match(out, fontUrlRegex('Standard-Bold-16-TofuMaker.ttf'))
 })
 
 test('buildFontFaceCss emits exactly two blocks per face (primary + TofuMaker)', () => {
@@ -52,8 +62,8 @@ test('buildFontFaceCss emits exactly two blocks per face (primary + TofuMaker)',
 test('buildFontFaceCss uses face.ttf verbatim for the url even if it diverges from the {fontName}-{style}-{size} convention', () => {
   const out = buildFontFaceCss({ faces: [{ fontName: 'Standard', style: 'Regular', size: 12, ttf: 'weird-legacy-name.ttf' }] })
   assert.match(out, /font-family: "Standard-Regular-12"/)
-  assert.match(out, /url\("\/win-55-ui\/font\/weird-legacy-name\.ttf"\)/)
-  assert.match(out, /url\("\/win-55-ui\/font\/weird-legacy-name-TofuMaker\.ttf"\)/)
+  assert.match(out, fontUrlRegex('weird-legacy-name.ttf'))
+  assert.match(out, fontUrlRegex('weird-legacy-name-TofuMaker.ttf'))
 })
 
 test('buildFontFaceCss carries the "do not edit" banner', () => {

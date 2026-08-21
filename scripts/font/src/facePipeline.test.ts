@@ -1,11 +1,10 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { faceLabel, mergeChain, facesReferencingBdf } from './facePipeline.js'
 import { writeBdf } from './bdf.js'
-import { srcFontDir } from './paths.js'
+import { srcFontDir, srcFontTestsDir } from './paths.js'
 import type { BdfFont, BdfGlyph } from './types.js'
 import type { FaceEntry, FontsManifest } from './fontsManifest.js'
 
@@ -41,7 +40,8 @@ test('faceLabel formats fontName/style/size', () => {
 })
 
 test('mergeChain folds strike + one fallback', () => {
-  const dir = mkdtempSync(join(tmpdir(), 'facepipeline-'))
+  mkdirSync(srcFontTestsDir, { recursive: true })
+  const dir = mkdtempSync(join(srcFontTestsDir, 'facepipeline-'))
   try {
     const strikePath = join(dir, 'strike.bdf')
     const fallbackPath = join(dir, 'fallback.bdf')
@@ -64,7 +64,8 @@ test('mergeChain folds strike + one fallback', () => {
 })
 
 test('mergeChain folds multiple fallbacks in order, each backfilling only what is still missing', () => {
-  const dir = mkdtempSync(join(tmpdir(), 'facepipeline-'))
+  mkdirSync(srcFontTestsDir, { recursive: true })
+  const dir = mkdtempSync(join(srcFontTestsDir, 'facepipeline-'))
   try {
     const strikePath = join(dir, 'strike.bdf')
     const fallback1Path = join(dir, 'fallback1.bdf')

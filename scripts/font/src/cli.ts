@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync, copyFileSync } from 'node:fs'
 import { basename, dirname, extname, resolve } from 'node:path'
 import { parseArgs, getFlag, hasFlag } from './cli-args.js'
-import { projectRoot, srcFontDir, publicFontDir } from './paths.js'
+import { srcFontDir, publicFontDir, generatedFontsTsPath, generatedFontsCssPath } from './paths.js'
 import { parseBdf, writeBdf } from './bdf.js'
 import { rasterizeFont, type RasterizeOptions } from './rasterize.js'
 import { mergeBdf, summarizeBackfill } from './merge.js'
@@ -502,11 +502,8 @@ function cmdPushFonts(): void {
 function cmdUpdateRegister(): void {
   const manifest = loadFontsManifest()
 
-  const tsPath = resolve(projectRoot, 'src', 'helpers', 'generatedFonts.ts')
-  const cssPath = resolve(projectRoot, 'src', 'generated-fonts.css')
-
-  writeFileSync(tsPath, buildSupportedFacesModule(manifest), 'utf8')
-  writeFileSync(cssPath, buildFontFaceCss(manifest), 'utf8')
+  writeFileSync(generatedFontsTsPath, buildSupportedFacesModule(manifest), 'utf8')
+  writeFileSync(generatedFontsCssPath, buildFontFaceCss(manifest), 'utf8')
 
   console.log(`font-cli: regenerated generatedFonts.ts and generated-fonts.css from ${manifest.faces.length} face(s) - review with git diff.`)
 }

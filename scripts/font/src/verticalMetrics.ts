@@ -1,5 +1,5 @@
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
 import { srcFontDir } from './paths.js'
 
 export interface VerticalMetrics {
@@ -7,18 +7,21 @@ export interface VerticalMetrics {
   fontDescent: number
 }
 
-function cachePath(fontName: string, pixelSize: number): string {
-  return resolve(srcFontDir, `${fontName}-${pixelSize}.measurements.json`)
+function cachePath(fontName: string, pixelSize: number, baseDir: string): string {
+  return resolve(baseDir, `${fontName}-${pixelSize}.measurements.json`)
 }
 
-export function readCachedVerticalMetrics(fontName: string, pixelSize: number): VerticalMetrics | null {
-  const path = cachePath(fontName, pixelSize)
+/** `baseDir` defaults to the real `src-font/` - tests pass `srcFontTestsDir` instead, see paths.ts. */
+export function readCachedVerticalMetrics(fontName: string, pixelSize: number, baseDir: string = srcFontDir): VerticalMetrics | null {
+  const path = cachePath(fontName, pixelSize, baseDir)
   if (!existsSync(path)) return null
   return JSON.parse(readFileSync(path, 'utf8')) as VerticalMetrics
 }
 
-export function writeCachedVerticalMetrics(fontName: string, pixelSize: number, metrics: VerticalMetrics): void {
-  writeFileSync(cachePath(fontName, pixelSize), JSON.stringify(metrics, null, 2) + '\n', 'utf8')
+export function writeCachedVerticalMetrics(fontName: string, pixelSize: number, metrics: VerticalMetrics, baseDir: string = srcFontDir): void {
+  const path = cachePath(fontName, pixelSize, baseDir)
+  mkdirSync(dirname(path), { recursive: true }) // baseDir may not exist yet - e.g. src-font-tests/ in tests
+  writeFileSync(path, JSON.stringify(metrics, null, 2) + '\n', 'utf8')
 }
 
 /**
@@ -38,11 +41,12 @@ export function resolveVerticalMetrics(
   fontName: string,
   pixelSize: number,
   measured: VerticalMetrics,
+  baseDir: string = srcFontDir,
 ): { metrics: VerticalMetrics; overflow: string[] } {
-  const cached = readCachedVerticalMetrics(fontName, pixelSize)
+  const cached = readCachedVerticalMetrics(fontName, pixelSize, baseDir)
 
   if (!cached) {
-    writeCachedVerticalMetrics(fontName, pixelSize, measured)
+    writeCachedVerticalMetrics(fontName, pixelSize, measured, baseDir)
     return { metrics: measured, overflow: [] }
   }
 
