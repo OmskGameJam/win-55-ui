@@ -3,8 +3,7 @@ import type { FontsManifest } from './fontsManifest.js'
 import { tofuTtfFilename, tofuFamilyName } from './fontsManifest.js'
 import { publicUrlPrefix, projectRoot, fontsManifestPath } from './paths.js'
 
-// "src-font/fonts.json" for the banner text below, derived from paths.config.json rather than
-// hardcoded a second time - forward slashes regardless of host OS, this is prose, not a real path.
+// Derived rather than hardcoded a second time; forced to forward slashes since this is prose, not a real path.
 const fontsJsonRelativePath = relative(projectRoot, fontsManifestPath).replace(/\\/g, '/')
 
 const GENERATED_BANNER_TS = [

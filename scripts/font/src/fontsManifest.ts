@@ -1,12 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { fontsManifestPath } from './paths.js'
 
-/**
- * Overrides for rasterizeFont's auto-kerning knobs, all optional (each falls back to
- * rasterizeFont's own default when omitted). There's no separate "enabled" flag here - presence
- * of a `kerning` block on a face IS what turns auto-kerning on for it; an empty object (`{}`)
- * means "auto-kerning on, with every default".
- */
+/** Auto-kerning knobs for rasterizeFont, enabled by the mere presence of this block (even `{}`) rather than a separate flag. */
 export interface KerningConfig {
   rightSideCount?: number
   rightSideVolume?: number
@@ -34,32 +29,22 @@ export interface FaceEntry {
   kerning?: KerningConfig
 }
 
-/** A closed codepoint range (both ends inclusive), hex strings for readability against Unicode block charts. */
+/** Inclusive codepoint range, hex strings (no "U+" prefix). */
 export interface DroppedRange {
   start: string
   end: string
-  /** Documentation only, e.g. "CJK Unified Ideographs" - not read by anything. */
+  /** Not read by anything. */
   label?: string
 }
 
 export interface FontsManifest {
   faces: FaceEntry[]
-  /**
-   * Codepoints excluded from every fallback merge, repo-wide - e.g. dropping Han ideographs while
-   * still striking Japanese kana. Applies at merge time only: fallbackBdf itself stays untouched
-   * (kept full for reference/future use, see FONTS.md), only mergePath excludes these codepoints.
-   */
+  /** Codepoints excluded from every fallback merge (fallbackBdf itself stays untouched). See FONTS.md. */
   droppedRanges?: DroppedRange[]
-  /**
-   * Individual codepoints kept even though they fall inside a droppedRanges range - hex strings,
-   * same format as DroppedRange.start/end. For kanji used purely as kaomoji facial props/shapes
-   * (人 hugging arms, 益 cat mouth, 凸 the middle-finger gesture, ...), never read as language - see
-   * FONTS.md for how this list was derived (a real kaomoji dataset, not stroke count or guessing).
-   */
+  /** Codepoints exempted from droppedRanges. See FONTS.md for the list and how it was derived. */
   allowedCodepoints?: string[]
 }
 
-/** Expands `droppedRanges` into the flat codepoint list `mergeBdf`'s `skip` option expects, minus `allowedCodepoints`. */
 export function expandDroppedRanges(manifest: FontsManifest): number[] {
   const allowed = new Set((manifest.allowedCodepoints ?? []).map((s) => parseInt(s, 16)))
   const codepoints: number[] = []
@@ -75,16 +60,10 @@ export function expandDroppedRanges(manifest: FontsManifest): number[] {
   return codepoints
 }
 
-/**
- * TofuMaker companion filename for a face - `{name}.ttf` -> `{name}-TofuMaker.ttf`. Derived from
- * `face.ttf` rather than a separate manifest field: it's a 1:1, always-present companion to every
- * face's own ttf, not an independent thing to configure per face.
- */
 export function tofuTtfFilename(face: FaceEntry): string {
   return face.ttf.replace(/\.ttf$/i, '-TofuMaker.ttf')
 }
 
-/** Same derivation, for the CSS font-family string (`{fontName}-{style}-{size}-TofuMaker`). */
 export function tofuFamilyName(face: FaceEntry): string {
   return `${face.fontName}-${face.style}-${face.size}-TofuMaker`
 }

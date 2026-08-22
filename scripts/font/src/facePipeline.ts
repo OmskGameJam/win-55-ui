@@ -1,9 +1,7 @@
 /**
  * "I hand-edited a BDF, make the final font catch up" - re-merge (if needed) + rebuild + republish
- * a single manifest face, unconditionally overwriting every output. Deliberately separate from
- * cli.ts's strike-all/fallback-all/build-all/tofu-all/push-fonts: those intentionally skip a file
- * that already exists (existing BDFs may be hand-edited, existing TTFs may be mid-review) - this
- * is the opposite intent, always overwrite, driven by charedit.ts on exit.
+ * one face, always overwriting. Deliberately separate from cli.ts's strike-all/build-all/etc., which
+ * intentionally skip files that already exist. Driven by charedit.ts on exit.
  */
 
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync, copyFileSync } from 'node:fs'
@@ -19,12 +17,7 @@ export function faceLabel(face: FaceEntry): string {
   return `${face.fontName}/${face.style}/${face.size}`
 }
 
-/**
- * Sequentially folds strikeBdf + fallbackBdf[0..n] into one BDF, first to last - same rule merge-all
- * uses. `skip` (typically `expandDroppedRanges(manifest)`) excludes codepoints from backfill even
- * though a fallback has them - the fallbackBdf files themselves are untouched either way, only the
- * merged output excludes them (see fonts.json's `droppedRanges`, FONTS.md).
- */
+/** Folds strikeBdf + each fallbackBdf into one BDF, first to last. `skip` excludes codepoints from backfill without touching the fallback files themselves - see FONTS.md's `droppedRanges`. */
 export function mergeChain(strikeBdfPath: string, fallbackBdfPaths: string[], skip?: number[]): MergeResult {
   let primary = parseBdf(readFileSync(strikeBdfPath, 'utf8'))
   let backfilled: MergeResult['backfilled'] = []

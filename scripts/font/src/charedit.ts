@@ -160,9 +160,6 @@ function main(): void {
   const [bdfPathArg, glyphQuery] = positional
   if (!bdfPathArg) usage(1)
 
-  // Bare/relative paths resolve against src-font/ - that's where every BDF this tool cares about
-  // lives, so "npm run charedit -- LiberationSans-Bold-24.bdf" works without spelling out the
-  // directory. An absolute path, or one that already climbs out via "..", still works as given.
   const bdfPath = isAbsolute(bdfPathArg) ? resolve(bdfPathArg) : resolve(srcFontDir, bdfPathArg)
   if (!existsSync(bdfPath)) fail(`file not found: ${bdfPath}`)
 
@@ -179,8 +176,7 @@ function main(): void {
   if (!process.stdin.isTTY) fail('charedit needs an interactive terminal (stdin is not a TTY)')
 
   const state: EditorState = { font, glyphIndex, cursorX: 0, cursorY: 0, dirty: false, mode: 'edit', promptBuffer: '', message: '' }
-  // Whether save() ever wrote to disk this session - independent of state.dirty, which flips back
-  // to false right after a save. Drives whether cleanup() re-runs the downstream pipeline at all.
+  // Unlike state.dirty (flips back false right after a save), this never resets - it's what cleanup() checks to decide whether to re-run the pipeline.
   let savedDuringSession = false
 
   function cleanup(code: number): never {

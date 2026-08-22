@@ -11,7 +11,6 @@ function cachePath(fontName: string, pixelSize: number, baseDir: string): string
   return resolve(baseDir, `${fontName}-${pixelSize}.measurements.json`)
 }
 
-/** `baseDir` defaults to the real `src-font/` - tests pass `srcFontTestsDir` instead, see paths.ts. */
 export function readCachedVerticalMetrics(fontName: string, pixelSize: number, baseDir: string = srcFontDir): VerticalMetrics | null {
   const path = cachePath(fontName, pixelSize, baseDir)
   if (!existsSync(path)) return null
@@ -20,22 +19,17 @@ export function readCachedVerticalMetrics(fontName: string, pixelSize: number, b
 
 export function writeCachedVerticalMetrics(fontName: string, pixelSize: number, metrics: VerticalMetrics, baseDir: string = srcFontDir): void {
   const path = cachePath(fontName, pixelSize, baseDir)
-  mkdirSync(dirname(path), { recursive: true }) // baseDir may not exist yet - e.g. src-font-tests/ in tests
+  mkdirSync(dirname(path), { recursive: true }) // may not exist yet, e.g. in tests
   writeFileSync(path, JSON.stringify(metrics, null, 2) + '\n', 'utf8')
 }
 
 /**
- * All styles of one family (Regular/Bold/Italic/BoldItalic) sharing a pixel size must declare the
- * same ascent/descent - otherwise line-height math stays correct (the sum is unaffected) but
- * anything that positions content relative to where the *ink* sits within that box - a fixed-height
- * flex row centering a titlebar, an inline image with vertical-align: baseline - shifts by a pixel
- * when the active style changes, even though nothing about the surrounding layout moved. Whichever
- * style is struck first for a (fontName, pixelSize) pair - conventionally Regular - measures its
- * own real ink (see rasterizeFont) and caches the result to src-font/{fontName}-{pixelSize}.
- * measurements.json; every later style at that size reuses the cached value instead of measuring
- * its own. If a later style's real ink is deeper/taller than the cached value allows, that's a
- * soft finding (the glyph itself isn't clipped, but it can visually spill past the line box into
- * the next line) - flagged via the returned `overflow`, never silently swallowed.
+ * Styles sharing a pixel size must declare identical ascent/descent, or content positioned relative
+ * to ink within a fixed-height box (a centered titlebar, a baseline-aligned inline image) shifts by
+ * a pixel when the active style changes, even though line-height itself doesn't move. The first
+ * style struck for a (fontName, pixelSize) pair - conventionally Regular - measures its own ink and
+ * caches it; every later style reuses that cache. A later style whose real ink exceeds the cached
+ * value gets a soft warning (`overflow`).
  */
 export function resolveVerticalMetrics(
   fontName: string,

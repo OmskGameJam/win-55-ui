@@ -251,7 +251,6 @@ function cmdTofu(args: string[]): void {
   console.log(`font-cli: built ${outPath} — every Unicode codepoint mapped to '?'`)
 }
 
-/** Presence of `face.kerning` (even `{}`) is what turns auto-kerning on for strike-all/fallback-all. */
 function rasterizeOptionsFor(face: FaceEntry): RasterizeOptions {
   return { style: face.style, family: face.fontName, generateKerning: face.kerning !== undefined, ...face.kerning }
 }
