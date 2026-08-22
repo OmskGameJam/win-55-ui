@@ -8,7 +8,7 @@ import { mergeBdf, summarizeBackfill } from './merge.js'
 import { buildTtf } from './build.js'
 import { buildTofuFont } from './tofu.js'
 import { buildSupportedFacesModule, buildFontFaceCss } from './register.js'
-import { loadFontsManifest, tofuTtfFilename, type FaceEntry } from './fontsManifest.js'
+import { loadFontsManifest, expandDroppedRanges, tofuTtfFilename, type FaceEntry } from './fontsManifest.js'
 import { faceLabel, mergeChain } from './facePipeline.js'
 import { resolveVerticalMetrics } from './verticalMetrics.js'
 import { SIZES } from './registry.js'
@@ -318,6 +318,7 @@ async function cmdFallbackAll(): Promise<void> {
 
 function cmdMergeAll(): void {
   const manifest = loadFontsManifest()
+  const droppedCodepoints = expandDroppedRanges(manifest)
   let merged = 0
   let skipped = 0
 
@@ -348,7 +349,7 @@ function cmdMergeAll(): void {
 
     let result: ReturnType<typeof mergeBdf>
     try {
-      result = mergeChain(strikeBdfPath, fallbackBdfPaths)
+      result = mergeChain(strikeBdfPath, fallbackBdfPaths, droppedCodepoints)
     } catch (e) {
       console.warn(`font-cli: skip ${faceLabel(face)}: ${(e as Error).message}`)
       skipped++

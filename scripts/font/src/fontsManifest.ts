@@ -34,8 +34,35 @@ export interface FaceEntry {
   kerning?: KerningConfig
 }
 
+/** A closed codepoint range (both ends inclusive), hex strings for readability against Unicode block charts. */
+export interface DroppedRange {
+  start: string
+  end: string
+  /** Documentation only, e.g. "CJK Unified Ideographs" - not read by anything. */
+  label?: string
+}
+
 export interface FontsManifest {
   faces: FaceEntry[]
+  /**
+   * Codepoints excluded from every fallback merge, repo-wide - e.g. dropping Han ideographs while
+   * still striking Japanese kana. Applies at merge time only: fallbackBdf itself stays untouched
+   * (kept full for reference/future use, see FONTS.md), only mergePath excludes these codepoints.
+   */
+  droppedRanges?: DroppedRange[]
+}
+
+/** Expands `droppedRanges` into the flat codepoint list `mergeBdf`'s `skip` option expects. */
+export function expandDroppedRanges(manifest: FontsManifest): number[] {
+  const codepoints: number[] = []
+
+  for (const range of manifest.droppedRanges ?? []) {
+    const start = parseInt(range.start, 16)
+    const end = parseInt(range.end, 16)
+    for (let cp = start; cp <= end; cp++) codepoints.push(cp)
+  }
+
+  return codepoints
 }
 
 /**
@@ -106,6 +133,23 @@ function assertFaceEntry(value: unknown, index: number): asserts value is FaceEn
   }
 }
 
+const HEX_CODEPOINT = /^[0-9a-fA-F]+$/
+
+function assertDroppedRange(value: unknown, index: number): asserts value is DroppedRange {
+  if (typeof value !== 'object' || value === null) throw new Error(`fonts.json: droppedRanges[${index}] is not an object`)
+  const range = value as Record<string, unknown>
+
+  assertString(range.start, `droppedRanges[${index}].start`)
+  assertString(range.end, `droppedRanges[${index}].end`)
+  assertOptionalString(range.label, `droppedRanges[${index}].label`)
+
+  if (!HEX_CODEPOINT.test(range.start)) throw new Error(`fonts.json: droppedRanges[${index}].start must be a hex codepoint, got "${range.start}"`)
+  if (!HEX_CODEPOINT.test(range.end)) throw new Error(`fonts.json: droppedRanges[${index}].end must be a hex codepoint, got "${range.end}"`)
+  if (parseInt(range.start, 16) > parseInt(range.end, 16)) {
+    throw new Error(`fonts.json: droppedRanges[${index}]: start (${range.start}) is after end (${range.end})`)
+  }
+}
+
 export function parseFontsManifest(jsonText: string): FontsManifest {
   let parsed: unknown
   try {
@@ -121,7 +165,13 @@ export function parseFontsManifest(jsonText: string): FontsManifest {
   const faces = (parsed as { faces: unknown[] }).faces
   faces.forEach(assertFaceEntry)
 
-  return { faces: faces as FaceEntry[] }
+  const droppedRanges = (parsed as Record<string, unknown>).droppedRanges
+  if (droppedRanges !== undefined) {
+    if (!Array.isArray(droppedRanges)) throw new Error('fonts.json: "droppedRanges" must be an array')
+    droppedRanges.forEach(assertDroppedRange)
+  }
+
+  return { faces: faces as FaceEntry[], droppedRanges: droppedRanges as DroppedRange[] | undefined }
 }
 
 export function loadFontsManifest(): FontsManifest {

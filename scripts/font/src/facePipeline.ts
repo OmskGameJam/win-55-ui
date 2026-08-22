@@ -12,21 +12,26 @@ import { parseBdf, writeBdf } from './bdf.js'
 import { mergeBdf, summarizeBackfill, type MergeResult } from './merge.js'
 import { buildTtf } from './build.js'
 import { buildTofuFont } from './tofu.js'
-import { loadFontsManifest, tofuTtfFilename, type FaceEntry, type FontsManifest } from './fontsManifest.js'
+import { loadFontsManifest, expandDroppedRanges, tofuTtfFilename, type FaceEntry, type FontsManifest } from './fontsManifest.js'
 import { srcFontDir, publicFontDir } from './paths.js'
 
 export function faceLabel(face: FaceEntry): string {
   return `${face.fontName}/${face.style}/${face.size}`
 }
 
-/** Sequentially folds strikeBdf + fallbackBdf[0..n] into one BDF, first to last - same rule merge-all uses. */
-export function mergeChain(strikeBdfPath: string, fallbackBdfPaths: string[]): MergeResult {
+/**
+ * Sequentially folds strikeBdf + fallbackBdf[0..n] into one BDF, first to last - same rule merge-all
+ * uses. `skip` (typically `expandDroppedRanges(manifest)`) excludes codepoints from backfill even
+ * though a fallback has them - the fallbackBdf files themselves are untouched either way, only the
+ * merged output excludes them (see fonts.json's `droppedRanges`, FONTS.md).
+ */
+export function mergeChain(strikeBdfPath: string, fallbackBdfPaths: string[], skip?: number[]): MergeResult {
   let primary = parseBdf(readFileSync(strikeBdfPath, 'utf8'))
   let backfilled: MergeResult['backfilled'] = []
 
   for (const fallbackPath of fallbackBdfPaths) {
     const fallback = parseBdf(readFileSync(fallbackPath, 'utf8'))
-    const result = mergeBdf(primary, fallback)
+    const result = mergeBdf(primary, fallback, { skip })
     primary = result.merged
     backfilled = backfilled.concat(result.backfilled)
   }
@@ -48,7 +53,7 @@ export interface RebuildResult {
  * fallbackBdf and always writes mergePath from scratch, so re-running it would silently discard
  * an edit made directly to the merged file instead of the pre-merge strike.
  */
-export function rebuildFace(face: FaceEntry, opts: { skipMerge?: boolean } = {}): RebuildResult {
+export function rebuildFace(face: FaceEntry, opts: { skipMerge?: boolean; droppedCodepoints?: number[] } = {}): RebuildResult {
   const log: string[] = []
   const result: RebuildResult = { face, merged: false, built: false, tofuBuilt: false, pushed: false, log }
 
@@ -62,7 +67,7 @@ export function rebuildFace(face: FaceEntry, opts: { skipMerge?: boolean } = {})
     if (missing.length > 0) {
       log.push(`skip merge for ${faceLabel(face)}: missing input(s): ${missing.join(', ')}`)
     } else {
-      const { merged, backfilled } = mergeChain(strikeBdfPath, fallbackBdfPaths)
+      const { merged, backfilled } = mergeChain(strikeBdfPath, fallbackBdfPaths, opts.droppedCodepoints)
       const mergeOutPath = resolve(srcFontDir, face.mergePath!)
       mkdirSync(dirname(mergeOutPath), { recursive: true })
       writeFileSync(mergeOutPath, writeBdf(merged), 'utf8')
@@ -152,6 +157,7 @@ export function facesReferencingBdf(manifest: FontsManifest, bdfPath: string): {
 /** The charedit.ts exit hook: rebuild + republish every face this BDF feeds into, always overwriting. */
 export function rebuildFacesForBdf(bdfPath: string): RebuildResult[] {
   const manifest = loadFontsManifest()
+  const droppedCodepoints = expandDroppedRanges(manifest)
   const matches = facesReferencingBdf(manifest, bdfPath)
-  return matches.map(({ face, isMergePath }) => rebuildFace(face, { skipMerge: isMergePath }))
+  return matches.map(({ face, isMergePath }) => rebuildFace(face, { skipMerge: isMergePath, droppedCodepoints }))
 }

@@ -1,4 +1,24 @@
 {
+  "droppedRanges": [
+    { "start": "2E80", "end": "2EFF", "label": "CJK Radicals Supplement" },
+    { "start": "2F00", "end": "2FDF", "label": "Kangxi Radicals" },
+    { "start": "2FF0", "end": "2FFF", "label": "Ideographic Description Characters" },
+    { "start": "3100", "end": "312F", "label": "Bopomofo (Chinese phonetic notation)" },
+    { "start": "3190", "end": "319F", "label": "Kanbun" },
+    { "start": "31C0", "end": "31EF", "label": "CJK Strokes" },
+    { "start": "3200", "end": "32FF", "label": "Enclosed CJK Letters and Months" },
+    { "start": "3300", "end": "33FF", "label": "CJK Compatibility" },
+    { "start": "3400", "end": "4DBF", "label": "CJK Unified Ideographs Extension A" },
+    { "start": "4E00", "end": "9FFF", "label": "CJK Unified Ideographs" },
+    { "start": "F900", "end": "FAFF", "label": "CJK Compatibility Ideographs" },
+    { "start": "1F200", "end": "1F2FF", "label": "Enclosed Ideographic Supplement" },
+    { "start": "20000", "end": "2A6DF", "label": "CJK Unified Ideographs Extension B" },
+    { "start": "2A700", "end": "2B73F", "label": "CJK Unified Ideographs Extension C" },
+    { "start": "2B740", "end": "2B81F", "label": "CJK Unified Ideographs Extension D" },
+    { "start": "2B820", "end": "2CEAF", "label": "CJK Unified Ideographs Extension E" },
+    { "start": "2CEB0", "end": "2EBEF", "label": "CJK Unified Ideographs Extension F" },
+    { "start": "2F800", "end": "2FA1F", "label": "CJK Compatibility Ideographs Supplement" }
+  ],
   "faces": [
     {
       "fontName": "Standard",

@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { parseFontsManifest } from '../src/fontsManifest.js'
+import { parseFontsManifest, expandDroppedRanges } from '../src/fontsManifest.js'
 
 test('parseFontsManifest accepts a minimal valid face (ttf only)', () => {
   const manifest = parseFontsManifest(JSON.stringify({ faces: [{ fontName: 'Standard', style: 'Bold', size: 12, ttf: 'Standard-Bold-12.ttf' }] }))
@@ -80,4 +80,55 @@ test('parseFontsManifest rejects mismatched fallbackSource/fallbackBdf lengths',
       ),
     /same length/,
   )
+})
+
+test('parseFontsManifest accepts droppedRanges as hex-string codepoint ranges', () => {
+  const manifest = parseFontsManifest(
+    JSON.stringify({
+      faces: [],
+      droppedRanges: [{ start: '4E00', end: '9FFF', label: 'CJK Unified Ideographs' }],
+    }),
+  )
+  assert.deepEqual(manifest.droppedRanges, [{ start: '4E00', end: '9FFF', label: 'CJK Unified Ideographs' }])
+})
+
+test('parseFontsManifest omits droppedRanges entirely when absent, rather than defaulting to []', () => {
+  const manifest = parseFontsManifest(JSON.stringify({ faces: [] }))
+  assert.equal(manifest.droppedRanges, undefined)
+})
+
+test('parseFontsManifest rejects a non-array droppedRanges', () => {
+  assert.throws(() => parseFontsManifest(JSON.stringify({ faces: [], droppedRanges: 'nope' })), /"droppedRanges" must be an array/)
+})
+
+test('parseFontsManifest rejects a droppedRanges entry with a non-hex start/end', () => {
+  assert.throws(
+    () => parseFontsManifest(JSON.stringify({ faces: [], droppedRanges: [{ start: 'not-hex', end: '9FFF' }] })),
+    /droppedRanges\[0\]\.start must be a hex codepoint/,
+  )
+})
+
+test('parseFontsManifest rejects a droppedRanges entry where start is after end', () => {
+  assert.throws(
+    () => parseFontsManifest(JSON.stringify({ faces: [], droppedRanges: [{ start: '9FFF', end: '4E00' }] })),
+    /start \(9FFF\) is after end \(4E00\)/,
+  )
+})
+
+test('expandDroppedRanges flattens ranges into individual codepoints, inclusive of both ends', () => {
+  const manifest = parseFontsManifest(
+    JSON.stringify({
+      faces: [],
+      droppedRanges: [
+        { start: '41', end: '43' }, // A, B, C
+        { start: '61', end: '61' }, // a
+      ],
+    }),
+  )
+  assert.deepEqual(expandDroppedRanges(manifest), [0x41, 0x42, 0x43, 0x61])
+})
+
+test('expandDroppedRanges returns an empty array when droppedRanges is absent', () => {
+  const manifest = parseFontsManifest(JSON.stringify({ faces: [] }))
+  assert.deepEqual(expandDroppedRanges(manifest), [])
 })

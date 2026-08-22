@@ -63,6 +63,32 @@ test('mergeChain folds strike + one fallback', () => {
   }
 })
 
+test('mergeChain, given skip codepoints, excludes them from backfill without touching the fallback file itself', () => {
+  mkdirSync(srcFontTestsDir, { recursive: true })
+  const dir = mkdtempSync(join(srcFontTestsDir, 'facepipeline-'))
+  try {
+    const strikePath = join(dir, 'strike.bdf')
+    const fallbackPath = join(dir, 'fallback.bdf')
+    writeFileSync(strikePath, writeBdf(font([glyph('A', 65)])), 'utf8')
+    // B is dropped, C is not - only C should make it into the merged output.
+    writeFileSync(fallbackPath, writeBdf(font([glyph('B', 66), glyph('C', 67)])), 'utf8')
+
+    const { merged, backfilled } = mergeChain(strikePath, [fallbackPath], [66])
+
+    assert.deepEqual(
+      merged.glyphs.map((g) => g.encoding),
+      [65, 67],
+      'dropped codepoint (66) must not appear in the merged BDF',
+    )
+    assert.deepEqual(
+      backfilled.map((b) => b.encoding),
+      [67],
+    )
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
 test('mergeChain folds multiple fallbacks in order, each backfilling only what is still missing', () => {
   mkdirSync(srcFontTestsDir, { recursive: true })
   const dir = mkdtempSync(join(srcFontTestsDir, 'facepipeline-'))
