@@ -128,6 +128,34 @@ test('expandDroppedRanges flattens ranges into individual codepoints, inclusive 
   assert.deepEqual(expandDroppedRanges(manifest), [0x41, 0x42, 0x43, 0x61])
 })
 
+test('parseFontsManifest accepts allowedCodepoints as hex-string codepoints', () => {
+  const manifest = parseFontsManifest(JSON.stringify({ faces: [], allowedCodepoints: ['4EBA', '76CA'] }))
+  assert.deepEqual(manifest.allowedCodepoints, ['4EBA', '76CA'])
+})
+
+test('parseFontsManifest rejects a non-array allowedCodepoints', () => {
+  assert.throws(() => parseFontsManifest(JSON.stringify({ faces: [], allowedCodepoints: 'nope' })), /"allowedCodepoints" must be an array/)
+})
+
+test('parseFontsManifest rejects a non-hex allowedCodepoints entry', () => {
+  assert.throws(
+    () => parseFontsManifest(JSON.stringify({ faces: [], allowedCodepoints: ['not-hex'] })),
+    /allowedCodepoints\[0\] must be a hex codepoint/,
+  )
+})
+
+test('expandDroppedRanges excludes allowedCodepoints even though they fall inside a dropped range', () => {
+  const manifest = parseFontsManifest(
+    JSON.stringify({
+      faces: [],
+      droppedRanges: [{ start: '4E00', end: '4E10' }],
+      allowedCodepoints: ['4EBA'], // U+4EBA = 0x4EBA, inside the range above
+    }),
+  )
+  assert.ok(!expandDroppedRanges(manifest).includes(0x4eba), 'allowed codepoint must not appear in the drop list')
+  assert.ok(expandDroppedRanges(manifest).includes(0x4e01), 'everything else in the range is still dropped')
+})
+
 test('expandDroppedRanges returns an empty array when droppedRanges is absent', () => {
   const manifest = parseFontsManifest(JSON.stringify({ faces: [] }))
   assert.deepEqual(expandDroppedRanges(manifest), [])

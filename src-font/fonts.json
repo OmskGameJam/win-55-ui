@@ -19,6 +19,12 @@
     { "start": "2CEB0", "end": "2EBEF", "label": "CJK Unified Ideographs Extension F" },
     { "start": "2F800", "end": "2FA1F", "label": "CJK Compatibility Ideographs Supplement" }
   ],
+  "allowedCodepoints": [
+    "4EBA", "5F61", "76CA", "8278", "4E09", "76BF", "65E6", "51F8", "51F9",
+    "4E41", "7676", "516B", "706C", "5DE5", "4E14", "5DDD", "7F52", "4E2A",
+    "7544", "4E3F", "5382", "4ECE", "4E36", "5C38", "51AB", "4E9D", "723B",
+    "5C6E", "4E8C", "2EAB", "310F", "311C"
+  ],
   "faces": [
     {
       "fontName": "Standard",

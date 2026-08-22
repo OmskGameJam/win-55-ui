@@ -50,16 +50,26 @@ export interface FontsManifest {
    * (kept full for reference/future use, see FONTS.md), only mergePath excludes these codepoints.
    */
   droppedRanges?: DroppedRange[]
+  /**
+   * Individual codepoints kept even though they fall inside a droppedRanges range - hex strings,
+   * same format as DroppedRange.start/end. For kanji used purely as kaomoji facial props/shapes
+   * (人 hugging arms, 益 cat mouth, 凸 the middle-finger gesture, ...), never read as language - see
+   * FONTS.md for how this list was derived (a real kaomoji dataset, not stroke count or guessing).
+   */
+  allowedCodepoints?: string[]
 }
 
-/** Expands `droppedRanges` into the flat codepoint list `mergeBdf`'s `skip` option expects. */
+/** Expands `droppedRanges` into the flat codepoint list `mergeBdf`'s `skip` option expects, minus `allowedCodepoints`. */
 export function expandDroppedRanges(manifest: FontsManifest): number[] {
+  const allowed = new Set((manifest.allowedCodepoints ?? []).map((s) => parseInt(s, 16)))
   const codepoints: number[] = []
 
   for (const range of manifest.droppedRanges ?? []) {
     const start = parseInt(range.start, 16)
     const end = parseInt(range.end, 16)
-    for (let cp = start; cp <= end; cp++) codepoints.push(cp)
+    for (let cp = start; cp <= end; cp++) {
+      if (!allowed.has(cp)) codepoints.push(cp)
+    }
   }
 
   return codepoints
@@ -171,7 +181,20 @@ export function parseFontsManifest(jsonText: string): FontsManifest {
     droppedRanges.forEach(assertDroppedRange)
   }
 
-  return { faces: faces as FaceEntry[], droppedRanges: droppedRanges as DroppedRange[] | undefined }
+  const allowedCodepoints = (parsed as Record<string, unknown>).allowedCodepoints
+  if (allowedCodepoints !== undefined) {
+    if (!Array.isArray(allowedCodepoints)) throw new Error('fonts.json: "allowedCodepoints" must be an array')
+    allowedCodepoints.forEach((cp, i) => {
+      assertString(cp, `allowedCodepoints[${i}]`)
+      if (!HEX_CODEPOINT.test(cp)) throw new Error(`fonts.json: allowedCodepoints[${i}] must be a hex codepoint, got "${cp}"`)
+    })
+  }
+
+  return {
+    faces: faces as FaceEntry[],
+    droppedRanges: droppedRanges as DroppedRange[] | undefined,
+    allowedCodepoints: allowedCodepoints as string[] | undefined,
+  }
 }
 
 export function loadFontsManifest(): FontsManifest {
