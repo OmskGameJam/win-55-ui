@@ -34,7 +34,9 @@
     "font:build": "tsc -p scripts/font/tsconfig.json",
     "font": "npm run font:build --silent && node scripts/font/dist/src/cli.js",
     "font:test": "npm run font:build --silent && node --test \"scripts/font/dist/test/**/*.test.js\"",
-    "charedit": "npm run font:build --silent && node scripts/font/dist/src/charedit.js"
+    "charedit": "npm run font:build --silent && node scripts/font/dist/src/charedit.js",
+    "cursors:build": "tsc -p scripts/cursors/tsconfig.json",
+    "cursors": "npm run cursors:build --silent && node scripts/cursors/dist/src/cli.js"
   },
   "peerDependencies": {
     "vue": "^3.5.0"
@@ -47,6 +49,7 @@
     "emojibase-data": "^17.0.0",
     "eslint": "^9.39.1",
     "eslint-plugin-vue": "^10.8.0",
+    "gifenc": "^1.0.3",
     "globals": "^16.5.0",
     "koffi": "^3.1.4",
     "opentype.js": "^2.0.0",
