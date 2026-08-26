@@ -5,8 +5,13 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const projectRoot = resolve(__dirname, '..')
-const emojiDir = join(projectRoot, 'public', 'win-55-ui', 'emoji')
-const xEmojiDir = join(projectRoot, 'public', 'win-55-ui', 'x-emoji')
+
+// Repo directory layout, read from paths.config.json at the project root rather than hardcoded
+// here - scripts/font/src/paths.ts reads the same file independently (it can't share this module
+// directly: that one compiles via tsc, this runs as plain JS straight from scripts/).
+const pathsConfig = JSON.parse(readFileSync(join(projectRoot, 'paths.config.json'), 'utf8'))
+const emojiDir = join(projectRoot, pathsConfig.publicEmoji)
+const xEmojiDir = join(projectRoot, pathsConfig.publicXEmoji)
 const registryPath = join(emojiDir, 'emoji-registry.csv')
 const header = 'emoji,code'
 

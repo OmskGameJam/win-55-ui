@@ -1,0 +1,462 @@
+{
+  "droppedRanges": [
+    { "start": "2E80", "end": "2EFF", "label": "CJK Radicals Supplement" },
+    { "start": "2F00", "end": "2FDF", "label": "Kangxi Radicals" },
+    { "start": "2FF0", "end": "2FFF", "label": "Ideographic Description Characters" },
+    { "start": "3100", "end": "312F", "label": "Bopomofo (Chinese phonetic notation)" },
+    { "start": "3190", "end": "319F", "label": "Kanbun" },
+    { "start": "31C0", "end": "31EF", "label": "CJK Strokes" },
+    { "start": "3200", "end": "32FF", "label": "Enclosed CJK Letters and Months" },
+    { "start": "3300", "end": "33FF", "label": "CJK Compatibility" },
+    { "start": "3400", "end": "4DBF", "label": "CJK Unified Ideographs Extension A" },
+    { "start": "4E00", "end": "9FFF", "label": "CJK Unified Ideographs" },
+    { "start": "F900", "end": "FAFF", "label": "CJK Compatibility Ideographs" },
+    { "start": "1F200", "end": "1F2FF", "label": "Enclosed Ideographic Supplement" },
+    { "start": "20000", "end": "2A6DF", "label": "CJK Unified Ideographs Extension B" },
+    { "start": "2A700", "end": "2B73F", "label": "CJK Unified Ideographs Extension C" },
+    { "start": "2B740", "end": "2B81F", "label": "CJK Unified Ideographs Extension D" },
+    { "start": "2B820", "end": "2CEAF", "label": "CJK Unified Ideographs Extension E" },
+    { "start": "2CEB0", "end": "2EBEF", "label": "CJK Unified Ideographs Extension F" },
+    { "start": "2F800", "end": "2FA1F", "label": "CJK Compatibility Ideographs Supplement" }
+  ],
+  "allowedCodepoints": [
+    "4EBA", "5F61", "76CA", "8278", "4E09", "76BF", "65E6", "51F8", "51F9",
+    "4E41", "7676", "516B", "706C", "5DE5", "4E14", "5DDD", "7F52", "4E2A",
+    "7544", "4E3F", "5382", "4ECE", "4E36", "5C38", "51AB", "4E9D", "723B",
+    "5C6E", "4E8C", "2EAB", "310F", "311C"
+  ],
+  "faces": [
+    {
+      "fontName": "Standard",
+      "style": "Regular",
+      "size": 8,
+      "source": "liberation_sans/LiberationSans-Regular.ttf",
+      "strikeBdf": "LiberationSans-Regular-8.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-8.fallback.bdf"
+      ],
+      "mergePath": "Standard-Regular-8.bdf",
+      "ttf": "Standard-Regular-8.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Bold",
+      "size": 8,
+      "source": "liberation_sans/LiberationSans-Bold.ttf",
+      "strikeBdf": "LiberationSans-Bold-8.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-8.fallback.bdf"
+      ],
+      "mergePath": "Standard-Bold-8.bdf",
+      "ttf": "Standard-Bold-8.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Italic",
+      "size": 8,
+      "source": "liberation_sans/LiberationSans-Italic.ttf",
+      "strikeBdf": "LiberationSans-Italic-8.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-8.fallback.bdf"
+      ],
+      "mergePath": "Standard-Italic-8.bdf",
+      "ttf": "Standard-Italic-8.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "BoldItalic",
+      "size": 8,
+      "source": "liberation_sans/LiberationSans-BoldItalic.ttf",
+      "strikeBdf": "LiberationSans-BoldItalic-8.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-8.fallback.bdf"
+      ],
+      "mergePath": "Standard-BoldItalic-8.bdf",
+      "ttf": "Standard-BoldItalic-8.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Regular",
+      "size": 10,
+      "source": "liberation_sans/LiberationSans-Regular.ttf",
+      "strikeBdf": "LiberationSans-Regular-10.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-10.fallback.bdf"
+      ],
+      "mergePath": "Standard-Regular-10.bdf",
+      "ttf": "Standard-Regular-10.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Bold",
+      "size": 10,
+      "source": "liberation_sans/LiberationSans-Bold.ttf",
+      "strikeBdf": "LiberationSans-Bold-10.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-10.fallback.bdf"
+      ],
+      "mergePath": "Standard-Bold-10.bdf",
+      "ttf": "Standard-Bold-10.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Italic",
+      "size": 10,
+      "source": "liberation_sans/LiberationSans-Italic.ttf",
+      "strikeBdf": "LiberationSans-Italic-10.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-10.fallback.bdf"
+      ],
+      "mergePath": "Standard-Italic-10.bdf",
+      "ttf": "Standard-Italic-10.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "BoldItalic",
+      "size": 10,
+      "source": "liberation_sans/LiberationSans-BoldItalic.ttf",
+      "strikeBdf": "LiberationSans-BoldItalic-10.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-10.fallback.bdf"
+      ],
+      "mergePath": "Standard-BoldItalic-10.bdf",
+      "ttf": "Standard-BoldItalic-10.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Regular",
+      "size": 12,
+      "source": "liberation_sans/LiberationSans-Regular.ttf",
+      "strikeBdf": "LiberationSans-Regular-12.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-12.fallback.bdf"
+      ],
+      "mergePath": "Standard-Regular-12.bdf",
+      "ttf": "Standard-Regular-12.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Bold",
+      "size": 12,
+      "source": "liberation_sans/LiberationSans-Bold.ttf",
+      "strikeBdf": "LiberationSans-Bold-12.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-12.fallback.bdf"
+      ],
+      "mergePath": "Standard-Bold-12.bdf",
+      "ttf": "Standard-Bold-12.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Italic",
+      "size": 12,
+      "source": "liberation_sans/LiberationSans-Italic.ttf",
+      "strikeBdf": "LiberationSans-Italic-12.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-12.fallback.bdf"
+      ],
+      "mergePath": "Standard-Italic-12.bdf",
+      "ttf": "Standard-Italic-12.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "BoldItalic",
+      "size": 12,
+      "source": "liberation_sans/LiberationSans-BoldItalic.ttf",
+      "strikeBdf": "LiberationSans-BoldItalic-12.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-12.fallback.bdf"
+      ],
+      "mergePath": "Standard-BoldItalic-12.bdf",
+      "ttf": "Standard-BoldItalic-12.ttf",
+      "kerning": {
+        "rightSideCount": 1,
+        "rightSideVolume": 0,
+        "flatRightSideGap": 1,
+        "tailRightSideGap": 0
+      }
+    },
+    {
+      "fontName": "Standard",
+      "style": "Regular",
+      "size": 16,
+      "source": "liberation_sans/LiberationSans-Regular.ttf",
+      "strikeBdf": "LiberationSans-Regular-16.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-16.fallback.bdf"
+      ],
+      "mergePath": "Standard-Regular-16.bdf",
+      "ttf": "Standard-Regular-16.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "Bold",
+      "size": 16,
+      "source": "liberation_sans/LiberationSans-Bold.ttf",
+      "strikeBdf": "LiberationSans-Bold-16.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-16.fallback.bdf"
+      ],
+      "mergePath": "Standard-Bold-16.bdf",
+      "ttf": "Standard-Bold-16.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "Italic",
+      "size": 16,
+      "source": "liberation_sans/LiberationSans-Italic.ttf",
+      "strikeBdf": "LiberationSans-Italic-16.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-16.fallback.bdf"
+      ],
+      "mergePath": "Standard-Italic-16.bdf",
+      "ttf": "Standard-Italic-16.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "BoldItalic",
+      "size": 16,
+      "source": "liberation_sans/LiberationSans-BoldItalic.ttf",
+      "strikeBdf": "LiberationSans-BoldItalic-16.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-16.fallback.bdf"
+      ],
+      "mergePath": "Standard-BoldItalic-16.bdf",
+      "ttf": "Standard-BoldItalic-16.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "Regular",
+      "size": 18,
+      "source": "liberation_sans/LiberationSans-Regular.ttf",
+      "strikeBdf": "LiberationSans-Regular-18.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-18.fallback.bdf"
+      ],
+      "mergePath": "Standard-Regular-18.bdf",
+      "ttf": "Standard-Regular-18.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "Bold",
+      "size": 18,
+      "source": "liberation_sans/LiberationSans-Bold.ttf",
+      "strikeBdf": "LiberationSans-Bold-18.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-18.fallback.bdf"
+      ],
+      "mergePath": "Standard-Bold-18.bdf",
+      "ttf": "Standard-Bold-18.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "Italic",
+      "size": 18,
+      "source": "liberation_sans/LiberationSans-Italic.ttf",
+      "strikeBdf": "LiberationSans-Italic-18.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-18.fallback.bdf"
+      ],
+      "mergePath": "Standard-Italic-18.bdf",
+      "ttf": "Standard-Italic-18.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "BoldItalic",
+      "size": 18,
+      "source": "liberation_sans/LiberationSans-BoldItalic.ttf",
+      "strikeBdf": "LiberationSans-BoldItalic-18.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-18.fallback.bdf"
+      ],
+      "mergePath": "Standard-BoldItalic-18.bdf",
+      "ttf": "Standard-BoldItalic-18.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "Regular",
+      "size": 24,
+      "source": "liberation_sans/LiberationSans-Regular.ttf",
+      "strikeBdf": "LiberationSans-Regular-24.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-24.fallback.bdf"
+      ],
+      "mergePath": "Standard-Regular-24.bdf",
+      "ttf": "Standard-Regular-24.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "Bold",
+      "size": 24,
+      "source": "liberation_sans/LiberationSans-Bold.ttf",
+      "strikeBdf": "LiberationSans-Bold-24.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-24.fallback.bdf"
+      ],
+      "mergePath": "Standard-Bold-24.bdf",
+      "ttf": "Standard-Bold-24.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "Italic",
+      "size": 24,
+      "source": "liberation_sans/LiberationSans-Italic.ttf",
+      "strikeBdf": "LiberationSans-Italic-24.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Regular.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Regular-24.fallback.bdf"
+      ],
+      "mergePath": "Standard-Italic-24.bdf",
+      "ttf": "Standard-Italic-24.ttf"
+    },
+    {
+      "fontName": "Standard",
+      "style": "BoldItalic",
+      "size": 24,
+      "source": "liberation_sans/LiberationSans-BoldItalic.ttf",
+      "strikeBdf": "LiberationSans-BoldItalic-24.bdf",
+      "fallbackSource": [
+        "noto_sans_jp/NotoSansJP-Bold.ttf"
+      ],
+      "fallbackBdf": [
+        "NotoSansJP-Bold-24.fallback.bdf"
+      ],
+      "mergePath": "Standard-BoldItalic-24.bdf",
+      "ttf": "Standard-BoldItalic-24.ttf"
+    }
+  ]
+}

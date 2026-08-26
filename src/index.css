@@ -1,3 +1,6 @@
+/* @font-face declarations, auto-generated from src-font/fonts.json - see generated-fonts.css */
+@import './generated-fonts.css';
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -48,14 +51,14 @@ table {
   image-rendering: pixelated;
 	outline: none;
   font-smooth: never;
-  -webkit-font-smoothing: never;
+  -webkit-font-smoothing: none;
   box-sizing: border-box;
 }
 
 body {
   line-height: 1;
   background-color: cyan;
-  font-family: 'Regular12';
+  font-family: 'Standard-Regular-12';
   font-size: 24px;
   backface-visibility: hidden;
   text-rendering: geometricPrecision;
@@ -75,21 +78,6 @@ body {
 .border-9-notification {
 	border: 12px solid transparent;
   border-image: var(--img) 12 fill repeat;
-}
-
-@font-face {
-  font-family: "Regular12";
-  src: url("/win-55-ui/font/LiberationSans-Regular-12.ttf")
-}
-
-@font-face {
-  font-family: "Bold12";
-  src: url("/win-55-ui/font/LiberationSans-Bold-12.ttf")
-}
-
-@font-face {
-  font-family: "Regular24";
-  src: url("/win-55-ui/font/LiberationSans-Regular-24.ttf")
 }
 
 .titlebar-text {
