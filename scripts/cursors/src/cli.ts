@@ -1,5 +1,6 @@
 import { discover } from './discover.js'
 import { generateSprites } from './sprite.js'
+import { hasFlag, parseArgs } from './cli-args.js'
 
 function usage(exitCode = 0): never {
   const output = [
@@ -9,10 +10,11 @@ function usage(exitCode = 0): never {
     '    Per-role metadata (dimensions, hotspot, bit depth, animation frame count, screen-XOR "invert" usage)',
     '    is always re-derived from the files themselves. displayName and sourceFile are carried over from the',
     "    existing manifest.json when present, since they aren't recoverable from the binary alone.",
-    '  npm run cursors -- sprite',
+    '  npm run cursors -- sprite [--force]',
     '    Renders every role in manifest.json to public/win-55-ui/cursors/<scheme>/<role>/{normal,invert}.gif',
     '    at 2x scale. A layer with no opaque pixels in any frame (e.g. crosshair has no "normal" layer) is',
-    '    skipped rather than written blank. Reads manifest.json as-is - run discover first if it may be stale.',
+    '    skipped rather than written blank. An existing output file is left alone (it may have been hand-',
+    '    touched-up) unless --force overwrites it. Reads manifest.json as-is - run discover first if stale.',
   ].join('\n')
 
   if (exitCode === 0) console.log(output)
@@ -38,15 +40,17 @@ function cmdDiscover(): void {
   console.log('cursors-cli: wrote src-cursors/manifest.json')
 }
 
-function cmdSprite(): void {
-  const result = generateSprites()
+function cmdSprite(args: string[]): void {
+  const { flags } = parseArgs(args)
+  const result = generateSprites(hasFlag(flags, 'force'))
 
   console.log(`cursors-cli: rendered ${result.rolesProcessed} role(s), ${result.layersWritten} layer(s) written`)
   if (result.layersSkippedEmpty.length > 0) console.log(`  skipped (no opaque pixels): ${result.layersSkippedEmpty.join(', ')}`)
+  if (result.layersSkippedExisting.length > 0) console.log(`  skipped (already exists, pass --force to overwrite): ${result.layersSkippedExisting.join(', ')}`)
 }
 
 function main(): void {
-  const [command] = process.argv.slice(2)
+  const [command, ...rest] = process.argv.slice(2)
 
   if (!command || command === '-h' || command === '--help' || command === 'help') {
     usage(0)
@@ -57,7 +61,7 @@ function main(): void {
       cmdDiscover()
       break
     case 'sprite':
-      cmdSprite()
+      cmdSprite(rest)
       break
     default:
       fail(`unknown command: ${command}`)
