@@ -16,6 +16,7 @@ export { default as Typography } from './components/Typography.vue';
 export { default as Window } from './components/Window.vue';
 export { default as NamedPanel } from './components/NamedPanel.vue';
 export { default as EmojiPickerWindow } from './components/EmojiPickerWindow.vue';
+export { default as Emoji } from './components/Emoji.vue';
 export { default as emojiDirective, customEmojiDirective } from './directives/emoji';
 export { typographyStyles } from './helpers/typography';
 export { drawAngledBayerDitherGradient } from './helpers/bayerMatrix';
