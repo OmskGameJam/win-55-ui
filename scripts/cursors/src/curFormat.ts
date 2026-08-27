@@ -36,7 +36,7 @@ export interface RenderedFrame {
   height: number
   /** RGBA, top-down, row-major, straight (non-premultiplied) alpha. Opaque wherever AND=0 (or always, for a real-alpha 32bpp source); fully transparent wherever AND=1 - both plain-transparent and invert pixels are punched out here, since neither belongs in a flat color layer. */
   colorRgba: Uint8ClampedArray
-  /** RGBA, opaque white wherever the pixel is a genuine invert pixel (AND=1, XOR non-black); fully transparent everywhere else. All-transparent for a real-alpha 32bpp source - there's no AND/XOR data left to recover invert pixels from (see RoleEntry.reconstructed). */
+  /** RGBA, opaque white wherever the pixel is a genuine invert pixel (AND=1, XOR non-black); fully transparent everywhere else. All-transparent for a real-alpha 32bpp source - there's no AND/XOR data left to recover invert pixels from (see CursorEntry.reconstructed). */
   invertRgba: Uint8ClampedArray
 }
 

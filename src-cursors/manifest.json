@@ -1,3760 +1,3105 @@
 {
-  "3d-bronze": {
-    "displayName": "3D-Bronze",
-    "roles": {
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "3dgarro.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "3dgwe.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 9,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "3dgmove.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "3dgnesw.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "3dgno.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "3dgns.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 9,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "3dgnwse.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.ani",
-        "sourceFile": "appstar2.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 10,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.ani",
-        "sourceFile": "hourgla2.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 15,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-bronze-crosshair": {
+    "file": "3d-bronze-crosshair.cur",
+    "sourceFile": "cross.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
   },
-  "3d-white": {
-    "displayName": "3D-White",
-    "roles": {
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "3dwarro.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "3dwwe.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 9,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "3dwmove.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "3dwnesw.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "3dwno.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "3dwns.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 9,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "3dwnwse.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.ani",
-        "sourceFile": "appstar3.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 10,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.ani",
-        "sourceFile": "hourgla3.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 15,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-bronze-default": {
+    "file": "3d-bronze-default.cur",
+    "sourceFile": "3dgarro.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
   },
-  "conductor": {
-    "displayName": "Conductor",
-    "roles": {
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "hcross.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 5,
-        "hotspotY": 12,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "harrow.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 12,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "hwe.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "hmove.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 14,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "hnesw.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 24,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.ani",
-        "sourceFile": "piano.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 5,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "hns.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "hnwse.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.ani",
-        "sourceFile": "drum.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 4,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "hibeam.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 5,
-        "hotspotY": 9,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.ani",
-        "sourceFile": "metronom.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 7,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-bronze-ew-resize": {
+    "file": "3d-bronze-ew-resize.cur",
+    "sourceFile": "3dgwe.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 9,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
   },
-  "dinosaur": {
-    "displayName": "Dinosaur",
-    "roles": {
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "3dgarro.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "3dgwe.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 9,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "3dsmove.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "3dgnesw.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.ani",
-        "sourceFile": "banana.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 15,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "3dsns.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 9,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "3dsnwse.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.ani",
-        "sourceFile": "dinosaur.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 6,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.ani",
-        "sourceFile": "dinosau2.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 6,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-bronze-move": {
+    "file": "3d-bronze-move.cur",
+    "sourceFile": "3dgmove.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
   },
-  "hands-1": {
-    "displayName": "Hands 1",
-    "roles": {
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "hcross.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 5,
-        "hotspotY": 12,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "harrow.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 12,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "hwe.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "hmove.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 14,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "hnesw.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 24,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "hnodrop.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 12,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "hns.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "hnwse.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.ani",
-        "sourceFile": "handapst.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 8,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 12,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "hibeam.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 5,
-        "hotspotY": 9,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.ani",
-        "sourceFile": "hand.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 4,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-bronze-nesw-resize": {
+    "file": "3d-bronze-nesw-resize.cur",
+    "sourceFile": "3dgnesw.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 7,
+    "hotspotY": 7,
+    "suspiciousInvertFrames": 0
   },
-  "hands-2": {
-    "displayName": "Hands 2",
-    "roles": {
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "hcross.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 5,
-        "hotspotY": 12,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "harrow.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 12,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.ani",
-        "sourceFile": "handwe.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 6,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "hmove.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 14,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.ani",
-        "sourceFile": "handnesw.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 22,
-        "hotspotY": 8,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.ani",
-        "sourceFile": "handno.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 5,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 29,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.ani",
-        "sourceFile": "handns.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.ani",
-        "sourceFile": "handnwse.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 9,
-        "hotspotY": 8,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.ani",
-        "sourceFile": "handapst.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 8,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 12,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "hibeam.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 5,
-        "hotspotY": 9,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.ani",
-        "sourceFile": "handwait.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 9,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-bronze-not-allowed": {
+    "file": "3d-bronze-not-allowed.cur",
+    "sourceFile": "3dgno.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
   },
-  "magnified": {
-    "displayName": "Magnified",
-    "roles": {
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "lcross.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 14,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "larrow.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 1,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "lwe.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 9,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "lmove.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "lnesw.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 12,
-        "hotspotY": 12,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "lnodrop.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "lns.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 8,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "lnwse.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 12,
-        "hotspotY": 12,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.cur",
-        "sourceFile": "lappstrt.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 1,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "libeam.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 6,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.cur",
-        "sourceFile": "lwait.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 11,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-bronze-ns-resize": {
+    "file": "3d-bronze-ns-resize.cur",
+    "sourceFile": "3dgns.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 4,
+    "hotspotY": 9,
+    "suspiciousInvertFrames": 0
   },
-  "old-fashioned": {
-    "displayName": "Old Fashioned",
-    "roles": {
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "hcross.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 5,
-        "hotspotY": 12,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "harrow.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 12,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "3dgwe.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 9,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "3dgmove.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "3dgnesw.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.ani",
-        "sourceFile": "coin.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 9,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "3dgns.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 9,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "3dgnwse.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.ani",
-        "sourceFile": "horse.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 24,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "hibeam.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 5,
-        "hotspotY": 9,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.ani",
-        "sourceFile": "barber.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 11,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-bronze-nwse-resize": {
+    "file": "3d-bronze-nwse-resize.cur",
+    "sourceFile": "3dgnwse.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 7,
+    "hotspotY": 7,
+    "suspiciousInvertFrames": 0
   },
-  "variations": {
-    "displayName": "Variations",
-    "roles": {
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.ani",
-        "sourceFile": "fillitup.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 19,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.ani",
-        "sourceFile": "sizewe.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 17,
-        "hotspotY": 8,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.ani",
-        "sourceFile": "sizenesw.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 24,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.ani",
-        "sourceFile": "wagtail.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 7,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 9,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.ani",
-        "sourceFile": "sizens.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 14,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.ani",
-        "sourceFile": "sizenwse.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.ani",
-        "sourceFile": "raindrop.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 6,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 12,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.ani",
-        "sourceFile": "counter.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 20,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-bronze-progress": {
+    "file": "3d-bronze-progress.ani",
+    "sourceFile": "appstar2.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 10,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
   },
-  "windows-animated": {
-    "displayName": "Windows Animated",
-    "roles": {
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.ani",
-        "sourceFile": "rainbow.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 13,
-        "invertFrames": 0,
-        "bitcounts": [
-          1,
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.ani",
-        "sourceFile": "sizewe.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 17,
-        "hotspotY": 8,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.ani",
-        "sourceFile": "sizenesw.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 24,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.ani",
-        "sourceFile": "sizens.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 14,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.ani",
-        "sourceFile": "sizenwse.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 2,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 7,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.ani",
-        "sourceFile": "appstart.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 10,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.ani",
-        "sourceFile": "hourglas.ani",
-        "animated": true,
-        "usesInvert": false,
-        "frameCount": 15,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-bronze-wait": {
+    "file": "3d-bronze-wait.ani",
+    "sourceFile": "hourgla2.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 15,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
   },
-  "windows-black": {
-    "displayName": "Windows Black ",
-    "roles": {
-      "alternate": {
-        "file": "alternate.cur",
-        "sourceFile": "up_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "arrow_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "size3_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "handwriting": {
-        "file": "handwriting.cur",
-        "sourceFile": "pen_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 5,
-        "suspiciousInvertFrames": 0
-      },
-      "help": {
-        "file": "help.cur",
-        "sourceFile": "help_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 5,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "move_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "size1_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "no_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "size4_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "size2_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.cur",
-        "sourceFile": "wait_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "beam_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.cur",
-        "sourceFile": "busy_r.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-white-default": {
+    "file": "3d-white-default.cur",
+    "sourceFile": "3dwarro.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
   },
-  "windows-black-large": {
-    "displayName": "Windows Black (large)",
-    "roles": {
-      "alternate": {
-        "file": "alternate.cur",
-        "sourceFile": "up_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "arrow_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "size3_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "handwriting": {
-        "file": "handwriting.cur",
-        "sourceFile": "pen_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 5,
-        "suspiciousInvertFrames": 0
-      },
-      "help": {
-        "file": "help.cur",
-        "sourceFile": "help_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 2,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "move_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "size1_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "no_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "size4_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "size2_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.cur",
-        "sourceFile": "wait_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 2,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "beam_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.cur",
-        "sourceFile": "busy_rm.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-white-ew-resize": {
+    "file": "3d-white-ew-resize.cur",
+    "sourceFile": "3dwwe.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 9,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
   },
-  "windows-black-xlarge": {
-    "displayName": "Windows Black (extra large)",
-    "roles": {
-      "alternate": {
-        "file": "alternate.cur",
-        "sourceFile": "up_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "arrow_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "size3_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "handwriting": {
-        "file": "handwriting.cur",
-        "sourceFile": "pen_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 2,
-        "hotspotY": 3,
-        "suspiciousInvertFrames": 0
-      },
-      "help": {
-        "file": "help.cur",
-        "sourceFile": "help_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "move_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "size1_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "no_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "size4_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "size2_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.cur",
-        "sourceFile": "wait_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "beam_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.cur",
-        "sourceFile": "busy_rl.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-white-move": {
+    "file": "3d-white-move.cur",
+    "sourceFile": "3dwmove.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
   },
-  "windows-default": {
-    "displayName": "Windows Default (live capture)",
-    "roles": {
-      "alternate": {
-        "file": "alternate.cur",
-        "sourceFile": "live:OCR_32516",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "live:OCR_32515",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "live:OCR_32512",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "live:OCR_32644",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "help": {
-        "file": "help.cur",
-        "sourceFile": "live:OCR_32651",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "link": {
-        "file": "link.cur",
-        "sourceFile": "live:OCR_32649",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "live:OCR_32646",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "live:OCR_32643",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "live:OCR_32648",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "live:OCR_32645",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "live:OCR_32642",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.cur",
-        "sourceFile": "live:OCR_32650",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "live:OCR_32513",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.cur",
-        "sourceFile": "live:OCR_32514",
-        "reconstructed": true,
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 10,
-        "hotspotY": 10,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-white-nesw-resize": {
+    "file": "3d-white-nesw-resize.cur",
+    "sourceFile": "3dwnesw.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 7,
+    "hotspotY": 7,
+    "suspiciousInvertFrames": 0
   },
-  "windows-inverted": {
-    "displayName": "Windows Inverted",
-    "roles": {
-      "alternate": {
-        "file": "alternate.cur",
-        "sourceFile": "up_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "arrow_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "size3_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "handwriting": {
-        "file": "handwriting.cur",
-        "sourceFile": "pen_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 5,
-        "suspiciousInvertFrames": 0
-      },
-      "help": {
-        "file": "help.cur",
-        "sourceFile": "help_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 5,
-        "hotspotY": 7,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "move_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "size1_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "no_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "size4_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "size2_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.cur",
-        "sourceFile": "wait_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 0,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "beam_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.cur",
-        "sourceFile": "busy_i.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-white-not-allowed": {
+    "file": "3d-white-not-allowed.cur",
+    "sourceFile": "3dwno.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
   },
-  "windows-inverted-large": {
-    "displayName": "Windows Inverted (large)",
-    "roles": {
-      "alternate": {
-        "file": "alternate.cur",
-        "sourceFile": "up_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "arrow_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "size3_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "handwriting": {
-        "file": "handwriting.cur",
-        "sourceFile": "pen_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 5,
-        "suspiciousInvertFrames": 0
-      },
-      "help": {
-        "file": "help.cur",
-        "sourceFile": "help_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 2,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "move_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "size1_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "no_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "size4_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "size2_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.cur",
-        "sourceFile": "wait_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 2,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "beam_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.cur",
-        "sourceFile": "busy_im.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-white-ns-resize": {
+    "file": "3d-white-ns-resize.cur",
+    "sourceFile": "3dwns.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 4,
+    "hotspotY": 9,
+    "suspiciousInvertFrames": 0
   },
-  "windows-inverted-xlarge": {
-    "displayName": "Windows Inverted (extra large)",
-    "roles": {
-      "alternate": {
-        "file": "alternate.cur",
-        "sourceFile": "up_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          1
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "arrow_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "size3_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "handwriting": {
-        "file": "handwriting.cur",
-        "sourceFile": "pen_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 2,
-        "hotspotY": 3,
-        "suspiciousInvertFrames": 0
-      },
-      "help": {
-        "file": "help.cur",
-        "sourceFile": "help_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "move_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "size1_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "no_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "size4_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "size2_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.cur",
-        "sourceFile": "wait_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "beam_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.cur",
-        "sourceFile": "busy_il.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-white-nwse-resize": {
+    "file": "3d-white-nwse-resize.cur",
+    "sourceFile": "3dwnwse.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 7,
+    "hotspotY": 7,
+    "suspiciousInvertFrames": 0
   },
-  "windows-standard-large": {
-    "displayName": "Windows Standard (large)",
-    "roles": {
-      "alternate": {
-        "file": "alternate.cur",
-        "sourceFile": "up_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 14,
-        "hotspotY": 6,
-        "suspiciousInvertFrames": 0
-      },
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross_m.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "arrow_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 2,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "size3_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "handwriting": {
-        "file": "handwriting.cur",
-        "sourceFile": "pen_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 4,
-        "hotspotY": 5,
-        "suspiciousInvertFrames": 0
-      },
-      "help": {
-        "file": "help.cur",
-        "sourceFile": "help_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 2,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "move_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "size1_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "no_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "size4_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "size2_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.cur",
-        "sourceFile": "wait_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 2,
-        "hotspotY": 4,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "beam_m.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.cur",
-        "sourceFile": "busy_m.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-white-progress": {
+    "file": "3d-white-progress.ani",
+    "sourceFile": "appstar3.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 10,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
   },
-  "windows-standard-xlarge": {
-    "displayName": "Windows Standard (extra large)",
-    "roles": {
-      "alternate": {
-        "file": "alternate.cur",
-        "sourceFile": "up_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 5,
-        "suspiciousInvertFrames": 0
-      },
-      "crosshair": {
-        "file": "crosshair.cur",
-        "sourceFile": "cross_l.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "default": {
-        "file": "default.cur",
-        "sourceFile": "arrow_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "ew-resize": {
-        "file": "ew-resize.cur",
-        "sourceFile": "size3_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "handwriting": {
-        "file": "handwriting.cur",
-        "sourceFile": "pen_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 2,
-        "hotspotY": 3,
-        "suspiciousInvertFrames": 0
-      },
-      "help": {
-        "file": "help.cur",
-        "sourceFile": "help_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "move": {
-        "file": "move.cur",
-        "sourceFile": "move_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "nesw-resize": {
-        "file": "nesw-resize.cur",
-        "sourceFile": "size1_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "not-allowed": {
-        "file": "not-allowed.cur",
-        "sourceFile": "no_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "ns-resize": {
-        "file": "ns-resize.cur",
-        "sourceFile": "size4_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "nwse-resize": {
-        "file": "nwse-resize.cur",
-        "sourceFile": "size2_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      },
-      "progress": {
-        "file": "progress.cur",
-        "sourceFile": "wait_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 0,
-        "hotspotY": 1,
-        "suspiciousInvertFrames": 0
-      },
-      "text": {
-        "file": "text.cur",
-        "sourceFile": "beam_l.cur",
-        "animated": false,
-        "usesInvert": true,
-        "frameCount": 1,
-        "invertFrames": 1,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 15,
-        "hotspotY": 15,
-        "suspiciousInvertFrames": 0
-      },
-      "wait": {
-        "file": "wait.cur",
-        "sourceFile": "busy_l.cur",
-        "animated": false,
-        "usesInvert": false,
-        "frameCount": 1,
-        "invertFrames": 0,
-        "bitcounts": [
-          4
-        ],
-        "width": 32,
-        "height": 32,
-        "hotspotX": 16,
-        "hotspotY": 16,
-        "suspiciousInvertFrames": 0
-      }
-    }
+  "3d-white-wait": {
+    "file": "3d-white-wait.ani",
+    "sourceFile": "hourgla3.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 15,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "conductor-not-allowed": {
+    "file": "conductor-not-allowed.ani",
+    "sourceFile": "piano.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 5,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "conductor-progress": {
+    "file": "conductor-progress.ani",
+    "sourceFile": "drum.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 4,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "conductor-wait": {
+    "file": "conductor-wait.ani",
+    "sourceFile": "metronom.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 7,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "dinosaur-move": {
+    "file": "dinosaur-move.cur",
+    "sourceFile": "3dsmove.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "dinosaur-not-allowed": {
+    "file": "dinosaur-not-allowed.ani",
+    "sourceFile": "banana.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 15,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "dinosaur-ns-resize": {
+    "file": "dinosaur-ns-resize.cur",
+    "sourceFile": "3dsns.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 4,
+    "hotspotY": 9,
+    "suspiciousInvertFrames": 0
+  },
+  "dinosaur-nwse-resize": {
+    "file": "dinosaur-nwse-resize.cur",
+    "sourceFile": "3dsnwse.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 7,
+    "hotspotY": 7,
+    "suspiciousInvertFrames": 0
+  },
+  "dinosaur-progress": {
+    "file": "dinosaur-progress.ani",
+    "sourceFile": "dinosaur.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 6,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "dinosaur-wait": {
+    "file": "dinosaur-wait.ani",
+    "sourceFile": "dinosau2.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 6,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-1-ew-resize": {
+    "file": "hands-1-ew-resize.cur",
+    "sourceFile": "hwe.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 4,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-1-nesw-resize": {
+    "file": "hands-1-nesw-resize.cur",
+    "sourceFile": "hnesw.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 24,
+    "hotspotY": 7,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-1-not-allowed": {
+    "file": "hands-1-not-allowed.cur",
+    "sourceFile": "hnodrop.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 12,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-1-ns-resize": {
+    "file": "hands-1-ns-resize.cur",
+    "sourceFile": "hns.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-1-nwse-resize": {
+    "file": "hands-1-nwse-resize.cur",
+    "sourceFile": "hnwse.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 7,
+    "hotspotY": 7,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-1-wait": {
+    "file": "hands-1-wait.ani",
+    "sourceFile": "hand.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 4,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-2-ew-resize": {
+    "file": "hands-2-ew-resize.ani",
+    "sourceFile": "handwe.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 2,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 6,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-2-nesw-resize": {
+    "file": "hands-2-nesw-resize.ani",
+    "sourceFile": "handnesw.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 2,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 22,
+    "hotspotY": 8,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-2-not-allowed": {
+    "file": "hands-2-not-allowed.ani",
+    "sourceFile": "handno.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 5,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 29,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-2-ns-resize": {
+    "file": "hands-2-ns-resize.ani",
+    "sourceFile": "handns.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 2,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-2-nwse-resize": {
+    "file": "hands-2-nwse-resize.ani",
+    "sourceFile": "handnwse.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 2,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 9,
+    "hotspotY": 8,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-2-wait": {
+    "file": "hands-2-wait.ani",
+    "sourceFile": "handwait.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 9,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 7,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-crosshair": {
+    "file": "hands-crosshair.cur",
+    "sourceFile": "hcross.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 5,
+    "hotspotY": 12,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-default": {
+    "file": "hands-default.cur",
+    "sourceFile": "harrow.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 12,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-move": {
+    "file": "hands-move.cur",
+    "sourceFile": "hmove.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 14,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-progress": {
+    "file": "hands-progress.ani",
+    "sourceFile": "handapst.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 8,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 12,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "hands-text": {
+    "file": "hands-text.cur",
+    "sourceFile": "hibeam.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 5,
+    "hotspotY": 9,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-crosshair": {
+    "file": "magnified-crosshair.cur",
+    "sourceFile": "lcross.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 14,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-default": {
+    "file": "magnified-default.cur",
+    "sourceFile": "larrow.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 1,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-ew-resize": {
+    "file": "magnified-ew-resize.cur",
+    "sourceFile": "lwe.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 9,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-move": {
+    "file": "magnified-move.cur",
+    "sourceFile": "lmove.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-nesw-resize": {
+    "file": "magnified-nesw-resize.cur",
+    "sourceFile": "lnesw.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 12,
+    "hotspotY": 12,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-not-allowed": {
+    "file": "magnified-not-allowed.cur",
+    "sourceFile": "lnodrop.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-ns-resize": {
+    "file": "magnified-ns-resize.cur",
+    "sourceFile": "lns.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 8,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-nwse-resize": {
+    "file": "magnified-nwse-resize.cur",
+    "sourceFile": "lnwse.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 12,
+    "hotspotY": 12,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-progress": {
+    "file": "magnified-progress.cur",
+    "sourceFile": "lappstrt.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 1,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-text": {
+    "file": "magnified-text.cur",
+    "sourceFile": "libeam.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 6,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "magnified-wait": {
+    "file": "magnified-wait.cur",
+    "sourceFile": "lwait.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 11,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "old-fashioned-not-allowed": {
+    "file": "old-fashioned-not-allowed.ani",
+    "sourceFile": "coin.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 9,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "old-fashioned-progress": {
+    "file": "old-fashioned-progress.ani",
+    "sourceFile": "horse.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 24,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "old-fashioned-wait": {
+    "file": "old-fashioned-wait.ani",
+    "sourceFile": "barber.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 11,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "variations-default": {
+    "file": "variations-default.ani",
+    "sourceFile": "fillitup.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 19,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "variations-ew-resize": {
+    "file": "variations-ew-resize.ani",
+    "sourceFile": "sizewe.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 2,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 17,
+    "hotspotY": 8,
+    "suspiciousInvertFrames": 0
+  },
+  "variations-nesw-resize": {
+    "file": "variations-nesw-resize.ani",
+    "sourceFile": "sizenesw.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 2,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 24,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "variations-not-allowed": {
+    "file": "variations-not-allowed.ani",
+    "sourceFile": "wagtail.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 7,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 9,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "variations-ns-resize": {
+    "file": "variations-ns-resize.ani",
+    "sourceFile": "sizens.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 2,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 14,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "variations-nwse-resize": {
+    "file": "variations-nwse-resize.ani",
+    "sourceFile": "sizenwse.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 2,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 7,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "variations-progress": {
+    "file": "variations-progress.ani",
+    "sourceFile": "raindrop.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 6,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 12,
+    "suspiciousInvertFrames": 0
+  },
+  "variations-wait": {
+    "file": "variations-wait.ani",
+    "sourceFile": "counter.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 20,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-animated-default": {
+    "file": "windows-animated-default.ani",
+    "sourceFile": "rainbow.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 13,
+    "invertFrames": 0,
+    "bitcounts": [
+      1,
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-animated-progress": {
+    "file": "windows-animated-progress.ani",
+    "sourceFile": "appstart.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 10,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-animated-wait": {
+    "file": "windows-animated-wait.ani",
+    "sourceFile": "hourglas.ani",
+    "animated": true,
+    "usesInvert": false,
+    "frameCount": 15,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-alternate": {
+    "file": "windows-black-alternate.cur",
+    "sourceFile": "up_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-crosshair": {
+    "file": "windows-black-crosshair.cur",
+    "sourceFile": "cross_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-default": {
+    "file": "windows-black-default.cur",
+    "sourceFile": "arrow_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-ew-resize": {
+    "file": "windows-black-ew-resize.cur",
+    "sourceFile": "size3_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-handwriting": {
+    "file": "windows-black-handwriting.cur",
+    "sourceFile": "pen_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 4,
+    "hotspotY": 5,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-help": {
+    "file": "windows-black-help.cur",
+    "sourceFile": "help_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 5,
+    "hotspotY": 7,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-alternate": {
+    "file": "windows-black-large-alternate.cur",
+    "sourceFile": "up_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-crosshair": {
+    "file": "windows-black-large-crosshair.cur",
+    "sourceFile": "cross_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-default": {
+    "file": "windows-black-large-default.cur",
+    "sourceFile": "arrow_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-ew-resize": {
+    "file": "windows-black-large-ew-resize.cur",
+    "sourceFile": "size3_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-handwriting": {
+    "file": "windows-black-large-handwriting.cur",
+    "sourceFile": "pen_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 4,
+    "hotspotY": 5,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-help": {
+    "file": "windows-black-large-help.cur",
+    "sourceFile": "help_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 2,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-move": {
+    "file": "windows-black-large-move.cur",
+    "sourceFile": "move_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-nesw-resize": {
+    "file": "windows-black-large-nesw-resize.cur",
+    "sourceFile": "size1_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-not-allowed": {
+    "file": "windows-black-large-not-allowed.cur",
+    "sourceFile": "no_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-ns-resize": {
+    "file": "windows-black-large-ns-resize.cur",
+    "sourceFile": "size4_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-nwse-resize": {
+    "file": "windows-black-large-nwse-resize.cur",
+    "sourceFile": "size2_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-progress": {
+    "file": "windows-black-large-progress.cur",
+    "sourceFile": "wait_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 2,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-text": {
+    "file": "windows-black-large-text.cur",
+    "sourceFile": "beam_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-large-wait": {
+    "file": "windows-black-large-wait.cur",
+    "sourceFile": "busy_rm.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-move": {
+    "file": "windows-black-move.cur",
+    "sourceFile": "move_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-nesw-resize": {
+    "file": "windows-black-nesw-resize.cur",
+    "sourceFile": "size1_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-not-allowed": {
+    "file": "windows-black-not-allowed.cur",
+    "sourceFile": "no_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-ns-resize": {
+    "file": "windows-black-ns-resize.cur",
+    "sourceFile": "size4_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-nwse-resize": {
+    "file": "windows-black-nwse-resize.cur",
+    "sourceFile": "size2_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-progress": {
+    "file": "windows-black-progress.cur",
+    "sourceFile": "wait_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-text": {
+    "file": "windows-black-text.cur",
+    "sourceFile": "beam_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-wait": {
+    "file": "windows-black-wait.cur",
+    "sourceFile": "busy_r.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-alternate": {
+    "file": "windows-black-xlarge-alternate.cur",
+    "sourceFile": "up_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-crosshair": {
+    "file": "windows-black-xlarge-crosshair.cur",
+    "sourceFile": "cross_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-default": {
+    "file": "windows-black-xlarge-default.cur",
+    "sourceFile": "arrow_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-handwriting": {
+    "file": "windows-black-xlarge-handwriting.cur",
+    "sourceFile": "pen_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 2,
+    "hotspotY": 3,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-help": {
+    "file": "windows-black-xlarge-help.cur",
+    "sourceFile": "help_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-move": {
+    "file": "windows-black-xlarge-move.cur",
+    "sourceFile": "move_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-nesw-resize": {
+    "file": "windows-black-xlarge-nesw-resize.cur",
+    "sourceFile": "size1_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-not-allowed": {
+    "file": "windows-black-xlarge-not-allowed.cur",
+    "sourceFile": "no_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-progress": {
+    "file": "windows-black-xlarge-progress.cur",
+    "sourceFile": "wait_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-text": {
+    "file": "windows-black-xlarge-text.cur",
+    "sourceFile": "beam_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-black-xlarge-wait": {
+    "file": "windows-black-xlarge-wait.cur",
+    "sourceFile": "busy_rl.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-alternate": {
+    "file": "windows-default-alternate.cur",
+    "sourceFile": "live:OCR_32516",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-crosshair": {
+    "file": "windows-default-crosshair.cur",
+    "sourceFile": "live:OCR_32515",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-default": {
+    "file": "windows-default-default.cur",
+    "sourceFile": "live:OCR_32512",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-ew-resize": {
+    "file": "windows-default-ew-resize.cur",
+    "sourceFile": "live:OCR_32644",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-help": {
+    "file": "windows-default-help.cur",
+    "sourceFile": "live:OCR_32651",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-link": {
+    "file": "windows-default-link.cur",
+    "sourceFile": "live:OCR_32649",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-move": {
+    "file": "windows-default-move.cur",
+    "sourceFile": "live:OCR_32646",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-nesw-resize": {
+    "file": "windows-default-nesw-resize.cur",
+    "sourceFile": "live:OCR_32643",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-not-allowed": {
+    "file": "windows-default-not-allowed.cur",
+    "sourceFile": "live:OCR_32648",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-ns-resize": {
+    "file": "windows-default-ns-resize.cur",
+    "sourceFile": "live:OCR_32645",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-nwse-resize": {
+    "file": "windows-default-nwse-resize.cur",
+    "sourceFile": "live:OCR_32642",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-progress": {
+    "file": "windows-default-progress.cur",
+    "sourceFile": "live:OCR_32650",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-text": {
+    "file": "windows-default-text.cur",
+    "sourceFile": "live:OCR_32513",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-default-wait": {
+    "file": "windows-default-wait.cur",
+    "sourceFile": "live:OCR_32514",
+    "reconstructed": true,
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 10,
+    "hotspotY": 10,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-alternate": {
+    "file": "windows-inverted-alternate.cur",
+    "sourceFile": "up_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-crosshair": {
+    "file": "windows-inverted-crosshair.cur",
+    "sourceFile": "cross_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-default": {
+    "file": "windows-inverted-default.cur",
+    "sourceFile": "arrow_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-ew-resize": {
+    "file": "windows-inverted-ew-resize.cur",
+    "sourceFile": "size3_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-handwriting": {
+    "file": "windows-inverted-handwriting.cur",
+    "sourceFile": "pen_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 4,
+    "hotspotY": 5,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-help": {
+    "file": "windows-inverted-help.cur",
+    "sourceFile": "help_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 5,
+    "hotspotY": 7,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-alternate": {
+    "file": "windows-inverted-large-alternate.cur",
+    "sourceFile": "up_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-crosshair": {
+    "file": "windows-inverted-large-crosshair.cur",
+    "sourceFile": "cross_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-default": {
+    "file": "windows-inverted-large-default.cur",
+    "sourceFile": "arrow_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-ew-resize": {
+    "file": "windows-inverted-large-ew-resize.cur",
+    "sourceFile": "size3_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-handwriting": {
+    "file": "windows-inverted-large-handwriting.cur",
+    "sourceFile": "pen_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 4,
+    "hotspotY": 5,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-help": {
+    "file": "windows-inverted-large-help.cur",
+    "sourceFile": "help_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 2,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-move": {
+    "file": "windows-inverted-large-move.cur",
+    "sourceFile": "move_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-nesw-resize": {
+    "file": "windows-inverted-large-nesw-resize.cur",
+    "sourceFile": "size1_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-not-allowed": {
+    "file": "windows-inverted-large-not-allowed.cur",
+    "sourceFile": "no_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-ns-resize": {
+    "file": "windows-inverted-large-ns-resize.cur",
+    "sourceFile": "size4_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-nwse-resize": {
+    "file": "windows-inverted-large-nwse-resize.cur",
+    "sourceFile": "size2_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-progress": {
+    "file": "windows-inverted-large-progress.cur",
+    "sourceFile": "wait_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 2,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-text": {
+    "file": "windows-inverted-large-text.cur",
+    "sourceFile": "beam_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-large-wait": {
+    "file": "windows-inverted-large-wait.cur",
+    "sourceFile": "busy_im.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-move": {
+    "file": "windows-inverted-move.cur",
+    "sourceFile": "move_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-nesw-resize": {
+    "file": "windows-inverted-nesw-resize.cur",
+    "sourceFile": "size1_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-not-allowed": {
+    "file": "windows-inverted-not-allowed.cur",
+    "sourceFile": "no_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-ns-resize": {
+    "file": "windows-inverted-ns-resize.cur",
+    "sourceFile": "size4_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-nwse-resize": {
+    "file": "windows-inverted-nwse-resize.cur",
+    "sourceFile": "size2_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-progress": {
+    "file": "windows-inverted-progress.cur",
+    "sourceFile": "wait_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 0,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-text": {
+    "file": "windows-inverted-text.cur",
+    "sourceFile": "beam_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-wait": {
+    "file": "windows-inverted-wait.cur",
+    "sourceFile": "busy_i.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-alternate": {
+    "file": "windows-inverted-xlarge-alternate.cur",
+    "sourceFile": "up_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      1
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-crosshair": {
+    "file": "windows-inverted-xlarge-crosshair.cur",
+    "sourceFile": "cross_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-default": {
+    "file": "windows-inverted-xlarge-default.cur",
+    "sourceFile": "arrow_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-ew-resize": {
+    "file": "windows-inverted-xlarge-ew-resize.cur",
+    "sourceFile": "size3_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-handwriting": {
+    "file": "windows-inverted-xlarge-handwriting.cur",
+    "sourceFile": "pen_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 2,
+    "hotspotY": 3,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-help": {
+    "file": "windows-inverted-xlarge-help.cur",
+    "sourceFile": "help_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-move": {
+    "file": "windows-inverted-xlarge-move.cur",
+    "sourceFile": "move_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-nesw-resize": {
+    "file": "windows-inverted-xlarge-nesw-resize.cur",
+    "sourceFile": "size1_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-not-allowed": {
+    "file": "windows-inverted-xlarge-not-allowed.cur",
+    "sourceFile": "no_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-ns-resize": {
+    "file": "windows-inverted-xlarge-ns-resize.cur",
+    "sourceFile": "size4_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-nwse-resize": {
+    "file": "windows-inverted-xlarge-nwse-resize.cur",
+    "sourceFile": "size2_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-progress": {
+    "file": "windows-inverted-xlarge-progress.cur",
+    "sourceFile": "wait_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-text": {
+    "file": "windows-inverted-xlarge-text.cur",
+    "sourceFile": "beam_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-inverted-xlarge-wait": {
+    "file": "windows-inverted-xlarge-wait.cur",
+    "sourceFile": "busy_il.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-alternate": {
+    "file": "windows-standard-large-alternate.cur",
+    "sourceFile": "up_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 14,
+    "hotspotY": 6,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-crosshair": {
+    "file": "windows-standard-large-crosshair.cur",
+    "sourceFile": "cross_m.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-default": {
+    "file": "windows-standard-large-default.cur",
+    "sourceFile": "arrow_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 2,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-ew-resize": {
+    "file": "windows-standard-large-ew-resize.cur",
+    "sourceFile": "size3_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-handwriting": {
+    "file": "windows-standard-large-handwriting.cur",
+    "sourceFile": "pen_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 4,
+    "hotspotY": 5,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-help": {
+    "file": "windows-standard-large-help.cur",
+    "sourceFile": "help_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 2,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-move": {
+    "file": "windows-standard-large-move.cur",
+    "sourceFile": "move_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-nesw-resize": {
+    "file": "windows-standard-large-nesw-resize.cur",
+    "sourceFile": "size1_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-not-allowed": {
+    "file": "windows-standard-large-not-allowed.cur",
+    "sourceFile": "no_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-ns-resize": {
+    "file": "windows-standard-large-ns-resize.cur",
+    "sourceFile": "size4_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-nwse-resize": {
+    "file": "windows-standard-large-nwse-resize.cur",
+    "sourceFile": "size2_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-progress": {
+    "file": "windows-standard-large-progress.cur",
+    "sourceFile": "wait_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 2,
+    "hotspotY": 4,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-text": {
+    "file": "windows-standard-large-text.cur",
+    "sourceFile": "beam_m.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-large-wait": {
+    "file": "windows-standard-large-wait.cur",
+    "sourceFile": "busy_m.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-alternate": {
+    "file": "windows-standard-xlarge-alternate.cur",
+    "sourceFile": "up_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 5,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-crosshair": {
+    "file": "windows-standard-xlarge-crosshair.cur",
+    "sourceFile": "cross_l.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-default": {
+    "file": "windows-standard-xlarge-default.cur",
+    "sourceFile": "arrow_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-ew-resize": {
+    "file": "windows-standard-xlarge-ew-resize.cur",
+    "sourceFile": "size3_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-handwriting": {
+    "file": "windows-standard-xlarge-handwriting.cur",
+    "sourceFile": "pen_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 2,
+    "hotspotY": 3,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-help": {
+    "file": "windows-standard-xlarge-help.cur",
+    "sourceFile": "help_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-move": {
+    "file": "windows-standard-xlarge-move.cur",
+    "sourceFile": "move_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-nesw-resize": {
+    "file": "windows-standard-xlarge-nesw-resize.cur",
+    "sourceFile": "size1_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-not-allowed": {
+    "file": "windows-standard-xlarge-not-allowed.cur",
+    "sourceFile": "no_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-ns-resize": {
+    "file": "windows-standard-xlarge-ns-resize.cur",
+    "sourceFile": "size4_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-nwse-resize": {
+    "file": "windows-standard-xlarge-nwse-resize.cur",
+    "sourceFile": "size2_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-progress": {
+    "file": "windows-standard-xlarge-progress.cur",
+    "sourceFile": "wait_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 0,
+    "hotspotY": 1,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-text": {
+    "file": "windows-standard-xlarge-text.cur",
+    "sourceFile": "beam_l.cur",
+    "animated": false,
+    "usesInvert": true,
+    "frameCount": 1,
+    "invertFrames": 1,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 15,
+    "hotspotY": 15,
+    "suspiciousInvertFrames": 0
+  },
+  "windows-standard-xlarge-wait": {
+    "file": "windows-standard-xlarge-wait.cur",
+    "sourceFile": "busy_l.cur",
+    "animated": false,
+    "usesInvert": false,
+    "frameCount": 1,
+    "invertFrames": 0,
+    "bitcounts": [
+      4
+    ],
+    "width": 32,
+    "height": 32,
+    "hotspotX": 16,
+    "hotspotY": 16,
+    "suspiciousInvertFrames": 0
   }
 }

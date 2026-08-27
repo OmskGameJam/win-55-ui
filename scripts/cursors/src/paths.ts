@@ -19,3 +19,4 @@ export const srcCursorsDir = resolve(projectRoot, config.srcCursors)
 export const publicCursorsDir = resolve(projectRoot, config.publicCursors)
 
 export const cursorsManifestPath = resolve(srcCursorsDir, 'manifest.json')
+export const schemeIndexPath = resolve(srcCursorsDir, 'scheme.json')
