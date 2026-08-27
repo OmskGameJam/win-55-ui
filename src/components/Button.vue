@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import Box, { type BoxType } from './Box.vue'
+import cursorDirective from '../directives/cursor'
+
+const vCursor = cursorDirective
 
 const props = withDefaults(defineProps<{
   baseType?: BoxType
@@ -59,7 +62,6 @@ const boxStyle = computed(() => ({
   width: 'fit-content',
   paddingBottom: '4px',
   paddingRight: '4px',
-  cursor: isDisabled.value ? 'not-allowed' : 'default',
   ...props.extraStyles,
 }))
 
@@ -78,6 +80,7 @@ const boxType = computed(() => {
     :type="boxType"
     :extra-styles="boxStyle"
     :extra-class="extraClass"
+    v-cursor="isDisabled ? 'not-allowed' : 'default'"
     @mousedown="handleMouseDown"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"

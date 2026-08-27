@@ -18,6 +18,8 @@ function usage(exitCode = 0): never {
     '    at 2x scale. A layer with no opaque pixels in any frame (e.g. crosshair has no "normal" layer) is',
     '    skipped rather than written blank. An existing output file is left alone (it may have been hand-',
     '    touched-up) unless --force overwrites it. Reads manifest.json as-is - run discover first if stale.',
+    '    Also (re)publishes manifest.json and scheme.json themselves to public/win-55-ui/cursors/ - the',
+    '    runtime registry src/helpers/cursors.ts resolves scheme/role names against - always overwritten.',
   ].join('\n')
 
   if (exitCode === 0) console.log(output)
@@ -50,6 +52,7 @@ function cmdSprite(args: string[]): void {
   console.log(`cursors-cli: rendered ${result.cursorsProcessed} cursor(s), ${result.layersWritten} layer(s) written`)
   if (result.layersSkippedEmpty.length > 0) console.log(`  skipped (no opaque pixels): ${result.layersSkippedEmpty.join(', ')}`)
   if (result.layersSkippedExisting.length > 0) console.log(`  skipped (already exists, pass --force to overwrite): ${result.layersSkippedExisting.join(', ')}`)
+  console.log('cursors-cli: published public/win-55-ui/cursors/manifest.json and scheme.json')
 }
 
 function main(): void {

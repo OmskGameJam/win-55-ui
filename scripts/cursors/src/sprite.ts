@@ -1,6 +1,6 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { extname, join } from 'node:path'
-import { srcCursorsDir, publicCursorsDir } from './paths.js'
+import { srcCursorsDir, publicCursorsDir, cursorsManifestPath, schemeIndexPath } from './paths.js'
 import { loadCursorsManifest, type CursorEntry } from './manifest.js'
 import { renderDibPixels, extractCurOrIcoImageBlobs } from './curFormat.js'
 import { parseAniPlayback } from './aniFormat.js'
@@ -153,6 +153,13 @@ export interface SpriteResult {
   layersSkippedExisting: string[]
 }
 
+/** Publishes manifest.json and scheme.json alongside the rendered sprites - the runtime registry a component resolves scheme/role names against (see src/helpers/cursors.ts). Always overwritten, regardless of `force`: this is generated data, never hand-touched-up at the public path the way a sprite GIF can be. */
+function publishRegistry(): void {
+  mkdirSync(publicCursorsDir, { recursive: true })
+  copyFileSync(cursorsManifestPath, join(publicCursorsDir, 'manifest.json'))
+  copyFileSync(schemeIndexPath, join(publicCursorsDir, 'scheme.json'))
+}
+
 /**
  * Renders every cursor in manifest.json to public/win-55-ui/cursors/<cursorId>/{normal,invert}.gif -
  * one directory per deduped physical cursor, not per scheme/role (see CLAUDE.md's "Курсоры"
@@ -191,6 +198,8 @@ export function generateSprites(force = false): SpriteResult {
       layersSkippedEmpty.push(`${cursorId}/invert`)
     }
   }
+
+  publishRegistry()
 
   return { cursorsProcessed, layersWritten, layersSkippedEmpty, layersSkippedExisting }
 }

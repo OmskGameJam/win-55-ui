@@ -171,7 +171,6 @@ body {
      translateY(-50%) combines two independent percentage bases and
      generally lands on a fractional pixel, breaking the kit's 2px grid). */
   top: 4px;
-  cursor: pointer;
   z-index: 1;
   image-rendering: pixelated;
 }
@@ -192,7 +191,6 @@ body {
 }
 
 .emoji-picker-tab {
-  cursor: pointer;
   text-decoration: underline;
   color: #0000ee;
   white-space: nowrap;
@@ -232,7 +230,6 @@ body {
 }
 
 .emoji-picker-grid-item {
-  cursor: pointer;
   image-rendering: pixelated;
   /* Scale each emoji to exactly 2x its own natural size (the kit's display
      convention) rather than stretching it to fill the cell. transform (not
@@ -245,7 +242,6 @@ body {
 .richtext-link {
   color: #0000ee;
   text-decoration: underline;
-  cursor: pointer;
 }
 
 .richtext-link:visited {

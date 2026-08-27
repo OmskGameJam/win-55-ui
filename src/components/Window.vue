@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import type { CSSProperties } from 'vue'
 import Titlebar from './Titlebar.vue'
 import Box from './Box.vue'
@@ -55,8 +55,6 @@ let startW = 0
 let startH = 0
 let startLeft = 0
 let startTop = 0
-
-const cursor = ref('default')
 
 // --- Dragging and Resizing ---
 function startDrag(e: MouseEvent) {
@@ -152,7 +150,6 @@ function stopAll() {
 function detectEdge(e: MouseEvent) {
   if (props.faux) {
     resizeDir = ''
-    cursor.value = 'default'
     return
   }
 
@@ -160,7 +157,6 @@ function detectEdge(e: MouseEvent) {
 
   if (!allowHorizontal.value && !allowVertical.value) {
     resizeDir = ''
-    cursor.value = 'default'
     return
   }
 
@@ -185,19 +181,6 @@ function detectEdge(e: MouseEvent) {
   }
 
   resizeDir = dir
-
-  const map: Record<string, string> = {
-    n: 'ns-resize',
-    s: 'ns-resize',
-    e: 'ew-resize',
-    w: 'ew-resize',
-    ne: 'nesw-resize',
-    sw: 'nesw-resize',
-    nw: 'nwse-resize',
-    se: 'nwse-resize'
-  }
-
-  cursor.value = map[dir] ?? 'default'
 }
 </script>
 
@@ -212,7 +195,6 @@ function detectEdge(e: MouseEvent) {
           top: y + 'px',
           width: width + 'px',
           height: height + 'px',
-          cursor,
           ...extraStyles
         }"
     type="panel-d-2"

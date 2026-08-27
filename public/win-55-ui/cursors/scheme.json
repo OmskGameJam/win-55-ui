@@ -1,0 +1,325 @@
+{
+  "3d-bronze": {
+    "displayName": "3D-Bronze",
+    "roles": {
+      "crosshair": "3d-bronze-crosshair",
+      "default": "3d-bronze-default",
+      "ew-resize": "3d-bronze-ew-resize",
+      "move": "3d-bronze-move",
+      "nesw-resize": "3d-bronze-nesw-resize",
+      "not-allowed": "3d-bronze-not-allowed",
+      "ns-resize": "3d-bronze-ns-resize",
+      "nwse-resize": "3d-bronze-nwse-resize",
+      "progress": "3d-bronze-progress",
+      "wait": "3d-bronze-wait"
+    }
+  },
+  "3d-white": {
+    "displayName": "3D-White",
+    "roles": {
+      "crosshair": "3d-bronze-crosshair",
+      "default": "3d-white-default",
+      "ew-resize": "3d-white-ew-resize",
+      "move": "3d-white-move",
+      "nesw-resize": "3d-white-nesw-resize",
+      "not-allowed": "3d-white-not-allowed",
+      "ns-resize": "3d-white-ns-resize",
+      "nwse-resize": "3d-white-nwse-resize",
+      "progress": "3d-white-progress",
+      "wait": "3d-white-wait"
+    }
+  },
+  "conductor": {
+    "displayName": "Conductor",
+    "roles": {
+      "crosshair": "hands-crosshair",
+      "default": "hands-default",
+      "ew-resize": "hands-1-ew-resize",
+      "move": "hands-move",
+      "nesw-resize": "hands-1-nesw-resize",
+      "not-allowed": "conductor-not-allowed",
+      "ns-resize": "hands-1-ns-resize",
+      "nwse-resize": "hands-1-nwse-resize",
+      "progress": "conductor-progress",
+      "text": "hands-text",
+      "wait": "conductor-wait"
+    }
+  },
+  "dinosaur": {
+    "displayName": "Dinosaur",
+    "roles": {
+      "crosshair": "3d-bronze-crosshair",
+      "default": "3d-bronze-default",
+      "ew-resize": "3d-bronze-ew-resize",
+      "move": "dinosaur-move",
+      "nesw-resize": "3d-bronze-nesw-resize",
+      "not-allowed": "dinosaur-not-allowed",
+      "ns-resize": "dinosaur-ns-resize",
+      "nwse-resize": "dinosaur-nwse-resize",
+      "progress": "dinosaur-progress",
+      "wait": "dinosaur-wait"
+    }
+  },
+  "hands-1": {
+    "displayName": "Hands 1",
+    "roles": {
+      "crosshair": "hands-crosshair",
+      "default": "hands-default",
+      "ew-resize": "hands-1-ew-resize",
+      "move": "hands-move",
+      "nesw-resize": "hands-1-nesw-resize",
+      "not-allowed": "hands-1-not-allowed",
+      "ns-resize": "hands-1-ns-resize",
+      "nwse-resize": "hands-1-nwse-resize",
+      "progress": "hands-progress",
+      "text": "hands-text",
+      "wait": "hands-1-wait"
+    }
+  },
+  "hands-2": {
+    "displayName": "Hands 2",
+    "roles": {
+      "crosshair": "hands-crosshair",
+      "default": "hands-default",
+      "ew-resize": "hands-2-ew-resize",
+      "move": "hands-move",
+      "nesw-resize": "hands-2-nesw-resize",
+      "not-allowed": "hands-2-not-allowed",
+      "ns-resize": "hands-2-ns-resize",
+      "nwse-resize": "hands-2-nwse-resize",
+      "progress": "hands-progress",
+      "text": "hands-text",
+      "wait": "hands-2-wait"
+    }
+  },
+  "magnified": {
+    "displayName": "Magnified",
+    "roles": {
+      "crosshair": "magnified-crosshair",
+      "default": "magnified-default",
+      "ew-resize": "magnified-ew-resize",
+      "move": "magnified-move",
+      "nesw-resize": "magnified-nesw-resize",
+      "not-allowed": "magnified-not-allowed",
+      "ns-resize": "magnified-ns-resize",
+      "nwse-resize": "magnified-nwse-resize",
+      "progress": "magnified-progress",
+      "text": "magnified-text",
+      "wait": "magnified-wait"
+    }
+  },
+  "old-fashioned": {
+    "displayName": "Old Fashioned",
+    "roles": {
+      "crosshair": "hands-crosshair",
+      "default": "hands-default",
+      "ew-resize": "3d-bronze-ew-resize",
+      "move": "3d-bronze-move",
+      "nesw-resize": "3d-bronze-nesw-resize",
+      "not-allowed": "old-fashioned-not-allowed",
+      "ns-resize": "3d-bronze-ns-resize",
+      "nwse-resize": "3d-bronze-nwse-resize",
+      "progress": "old-fashioned-progress",
+      "text": "hands-text",
+      "wait": "old-fashioned-wait"
+    }
+  },
+  "variations": {
+    "displayName": "Variations",
+    "roles": {
+      "crosshair": "3d-bronze-crosshair",
+      "default": "variations-default",
+      "ew-resize": "variations-ew-resize",
+      "nesw-resize": "variations-nesw-resize",
+      "not-allowed": "variations-not-allowed",
+      "ns-resize": "variations-ns-resize",
+      "nwse-resize": "variations-nwse-resize",
+      "progress": "variations-progress",
+      "wait": "variations-wait"
+    }
+  },
+  "windows-animated": {
+    "displayName": "Windows Animated",
+    "roles": {
+      "crosshair": "3d-bronze-crosshair",
+      "default": "windows-animated-default",
+      "ew-resize": "variations-ew-resize",
+      "nesw-resize": "variations-nesw-resize",
+      "ns-resize": "variations-ns-resize",
+      "nwse-resize": "variations-nwse-resize",
+      "progress": "windows-animated-progress",
+      "wait": "windows-animated-wait"
+    }
+  },
+  "windows-black": {
+    "displayName": "Windows Black ",
+    "roles": {
+      "alternate": "windows-black-alternate",
+      "crosshair": "windows-black-crosshair",
+      "default": "windows-black-default",
+      "ew-resize": "windows-black-ew-resize",
+      "handwriting": "windows-black-handwriting",
+      "help": "windows-black-help",
+      "move": "windows-black-move",
+      "nesw-resize": "windows-black-nesw-resize",
+      "not-allowed": "windows-black-not-allowed",
+      "ns-resize": "windows-black-ns-resize",
+      "nwse-resize": "windows-black-nwse-resize",
+      "progress": "windows-black-progress",
+      "text": "windows-black-text",
+      "wait": "windows-black-wait"
+    }
+  },
+  "windows-black-large": {
+    "displayName": "Windows Black (large)",
+    "roles": {
+      "alternate": "windows-black-large-alternate",
+      "crosshair": "windows-black-large-crosshair",
+      "default": "windows-black-large-default",
+      "ew-resize": "windows-black-large-ew-resize",
+      "handwriting": "windows-black-large-handwriting",
+      "help": "windows-black-large-help",
+      "move": "windows-black-large-move",
+      "nesw-resize": "windows-black-large-nesw-resize",
+      "not-allowed": "windows-black-large-not-allowed",
+      "ns-resize": "windows-black-large-ns-resize",
+      "nwse-resize": "windows-black-large-nwse-resize",
+      "progress": "windows-black-large-progress",
+      "text": "windows-black-large-text",
+      "wait": "windows-black-large-wait"
+    }
+  },
+  "windows-black-xlarge": {
+    "displayName": "Windows Black (extra large)",
+    "roles": {
+      "alternate": "windows-black-xlarge-alternate",
+      "crosshair": "windows-black-xlarge-crosshair",
+      "default": "windows-black-xlarge-default",
+      "ew-resize": "windows-standard-xlarge-ew-resize",
+      "handwriting": "windows-black-xlarge-handwriting",
+      "help": "windows-black-xlarge-help",
+      "move": "windows-black-xlarge-move",
+      "nesw-resize": "windows-black-xlarge-nesw-resize",
+      "not-allowed": "windows-black-xlarge-not-allowed",
+      "ns-resize": "windows-standard-xlarge-ns-resize",
+      "nwse-resize": "windows-standard-xlarge-nwse-resize",
+      "progress": "windows-black-xlarge-progress",
+      "text": "windows-black-xlarge-text",
+      "wait": "windows-black-xlarge-wait"
+    }
+  },
+  "windows-default": {
+    "displayName": "Windows Default (live capture)",
+    "roles": {
+      "alternate": "windows-default-alternate",
+      "crosshair": "windows-default-crosshair",
+      "default": "windows-default-default",
+      "ew-resize": "windows-default-ew-resize",
+      "help": "windows-default-help",
+      "link": "windows-default-link",
+      "move": "windows-default-move",
+      "nesw-resize": "windows-default-nesw-resize",
+      "not-allowed": "windows-default-not-allowed",
+      "ns-resize": "windows-default-ns-resize",
+      "nwse-resize": "windows-default-nwse-resize",
+      "progress": "windows-default-progress",
+      "text": "windows-default-text",
+      "wait": "windows-default-wait"
+    }
+  },
+  "windows-inverted": {
+    "displayName": "Windows Inverted",
+    "roles": {
+      "alternate": "windows-inverted-alternate",
+      "crosshair": "windows-inverted-crosshair",
+      "default": "windows-inverted-default",
+      "ew-resize": "windows-inverted-ew-resize",
+      "handwriting": "windows-inverted-handwriting",
+      "help": "windows-inverted-help",
+      "move": "windows-inverted-move",
+      "nesw-resize": "windows-inverted-nesw-resize",
+      "not-allowed": "windows-inverted-not-allowed",
+      "ns-resize": "windows-inverted-ns-resize",
+      "nwse-resize": "windows-inverted-nwse-resize",
+      "progress": "windows-inverted-progress",
+      "text": "windows-inverted-text",
+      "wait": "windows-inverted-wait"
+    }
+  },
+  "windows-inverted-large": {
+    "displayName": "Windows Inverted (large)",
+    "roles": {
+      "alternate": "windows-inverted-large-alternate",
+      "crosshair": "windows-inverted-large-crosshair",
+      "default": "windows-inverted-large-default",
+      "ew-resize": "windows-inverted-large-ew-resize",
+      "handwriting": "windows-inverted-large-handwriting",
+      "help": "windows-inverted-large-help",
+      "move": "windows-inverted-large-move",
+      "nesw-resize": "windows-inverted-large-nesw-resize",
+      "not-allowed": "windows-inverted-large-not-allowed",
+      "ns-resize": "windows-inverted-large-ns-resize",
+      "nwse-resize": "windows-inverted-large-nwse-resize",
+      "progress": "windows-inverted-large-progress",
+      "text": "windows-inverted-large-text",
+      "wait": "windows-inverted-large-wait"
+    }
+  },
+  "windows-inverted-xlarge": {
+    "displayName": "Windows Inverted (extra large)",
+    "roles": {
+      "alternate": "windows-inverted-xlarge-alternate",
+      "crosshair": "windows-inverted-xlarge-crosshair",
+      "default": "windows-inverted-xlarge-default",
+      "ew-resize": "windows-inverted-xlarge-ew-resize",
+      "handwriting": "windows-inverted-xlarge-handwriting",
+      "help": "windows-inverted-xlarge-help",
+      "move": "windows-inverted-xlarge-move",
+      "nesw-resize": "windows-inverted-xlarge-nesw-resize",
+      "not-allowed": "windows-inverted-xlarge-not-allowed",
+      "ns-resize": "windows-inverted-xlarge-ns-resize",
+      "nwse-resize": "windows-inverted-xlarge-nwse-resize",
+      "progress": "windows-inverted-xlarge-progress",
+      "text": "windows-inverted-xlarge-text",
+      "wait": "windows-inverted-xlarge-wait"
+    }
+  },
+  "windows-standard-large": {
+    "displayName": "Windows Standard (large)",
+    "roles": {
+      "alternate": "windows-standard-large-alternate",
+      "crosshair": "windows-standard-large-crosshair",
+      "default": "windows-standard-large-default",
+      "ew-resize": "windows-standard-large-ew-resize",
+      "handwriting": "windows-standard-large-handwriting",
+      "help": "windows-standard-large-help",
+      "move": "windows-standard-large-move",
+      "nesw-resize": "windows-standard-large-nesw-resize",
+      "not-allowed": "windows-standard-large-not-allowed",
+      "ns-resize": "windows-standard-large-ns-resize",
+      "nwse-resize": "windows-standard-large-nwse-resize",
+      "progress": "windows-standard-large-progress",
+      "text": "windows-standard-large-text",
+      "wait": "windows-standard-large-wait"
+    }
+  },
+  "windows-standard-xlarge": {
+    "displayName": "Windows Standard (extra large)",
+    "roles": {
+      "alternate": "windows-standard-xlarge-alternate",
+      "crosshair": "windows-standard-xlarge-crosshair",
+      "default": "windows-standard-xlarge-default",
+      "ew-resize": "windows-standard-xlarge-ew-resize",
+      "handwriting": "windows-standard-xlarge-handwriting",
+      "help": "windows-standard-xlarge-help",
+      "move": "windows-standard-xlarge-move",
+      "nesw-resize": "windows-standard-xlarge-nesw-resize",
+      "not-allowed": "windows-standard-xlarge-not-allowed",
+      "ns-resize": "windows-standard-xlarge-ns-resize",
+      "nwse-resize": "windows-standard-xlarge-nwse-resize",
+      "progress": "windows-standard-xlarge-progress",
+      "text": "windows-standard-xlarge-text",
+      "wait": "windows-standard-xlarge-wait"
+    }
+  }
+}
