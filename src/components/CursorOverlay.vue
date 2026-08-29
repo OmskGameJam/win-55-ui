@@ -14,17 +14,14 @@ import { CURSOR_TOKEN_PROPERTY } from '../helpers/cursorContext'
  * this isn't a departure from authenticity, it's the same rule). A plain `position: fixed` element
  * has no such limit, so moving cursor rendering here sidesteps the whole problem.
  *
- * How it knows what to show: rather than re-implementing hover/resolution logic, this reads back
- * getComputedStyle(elementUnderPointer)'s CURSOR_TOKEN_PROPERTY on every animation frame (see
- * frameLoop - a continuous self-scheduling rAF loop, not something mousemove triggers, see there
- * for why) - the exact value CursorContext and v-cursor already computed and set through
- * completely ordinary CSS inheritance (see their own `cursorToken`/`applyCursor`), just carried
- * through a custom property instead of the real `cursor` property - see
- * CursorContextApi.hideNativeCursor's doc comment for why the real property can't double as this
- * channel once native painting is suppressed. That string already carries the resolved cursorId
- * (in the normal.gif URL) and hotspot; this only has to parse it back out, then look up
- * hasNormal/hasInvert for that cursorId in the published manifest to decide which of the two
- * layers to actually show.
+ * Latency: the position is written straight from onMouseMove as a compositor-only transform (no
+ * layout, no reads), so the sprite is glued to the pointer with no added frame. The expensive part -
+ * reading back getComputedStyle(elementUnderPointer)'s CURSOR_TOKEN_PROPERTY to learn which sprite
+ * and hotspot to show (the value CursorContext/v-cursor already set through ordinary CSS
+ * inheritance, carried on a custom property the browser never tries to paint - see
+ * CursorContextApi.hideNativeCursor) - forces a style/hit-test flush, so it is rate-limited to
+ * IDENTITY_POLL_MS in frameLoop rather than run per frame. A shape or busy-state change landing a
+ * frame or two late is imperceptible; the pointer position lagging is not.
  */
 
 const CURSOR_TOKEN_PATTERN = /url\(["']?([^"')]+)["']?\)\s+(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)/
@@ -36,12 +33,20 @@ const GRID = 2
  * event purposes) sends the page no mousemove at all while the thumb is held, so onMouseMove never
  * runs and pendingX/pendingY would sit frozen until the button is released. onScroll below treats a
  * scroll with no mousemove or wheel in the last DRAG_SCROLL_QUIET_MS as that drag and nudges
- * pendingX/pendingY from the scroll delta instead; retainThroughDragScroll keeps the cursor painted
- * for the same window, since over the scrollbar gutter elementFromPoint returns null.
+ * pendingX/pendingY from the scroll delta instead; resolveIdentity keeps the sprite shown for the
+ * same window, since over the scrollbar gutter elementFromPoint returns null.
  */
 const DRAG_SCROLL_QUIET_MS = 100
 /** Floor for the estimated scrollbar thumb length when converting a scroll delta to pointer travel. */
 const MIN_THUMB_PX = 16
+/**
+ * How often frameLoop re-resolves the cursor's identity (sprite, hotspot, shown-or-not) from
+ * elementFromPoint + getComputedStyle. That pair forces a synchronous style/layout flush; running
+ * it every animation frame - as this once did - dropped the flush right into the middle of the
+ * frame trying to move the cursor, which is what made it feel a frame behind. ~30Hz is far tighter
+ * than a shape or busy-state change needs to feel instant, and the position path never waits on it.
+ */
+const IDENTITY_POLL_MS = 32
 
 const rootEl = ref<HTMLDivElement>()
 const normalImg = ref<HTMLImageElement>()
@@ -51,11 +56,11 @@ let manifest: CursorsManifest = {}
 let lastCursorId: string | undefined
 let lastHotspotX = 0
 let lastHotspotY = 0
+let visible = false
 
-// The mousemove handler only ever writes these two numbers - the actual work (elementFromPoint,
-// getComputedStyle, the DOM writes) all happens in the frameLoop below instead, reading whatever
-// is latest here at the time. Plain module-scope variables, not refs: nothing here needs to be
-// reactive, and Vue's reactivity would add tracking/scheduling overhead mousemove can't afford.
+// pendingX/pendingY: latest pointer position, from onMouseMove (and nudged by onScroll during a
+// native scrollbar drag, which sends no mousemove). Plain module-scope vars, not refs - none of
+// this needs to be reactive, and the tracking/scheduling overhead would land on the pointer path.
 let pendingX = 0
 let pendingY = 0
 let rafHandle: number | null = null
@@ -63,6 +68,7 @@ let rafHandle: number | null = null
 let lastMouseMoveAt = 0
 let lastWheelAt = 0
 let lastDragScrollAt = 0
+let lastIdentityAt = 0
 let scrollProbe: { node: Element; left: number; top: number } | null = null
 
 function snapToGrid(n: number): number {
@@ -73,10 +79,29 @@ function clamp(n: number, min: number, max: number): number {
   return n < min ? min : n > max ? max : n
 }
 
+/**
+ * The entire cost of moving the cursor: one compositor-only transform write, no DOM reads. Called
+ * from onMouseMove for zero added latency, and from frameLoop for the frames without one (scrollbar
+ * drag via onScroll, a hotspot that just changed under a still pointer, first paint).
+ */
+function applyTransform(root: HTMLDivElement): void {
+  root.style.transform = `translate(${snapToGrid(pendingX - lastHotspotX)}px, ${snapToGrid(pendingY - lastHotspotY)}px)`
+}
+
+/** Guarded so a redundant write never dirties style - that is what forced the next getComputedStyle into a full recalc. */
+function setVisible(root: HTMLDivElement, next: boolean): void {
+  if (next === visible) return
+  visible = next
+  root.style.visibility = next ? 'visible' : 'hidden'
+}
+
 function onMouseMove(event: MouseEvent): void {
   pendingX = event.clientX
   pendingY = event.clientY
   lastMouseMoveAt = performance.now()
+
+  const root = rootEl.value
+  if (root && lastCursorId) applyTransform(root)
 }
 
 function onWheel(): void {
@@ -135,30 +160,53 @@ function onScroll(event: Event): void {
   if (dTop !== 0 || dLeft !== 0) lastDragScrollAt = now
 }
 
-function positionRoot(root: HTMLDivElement, hotspotX: number, hotspotY: number): void {
-  root.style.visibility = 'visible'
-  root.style.transform = `translate(${snapToGrid(pendingX - hotspotX)}px, ${snapToGrid(pendingY - hotspotY)}px)`
+function swapLayer(img: HTMLImageElement | undefined, src: string | undefined): void {
+  if (!img) return
+  if (src) {
+    img.src = src
+    img.style.display = ''
+  } else {
+    img.style.display = 'none'
+    img.removeAttribute('src')
+  }
 }
 
 /**
- * While onScroll is actively nudging pendingX/pendingY through a native thumb drag, keep painting
- * the last resolved cursor instead of hiding: the pointer is parked over the scrollbar gutter where
- * elementFromPoint returns null and no CURSOR_TOKEN_PROPERTY can be read, but the cursor is still on
- * screen and, thanks to onScroll, still moving.
+ * Re-resolves which sprite/hotspot the cursor should have from whatever sits under the pointer, and
+ * whether it should show at all. The expensive half (elementFromPoint + getComputedStyle both force
+ * a flush) - frameLoop rate-limits it to IDENTITY_POLL_MS; the position path never waits on it.
  */
-function retainThroughDragScroll(root: HTMLDivElement): boolean {
-  if (!lastCursorId || performance.now() - lastDragScrollAt > DRAG_SCROLL_QUIET_MS) return false
-  positionRoot(root, lastHotspotX, lastHotspotY)
-  return true
+function resolveIdentity(root: HTMLDivElement): void {
+  const target = document.elementFromPoint(pendingX, pendingY)
+  const token = target ? getComputedStyle(target).getPropertyValue(CURSOR_TOKEN_PROPERTY) : ''
+  const tokenMatch = token.match(CURSOR_TOKEN_PATTERN)
+  const cursorId = tokenMatch ? tokenMatch[1].match(CURSOR_ID_PATTERN)?.[1] : undefined
+
+  if (!tokenMatch || !cursorId) {
+    // Over the scrollbar gutter mid native-drag elementFromPoint is null, but the cursor is very
+    // much still on screen and, via onScroll, still moving - keep the last sprite for that window.
+    const draggingScrollbar = performance.now() - lastDragScrollAt <= DRAG_SCROLL_QUIET_MS
+    setVisible(root, draggingScrollbar && lastCursorId !== undefined)
+    return
+  }
+
+  if (cursorId !== lastCursorId) {
+    lastCursorId = cursorId
+    const entry = manifest[cursorId]
+    swapLayer(normalImg.value, entry?.hasNormal ? `/win-55-ui/cursors/${cursorId}/normal.gif` : undefined)
+    swapLayer(invertImg.value, entry?.hasInvert ? `/win-55-ui/cursors/${cursorId}/invert.gif` : undefined)
+  }
+
+  lastHotspotX = Number(tokenMatch[2])
+  lastHotspotY = Number(tokenMatch[3])
+  setVisible(root, true)
+  applyTransform(root)
 }
 
 /**
- * Runs every animation frame for as long as this component is mounted (i.e. always, while a
- * `root` CursorContext is active), not just in response to mousemove - elementFromPoint and
- * getComputedStyle (both force a hit-test/style recalc) are read fresh each frame here, rather
- * than piggybacking on however often mousemove happens to fire. mousemove itself does nothing but
- * update pendingX/pendingY above - keeping that handler as cheap as physically possible is what
- * matters for responsiveness, not when the heavier read/write work is scheduled relative to it.
+ * Cheap every frame: re-apply the transform so the sprite stays glued even on frames with no
+ * mousemove (scrollbar drag via onScroll, a just-changed hotspot, first paint). Rate-limited:
+ * re-resolve the cursor's identity at most every IDENTITY_POLL_MS - see that constant.
  */
 function frameLoop(): void {
   rafHandle = requestAnimationFrame(frameLoop)
@@ -166,59 +214,20 @@ function frameLoop(): void {
   const root = rootEl.value
   if (!root) return
 
-  const target = document.elementFromPoint(pendingX, pendingY)
-  const token = target ? getComputedStyle(target).getPropertyValue(CURSOR_TOKEN_PROPERTY) : ''
-  const tokenMatch = token.match(CURSOR_TOKEN_PATTERN)
+  if (visible) applyTransform(root)
 
-  if (!tokenMatch) {
-    if (!retainThroughDragScroll(root)) root.style.visibility = 'hidden'
-    return
+  const now = performance.now()
+  if (now - lastIdentityAt >= IDENTITY_POLL_MS) {
+    lastIdentityAt = now
+    resolveIdentity(root)
   }
-
-  const [, url, hotspotXStr, hotspotYStr] = tokenMatch
-  const idMatch = url.match(CURSOR_ID_PATTERN)
-  const cursorId = idMatch?.[1]
-
-  if (!cursorId) {
-    if (!retainThroughDragScroll(root)) root.style.visibility = 'hidden'
-    return
-  }
-
-  if (cursorId !== lastCursorId) {
-    lastCursorId = cursorId
-    const entry = manifest[cursorId]
-
-    if (normalImg.value) {
-      if (entry?.hasNormal) {
-        normalImg.value.src = `/win-55-ui/cursors/${cursorId}/normal.gif`
-        normalImg.value.style.display = ''
-      } else {
-        normalImg.value.style.display = 'none'
-        normalImg.value.removeAttribute('src')
-      }
-    }
-
-    if (invertImg.value) {
-      if (entry?.hasInvert) {
-        invertImg.value.src = `/win-55-ui/cursors/${cursorId}/invert.gif`
-        invertImg.value.style.display = ''
-      } else {
-        invertImg.value.style.display = 'none'
-        invertImg.value.removeAttribute('src')
-      }
-    }
-  }
-
-  lastHotspotX = Number(hotspotXStr)
-  lastHotspotY = Number(hotspotYStr)
-  positionRoot(root, lastHotspotX, lastHotspotY)
 }
 
 /** Once the pointer actually leaves the browser viewport there's no further mousemove to hide us on - without this the overlay would stay stuck showing its last position and image indefinitely. `relatedTarget === null` is the standard way to tell "left the document" apart from "moved onto a child element" on a mouseout. */
 function onMouseOut(event: MouseEvent): void {
   if (event.relatedTarget !== null) return
   const root = rootEl.value
-  if (root) root.style.visibility = 'hidden'
+  if (root) setVisible(root, false)
 }
 
 onMounted(async () => {
