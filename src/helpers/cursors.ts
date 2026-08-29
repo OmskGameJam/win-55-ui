@@ -15,6 +15,9 @@ export interface CursorEntry {
   hotspotX: number | null
   hotspotY: number | null
   suspiciousInvertFrames: number
+  /** Whether public/win-55-ui/cursors/<cursorId>/{normal,invert}.gif actually exist - checked against disk at publish time (see scripts/cursors/src/sprite.ts's publishRegistry), not derived from the source file. Neither is guaranteed: a cursor can be invert-only (no normal.gif - most crosshair/text roles) or have no invert content at all (most non-crosshair/text roles) - see CursorOverlay.vue, the one thing that actually reads these. */
+  hasNormal: boolean
+  hasInvert: boolean
 }
 
 export type CursorsManifest = Record<string, CursorEntry>

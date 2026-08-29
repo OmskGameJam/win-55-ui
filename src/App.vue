@@ -131,8 +131,8 @@ const donutPositions = computed(() => {
 <template>
   <CursorContext root>
     <Typography v-emoji is-bold font-color="black">
-      <h1>Kitchen sink</h1>
       <div>
+        <Typography shorthand="Regular24">Съешь же ещё этих мягких французских булок, да выпей чаю</Typography>
         <h2>Currently prepared bitmap strikes</h2>
         <Typography shorthand="Regular12">The quick brown fox jumps over the lazy dog</Typography>
         <Typography shorthand="Bold12">The quick brown fox jumps over the lazy dog</Typography>
@@ -141,6 +141,7 @@ const donutPositions = computed(() => {
         <Typography shorthand="Bold12">Съешь же ещё этих мягких французских булок, да выпей чаю</Typography>
         <Typography shorthand="Regular24">Съешь же ещё этих мягких французских булок, да выпей чаю</Typography>
       
+        <h1>Another H1</h1>
 
         <h2>ABCDE</h2>
         <h2>Font tester (pixel alignment)</h2>

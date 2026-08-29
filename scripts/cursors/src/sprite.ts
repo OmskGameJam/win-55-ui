@@ -1,7 +1,7 @@
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { extname, join } from 'node:path'
-import { srcCursorsDir, publicCursorsDir, cursorsManifestPath, schemeIndexPath } from './paths.js'
-import { loadCursorsManifest, type CursorEntry } from './manifest.js'
+import { srcCursorsDir, publicCursorsDir, schemeIndexPath } from './paths.js'
+import { loadCursorsManifest, type CursorEntry, type CursorsManifest } from './manifest.js'
 import { renderDibPixels, extractCurOrIcoImageBlobs } from './curFormat.js'
 import { parseAniPlayback } from './aniFormat.js'
 import { encodeGif, type GifFrame } from './gif.js'
@@ -153,10 +153,34 @@ export interface SpriteResult {
   layersSkippedExisting: string[]
 }
 
-/** Publishes manifest.json and scheme.json alongside the rendered sprites - the runtime registry a component resolves scheme/role names against (see src/helpers/cursors.ts). Always overwritten, regardless of `force`: this is generated data, never hand-touched-up at the public path the way a sprite GIF can be. */
-function publishRegistry(): void {
+/**
+ * Publishes manifest.json and scheme.json alongside the rendered sprites - the runtime registry a
+ * component resolves scheme/role names against (see src/helpers/cursors.ts). Always overwritten,
+ * regardless of `force`: this is generated data, never hand-touched-up at the public path the way a
+ * sprite GIF can be.
+ *
+ * The published manifest.json isn't a byte-for-byte copy of src-cursors/manifest.json - each entry
+ * also gets `hasNormal`/`hasInvert`, checked directly against what's actually on disk under
+ * public/win-55-ui/cursors/<cursorId>/ (not re-derived from the source .cur/.ani, so a hand-touched-
+ * up sprite - added or deleted by hand - is reflected exactly as published, not as originally
+ * rendered). The runtime cursor overlay (src/components/CursorOverlay.vue) reads these instead of
+ * probing with a real image load: a cursor missing a layer - most don't have an invert one, some
+ * (crosshair/text) have no normal one at all - is a normal case, not an error to recover from.
+ */
+function publishRegistry(manifest: CursorsManifest): void {
   mkdirSync(publicCursorsDir, { recursive: true })
-  copyFileSync(cursorsManifestPath, join(publicCursorsDir, 'manifest.json'))
+
+  const published: Record<string, CursorEntry & { hasNormal: boolean; hasInvert: boolean }> = {}
+  for (const [cursorId, entry] of Object.entries(manifest)) {
+    const outDir = join(publicCursorsDir, cursorId)
+    published[cursorId] = {
+      ...entry,
+      hasNormal: existsSync(join(outDir, 'normal.gif')),
+      hasInvert: existsSync(join(outDir, 'invert.gif')),
+    }
+  }
+
+  writeFileSync(join(publicCursorsDir, 'manifest.json'), JSON.stringify(published, null, 2) + '\n', 'utf8')
   copyFileSync(schemeIndexPath, join(publicCursorsDir, 'scheme.json'))
 }
 
@@ -199,7 +223,7 @@ export function generateSprites(force = false): SpriteResult {
     }
   }
 
-  publishRegistry()
+  publishRegistry(manifest)
 
   return { cursorsProcessed, layersWritten, layersSkippedEmpty, layersSkippedExisting }
 }

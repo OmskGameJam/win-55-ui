@@ -13,7 +13,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": false,
+    "hasInvert": true
   },
   "3d-bronze-default": {
     "file": "3d-bronze-default.cur",
@@ -29,7 +31,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-bronze-ew-resize": {
     "file": "3d-bronze-ew-resize.cur",
@@ -45,7 +49,9 @@
     "height": 32,
     "hotspotX": 9,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-bronze-move": {
     "file": "3d-bronze-move.cur",
@@ -61,7 +67,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-bronze-nesw-resize": {
     "file": "3d-bronze-nesw-resize.cur",
@@ -77,7 +85,9 @@
     "height": 32,
     "hotspotX": 7,
     "hotspotY": 7,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-bronze-not-allowed": {
     "file": "3d-bronze-not-allowed.cur",
@@ -93,7 +103,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-bronze-ns-resize": {
     "file": "3d-bronze-ns-resize.cur",
@@ -109,7 +121,9 @@
     "height": 32,
     "hotspotX": 4,
     "hotspotY": 9,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-bronze-nwse-resize": {
     "file": "3d-bronze-nwse-resize.cur",
@@ -125,7 +139,9 @@
     "height": 32,
     "hotspotX": 7,
     "hotspotY": 7,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-bronze-progress": {
     "file": "3d-bronze-progress.ani",
@@ -141,7 +157,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-bronze-wait": {
     "file": "3d-bronze-wait.ani",
@@ -157,7 +175,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-white-default": {
     "file": "3d-white-default.cur",
@@ -173,7 +193,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-white-ew-resize": {
     "file": "3d-white-ew-resize.cur",
@@ -189,7 +211,9 @@
     "height": 32,
     "hotspotX": 9,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-white-move": {
     "file": "3d-white-move.cur",
@@ -205,7 +229,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-white-nesw-resize": {
     "file": "3d-white-nesw-resize.cur",
@@ -221,7 +247,9 @@
     "height": 32,
     "hotspotX": 7,
     "hotspotY": 7,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-white-not-allowed": {
     "file": "3d-white-not-allowed.cur",
@@ -237,7 +265,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-white-ns-resize": {
     "file": "3d-white-ns-resize.cur",
@@ -253,7 +283,9 @@
     "height": 32,
     "hotspotX": 4,
     "hotspotY": 9,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-white-nwse-resize": {
     "file": "3d-white-nwse-resize.cur",
@@ -269,7 +301,9 @@
     "height": 32,
     "hotspotX": 7,
     "hotspotY": 7,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-white-progress": {
     "file": "3d-white-progress.ani",
@@ -285,7 +319,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "3d-white-wait": {
     "file": "3d-white-wait.ani",
@@ -301,7 +337,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "conductor-not-allowed": {
     "file": "conductor-not-allowed.ani",
@@ -317,7 +355,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "conductor-progress": {
     "file": "conductor-progress.ani",
@@ -333,7 +373,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "conductor-wait": {
     "file": "conductor-wait.ani",
@@ -349,7 +391,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "dinosaur-move": {
     "file": "dinosaur-move.cur",
@@ -365,7 +409,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "dinosaur-not-allowed": {
     "file": "dinosaur-not-allowed.ani",
@@ -381,7 +427,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "dinosaur-ns-resize": {
     "file": "dinosaur-ns-resize.cur",
@@ -397,7 +445,9 @@
     "height": 32,
     "hotspotX": 4,
     "hotspotY": 9,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "dinosaur-nwse-resize": {
     "file": "dinosaur-nwse-resize.cur",
@@ -413,7 +463,9 @@
     "height": 32,
     "hotspotX": 7,
     "hotspotY": 7,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "dinosaur-progress": {
     "file": "dinosaur-progress.ani",
@@ -429,7 +481,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "dinosaur-wait": {
     "file": "dinosaur-wait.ani",
@@ -445,7 +499,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-1-ew-resize": {
     "file": "hands-1-ew-resize.cur",
@@ -461,7 +517,9 @@
     "height": 32,
     "hotspotX": 4,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-1-nesw-resize": {
     "file": "hands-1-nesw-resize.cur",
@@ -477,7 +535,9 @@
     "height": 32,
     "hotspotX": 24,
     "hotspotY": 7,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-1-not-allowed": {
     "file": "hands-1-not-allowed.cur",
@@ -493,7 +553,9 @@
     "height": 32,
     "hotspotX": 12,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-1-ns-resize": {
     "file": "hands-1-ns-resize.cur",
@@ -509,7 +571,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-1-nwse-resize": {
     "file": "hands-1-nwse-resize.cur",
@@ -525,7 +589,9 @@
     "height": 32,
     "hotspotX": 7,
     "hotspotY": 7,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-1-wait": {
     "file": "hands-1-wait.ani",
@@ -541,7 +607,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-2-ew-resize": {
     "file": "hands-2-ew-resize.ani",
@@ -557,7 +625,9 @@
     "height": 32,
     "hotspotX": 6,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-2-nesw-resize": {
     "file": "hands-2-nesw-resize.ani",
@@ -573,7 +643,9 @@
     "height": 32,
     "hotspotX": 22,
     "hotspotY": 8,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-2-not-allowed": {
     "file": "hands-2-not-allowed.ani",
@@ -589,7 +661,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 29,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-2-ns-resize": {
     "file": "hands-2-ns-resize.ani",
@@ -605,7 +679,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-2-nwse-resize": {
     "file": "hands-2-nwse-resize.ani",
@@ -621,7 +697,9 @@
     "height": 32,
     "hotspotX": 9,
     "hotspotY": 8,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-2-wait": {
     "file": "hands-2-wait.ani",
@@ -637,7 +715,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 7,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-crosshair": {
     "file": "hands-crosshair.cur",
@@ -653,7 +733,9 @@
     "height": 32,
     "hotspotX": 5,
     "hotspotY": 12,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "hands-default": {
     "file": "hands-default.cur",
@@ -669,7 +751,9 @@
     "height": 32,
     "hotspotX": 12,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-move": {
     "file": "hands-move.cur",
@@ -685,7 +769,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 14,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-progress": {
     "file": "hands-progress.ani",
@@ -701,7 +787,9 @@
     "height": 32,
     "hotspotX": 12,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "hands-text": {
     "file": "hands-text.cur",
@@ -717,7 +805,9 @@
     "height": 32,
     "hotspotX": 5,
     "hotspotY": 9,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "magnified-crosshair": {
     "file": "magnified-crosshair.cur",
@@ -733,7 +823,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 14,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": false,
+    "hasInvert": true
   },
   "magnified-default": {
     "file": "magnified-default.cur",
@@ -749,7 +841,9 @@
     "height": 32,
     "hotspotX": 1,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "magnified-ew-resize": {
     "file": "magnified-ew-resize.cur",
@@ -765,7 +859,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 9,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "magnified-move": {
     "file": "magnified-move.cur",
@@ -781,7 +877,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "magnified-nesw-resize": {
     "file": "magnified-nesw-resize.cur",
@@ -797,7 +895,9 @@
     "height": 32,
     "hotspotX": 12,
     "hotspotY": 12,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "magnified-not-allowed": {
     "file": "magnified-not-allowed.cur",
@@ -813,7 +913,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "magnified-ns-resize": {
     "file": "magnified-ns-resize.cur",
@@ -829,7 +931,9 @@
     "height": 32,
     "hotspotX": 8,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "magnified-nwse-resize": {
     "file": "magnified-nwse-resize.cur",
@@ -845,7 +949,9 @@
     "height": 32,
     "hotspotX": 12,
     "hotspotY": 12,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "magnified-progress": {
     "file": "magnified-progress.cur",
@@ -861,7 +967,9 @@
     "height": 32,
     "hotspotX": 1,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "magnified-text": {
     "file": "magnified-text.cur",
@@ -877,7 +985,9 @@
     "height": 32,
     "hotspotX": 6,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": false,
+    "hasInvert": true
   },
   "magnified-wait": {
     "file": "magnified-wait.cur",
@@ -893,7 +1003,9 @@
     "height": 32,
     "hotspotX": 11,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "old-fashioned-not-allowed": {
     "file": "old-fashioned-not-allowed.ani",
@@ -909,7 +1021,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "old-fashioned-progress": {
     "file": "old-fashioned-progress.ani",
@@ -925,7 +1039,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "old-fashioned-wait": {
     "file": "old-fashioned-wait.ani",
@@ -941,7 +1057,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "variations-default": {
     "file": "variations-default.ani",
@@ -957,7 +1075,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "variations-ew-resize": {
     "file": "variations-ew-resize.ani",
@@ -973,7 +1093,9 @@
     "height": 32,
     "hotspotX": 17,
     "hotspotY": 8,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "variations-nesw-resize": {
     "file": "variations-nesw-resize.ani",
@@ -989,7 +1111,9 @@
     "height": 32,
     "hotspotX": 24,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "variations-not-allowed": {
     "file": "variations-not-allowed.ani",
@@ -1005,7 +1129,9 @@
     "height": 32,
     "hotspotX": 9,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "variations-ns-resize": {
     "file": "variations-ns-resize.ani",
@@ -1021,7 +1147,9 @@
     "height": 32,
     "hotspotX": 14,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "variations-nwse-resize": {
     "file": "variations-nwse-resize.ani",
@@ -1037,7 +1165,9 @@
     "height": 32,
     "hotspotX": 7,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "variations-progress": {
     "file": "variations-progress.ani",
@@ -1053,7 +1183,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 12,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "variations-wait": {
     "file": "variations-wait.ani",
@@ -1069,7 +1201,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-animated-default": {
     "file": "windows-animated-default.ani",
@@ -1086,7 +1220,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-animated-progress": {
     "file": "windows-animated-progress.ani",
@@ -1102,7 +1238,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-animated-wait": {
     "file": "windows-animated-wait.ani",
@@ -1118,7 +1256,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-alternate": {
     "file": "windows-black-alternate.cur",
@@ -1134,7 +1274,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-crosshair": {
     "file": "windows-black-crosshair.cur",
@@ -1150,7 +1292,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-default": {
     "file": "windows-black-default.cur",
@@ -1166,7 +1310,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-ew-resize": {
     "file": "windows-black-ew-resize.cur",
@@ -1182,7 +1328,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-handwriting": {
     "file": "windows-black-handwriting.cur",
@@ -1198,7 +1346,9 @@
     "height": 32,
     "hotspotX": 4,
     "hotspotY": 5,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-help": {
     "file": "windows-black-help.cur",
@@ -1214,7 +1364,9 @@
     "height": 32,
     "hotspotX": 5,
     "hotspotY": 7,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-alternate": {
     "file": "windows-black-large-alternate.cur",
@@ -1230,7 +1382,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-crosshair": {
     "file": "windows-black-large-crosshair.cur",
@@ -1246,7 +1400,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-default": {
     "file": "windows-black-large-default.cur",
@@ -1262,7 +1418,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-ew-resize": {
     "file": "windows-black-large-ew-resize.cur",
@@ -1278,7 +1436,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-handwriting": {
     "file": "windows-black-large-handwriting.cur",
@@ -1294,7 +1454,9 @@
     "height": 32,
     "hotspotX": 4,
     "hotspotY": 5,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-help": {
     "file": "windows-black-large-help.cur",
@@ -1310,7 +1472,9 @@
     "height": 32,
     "hotspotX": 2,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-move": {
     "file": "windows-black-large-move.cur",
@@ -1326,7 +1490,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-nesw-resize": {
     "file": "windows-black-large-nesw-resize.cur",
@@ -1342,7 +1508,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-not-allowed": {
     "file": "windows-black-large-not-allowed.cur",
@@ -1358,7 +1526,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-ns-resize": {
     "file": "windows-black-large-ns-resize.cur",
@@ -1374,7 +1544,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-nwse-resize": {
     "file": "windows-black-large-nwse-resize.cur",
@@ -1390,7 +1562,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-progress": {
     "file": "windows-black-large-progress.cur",
@@ -1406,7 +1580,9 @@
     "height": 32,
     "hotspotX": 2,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-text": {
     "file": "windows-black-large-text.cur",
@@ -1422,7 +1598,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-large-wait": {
     "file": "windows-black-large-wait.cur",
@@ -1438,7 +1616,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-move": {
     "file": "windows-black-move.cur",
@@ -1454,7 +1634,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-nesw-resize": {
     "file": "windows-black-nesw-resize.cur",
@@ -1470,7 +1652,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-not-allowed": {
     "file": "windows-black-not-allowed.cur",
@@ -1486,7 +1670,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-ns-resize": {
     "file": "windows-black-ns-resize.cur",
@@ -1502,7 +1688,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-nwse-resize": {
     "file": "windows-black-nwse-resize.cur",
@@ -1518,7 +1706,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-progress": {
     "file": "windows-black-progress.cur",
@@ -1534,7 +1724,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-text": {
     "file": "windows-black-text.cur",
@@ -1550,7 +1742,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-wait": {
     "file": "windows-black-wait.cur",
@@ -1566,7 +1760,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-alternate": {
     "file": "windows-black-xlarge-alternate.cur",
@@ -1582,7 +1778,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-crosshair": {
     "file": "windows-black-xlarge-crosshair.cur",
@@ -1598,7 +1796,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-default": {
     "file": "windows-black-xlarge-default.cur",
@@ -1614,7 +1814,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-handwriting": {
     "file": "windows-black-xlarge-handwriting.cur",
@@ -1630,7 +1832,9 @@
     "height": 32,
     "hotspotX": 2,
     "hotspotY": 3,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-help": {
     "file": "windows-black-xlarge-help.cur",
@@ -1646,7 +1850,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-move": {
     "file": "windows-black-xlarge-move.cur",
@@ -1662,7 +1868,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-nesw-resize": {
     "file": "windows-black-xlarge-nesw-resize.cur",
@@ -1678,7 +1886,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-not-allowed": {
     "file": "windows-black-xlarge-not-allowed.cur",
@@ -1694,7 +1904,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-progress": {
     "file": "windows-black-xlarge-progress.cur",
@@ -1710,7 +1922,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-text": {
     "file": "windows-black-xlarge-text.cur",
@@ -1726,7 +1940,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-black-xlarge-wait": {
     "file": "windows-black-xlarge-wait.cur",
@@ -1742,7 +1958,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-alternate": {
     "file": "windows-default-alternate.cur",
@@ -1759,7 +1977,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-crosshair": {
     "file": "windows-default-crosshair.cur",
@@ -1776,7 +1996,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": false,
+    "hasInvert": true
   },
   "windows-default-default": {
     "file": "windows-default-default.cur",
@@ -1793,7 +2015,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-ew-resize": {
     "file": "windows-default-ew-resize.cur",
@@ -1810,7 +2034,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-help": {
     "file": "windows-default-help.cur",
@@ -1827,7 +2053,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-link": {
     "file": "windows-default-link.cur",
@@ -1844,7 +2072,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-move": {
     "file": "windows-default-move.cur",
@@ -1861,7 +2091,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-nesw-resize": {
     "file": "windows-default-nesw-resize.cur",
@@ -1878,7 +2110,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-not-allowed": {
     "file": "windows-default-not-allowed.cur",
@@ -1895,7 +2129,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-ns-resize": {
     "file": "windows-default-ns-resize.cur",
@@ -1912,7 +2148,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-nwse-resize": {
     "file": "windows-default-nwse-resize.cur",
@@ -1929,7 +2167,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-progress": {
     "file": "windows-default-progress.cur",
@@ -1946,7 +2186,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-default-text": {
     "file": "windows-default-text.cur",
@@ -1963,7 +2205,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": false,
+    "hasInvert": true
   },
   "windows-default-wait": {
     "file": "windows-default-wait.cur",
@@ -1980,7 +2224,9 @@
     "height": 32,
     "hotspotX": 10,
     "hotspotY": 10,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-inverted-alternate": {
     "file": "windows-inverted-alternate.cur",
@@ -1996,7 +2242,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-crosshair": {
     "file": "windows-inverted-crosshair.cur",
@@ -2012,7 +2260,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-default": {
     "file": "windows-inverted-default.cur",
@@ -2028,7 +2278,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-ew-resize": {
     "file": "windows-inverted-ew-resize.cur",
@@ -2044,7 +2296,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-handwriting": {
     "file": "windows-inverted-handwriting.cur",
@@ -2060,7 +2314,9 @@
     "height": 32,
     "hotspotX": 4,
     "hotspotY": 5,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-help": {
     "file": "windows-inverted-help.cur",
@@ -2076,7 +2332,9 @@
     "height": 32,
     "hotspotX": 5,
     "hotspotY": 7,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-alternate": {
     "file": "windows-inverted-large-alternate.cur",
@@ -2092,7 +2350,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-crosshair": {
     "file": "windows-inverted-large-crosshair.cur",
@@ -2108,7 +2368,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-default": {
     "file": "windows-inverted-large-default.cur",
@@ -2124,7 +2386,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-ew-resize": {
     "file": "windows-inverted-large-ew-resize.cur",
@@ -2140,7 +2404,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-handwriting": {
     "file": "windows-inverted-large-handwriting.cur",
@@ -2156,7 +2422,9 @@
     "height": 32,
     "hotspotX": 4,
     "hotspotY": 5,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-help": {
     "file": "windows-inverted-large-help.cur",
@@ -2172,7 +2440,9 @@
     "height": 32,
     "hotspotX": 2,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-move": {
     "file": "windows-inverted-large-move.cur",
@@ -2188,7 +2458,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-nesw-resize": {
     "file": "windows-inverted-large-nesw-resize.cur",
@@ -2204,7 +2476,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-not-allowed": {
     "file": "windows-inverted-large-not-allowed.cur",
@@ -2220,7 +2494,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-ns-resize": {
     "file": "windows-inverted-large-ns-resize.cur",
@@ -2236,7 +2512,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-nwse-resize": {
     "file": "windows-inverted-large-nwse-resize.cur",
@@ -2252,7 +2530,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-progress": {
     "file": "windows-inverted-large-progress.cur",
@@ -2268,7 +2548,9 @@
     "height": 32,
     "hotspotX": 2,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-text": {
     "file": "windows-inverted-large-text.cur",
@@ -2284,7 +2566,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-large-wait": {
     "file": "windows-inverted-large-wait.cur",
@@ -2300,7 +2584,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-move": {
     "file": "windows-inverted-move.cur",
@@ -2316,7 +2602,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-nesw-resize": {
     "file": "windows-inverted-nesw-resize.cur",
@@ -2332,7 +2620,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-not-allowed": {
     "file": "windows-inverted-not-allowed.cur",
@@ -2348,7 +2638,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-ns-resize": {
     "file": "windows-inverted-ns-resize.cur",
@@ -2364,7 +2656,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-nwse-resize": {
     "file": "windows-inverted-nwse-resize.cur",
@@ -2380,7 +2674,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-progress": {
     "file": "windows-inverted-progress.cur",
@@ -2396,7 +2692,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 0,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-text": {
     "file": "windows-inverted-text.cur",
@@ -2412,7 +2710,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-wait": {
     "file": "windows-inverted-wait.cur",
@@ -2428,7 +2728,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-alternate": {
     "file": "windows-inverted-xlarge-alternate.cur",
@@ -2444,7 +2746,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-crosshair": {
     "file": "windows-inverted-xlarge-crosshair.cur",
@@ -2460,7 +2764,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-default": {
     "file": "windows-inverted-xlarge-default.cur",
@@ -2476,7 +2782,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-ew-resize": {
     "file": "windows-inverted-xlarge-ew-resize.cur",
@@ -2492,7 +2800,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-handwriting": {
     "file": "windows-inverted-xlarge-handwriting.cur",
@@ -2508,7 +2818,9 @@
     "height": 32,
     "hotspotX": 2,
     "hotspotY": 3,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-help": {
     "file": "windows-inverted-xlarge-help.cur",
@@ -2524,7 +2836,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-move": {
     "file": "windows-inverted-xlarge-move.cur",
@@ -2540,7 +2854,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-nesw-resize": {
     "file": "windows-inverted-xlarge-nesw-resize.cur",
@@ -2556,7 +2872,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-not-allowed": {
     "file": "windows-inverted-xlarge-not-allowed.cur",
@@ -2572,7 +2890,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-ns-resize": {
     "file": "windows-inverted-xlarge-ns-resize.cur",
@@ -2588,7 +2908,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-nwse-resize": {
     "file": "windows-inverted-xlarge-nwse-resize.cur",
@@ -2604,7 +2926,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-progress": {
     "file": "windows-inverted-xlarge-progress.cur",
@@ -2620,7 +2944,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-text": {
     "file": "windows-inverted-xlarge-text.cur",
@@ -2636,7 +2962,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-inverted-xlarge-wait": {
     "file": "windows-inverted-xlarge-wait.cur",
@@ -2652,7 +2980,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": true
   },
   "windows-standard-large-alternate": {
     "file": "windows-standard-large-alternate.cur",
@@ -2668,7 +2998,9 @@
     "height": 32,
     "hotspotX": 14,
     "hotspotY": 6,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-crosshair": {
     "file": "windows-standard-large-crosshair.cur",
@@ -2684,7 +3016,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": false,
+    "hasInvert": true
   },
   "windows-standard-large-default": {
     "file": "windows-standard-large-default.cur",
@@ -2700,7 +3034,9 @@
     "height": 32,
     "hotspotX": 2,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-ew-resize": {
     "file": "windows-standard-large-ew-resize.cur",
@@ -2716,7 +3052,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-handwriting": {
     "file": "windows-standard-large-handwriting.cur",
@@ -2732,7 +3070,9 @@
     "height": 32,
     "hotspotX": 4,
     "hotspotY": 5,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-help": {
     "file": "windows-standard-large-help.cur",
@@ -2748,7 +3088,9 @@
     "height": 32,
     "hotspotX": 2,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-move": {
     "file": "windows-standard-large-move.cur",
@@ -2764,7 +3106,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-nesw-resize": {
     "file": "windows-standard-large-nesw-resize.cur",
@@ -2780,7 +3124,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-not-allowed": {
     "file": "windows-standard-large-not-allowed.cur",
@@ -2796,7 +3142,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-ns-resize": {
     "file": "windows-standard-large-ns-resize.cur",
@@ -2812,7 +3160,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-nwse-resize": {
     "file": "windows-standard-large-nwse-resize.cur",
@@ -2828,7 +3178,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-progress": {
     "file": "windows-standard-large-progress.cur",
@@ -2844,7 +3196,9 @@
     "height": 32,
     "hotspotX": 2,
     "hotspotY": 4,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-large-text": {
     "file": "windows-standard-large-text.cur",
@@ -2860,7 +3214,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": false,
+    "hasInvert": true
   },
   "windows-standard-large-wait": {
     "file": "windows-standard-large-wait.cur",
@@ -2876,7 +3232,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-alternate": {
     "file": "windows-standard-xlarge-alternate.cur",
@@ -2892,7 +3250,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 5,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-crosshair": {
     "file": "windows-standard-xlarge-crosshair.cur",
@@ -2908,7 +3268,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": false,
+    "hasInvert": true
   },
   "windows-standard-xlarge-default": {
     "file": "windows-standard-xlarge-default.cur",
@@ -2924,7 +3286,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-ew-resize": {
     "file": "windows-standard-xlarge-ew-resize.cur",
@@ -2940,7 +3304,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-handwriting": {
     "file": "windows-standard-xlarge-handwriting.cur",
@@ -2956,7 +3322,9 @@
     "height": 32,
     "hotspotX": 2,
     "hotspotY": 3,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-help": {
     "file": "windows-standard-xlarge-help.cur",
@@ -2972,7 +3340,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-move": {
     "file": "windows-standard-xlarge-move.cur",
@@ -2988,7 +3358,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-nesw-resize": {
     "file": "windows-standard-xlarge-nesw-resize.cur",
@@ -3004,7 +3376,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-not-allowed": {
     "file": "windows-standard-xlarge-not-allowed.cur",
@@ -3020,7 +3394,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-ns-resize": {
     "file": "windows-standard-xlarge-ns-resize.cur",
@@ -3036,7 +3412,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-nwse-resize": {
     "file": "windows-standard-xlarge-nwse-resize.cur",
@@ -3052,7 +3430,9 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-progress": {
     "file": "windows-standard-xlarge-progress.cur",
@@ -3068,7 +3448,9 @@
     "height": 32,
     "hotspotX": 0,
     "hotspotY": 1,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   },
   "windows-standard-xlarge-text": {
     "file": "windows-standard-xlarge-text.cur",
@@ -3084,7 +3466,9 @@
     "height": 32,
     "hotspotX": 15,
     "hotspotY": 15,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": false,
+    "hasInvert": true
   },
   "windows-standard-xlarge-wait": {
     "file": "windows-standard-xlarge-wait.cur",
@@ -3100,6 +3484,8 @@
     "height": 32,
     "hotspotX": 16,
     "hotspotY": 16,
-    "suspiciousInvertFrames": 0
+    "suspiciousInvertFrames": 0,
+    "hasNormal": true,
+    "hasInvert": false
   }
 }
