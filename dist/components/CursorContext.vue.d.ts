@@ -3,6 +3,8 @@ interface Props {
     scheme?: string;
     /** Pins one cursor for the whole subtree. Left unset, each element's cursor is derived from its native `cursor` (link -> `link`, text field -> `text`, ...) and resolved against `scheme` - see CursorOverlay.vue. */
     role?: string;
+    /** Turns the kit cursor off for this subtree - the OS cursor renders instead. Inherits; a nested `<CursorContext :disabled="false">` turns it back on. */
+    disabled?: boolean;
     /**
      * Puts `cursor: none` + the ambient scheme on `<html>` instead of this wrapper's element, and
      * mounts CursorOverlay. For the one outermost CursorContext of an app: CSS inheritance follows the
@@ -12,6 +14,8 @@ interface Props {
      * ancestor of every hoverable pixel.
      */
     root?: boolean;
+    /** `root` only: hard-disables the kit cursor everywhere, overriding any nested re-enable. */
+    disableAll?: boolean;
 }
 declare function addBusy(promise: Promise<unknown>): void;
 declare function addProgress(promise: Promise<unknown>): void;

@@ -1,10 +1,12 @@
-import { inject, provide, type ComputedRef, type InjectionKey } from 'vue'
+import { inject, provide, ref, type ComputedRef, type InjectionKey } from 'vue'
 
 export interface CursorContextApi {
   /** Effective scheme, already resolved against this context's ancestor chain. */
   scheme: ComputedRef<string>
   /** Effective *pinned* role, or undefined when nothing pins one and the cursor is left to derive from the element's native `cursor` (see CursorOverlay.vue). */
   role: ComputedRef<string | undefined>
+  /** True when the kit cursor is off for this subtree (a `disabled` ancestor, or a `root` with `disable-all`); the OS cursor renders instead. */
+  disabled: ComputedRef<boolean>
   /** True while this context or any ancestor has an in-flight addBusy()/addProgress() promise. */
   hasBusy: ComputedRef<boolean>
   hasProgress: ComputedRef<boolean>
@@ -27,6 +29,20 @@ export const CURSOR_TOKEN_PROPERTY = '--win55-cursor'
 
 /** Effective scheme, inherited down the DOM, so CursorOverlay resolves a derived role in the right themed pack. */
 export const CURSOR_SCHEME_PROPERTY = '--win55-scheme'
+
+/** `auto` where the kit cursor is off (OS cursor renders), `none` where a nested context turns it back on. Read by index.css's `* {}` rule and by CursorOverlay. */
+export const CURSOR_NATIVE_PROPERTY = '--win55-cursor-native'
+
+// Hard kill switch from a `root` context's `disable-all` - overrides any nested re-enable.
+const globalCursorDisabled = ref(false)
+
+export function setGlobalCursorDisabled(value: boolean): void {
+  globalCursorDisabled.value = value
+}
+
+export function isGlobalCursorDisabled(): boolean {
+  return globalCursorDisabled.value
+}
 
 export function provideCursorContext(api: CursorContextApi): void {
   provide(CURSOR_CONTEXT_KEY, api)

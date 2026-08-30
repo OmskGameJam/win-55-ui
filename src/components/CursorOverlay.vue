@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import { loadCursorsManifest, resolveCursor, SPRITE_SCALE, type CursorsManifest } from '../helpers/cursors'
-import { CURSOR_TOKEN_PROPERTY, CURSOR_SCHEME_PROPERTY } from '../helpers/cursorContext'
+import { CURSOR_TOKEN_PROPERTY, CURSOR_SCHEME_PROPERTY, CURSOR_NATIVE_PROPERTY } from '../helpers/cursorContext'
 
 // Draws the cursor as two sibling `position: fixed` <img> layers (invert under normal) teleported
 // into <body>, mounted once by the `root` CursorContext. A `cursor: url()` can't paint near a
@@ -136,12 +136,15 @@ function wouldBeCursorRole(el: Element): string {
 
 function updateIdentity(el: Element | null): void {
   if (!el) return
-  if (el.closest('[data-win55-cursor="off"]')) {
+
+  const cs = getComputedStyle(el)
+  // disabled here (a `disabled` CursorContext, or [data-win55-cursor="off"]) - the OS cursor is showing
+  const native = cs.getPropertyValue(CURSOR_NATIVE_PROPERTY).trim()
+  if ((native && native !== 'none') || el.closest('[data-win55-cursor="off"]')) {
     applyCursorId('')
     return
   }
 
-  const cs = getComputedStyle(el)
   const token = cs.getPropertyValue(CURSOR_TOKEN_PROPERTY).trim()
   if (token) {
     applyCursorId(token)

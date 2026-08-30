@@ -521,6 +521,15 @@ const donutPositions = computed(() => {
             <div style="cursor: move; margin-top: 4px">cursor: move (move)</div>
           </div>
         </CursorContext>
+        <CursorContext disabled>
+          <div style="width: 200px; height: 100px; padding: 8px">
+            disabled - OS cursor (auto) here
+            <input type="text" placeholder="text field (OS I-beam)" style="width: 100%; margin-top: 4px" />
+            <CursorContext :disabled="false" element="div" style="display: block; margin-top: 4px">
+              nested :disabled="false" - kit cursor again
+            </CursorContext>
+          </div>
+        </CursorContext>
         <CursorContext scheme="3d-bronze">
           <div style="width: 180px; height: 100px; padding: 8px">
             3d-bronze / default, except

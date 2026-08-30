@@ -55,16 +55,17 @@ table {
   box-sizing: border-box;
 }
 
-/* The kit owns the cursor entirely - CursorOverlay draws it. !important because links, text
-   fields, resize handles, disabled controls etc. carry their own UA/author `cursor` that would
-   otherwise render the OS cursor on top of the drawn one. The would-be cursor is still recoverable
-   (inline styles + a UA model) - see CursorOverlay.vue's wouldBeCursorRole. */
+/* The kit owns the cursor - CursorOverlay draws it. !important beats the UA/author `cursor` that
+   links, text fields, resize handles etc. carry, which would otherwise render the OS cursor on top.
+   The would-be cursor stays recoverable - see CursorOverlay.vue's wouldBeCursorRole.
+   A disabled CursorContext hands its subtree back to the OS cursor by inheriting
+   --win55-cursor-native: auto (a nested enabled context sets it back to none), so nesting works at
+   any depth. [data-win55-cursor="off"] is the non-Vue escape hatch - a flat `revert` for the full
+   per-element UA cursor, but it doesn't nest-re-enable. */
 * {
-  cursor: none !important;
+  cursor: var(--win55-cursor-native, none) !important;
 }
 
-/* Opt a subtree out of the kit cursor entirely - the OS cursor renders as normal (CursorOverlay
-   also skips these, see wouldBeCursorRole's caller). */
 [data-win55-cursor='off'],
 [data-win55-cursor='off'] * {
   cursor: revert !important;

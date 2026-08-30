@@ -8,8 +8,11 @@ import {
   unmarkCursorContextElement,
   setRootCursorContext,
   clearRootCursorContext,
+  setGlobalCursorDisabled,
+  isGlobalCursorDisabled,
   CURSOR_TOKEN_PROPERTY,
   CURSOR_SCHEME_PROPERTY,
+  CURSOR_NATIVE_PROPERTY,
   type CursorContextApi,
 } from '../helpers/cursorContext'
 import CursorOverlay from './CursorOverlay.vue'
@@ -19,6 +22,8 @@ interface Props {
   scheme?: string
   /** Pins one cursor for the whole subtree. Left unset, each element's cursor is derived from its native `cursor` (link -> `link`, text field -> `text`, ...) and resolved against `scheme` - see CursorOverlay.vue. */
   role?: string
+  /** Turns the kit cursor off for this subtree - the OS cursor renders instead. Inherits; a nested `<CursorContext :disabled="false">` turns it back on. */
+  disabled?: boolean
   /**
    * Puts `cursor: none` + the ambient scheme on `<html>` instead of this wrapper's element, and
    * mounts CursorOverlay. For the one outermost CursorContext of an app: CSS inheritance follows the
@@ -28,6 +33,8 @@ interface Props {
    * ancestor of every hoverable pixel.
    */
   root?: boolean
+  /** `root` only: hard-disables the kit cursor everywhere, overriding any nested re-enable. */
+  disableAll?: boolean
 }
 
 const props = defineProps<Props>()
@@ -39,6 +46,11 @@ const parent = useCursorContext()
 const effectiveScheme = computed(() => props.scheme ?? parent?.scheme.value ?? 'windows-default')
 // undefined = no pinned role here or above; the subtree derives per element (see CursorOverlay.vue).
 const effectiveRole = computed(() => props.role ?? parent?.role.value)
+// `root disable-all` wins; else own prop, else inherited. `:disabled="false"` re-enables inside a disabled ancestor.
+const effectiveDisabled = computed(() => isGlobalCursorDisabled() || (props.disabled ?? parent?.disabled.value ?? false))
+// The inherited `--win55-cursor-native`: `auto` shows the OS cursor, `none` (re-enable) hands back to the kit.
+// `auto` not `revert` - a CSS-wide keyword can't be stored in a custom property. undefined = don't override.
+const nativeCursor = computed(() => (effectiveDisabled.value ? 'auto' : props.disabled === false ? 'none' : undefined))
 
 // A Set, not a counter - adding the same promise twice can't double-count, and a duplicate removal
 // is a no-op. Entries drop via finally (resolve or reject alike).
@@ -76,6 +88,7 @@ function resolveRole(role: string): Promise<string | undefined> {
 const api: CursorContextApi = {
   scheme: effectiveScheme,
   role: effectiveRole,
+  disabled: effectiveDisabled,
   hasBusy,
   hasProgress,
   resolveRole,
@@ -99,10 +112,12 @@ onUnmounted(() => {
   if (rootEl.value) unmarkCursorContextElement(rootEl.value)
   if (!props.root) return
   clearRootCursorContext(api)
+  setGlobalCursorDisabled(false)
   const html = document.documentElement
   html.style.cursor = ''
   html.style.removeProperty(CURSOR_TOKEN_PROPERTY)
   html.style.removeProperty(CURSOR_SCHEME_PROPERTY)
+  html.style.removeProperty(CURSOR_NATIVE_PROPERTY)
 })
 
 const pinnedRole = computed(() => roleForState(effectiveRole.value))
@@ -129,10 +144,15 @@ const styles = computed(() => {
     rec.cursor = 'none'
     if (props.scheme) rec[CURSOR_SCHEME_PROPERTY] = effectiveScheme.value
     if (cursorId.value) rec[CURSOR_TOKEN_PROPERTY] = cursorId.value
+    if (nativeCursor.value) rec[CURSOR_NATIVE_PROPERTY] = nativeCursor.value
   }
 
   return s
 })
+
+if (props.root) {
+  watchEffect(() => setGlobalCursorDisabled(props.disableAll === true))
+}
 
 watchEffect(() => {
   if (!props.root) return
@@ -145,6 +165,12 @@ watchEffect(() => {
     html.style.setProperty(CURSOR_TOKEN_PROPERTY, cursorId.value)
   } else {
     html.style.removeProperty(CURSOR_TOKEN_PROPERTY)
+  }
+
+  if (nativeCursor.value) {
+    html.style.setProperty(CURSOR_NATIVE_PROPERTY, nativeCursor.value)
+  } else {
+    html.style.removeProperty(CURSOR_NATIVE_PROPERTY)
   }
 })
 </script>
