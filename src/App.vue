@@ -501,16 +501,24 @@ const donutPositions = computed(() => {
         <CursorContext>
           <div style="width: 180px; height: 100px; padding: 8px">windows-default / default (defaults)</div>
         </CursorContext>
+        <CursorContext role="text">
+          <div style="width: 180px; height: 100px; padding: 8px">TEXT</div>
+        </CursorContext>
         <CursorContext scheme="dinosaur" role="default">
           <div style="width: 180px; height: 100px; padding: 8px">dinosaur / default</div>
-        </CursorContext>
-        <CursorContext cursor="pointer">
-          <div style="width: 180px; height: 100px; padding: 8px">explicit cursor="pointer"</div>
         </CursorContext>
         <CursorContext scheme="dinosaur">
           <div style="width: 180px; height: 100px; padding: 8px">
             dinosaur / default, except
             <div v-cursor="'not-allowed'" style="margin-top: 4px">this bit (v-cursor="not-allowed")</div>
+          </div>
+        </CursorContext>
+        <CursorContext scheme="dinosaur">
+          <div style="width: 200px; height: 100px; padding: 8px">
+            dinosaur, roles derived from native cursor:
+            <a href="#" @click.prevent style="display: block; margin-top: 4px">a link (link)</a>
+            <input type="text" placeholder="a text field (text)" style="width: 100%; margin-top: 4px" />
+            <div style="cursor: move; margin-top: 4px">cursor: move (move)</div>
           </div>
         </CursorContext>
         <CursorContext scheme="3d-bronze">

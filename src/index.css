@@ -55,6 +55,21 @@ table {
   box-sizing: border-box;
 }
 
+/* The kit owns the cursor entirely - CursorOverlay draws it. !important because links, text
+   fields, resize handles, disabled controls etc. carry their own UA/author `cursor` that would
+   otherwise render the OS cursor on top of the drawn one. The would-be cursor is still recoverable
+   (inline styles + a UA model) - see CursorOverlay.vue's wouldBeCursorRole. */
+* {
+  cursor: none !important;
+}
+
+/* Opt a subtree out of the kit cursor entirely - the OS cursor renders as normal (CursorOverlay
+   also skips these, see wouldBeCursorRole's caller). */
+[data-win55-cursor='off'],
+[data-win55-cursor='off'] * {
+  cursor: revert !important;
+}
+
 body {
   line-height: 1;
   background-color: cyan;

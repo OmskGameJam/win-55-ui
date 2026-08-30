@@ -15,7 +15,7 @@ export interface CursorEntry {
   hotspotX: number | null
   hotspotY: number | null
   suspiciousInvertFrames: number
-  /** Whether public/win-55-ui/cursors/<cursorId>/{normal,invert}.gif actually exist - checked against disk at publish time (see scripts/cursors/src/sprite.ts's publishRegistry), not derived from the source file. Neither is guaranteed: a cursor can be invert-only (no normal.gif - most crosshair/text roles) or have no invert content at all (most non-crosshair/text roles) - see CursorOverlay.vue, the one thing that actually reads these. */
+  /** Whether `public/win-55-ui/cursors/<cursorId>/{normal,invert}.gif` exist (checked against disk at publish time). Neither is guaranteed - a cursor can be invert-only (crosshair/text) or normal-only. */
   hasNormal: boolean
   hasInvert: boolean
 }
@@ -32,10 +32,7 @@ export type SchemeIndex = Record<string, SchemeInfo>
 let manifestPromise: Promise<CursorsManifest> | null = null
 let schemeIndexPromise: Promise<SchemeIndex> | null = null
 
-/**
- * Loads `manifest.json` (published by `npm run cursors -- sprite`, see scripts/cursors/src/sprite.ts's
- * publishRegistry) at runtime, caching the result so it's only fetched once.
- */
+/** Fetches `manifest.json` (published by `npm run cursors -- sprite`) once, caching the result. */
 export async function loadCursorsManifest(): Promise<CursorsManifest> {
   if (!manifestPromise) {
     manifestPromise = fetch(MANIFEST_URL).then((response) => {
@@ -71,45 +68,32 @@ export function resetCursorsCache(): void {
   schemeIndexPromise = null
 }
 
-export interface ResolvedCursor {
-  cursorId: string
-  /** Path to the flat alpha layer (public/win-55-ui/cursors/<cursorId>/normal.gif) - see CLAUDE.md's "Курсоры" section. A cursor whose design is entirely screen-invert (e.g. most schemes' crosshair/text) has no normal.gif at all; this URL 404s and the CSS `cursor` rule falls through to its plain `auto` fallback until invert-layer rendering exists. */
-  url: string
-  hotspotX: number
-  hotspotY: number
-}
+/** Sprites render at 2x source pixels (project rule), so a manifest hotspot needs multiplying by this. */
+export const SPRITE_SCALE = 2
 
-const SPRITE_SCALE = 2
-
-/** Every scheme in scheme.json (except windows-default itself) has a role gap somewhere - not every themed pack ships a "handwriting" or "help" cursor, e.g. - so this is the fallback resolveCursor reaches for below instead of leaving a role unresolved. */
+/** resolveCursor falls back here when a scheme lacks a role - not every themed pack ships e.g. `handwriting`/`help`. */
 const FALLBACK_SCHEME = 'windows-default'
 
-function resolveInScheme(schemeIndex: SchemeIndex, manifest: CursorsManifest, scheme: string, role: string): ResolvedCursor | undefined {
+function resolveInScheme(schemeIndex: SchemeIndex, manifest: CursorsManifest, scheme: string, role: string): string | undefined {
   const cursorId = schemeIndex[scheme]?.roles[role]
   if (!cursorId) return undefined
 
   const entry = manifest[cursorId]
   if (!entry || entry.hotspotX === null || entry.hotspotY === null) return undefined
 
-  return {
-    cursorId,
-    url: `/win-55-ui/cursors/${cursorId}/normal.gif`,
-    hotspotX: entry.hotspotX * SPRITE_SCALE,
-    hotspotY: entry.hotspotY * SPRITE_SCALE,
-  }
+  return cursorId
 }
 
 /**
- * Resolves a scheme/role pair to its published sprite. Falls back to the same role in the
- * windows-default scheme if the requested scheme doesn't have it (or doesn't exist at all) -
- * undefined only when neither has a usable cursor for that role.
+ * Resolves a scheme/role pair to a cursorId. Falls back to the same role in the windows-default
+ * scheme if the requested scheme doesn't have it (or doesn't exist at all) - undefined only when
+ * neither has a usable cursor for that role.
  */
-export async function resolveCursor(scheme: string, role: string): Promise<ResolvedCursor | undefined> {
+export async function resolveCursor(scheme: string, role: string): Promise<string | undefined> {
   const [schemeIndex, manifest] = await Promise.all([loadSchemeIndex(), loadCursorsManifest()])
 
-  const direct = resolveInScheme(schemeIndex, manifest, scheme, role)
-  if (direct) return direct
-
-  if (scheme === FALLBACK_SCHEME) return undefined
-  return resolveInScheme(schemeIndex, manifest, FALLBACK_SCHEME, role)
+  return (
+    resolveInScheme(schemeIndex, manifest, scheme, role) ??
+    (scheme === FALLBACK_SCHEME ? undefined : resolveInScheme(schemeIndex, manifest, FALLBACK_SCHEME, role))
+  )
 }

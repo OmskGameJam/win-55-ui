@@ -64,7 +64,7 @@ export {
 // Types
 export type { BoxType } from './components/Box.vue'
 export type { TypographySettings } from './helpers/typography'
-export type { CursorEntry, CursorsManifest, ResolvedCursor, SchemeIndex, SchemeInfo } from './helpers/cursors'
+export type { CursorEntry, CursorsManifest, SchemeIndex, SchemeInfo } from './helpers/cursors'
 export type { CursorContextApi } from './helpers/cursorContext'
 export type { RichNode } from './helpers/richText'
 export type { EmojiDirectiveBindingValue, EmojiDirectiveOptions } from './directives/emoji'
