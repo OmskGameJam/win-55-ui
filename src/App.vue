@@ -499,63 +499,61 @@ const donutPositions = computed(() => {
     <NamedPanel label="CursorContext" background-color-hint="#CBCBCB" style="width: fit-content; margin: 8px">
       <div style="display: flex; gap: 8px">
         <CursorContext>
-          <div style="width: 180px; height: 100px; padding: 8px">windows-default / default (defaults)</div>
+          <div style="width: 180px; height: 100px; padding: 8px">defaults</div>
         </CursorContext>
         <CursorContext role="text">
-          <div style="width: 180px; height: 100px; padding: 8px">TEXT</div>
+          <div style="width: 180px; height: 100px; padding: 8px">text</div>
         </CursorContext>
         <CursorContext scheme="dinosaur" role="default">
-          <div style="width: 180px; height: 100px; padding: 8px">dinosaur / default</div>
+          <div style="width: 180px; height: 100px; padding: 8px">dinosaur</div>
         </CursorContext>
         <CursorContext scheme="dinosaur">
           <div style="width: 180px; height: 100px; padding: 8px">
-            dinosaur / default, except
-            <div v-cursor="'not-allowed'" style="margin-top: 4px">this bit (v-cursor="not-allowed")</div>
+            dinosaur
+            <div v-cursor="'not-allowed'" style="margin-top: 4px">v-cursor</div>
           </div>
         </CursorContext>
         <CursorContext scheme="dinosaur">
           <div style="width: 200px; height: 100px; padding: 8px">
-            dinosaur, roles derived from native cursor:
-            <a href="#" @click.prevent style="display: block; margin-top: 4px">a link (link)</a>
-            <input type="text" placeholder="a text field (text)" style="width: 100%; margin-top: 4px" />
-            <div style="cursor: move; margin-top: 4px">cursor: move (move)</div>
+            native
+            <a href="#" @click.prevent style="display: block; margin-top: 4px">link</a>
+            <input type="text" placeholder="text" style="width: 100%; margin-top: 4px" />
+            <div style="cursor: move; margin-top: 4px">move</div>
           </div>
         </CursorContext>
         <CursorContext disabled>
           <div style="width: 200px; height: 100px; padding: 8px">
-            disabled - OS cursor (auto) here
-            <input type="text" placeholder="text field (OS I-beam)" style="width: 100%; margin-top: 4px" />
+            disabled
+            <input type="text" placeholder="text" style="width: 100%; margin-top: 4px" />
             <CursorContext :disabled="false" element="div" style="display: block; margin-top: 4px">
-              nested :disabled="false" - kit cursor again
+              [ re-enabled ]
             </CursorContext>
           </div>
         </CursorContext>
         <CursorContext scheme="3d-bronze">
           <div style="width: 180px; height: 100px; padding: 8px">
-            3d-bronze / default, except
+            3d-bronze
             <CursorContext role="not-allowed" style="display: block; margin-top: 4px">
-              this bit (nested CursorContext, role only - scheme inherited from the parent)
+              [ nested ]
             </CursorContext>
           </div>
         </CursorContext>
         <CursorContext scheme="3d-bronze" role="help">
-          <div style="width: 180px; height: 100px; padding: 8px">
-            3d-bronze / help (3d-bronze has no "help" cursor - falls back to windows-default's)
-          </div>
+          <div style="width: 180px; height: 100px; padding: 8px">fallback</div>
         </CursorContext>
         <CursorContext ref="progressDemoContext">
           <div style="width: 180px; height: 100px; padding: 8px">
-            addBusy/addProgress for 3s, via template ref:
-            <Button @click="triggerBusyDemo">busy (wait)</Button>
+            ref:
+            <Button @click="triggerBusyDemo">busy</Button>
             <Button @click="triggerProgressDemo">progress</Button>
           </div>
         </CursorContext>
         <CursorContext>
           <div style="width: 220px; height: 100px; padding: 8px">
-            same, but via useCursorContext() a few levels down, no ref at all:
+            inject:
             <div>
               <div>
-                <CursorBusyDemoButton mode="busy" label="busy (wait)" />
+                <CursorBusyDemoButton mode="busy" label="busy" />
                 <CursorBusyDemoButton mode="progress" label="progress" />
               </div>
             </div>
