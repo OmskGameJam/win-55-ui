@@ -1,20 +1,43 @@
 import { nextTick, ref, watchEffect, type Directive, type Ref, type WatchStopHandle } from 'vue'
-import { resolveCursor } from '../helpers/cursors'
-import { findNearestCursorContext, CURSOR_TOKEN_PROPERTY, type CursorContextApi } from '../helpers/cursorContext'
+import { resolveCursor, resolveCursorCss } from '../helpers/cursors'
+import {
+  findNearestCursorContext,
+  CURSOR_TOKEN_PROPERTY,
+  CURSOR_NATIVE_PROPERTY,
+  CURSOR_NATIVE_LINK_PROPERTY,
+  CURSOR_NATIVE_TEXT_PROPERTY,
+  type CursorContextApi,
+  type CursorRole,
+} from '../helpers/cursorContext'
 
-async function applyCursor(el: HTMLElement, role: string, context: CursorContextApi | undefined): Promise<void> {
-  if (!role) {
-    el.style.removeProperty('cursor')
-    el.style.removeProperty(CURSOR_TOKEN_PROPERTY)
+function clear(el: HTMLElement): void {
+  el.style.removeProperty('cursor')
+  el.style.removeProperty(CURSOR_TOKEN_PROPERTY)
+  el.style.removeProperty(CURSOR_NATIVE_PROPERTY)
+  el.style.removeProperty(CURSOR_NATIVE_LINK_PROPERTY)
+  el.style.removeProperty(CURSOR_NATIVE_TEXT_PROPERTY)
+}
+
+async function applyCursor(el: HTMLElement, role: CursorRole, context: CursorContextApi | undefined): Promise<void> {
+  const native = (context?.mode.value ?? 'native') === 'native'
+  // wipe first - keeps a live mode switch from leaving the other branch's props behind
+  clear(el)
+  if (!role) return
+
+  if (native) {
+    const value = context ? await context.resolveRoleCss(role) : await resolveCursorCss('windows-default', role)
+    if (!value) return
+    // inline `!important` wins on the element itself (over index.css's `:where()` UA rules); the
+    // three custom props override the inherited derivation for the subtree, nested <a>/fields included
+    el.style.setProperty('cursor', value, 'important')
+    el.style.setProperty(CURSOR_NATIVE_PROPERTY, value)
+    el.style.setProperty(CURSOR_NATIVE_LINK_PROPERTY, value)
+    el.style.setProperty(CURSOR_NATIVE_TEXT_PROPERTY, value)
     return
   }
 
   const cursorId = context ? await context.resolveRole(role) : await resolveCursor('windows-default', role)
-  if (!cursorId) {
-    el.style.removeProperty('cursor')
-    el.style.removeProperty(CURSOR_TOKEN_PROPERTY)
-    return
-  }
+  if (!cursorId) return
 
   // the real `cursor` stays `none`; the cursorId rides CURSOR_TOKEN_PROPERTY for CursorOverlay to draw
   el.style.cursor = 'none'
@@ -22,7 +45,7 @@ async function applyCursor(el: HTMLElement, role: string, context: CursorContext
 }
 
 interface CursorDirectiveState {
-  role: Ref<string>
+  role: Ref<CursorRole>
   stop: WatchStopHandle
 }
 
@@ -30,7 +53,7 @@ const stateByElement = new WeakMap<HTMLElement, CursorDirectiveState>()
 
 // v-cursor="role" - a one-element CursorContext: resolves `role` against the nearest ancestor
 // context's scheme, falling back to the registered root context, then windows-default.
-const cursorDirective: Directive<HTMLElement, string> = {
+const cursorDirective: Directive<HTMLElement, CursorRole> = {
   mounted(el, binding) {
     const role = ref(binding.value)
     let stop: WatchStopHandle = () => {}

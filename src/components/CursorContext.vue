@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, reactive, ref, watchEffect, type CSSProperties } from 'vue'
-import { resolveCursor } from '../helpers/cursors'
+import { resolveCursor, resolveCursorCss, resolveCursorCssThemed } from '../helpers/cursors'
 import {
   provideCursorContext,
   useCursorContext,
@@ -13,7 +13,12 @@ import {
   CURSOR_TOKEN_PROPERTY,
   CURSOR_SCHEME_PROPERTY,
   CURSOR_NATIVE_PROPERTY,
+  CURSOR_NATIVE_LINK_PROPERTY,
+  CURSOR_NATIVE_TEXT_PROPERTY,
+  MANAGED_CURSOR_PROPS,
   type CursorContextApi,
+  type CursorMode,
+  type CursorRole,
 } from '../helpers/cursorContext'
 import CursorOverlay from './CursorOverlay.vue'
 
@@ -21,16 +26,21 @@ interface Props {
   element?: string
   scheme?: string
   /** Pins one cursor for the whole subtree. Left unset, each element's cursor is derived from its native `cursor` (link -> `link`, text field -> `text`, ...) and resolved against `scheme` - see CursorOverlay.vue. */
-  role?: string
+  role?: CursorRole
   /** Turns the kit cursor off for this subtree - the OS cursor renders instead. Inherits; a nested `<CursorContext :disabled="false">` turns it back on. */
   disabled?: boolean
   /**
-   * Puts `cursor: none` + the ambient scheme on `<html>` instead of this wrapper's element, and
-   * mounts CursorOverlay. For the one outermost CursorContext of an app: CSS inheritance follows the
-   * real DOM, so `<Teleport>`-ed content (dropdown menus, Window, ...) lands under `<body>` outside
-   * this wrapper's subtree - only a style set on `<html>` reaches everything. `<html>` not `<body>`
-   * because body's box is only as tall as its content (Meyer reset), so it isn't reliably an
-   * ancestor of every hoverable pixel.
+   * How the cursor is painted for this subtree - `native` (default; real CSS `cursor: url()`) or
+   * `immersive` (`cursor: none` + CursorOverlay draws the sprite). Inherits like `disabled`.
+   */
+  mode?: CursorMode
+  /**
+   * Puts the ambient scheme + base `--win55-cursor-native` on `<html>` instead of this wrapper's
+   * element, and mounts CursorOverlay. For the one outermost CursorContext of an app: CSS inheritance
+   * follows the real DOM, so `<Teleport>`-ed content (dropdown menus, Window, ...) lands under
+   * `<body>` outside this wrapper's subtree - only a style set on `<html>` reaches everything.
+   * `<html>` not `<body>` because body's box is only as tall as its content (Meyer reset), so it
+   * isn't reliably an ancestor of every hoverable pixel.
    */
   root?: boolean
   /** `root` only: hard-disables the kit cursor everywhere, overriding any nested re-enable. */
@@ -48,9 +58,7 @@ const effectiveScheme = computed(() => props.scheme ?? parent?.scheme.value ?? '
 const effectiveRole = computed(() => props.role ?? parent?.role.value)
 // `root disable-all` wins; else own prop, else inherited. `:disabled="false"` re-enables inside a disabled ancestor.
 const effectiveDisabled = computed(() => isGlobalCursorDisabled() || (props.disabled ?? parent?.disabled.value ?? false))
-// The inherited `--win55-cursor-native`: `auto` shows the OS cursor, `none` (re-enable) hands back to the kit.
-// `auto` not `revert` - a CSS-wide keyword can't be stored in a custom property. undefined = don't override.
-const nativeCursor = computed(() => (effectiveDisabled.value ? 'auto' : props.disabled === false ? 'none' : undefined))
+const effectiveMode = computed<CursorMode>(() => props.mode ?? parent?.mode.value ?? 'native')
 
 // A Set, not a counter - adding the same promise twice can't double-count, and a duplicate removal
 // is a no-op. Entries drop via finally (resolve or reject alike).
@@ -85,20 +93,26 @@ function resolveRole(role: string): Promise<string | undefined> {
   return resolveCursor(effectiveScheme.value, roleForState(role) ?? 'default')
 }
 
+function resolveRoleCss(role: string): Promise<string | undefined> {
+  return resolveCursorCss(effectiveScheme.value, roleForState(role) ?? 'default')
+}
+
 const api: CursorContextApi = {
   scheme: effectiveScheme,
+  mode: effectiveMode,
   role: effectiveRole,
   disabled: effectiveDisabled,
   hasBusy,
   hasProgress,
   resolveRole,
+  resolveRoleCss,
   addBusy,
   addProgress,
 }
 
 provideCursorContext(api)
 
-defineExpose({ addBusy, addProgress, resolveRole })
+defineExpose({ addBusy, addProgress, resolveRole, resolveRoleCss })
 
 const rootEl = ref<HTMLElement>()
 
@@ -113,71 +127,117 @@ onUnmounted(() => {
   if (!props.root) return
   clearRootCursorContext(api)
   setGlobalCursorDisabled(false)
-  const html = document.documentElement
-  html.style.cursor = ''
-  html.style.removeProperty(CURSOR_TOKEN_PROPERTY)
-  html.style.removeProperty(CURSOR_SCHEME_PROPERTY)
-  html.style.removeProperty(CURSOR_NATIVE_PROPERTY)
+  for (const prop of MANAGED_CURSOR_PROPS) document.documentElement.style.removeProperty(prop)
 })
 
 const pinnedRole = computed(() => roleForState(effectiveRole.value))
 // undefined while no role is pinned - the subtree derives per element instead
 const cursorId = ref<string>()
 
+// Native-mode values for --win55-cursor-native{,-link,-text} (see cursorContext.ts): a resolved
+// `url(...)`, or `auto` inside a `disabled` subtree. link/text equal the base when a role is
+// pinned (the subtree flattens to one cursor).
+const nativeBaseValue = ref<string>()
+const nativeLinkValue = ref<string>()
+const nativeTextValue = ref<string>()
+
+// pinned role and `disabled` flatten the subtree - base, link and text all get the same cursor
+function setNativeFlat(value: string | undefined): void {
+  nativeBaseValue.value = value
+  nativeLinkValue.value = value
+  nativeTextValue.value = value
+}
+
 watchEffect(() => {
+  const scheme = effectiveScheme.value
   const role = pinnedRole.value
-  if (!role) {
+
+  // immersive: cursorId for the pinned role; undefined leaves the overlay to derive per element
+  if (role) {
+    void resolveCursor(scheme, role).then((id) => {
+      cursorId.value = id
+    })
+  } else {
     cursorId.value = undefined
-    return
   }
-  void resolveCursor(effectiveScheme.value, role).then((id) => {
-    cursorId.value = id
-  })
+
+  // native: `disabled` is the sanctioned OS-cursor opt-out, same as [data-win55-cursor="off"]
+  if (effectiveDisabled.value) {
+    setNativeFlat('auto')
+  } else if (role) {
+    // an explicitly pinned role keeps its keyword fallback; the always-on paths below never do
+    void resolveCursorCss(scheme, role).then(setNativeFlat)
+  } else {
+    void resolveCursorCssThemed(scheme, 'default').then((v) => {
+      nativeBaseValue.value = v
+    })
+    void resolveCursorCssThemed(scheme, 'link').then((v) => {
+      nativeLinkValue.value = v
+    })
+    void resolveCursorCssThemed(scheme, 'text').then((v) => {
+      nativeTextValue.value = v
+    })
+  }
 })
 
-const styles = computed(() => {
+// Native mode: stamp the inherited props only where this context changes its subtree's theme.
+// A bare nested <CursorContext> stays transparent and inherits, matching immersive; `root` always
+// stamps, since it seeds the base value for the whole document.
+const publishesNative = computed(
+  () =>
+    props.root ||
+    props.scheme !== undefined ||
+    props.disabled === false ||
+    effectiveDisabled.value ||
+    pinnedRole.value !== undefined,
+)
+
+// The cursor properties this context contributes, one source of truth for both the :style binding
+// (non-root) and the <html> sync (root). Absent keys mean "don't set / clear".
+const cursorDeclaration = computed<Record<string, string>>(() => {
+  const d: Record<string, string> = {}
+  if (props.root || props.scheme) d[CURSOR_SCHEME_PROPERTY] = effectiveScheme.value
+
+  if (effectiveMode.value === 'immersive') {
+    d.cursor = 'none'
+    // `auto` in a disabled subtree (OS cursor, overlay hides), `none` otherwise (overlay draws)
+    d[CURSOR_NATIVE_PROPERTY] = effectiveDisabled.value ? 'auto' : 'none'
+    if (cursorId.value) d[CURSOR_TOKEN_PROPERTY] = cursorId.value
+  } else if (publishesNative.value) {
+    if (nativeBaseValue.value) d[CURSOR_NATIVE_PROPERTY] = nativeBaseValue.value
+    if (nativeLinkValue.value) d[CURSOR_NATIVE_LINK_PROPERTY] = nativeLinkValue.value
+    if (nativeTextValue.value) d[CURSOR_NATIVE_TEXT_PROPERTY] = nativeTextValue.value
+  }
+  return d
+})
+
+const styles = computed<CSSProperties>(() => {
   const s: CSSProperties = {}
   if (!props.element) s.display = 'contents'
-
-  if (!props.root) {
-    const rec = s as Record<string, string>
-    rec.cursor = 'none'
-    if (props.scheme) rec[CURSOR_SCHEME_PROPERTY] = effectiveScheme.value
-    if (cursorId.value) rec[CURSOR_TOKEN_PROPERTY] = cursorId.value
-    if (nativeCursor.value) rec[CURSOR_NATIVE_PROPERTY] = nativeCursor.value
-  }
-
+  if (!props.root) Object.assign(s, cursorDeclaration.value)
   return s
 })
 
 if (props.root) {
   watchEffect(() => setGlobalCursorDisabled(props.disableAll === true))
+
+  // root's declaration can't ride :style (Teleported content escapes the wrapper's subtree) - mirror
+  // it onto <html>, which is an ancestor of every painted pixel.
+  watchEffect(() => {
+    const decl = cursorDeclaration.value
+    const style = document.documentElement.style
+    for (const prop of MANAGED_CURSOR_PROPS) {
+      if (decl[prop] !== undefined) style.setProperty(prop, decl[prop])
+      else style.removeProperty(prop)
+    }
+  })
 }
-
-watchEffect(() => {
-  if (!props.root) return
-
-  const html = document.documentElement
-  html.style.cursor = 'none'
-  html.style.setProperty(CURSOR_SCHEME_PROPERTY, effectiveScheme.value)
-
-  if (cursorId.value) {
-    html.style.setProperty(CURSOR_TOKEN_PROPERTY, cursorId.value)
-  } else {
-    html.style.removeProperty(CURSOR_TOKEN_PROPERTY)
-  }
-
-  if (nativeCursor.value) {
-    html.style.setProperty(CURSOR_NATIVE_PROPERTY, nativeCursor.value)
-  } else {
-    html.style.removeProperty(CURSOR_NATIVE_PROPERTY)
-  }
-})
 </script>
 
 <template>
   <component :is="tag" :style="styles" ref="rootEl">
     <slot />
   </component>
+  <!-- root-only; inert in native mode - it self-hides wherever --win55-cursor-native isn't `none` -->
   <CursorOverlay v-if="root" />
 </template>

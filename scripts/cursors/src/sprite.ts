@@ -57,6 +57,49 @@ function recolorWhite(rgba: Uint8ClampedArray): Uint8ClampedArray {
   return out
 }
 
+/**
+ * Bakes the AND/XOR (invert) layer into the normal layer as one flat, blend-free frame for native
+ * cursor mode, which paints a plain CSS `url()` with no compositing tricks available. Painted
+ * bottom to top: a 1px-down-right white drop shadow of the invert pixels (a background-independent
+ * stand-in for the screen-invert), then the invert pixels themselves solid black, then the normal
+ * layer's real pixels on top.
+ */
+function compositeNativeFrame(color: Uint8ClampedArray, invert: Uint8ClampedArray | undefined, width: number, height: number): Uint8ClampedArray {
+  const out = new Uint8ClampedArray(width * height * 4)
+
+  const put = (x: number, y: number, r: number, g: number, b: number): void => {
+    if (x < 0 || x >= width || y < 0 || y >= height) return
+    const i = (y * width + x) * 4
+    out[i] = r
+    out[i + 1] = g
+    out[i + 2] = b
+    out[i + 3] = 255
+  }
+
+  if (invert) {
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        if (invert[(y * width + x) * 4 + 3] !== 0) put(x + 1, y + 1, 255, 255, 255)
+      }
+    }
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        if (invert[(y * width + x) * 4 + 3] !== 0) put(x, y, 0, 0, 0)
+      }
+    }
+  }
+
+  for (let i = 0; i < color.length; i += 4) {
+    if (color[i + 3] === 0) continue
+    out[i] = color[i]
+    out[i + 1] = color[i + 1]
+    out[i + 2] = color[i + 2]
+    out[i + 3] = 255
+  }
+
+  return out
+}
+
 interface LayerFrame {
   rgba: Uint8ClampedArray
   delayCs: number
@@ -113,13 +156,21 @@ function loadRoleFrames(filename: string): RoleFrames {
  * "Курсоры" section) - like the font pipeline's hand-editable .bdf files, a re-run must not clobber
  * that work silently. Returns false (nothing written) when the file already exists and force is off.
  */
-function writeLayerGif(outDir: string, filename: string, width: number, height: number, frames: LayerFrame[], force: boolean): boolean {
+function writeLayerGif(
+  outDir: string,
+  filename: string,
+  width: number,
+  height: number,
+  frames: LayerFrame[],
+  force: boolean,
+  scale = SCALE,
+): boolean {
   const outPath = join(outDir, filename)
   if (existsSync(outPath) && !force) return false
 
-  const upscaled = frames.map((f) => ({ ...upscale({ width, height, rgba: f.rgba }, SCALE), delayCs: f.delayCs || 10 }))
-  const gifFrames: GifFrame[] = upscaled.map((f) => ({ rgba: f.rgba, delayCs: f.delayCs }))
-  const bytes = encodeGif(gifFrames, upscaled[0].width, upscaled[0].height)
+  const scaled = frames.map((f) => ({ ...upscale({ width, height, rgba: f.rgba }, scale), delayCs: f.delayCs || 10 }))
+  const gifFrames: GifFrame[] = scaled.map((f) => ({ rgba: f.rgba, delayCs: f.delayCs }))
+  const bytes = encodeGif(gifFrames, scaled[0].width, scaled[0].height)
 
   mkdirSync(outDir, { recursive: true })
   writeFileSync(outPath, bytes)
@@ -161,11 +212,11 @@ export interface SpriteResult {
  *
  * The published manifest.json isn't a byte-for-byte copy of src-cursors/manifest.json - each entry
  * also gets `hasNormal`/`hasInvert`, checked directly against what's actually on disk under
- * public/win-55-ui/cursors/<cursorId>/ (not re-derived from the source .cur/.ani, so a hand-touched-
- * up sprite - added or deleted by hand - is reflected exactly as published, not as originally
- * rendered). The runtime cursor overlay (src/components/CursorOverlay.vue) reads these instead of
- * probing with a real image load: a cursor missing a layer - most don't have an invert one, some
- * (crosshair/text) have no normal one at all - is a normal case, not an error to recover from.
+ * public/win-55-ui/cursors/<cursorId>/ (not re-derived from the source .cur/.ani, so a
+ * hand-touched-up sprite - added or deleted by hand - is reflected exactly as published, not as
+ * originally rendered). CursorOverlay reads these to pick normal/invert without probing with a real
+ * image load; a cursor missing a layer (most have no invert; crosshair/text no normal) is a normal
+ * case, not an error. native.gif is written for every cursor, so native mode assumes it and needs no flag.
  */
 function publishRegistry(manifest: CursorsManifest): void {
   mkdirSync(publicCursorsDir, { recursive: true })
@@ -185,7 +236,7 @@ function publishRegistry(manifest: CursorsManifest): void {
 }
 
 /**
- * Renders every cursor in manifest.json to public/win-55-ui/cursors/<cursorId>/{normal,invert}.gif -
+ * Renders every cursor in manifest.json to public/win-55-ui/cursors/<cursorId>/{normal,invert,native}.gif -
  * one directory per deduped physical cursor, not per scheme/role (see CLAUDE.md's "Курсоры"
  * section). A layer with no opaque pixels in any frame is skipped rather than written as a blank
  * GIF. An existing output file is left untouched unless force is passed (see writeLayerGif) - this
@@ -207,6 +258,8 @@ export function generateSprites(force = false): SpriteResult {
     const { color, invert } = reinterpretReconstructedInvert(frames, entry)
 
     const colorHasContent = color.some((f) => hasOpaquePixel(f.rgba))
+    const invertHasContent = invert.some((f) => hasOpaquePixel(f.rgba))
+
     if (colorHasContent) {
       if (writeLayerGif(outDir, 'normal.gif', frames.width, frames.height, color, force)) layersWritten++
       else layersSkippedExisting.push(`${cursorId}/normal`)
@@ -214,12 +267,22 @@ export function generateSprites(force = false): SpriteResult {
       layersSkippedEmpty.push(`${cursorId}/normal`)
     }
 
-    const invertHasContent = invert.some((f) => hasOpaquePixel(f.rgba))
     if (invertHasContent) {
       if (writeLayerGif(outDir, 'invert.gif', frames.width, frames.height, invert, force)) layersWritten++
       else layersSkippedExisting.push(`${cursorId}/invert`)
     } else {
       layersSkippedEmpty.push(`${cursorId}/invert`)
+    }
+
+    // native.gif - normal + invert baked into one flat bitmap at 1:1 (not 2x like the layers
+    // above), the only sprite native cursor mode loads. CursorOverlay (immersive) ignores it.
+    if (colorHasContent || invertHasContent) {
+      const native = color.map((f, i) => ({
+        rgba: compositeNativeFrame(f.rgba, invert[i]?.rgba, frames.width, frames.height),
+        delayCs: f.delayCs,
+      }))
+      if (writeLayerGif(outDir, 'native.gif', frames.width, frames.height, native, force, 1)) layersWritten++
+      else layersSkippedExisting.push(`${cursorId}/native`)
     }
   }
 

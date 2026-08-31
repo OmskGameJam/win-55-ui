@@ -55,17 +55,43 @@ table {
   box-sizing: border-box;
 }
 
-/* The kit owns the cursor - CursorOverlay draws it. !important beats the UA/author `cursor` that
-   links, text fields, resize handles etc. carry, which would otherwise render the OS cursor on top.
-   The would-be cursor stays recoverable - see CursorOverlay.vue's wouldBeCursorRole.
-   A disabled CursorContext hands its subtree back to the OS cursor by inheriting
-   --win55-cursor-native: auto (a nested enabled context sets it back to none), so nesting works at
-   any depth. [data-win55-cursor="off"] is the non-Vue escape hatch - a flat `revert` for the full
-   per-element UA cursor, but it doesn't nest-re-enable. */
+/* The kit owns the cursor. --win55-cursor-native (set by CursorContext / v-cursor, inherited down
+   the DOM) decides per element what to paint: `none` (immersive - CursorOverlay draws the sprite),
+   a real `url(...) x y, kw` (native mode), or `auto` (OS cursor - only inside a `disabled` subtree
+   or [data-win55-cursor="off"]). !important beats the UA/author `cursor` that links, text fields,
+   resize handles etc. carry; the would-be cursor stays recoverable for immersive - see
+   CursorOverlay.vue's wouldBeCursorRole. A nested enabled CursorContext sets the property back, so
+   nesting works at any depth. */
 * {
   cursor: var(--win55-cursor-native, none) !important;
 }
 
+/* Native mode: give the few native elements that carry their own UA cursor a themed context cursor,
+   from the per-role custom props CursorContext publishes. :where() keeps these at zero specificity -
+   they beat the `* {}` rule only by order, and lose to any real selector (v-cursor's inline
+   !important, the escape hatch below). In immersive mode the link/text props are unset, so these
+   fall through to --win55-cursor-native (`none`) and the overlay draws as usual. */
+:where(a[href], area[href]) {
+  cursor: var(--win55-cursor-native-link, var(--win55-cursor-native, none)) !important;
+}
+
+:where(
+  textarea,
+  [contenteditable]:not([contenteditable='false']),
+  input:not([type]),
+  input[type='text' i],
+  input[type='search' i],
+  input[type='url' i],
+  input[type='tel' i],
+  input[type='email' i],
+  input[type='password' i],
+  input[type='number' i]
+) {
+  cursor: var(--win55-cursor-native-text, var(--win55-cursor-native, none)) !important;
+}
+
+/* Non-Vue escape hatch - a flat `revert` to the full per-element UA cursor, no nested re-enable.
+   Real specificity, so it beats the :where() rules above. */
 [data-win55-cursor='off'],
 [data-win55-cursor='off'] * {
   cursor: revert !important;

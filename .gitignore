@@ -13,6 +13,7 @@ dist/
 !scripts/
 !scripts/*.js
 !scripts/font/src/svg2ttf.d.ts
+!scripts/cursors/src/gifenc.d.ts
 scripts/font/dist/
 *.report.json
 
