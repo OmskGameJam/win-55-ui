@@ -18,6 +18,8 @@ export interface CursorEntry {
   /** Whether `public/win-55-ui/cursors/<cursorId>/{normal,invert}.gif` exist (checked against disk at publish time). Neither is guaranteed - a cursor can be invert-only (crosshair/text) or normal-only. `native.gif` is written for every cursor, so it has no flag. */
   hasNormal: boolean
   hasInvert: boolean
+  /** Animated cursors only: ms to hold each `native-<i>.gif` still. Native mode flips the CSS `cursor` url through them on a timer (a CSS cursor never animates a GIF itself). */
+  nativeFrameDelays?: number[]
 }
 
 export type CursorsManifest = Record<string, CursorEntry>

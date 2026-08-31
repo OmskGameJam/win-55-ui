@@ -159,7 +159,19 @@
     "hotspotY": 0,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      670,
+      80,
+      80,
+      80
+    ]
   },
   "3d-bronze-wait": {
     "file": "3d-bronze-wait.ani",
@@ -177,7 +189,24 @@
     "hotspotY": 15,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      670,
+      80,
+      80,
+      80
+    ]
   },
   "3d-white-default": {
     "file": "3d-white-default.cur",
@@ -321,7 +350,19 @@
     "hotspotY": 0,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      670,
+      80,
+      80,
+      80
+    ]
   },
   "3d-white-wait": {
     "file": "3d-white-wait.ani",
@@ -339,7 +380,24 @@
     "hotspotY": 15,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      670,
+      80,
+      80,
+      80
+    ]
   },
   "conductor-not-allowed": {
     "file": "conductor-not-allowed.ani",
@@ -357,7 +415,17 @@
     "hotspotY": 0,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      370,
+      370,
+      370,
+      370,
+      370,
+      370,
+      370,
+      370
+    ]
   },
   "conductor-progress": {
     "file": "conductor-progress.ani",
@@ -375,7 +443,13 @@
     "hotspotY": 16,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      70,
+      70,
+      70,
+      70
+    ]
   },
   "conductor-wait": {
     "file": "conductor-wait.ani",
@@ -393,7 +467,21 @@
     "hotspotY": 0,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100
+    ]
   },
   "dinosaur-move": {
     "file": "dinosaur-move.cur",
@@ -429,7 +517,25 @@
     "hotspotY": 16,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      250,
+      250,
+      250,
+      250,
+      250,
+      250,
+      250,
+      250,
+      250,
+      250,
+      250,
+      500,
+      330,
+      330,
+      830,
+      500
+    ]
   },
   "dinosaur-ns-resize": {
     "file": "dinosaur-ns-resize.cur",
@@ -483,7 +589,15 @@
     "hotspotY": 0,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      130,
+      130,
+      130,
+      130,
+      130,
+      130
+    ]
   },
   "dinosaur-wait": {
     "file": "dinosaur-wait.ani",
@@ -501,7 +615,15 @@
     "hotspotY": 0,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      130,
+      130,
+      130,
+      130,
+      130,
+      130
+    ]
   },
   "hands-1-ew-resize": {
     "file": "hands-1-ew-resize.cur",
@@ -609,7 +731,14 @@
     "hotspotY": 16,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      130,
+      130,
+      130,
+      130,
+      500
+    ]
   },
   "hands-2-ew-resize": {
     "file": "hands-2-ew-resize.ani",
@@ -627,7 +756,11 @@
     "hotspotY": 16,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      130,
+      130
+    ]
   },
   "hands-2-nesw-resize": {
     "file": "hands-2-nesw-resize.ani",
@@ -645,7 +778,11 @@
     "hotspotY": 8,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      130,
+      130
+    ]
   },
   "hands-2-not-allowed": {
     "file": "hands-2-not-allowed.ani",
@@ -663,7 +800,17 @@
     "hotspotY": 29,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100
+    ]
   },
   "hands-2-ns-resize": {
     "file": "hands-2-ns-resize.ani",
@@ -681,7 +828,11 @@
     "hotspotY": 6,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      130,
+      130
+    ]
   },
   "hands-2-nwse-resize": {
     "file": "hands-2-nwse-resize.ani",
@@ -699,7 +850,11 @@
     "hotspotY": 8,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      130,
+      130
+    ]
   },
   "hands-2-wait": {
     "file": "hands-2-wait.ani",
@@ -717,7 +872,59 @@
     "hotspotY": 7,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      130,
+      270,
+      270,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130
+    ]
   },
   "hands-crosshair": {
     "file": "hands-crosshair.cur",
@@ -789,7 +996,17 @@
     "hotspotY": 1,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130,
+      130
+    ]
   },
   "hands-text": {
     "file": "hands-text.cur",
@@ -1023,7 +1240,18 @@
     "hotspotY": 16,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      30,
+      30,
+      30,
+      30,
+      30,
+      30,
+      30,
+      30,
+      30
+    ]
   },
   "old-fashioned-progress": {
     "file": "old-fashioned-progress.ani",
@@ -1041,7 +1269,33 @@
     "hotspotY": 16,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20
+    ]
   },
   "old-fashioned-wait": {
     "file": "old-fashioned-wait.ani",
@@ -1059,7 +1313,20 @@
     "hotspotY": 16,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70
+    ]
   },
   "variations-default": {
     "file": "variations-default.ani",
@@ -1077,7 +1344,28 @@
     "hotspotY": 0,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      1000
+    ]
   },
   "variations-ew-resize": {
     "file": "variations-ew-resize.ani",
@@ -1095,7 +1383,11 @@
     "hotspotY": 8,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      170,
+      170
+    ]
   },
   "variations-nesw-resize": {
     "file": "variations-nesw-resize.ani",
@@ -1113,7 +1405,11 @@
     "hotspotY": 6,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      170,
+      170
+    ]
   },
   "variations-not-allowed": {
     "file": "variations-not-allowed.ani",
@@ -1131,7 +1427,21 @@
     "hotspotY": 6,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70
+    ]
   },
   "variations-ns-resize": {
     "file": "variations-ns-resize.ani",
@@ -1149,7 +1459,11 @@
     "hotspotY": 10,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      170,
+      170
+    ]
   },
   "variations-nwse-resize": {
     "file": "variations-nwse-resize.ani",
@@ -1167,7 +1481,11 @@
     "hotspotY": 6,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      170,
+      170
+    ]
   },
   "variations-progress": {
     "file": "variations-progress.ani",
@@ -1185,7 +1503,15 @@
     "hotspotY": 12,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      2000,
+      70,
+      70,
+      70,
+      70,
+      70
+    ]
   },
   "variations-wait": {
     "file": "variations-wait.ani",
@@ -1203,7 +1529,29 @@
     "hotspotY": 0,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500
+    ]
   },
   "windows-animated-default": {
     "file": "windows-animated-default.ani",
@@ -1222,7 +1570,22 @@
     "hotspotY": 0,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      6000,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70
+    ]
   },
   "windows-animated-progress": {
     "file": "windows-animated-progress.ani",
@@ -1240,7 +1603,19 @@
     "hotspotY": 0,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      270,
+      270,
+      270,
+      270,
+      270,
+      270,
+      670,
+      80,
+      80,
+      80
+    ]
   },
   "windows-animated-wait": {
     "file": "windows-animated-wait.ani",
@@ -1258,7 +1633,24 @@
     "hotspotY": 15,
     "suspiciousInvertFrames": 0,
     "hasNormal": true,
-    "hasInvert": false
+    "hasInvert": false,
+    "nativeFrameDelays": [
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      230,
+      670,
+      80,
+      80,
+      80
+    ]
   },
   "windows-black-alternate": {
     "file": "windows-black-alternate.cur",

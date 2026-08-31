@@ -2,10 +2,14 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { loadCursorsManifest, resolveCursor, SPRITE_SCALE, type CursorsManifest } from '../helpers/cursors'
 import { CURSOR_TOKEN_PROPERTY, CURSOR_SCHEME_PROPERTY, CURSOR_NATIVE_PROPERTY } from '../helpers/cursorContext'
+import { useCursorFrameAnimator } from '../helpers/cursorFrameAnimator'
 
 // Draws the cursor as two sibling `position: fixed` <img> layers (invert under normal) teleported
 // into <body>, mounted once by the `root` CursorContext. A `cursor: url()` can't paint near a
 // viewport edge and can't do the invert/blend layer; a `position: fixed` element has neither limit.
+
+// native mode's .ani frame animation - a separate concern, hosted here as the one thing root mounts.
+useCursorFrameAnimator()
 
 const GRID = 2
 const IDENTITY_SWEEP_MS = 120

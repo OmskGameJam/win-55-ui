@@ -216,18 +216,20 @@ export interface SpriteResult {
  * hand-touched-up sprite - added or deleted by hand - is reflected exactly as published, not as
  * originally rendered). CursorOverlay reads these to pick normal/invert without probing with a real
  * image load; a cursor missing a layer (most have no invert; crosshair/text no normal) is a normal
- * case, not an error. native.gif is written for every cursor, so native mode assumes it and needs no flag.
+ * case, not an error. native.gif is written for every cursor, so native mode assumes it and needs no
+ * flag; `nativeFrameDelays` (ms per native-<i>.gif still) is present only for animated cursors.
  */
-function publishRegistry(manifest: CursorsManifest): void {
+function publishRegistry(manifest: CursorsManifest, nativeFrameDelays: Record<string, number[]>): void {
   mkdirSync(publicCursorsDir, { recursive: true })
 
-  const published: Record<string, CursorEntry & { hasNormal: boolean; hasInvert: boolean }> = {}
+  const published: Record<string, CursorEntry & { hasNormal: boolean; hasInvert: boolean; nativeFrameDelays?: number[] }> = {}
   for (const [cursorId, entry] of Object.entries(manifest)) {
     const outDir = join(publicCursorsDir, cursorId)
     published[cursorId] = {
       ...entry,
       hasNormal: existsSync(join(outDir, 'normal.gif')),
       hasInvert: existsSync(join(outDir, 'invert.gif')),
+      nativeFrameDelays: nativeFrameDelays[cursorId],
     }
   }
 
@@ -249,6 +251,8 @@ export function generateSprites(force = false): SpriteResult {
   let layersWritten = 0
   const layersSkippedEmpty: string[] = []
   const layersSkippedExisting: string[] = []
+  // per-frame native still timing (ms), for cursorIds that got native-<i>.gif frames
+  const nativeFrameDelays: Record<string, number[]> = {}
 
   for (const [cursorId, entry] of Object.entries(manifest)) {
     const frames = loadRoleFrames(entry.file)
@@ -275,7 +279,7 @@ export function generateSprites(force = false): SpriteResult {
     }
 
     // native.gif - normal + invert baked into one flat bitmap at 1:1 (not 2x like the layers
-    // above), the only sprite native cursor mode loads. CursorOverlay (immersive) ignores it.
+    // above), what native cursor mode loads by default. CursorOverlay (immersive) ignores it.
     if (colorHasContent || invertHasContent) {
       const native = color.map((f, i) => ({
         rgba: compositeNativeFrame(f.rgba, invert[i]?.rgba, frames.width, frames.height),
@@ -283,10 +287,20 @@ export function generateSprites(force = false): SpriteResult {
       }))
       if (writeLayerGif(outDir, 'native.gif', frames.width, frames.height, native, force, 1)) layersWritten++
       else layersSkippedExisting.push(`${cursorId}/native`)
+
+      // A CSS `cursor: url()` only paints frame 0 of an animated GIF, so native mode animates .ani
+      // by swapping the whole url on a timer - it needs each frame as its own still plus the timing.
+      if (entry.animated && native.length > 1) {
+        nativeFrameDelays[cursorId] = native.map((f) => f.delayCs * 10)
+        native.forEach((f, i) => {
+          if (writeLayerGif(outDir, `native-${i}.gif`, frames.width, frames.height, [f], force, 1)) layersWritten++
+          else layersSkippedExisting.push(`${cursorId}/native-${i}`)
+        })
+      }
     }
   }
 
-  publishRegistry(manifest)
+  publishRegistry(manifest, nativeFrameDelays)
 
   return { cursorsProcessed, layersWritten, layersSkippedEmpty, layersSkippedExisting }
 }
