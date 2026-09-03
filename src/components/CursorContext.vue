@@ -16,6 +16,7 @@ import {
   CURSOR_NATIVE_LINK_PROPERTY,
   CURSOR_NATIVE_TEXT_PROPERTY,
   CURSOR_NATIVE_NOTALLOWED_PROPERTY,
+  NATIVE_CURSOR_PROPS,
   MANAGED_CURSOR_PROPS,
   type CursorContextApi,
   type CursorMode,
@@ -90,22 +91,12 @@ function roleForState(role: string | undefined): string | undefined {
   return role
 }
 
-function resolveRoleSync(role: string): string | undefined {
+function resolveRole(role: string): string | undefined {
   return cursorIdFor(effectiveScheme.value, roleForState(role) ?? 'default')
 }
 
-function resolveRoleCssSync(role: string): string | undefined {
+function resolveRoleCss(role: string): string | undefined {
   return cursorCssFor(effectiveScheme.value, roleForState(role) ?? 'default')
-}
-
-async function resolveRole(role: string): Promise<string | undefined> {
-  await loadCursors()
-  return resolveRoleSync(role)
-}
-
-async function resolveRoleCss(role: string): Promise<string | undefined> {
-  await loadCursors()
-  return resolveRoleCssSync(role)
 }
 
 const api: CursorContextApi = {
@@ -117,8 +108,6 @@ const api: CursorContextApi = {
   hasProgress,
   resolveRole,
   resolveRoleCss,
-  resolveRoleSync,
-  resolveRoleCssSync,
   addBusy,
   addProgress,
 }
@@ -146,45 +135,6 @@ onUnmounted(() => {
 })
 
 const pinnedRole = computed(() => roleForState(effectiveRole.value))
-// undefined while no role is pinned - the subtree derives per element instead
-const cursorId = ref<string>()
-
-// Native-mode values for --win55-cursor-native{,-link,-text,-notallowed} (see cursorContext.ts): a
-// resolved `url(...)`, or `auto` inside a `disabled` subtree. link/text/notallowed equal the base
-// when a role is pinned (the subtree flattens to one cursor).
-const nativeBase = ref<string>()
-const nativeLink = ref<string>()
-const nativeText = ref<string>()
-const nativeNotAllowed = ref<string>()
-
-function setNativeFlat(value: string | undefined): void {
-  nativeBase.value = value
-  nativeLink.value = value
-  nativeText.value = value
-  nativeNotAllowed.value = value
-}
-
-watchEffect(() => {
-  void cursorsVersion.value // recompute once cursor data lands / a scheme reloads
-  const scheme = effectiveScheme.value
-  const role = pinnedRole.value
-
-  // immersive: cursorId for the pinned role; undefined leaves the overlay to derive per element
-  cursorId.value = role ? cursorIdFor(scheme, role) : undefined
-
-  // native: `disabled` is the sanctioned OS-cursor opt-out, same as [data-win55-cursor="off"]
-  if (effectiveDisabled.value) {
-    setNativeFlat('auto')
-  } else if (role) {
-    // an explicitly pinned role keeps its keyword fallback; the always-on paths below never do
-    setNativeFlat(cursorCssFor(scheme, role))
-  } else {
-    nativeBase.value = themedCursorCssFor(scheme, 'default')
-    nativeLink.value = themedCursorCssFor(scheme, 'link')
-    nativeText.value = themedCursorCssFor(scheme, 'text')
-    nativeNotAllowed.value = themedCursorCssFor(scheme, 'not-allowed')
-  }
-})
 
 // Native mode: stamp the inherited props only where this context changes its subtree's theme.
 // A bare nested <CursorContext> stays transparent and inherits, matching immersive; `root` always
@@ -201,20 +151,46 @@ const publishesNative = computed(
 // The cursor properties this context contributes, one source of truth for both the :style binding
 // (non-root) and the <html> sync (root). Absent keys mean "don't set / clear".
 const cursorDeclaration = computed<Record<string, string>>(() => {
+  void cursorsVersion.value // recompute once cursor data lands / a scheme reloads
+  const scheme = effectiveScheme.value
+  const role = pinnedRole.value
   const d: Record<string, string> = {}
-  if (props.root || props.scheme) d[CURSOR_SCHEME_PROPERTY] = effectiveScheme.value
+  if (props.root || props.scheme) d[CURSOR_SCHEME_PROPERTY] = scheme
 
   if (effectiveMode.value === 'immersive') {
     d.cursor = 'none'
     // `auto` in a disabled subtree (OS cursor, overlay hides), `none` otherwise (overlay draws)
     d[CURSOR_NATIVE_PROPERTY] = effectiveDisabled.value ? 'auto' : 'none'
-    if (cursorId.value) d[CURSOR_TOKEN_PROPERTY] = cursorId.value
-  } else if (publishesNative.value) {
-    if (nativeBase.value) d[CURSOR_NATIVE_PROPERTY] = nativeBase.value
-    if (nativeLink.value) d[CURSOR_NATIVE_LINK_PROPERTY] = nativeLink.value
-    if (nativeText.value) d[CURSOR_NATIVE_TEXT_PROPERTY] = nativeText.value
-    if (nativeNotAllowed.value) d[CURSOR_NATIVE_NOTALLOWED_PROPERTY] = nativeNotAllowed.value
+    // a pinned role rides the token for the overlay; unpinned leaves it to derive per element
+    const id = role ? cursorIdFor(scheme, role) : undefined
+    if (id) d[CURSOR_TOKEN_PROPERTY] = id
+    return d
   }
+
+  if (!publishesNative.value) return d
+
+  // `disabled` is the sanctioned OS-cursor opt-out, same as [data-win55-cursor="off"]
+  if (effectiveDisabled.value) {
+    for (const prop of NATIVE_CURSOR_PROPS) d[prop] = 'auto'
+    return d
+  }
+
+  // a pinned role flattens the subtree to one cursor (its bare keyword fallback kept); the
+  // always-on link/text/not-allowed derivations below never fall back to a bare keyword
+  if (role) {
+    const css = cursorCssFor(scheme, role)
+    if (css) for (const prop of NATIVE_CURSOR_PROPS) d[prop] = css
+    return d
+  }
+
+  const base = themedCursorCssFor(scheme, 'default')
+  const link = themedCursorCssFor(scheme, 'link')
+  const text = themedCursorCssFor(scheme, 'text')
+  const notAllowed = themedCursorCssFor(scheme, 'not-allowed')
+  if (base) d[CURSOR_NATIVE_PROPERTY] = base
+  if (link) d[CURSOR_NATIVE_LINK_PROPERTY] = link
+  if (text) d[CURSOR_NATIVE_TEXT_PROPERTY] = text
+  if (notAllowed) d[CURSOR_NATIVE_NOTALLOWED_PROPERTY] = notAllowed
   return d
 })
 

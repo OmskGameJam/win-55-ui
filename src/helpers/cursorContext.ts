@@ -44,14 +44,10 @@ export interface CursorContextApi {
   /** True while this context or any ancestor has an in-flight addBusy()/addProgress() promise. */
   hasBusy: ComputedRef<boolean>
   hasProgress: ComputedRef<boolean>
-  /** Resolves a role against the effective scheme to a cursorId, substituting busy/progress for "default" when one is active (see CursorContext.vue's roleForState). */
-  resolveRole: (role: CursorRole) => Promise<string | undefined>
-  /** As resolveRole, but returns a native-mode CSS `cursor` value (`url(...) x y, kw`) instead of a cursorId. */
-  resolveRoleCss: (role: CursorRole) => Promise<string | undefined>
-  /** Sync resolveRole (undefined until cursor data has loaded). */
-  resolveRoleSync: (role: CursorRole) => string | undefined
-  /** Sync resolveRoleCss (undefined until cursor data has loaded). */
-  resolveRoleCssSync: (role: CursorRole) => string | undefined
+  /** Resolves a role against the effective scheme to a cursorId, substituting busy/progress for "default" when one is active (see CursorContext.vue's roleForState). undefined until cursor data has loaded. */
+  resolveRole: (role: CursorRole) => string | undefined
+  /** As resolveRole, but a native-mode CSS `cursor` value (`url(...) x y, kw`) instead of a cursorId. */
+  resolveRoleCss: (role: CursorRole) => string | undefined
   /** Shows the "wait" hourglass for every unpinned / "default" cursor in this subtree until `promise` settles. Takes priority over addProgress. */
   addBusy: (promise: Promise<unknown>) => void
   /** As addBusy, but the "arrow + hourglass" progress cursor - lower priority. */
@@ -98,16 +94,16 @@ export const NATIVE_TEXT_SELECTOR =
  */
 export const CURSOR_NATIVE_PROPERTY = '--win55-cursor-native'
 
-/** Every property a CursorContext writes - the `root` context clears/mirrors this whole set on `<html>`. */
-export const MANAGED_CURSOR_PROPS = [
-  'cursor',
-  CURSOR_SCHEME_PROPERTY,
-  CURSOR_TOKEN_PROPERTY,
+/** The four inherited native-mode cursor props: subtree base + the link / text / not-allowed derivations. CursorContext and v-cursor write them as a set. */
+export const NATIVE_CURSOR_PROPS = [
   CURSOR_NATIVE_PROPERTY,
   CURSOR_NATIVE_LINK_PROPERTY,
   CURSOR_NATIVE_TEXT_PROPERTY,
   CURSOR_NATIVE_NOTALLOWED_PROPERTY,
 ] as const
+
+/** Every property a CursorContext writes - the `root` context clears/mirrors this whole set on `<html>`. */
+export const MANAGED_CURSOR_PROPS = ['cursor', CURSOR_SCHEME_PROPERTY, CURSOR_TOKEN_PROPERTY, ...NATIVE_CURSOR_PROPS] as const
 
 // Hard kill switch from a `root` context's `disable-all` - overrides any nested re-enable.
 const globalCursorDisabled = ref(false)

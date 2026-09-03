@@ -34,8 +34,8 @@ export interface SchemeInfo {
 export type SchemeIndex = Record<string, SchemeInfo>
 
 // manifest.json + scheme.json are static once fetched, so everything resolves against these
-// module vars synchronously after `loadCursors()` settles. `cursorsVersion` bumps on load / reset -
-// a reactive read of it inside a computed/watchEffect makes that scope recompute when data lands.
+// module vars synchronously after `loadCursors()` settles. `cursorsVersion` bumps when the data
+// lands - a reactive read of it inside a computed/watchEffect makes that scope recompute then.
 let manifest: CursorsManifest = {}
 let schemeIndex: SchemeIndex = {}
 export const cursorsVersion = ref(0)
@@ -63,17 +63,7 @@ export function loadCursors(): Promise<void> {
   return loadPromise
 }
 
-/** Re-fetches both indexes (e.g. after a host app swaps the cursors base URL); bumps cursorsVersion. */
-export function resetCursorsCache(): void {
-  loadPromise = null
-  void loadCursors()
-}
-
-export async function loadCursorsManifest(): Promise<CursorsManifest> {
-  await loadCursors()
-  return manifest
-}
-
+/** Awaits the one fetch, then resolves to the scheme index (slug -> displayName + role map). */
 export async function loadSchemeIndex(): Promise<SchemeIndex> {
   await loadCursors()
   return schemeIndex
@@ -147,10 +137,4 @@ export function themedCursorCssFor(scheme: string, role: string): string | undef
   const value = cursorCssFor(scheme, role)
   if (value?.startsWith('url(') || role === 'default') return value
   return cursorCssFor(scheme, 'default') ?? value
-}
-
-/** Async wrapper over cursorIdFor - awaits loadCursors() first. */
-export async function resolveCursor(scheme: string, role: string): Promise<string | undefined> {
-  await loadCursors()
-  return cursorIdFor(scheme, role)
 }

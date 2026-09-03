@@ -24,7 +24,7 @@ const CURSOR_ID_RE = /\/win-55-ui\/cursors\/([^/"')]+)\/native\.gif/
 function nativeCursorValueFor(el: Element): string {
   const cs = getComputedStyle(el)
   let derived = ''
-  if (el.matches(':disabled') || el.closest(':disabled')) derived = cs.getPropertyValue(CURSOR_NATIVE_NOTALLOWED_PROPERTY)
+  if (el.closest(':disabled')) derived = cs.getPropertyValue(CURSOR_NATIVE_NOTALLOWED_PROPERTY)
   else if (el.matches(NATIVE_LINK_SELECTOR)) derived = cs.getPropertyValue(CURSOR_NATIVE_LINK_PROPERTY)
   else if (el.matches(NATIVE_TEXT_SELECTOR)) derived = cs.getPropertyValue(CURSOR_NATIVE_TEXT_PROPERTY)
   derived = derived.trim()

@@ -2,26 +2,16 @@ import { nextTick, ref, watchEffect, type Directive, type Ref, type WatchStopHan
 import { cursorCssFor, cursorIdFor, loadCursors } from '../helpers/cursors'
 import {
   findNearestCursorContext,
+  NATIVE_CURSOR_PROPS,
   CURSOR_TOKEN_PROPERTY,
-  CURSOR_NATIVE_PROPERTY,
-  CURSOR_NATIVE_LINK_PROPERTY,
-  CURSOR_NATIVE_TEXT_PROPERTY,
-  CURSOR_NATIVE_NOTALLOWED_PROPERTY,
   type CursorContextApi,
   type CursorRole,
 } from '../helpers/cursorContext'
 
-const NATIVE_PROPS = [
-  CURSOR_NATIVE_PROPERTY,
-  CURSOR_NATIVE_LINK_PROPERTY,
-  CURSOR_NATIVE_TEXT_PROPERTY,
-  CURSOR_NATIVE_NOTALLOWED_PROPERTY,
-]
-
 function clear(el: HTMLElement): void {
   el.style.removeProperty('cursor')
   el.style.removeProperty(CURSOR_TOKEN_PROPERTY)
-  for (const p of NATIVE_PROPS) el.style.removeProperty(p)
+  for (const p of NATIVE_CURSOR_PROPS) el.style.removeProperty(p)
 }
 
 function applyCursor(el: HTMLElement, role: CursorRole, context: CursorContextApi | undefined): void {
@@ -31,16 +21,16 @@ function applyCursor(el: HTMLElement, role: CursorRole, context: CursorContextAp
   if (!role) return
 
   if (native) {
-    const value = context ? context.resolveRoleCssSync(role) : cursorCssFor('windows-default', role)
+    const value = context ? context.resolveRoleCss(role) : cursorCssFor('windows-default', role)
     if (!value) return
     // inline `!important` wins on the element itself (over index.css's `:where()` UA rules); the
     // native props override the inherited derivation for the subtree, nested <a>/fields included
     el.style.setProperty('cursor', value, 'important')
-    for (const p of NATIVE_PROPS) el.style.setProperty(p, value)
+    for (const p of NATIVE_CURSOR_PROPS) el.style.setProperty(p, value)
     return
   }
 
-  const cursorId = context ? context.resolveRoleSync(role) : cursorIdFor('windows-default', role)
+  const cursorId = context ? context.resolveRole(role) : cursorIdFor('windows-default', role)
   if (!cursorId) return
 
   // the real `cursor` stays `none`; the cursorId rides CURSOR_TOKEN_PROPERTY for CursorOverlay to draw

@@ -27,12 +27,7 @@ export { default as cursorDirective } from './directives/cursor'
 
 // Helpers
 export { typographyStyles } from './helpers/typography'
-export {
-  loadCursorsManifest,
-  loadSchemeIndex,
-  resetCursorsCache,
-  resolveCursor,
-} from './helpers/cursors'
+export { loadSchemeIndex } from './helpers/cursors'
 export { provideCursorContext, useCursorContext, CURSOR_CONTEXT_KEY } from './helpers/cursorContext'
 export { drawAngledBayerDitherGradient } from './helpers/bayerMatrix'
 export { useSineWave } from './helpers/useSineWave'
