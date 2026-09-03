@@ -1,3 +1,5 @@
+import { ref } from 'vue'
+
 const MANIFEST_URL = '/win-55-ui/cursors/manifest.json'
 const SCHEME_INDEX_URL = '/win-55-ui/cursors/scheme.json'
 
@@ -31,76 +33,59 @@ export interface SchemeInfo {
 
 export type SchemeIndex = Record<string, SchemeInfo>
 
-let manifestPromise: Promise<CursorsManifest> | null = null
-let schemeIndexPromise: Promise<SchemeIndex> | null = null
+// manifest.json + scheme.json are static once fetched, so everything resolves against these
+// module vars synchronously after `loadCursors()` settles. `cursorsVersion` bumps on load / reset -
+// a reactive read of it inside a computed/watchEffect makes that scope recompute when data lands.
+let manifest: CursorsManifest = {}
+let schemeIndex: SchemeIndex = {}
+export const cursorsVersion = ref(0)
 
-/** Fetches `manifest.json` (published by `npm run cursors -- sprite`) once, caching the result. */
-export async function loadCursorsManifest(): Promise<CursorsManifest> {
-  if (!manifestPromise) {
-    manifestPromise = fetch(MANIFEST_URL).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Could not load cursor manifest from ${MANIFEST_URL}: ${response.status} ${response.statusText}`)
-      }
+let loadPromise: Promise<void> | null = null
 
-      return response.json() as Promise<CursorsManifest>
-    })
-  }
-
-  return manifestPromise
+async function fetchJson<T>(url: string): Promise<T> {
+  const response = await fetch(url)
+  if (!response.ok) throw new Error(`Could not load ${url}: ${response.status} ${response.statusText}`)
+  return response.json() as Promise<T>
 }
 
-/** Same as loadCursorsManifest, for `scheme.json` - the role -> cursorId mapping per scheme. */
-export async function loadSchemeIndex(): Promise<SchemeIndex> {
-  if (!schemeIndexPromise) {
-    schemeIndexPromise = fetch(SCHEME_INDEX_URL).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Could not load cursor scheme index from ${SCHEME_INDEX_URL}: ${response.status} ${response.statusText}`)
-      }
-
-      return response.json() as Promise<SchemeIndex>
+/** Fetches manifest.json + scheme.json once (published by `npm run cursors -- sprite`); idempotent. */
+export function loadCursors(): Promise<void> {
+  if (!loadPromise) {
+    loadPromise = Promise.all([
+      fetchJson<CursorsManifest>(MANIFEST_URL),
+      fetchJson<SchemeIndex>(SCHEME_INDEX_URL),
+    ]).then(([m, s]) => {
+      manifest = m
+      schemeIndex = s
+      cursorsVersion.value++
     })
   }
-
-  return schemeIndexPromise
+  return loadPromise
 }
 
-/** Clears both cached indexes. Useful if a host app swaps the cursors base URL at runtime. */
+/** Re-fetches both indexes (e.g. after a host app swaps the cursors base URL); bumps cursorsVersion. */
 export function resetCursorsCache(): void {
-  manifestPromise = null
-  schemeIndexPromise = null
+  loadPromise = null
+  void loadCursors()
+}
+
+export async function loadCursorsManifest(): Promise<CursorsManifest> {
+  await loadCursors()
+  return manifest
+}
+
+export async function loadSchemeIndex(): Promise<SchemeIndex> {
+  await loadCursors()
+  return schemeIndex
 }
 
 /** The overlay's normal/invert sprites render at 2x source pixels (project rule) - multiply a manifest hotspot by this for them. native.gif is 1:1 and uses the raw hotspot. */
 export const SPRITE_SCALE = 2
 
-/** resolveCursor falls back here when a scheme lacks a role - not every themed pack ships e.g. `handwriting`/`help`. */
-const FALLBACK_SCHEME = 'windows-default'
-
-function resolveInScheme(schemeIndex: SchemeIndex, manifest: CursorsManifest, scheme: string, role: string): string | undefined {
-  const cursorId = schemeIndex[scheme]?.roles[role]
-  if (!cursorId) return undefined
-
-  const entry = manifest[cursorId]
-  if (!entry || entry.hotspotX === null || entry.hotspotY === null) return undefined
-
-  return cursorId
-}
-
-/**
- * Resolves a scheme/role pair to a cursorId. Falls back to the same role in the windows-default
- * scheme if the requested scheme doesn't have it (or doesn't exist at all) - undefined only when
- * neither has a usable cursor for that role.
- */
-export async function resolveCursor(scheme: string, role: string): Promise<string | undefined> {
-  const [schemeIndex, manifest] = await Promise.all([loadSchemeIndex(), loadCursorsManifest()])
-
-  return (
-    resolveInScheme(schemeIndex, manifest, scheme, role) ??
-    (scheme === FALLBACK_SCHEME ? undefined : resolveInScheme(schemeIndex, manifest, FALLBACK_SCHEME, role))
-  )
-}
-
 const CURSORS_BASE_URL = '/win-55-ui/cursors'
+
+/** Falls back here when a scheme lacks a role - not every themed pack ships e.g. `handwriting`/`help`. */
+const FALLBACK_SCHEME = 'windows-default'
 
 /** Role -> the native CSS `cursor` keyword used as the fallback tail of a `url()` value, and on its own when no sprite fits. */
 const ROLE_KEYWORD: Record<string, string> = {
@@ -121,31 +106,51 @@ const ROLE_KEYWORD: Record<string, string> = {
   'nwse-resize': 'nwse-resize',
 }
 
-/**
- * Resolves a scheme/role pair to a native-mode CSS `cursor` value: `url("<cursorId>/native.gif") x y, kw`.
- * native.gif is a flat 1:1 bitmap (not 2x like the overlay's layers), so the manifest hotspot is
- * used as-is. Falls back to the plain CSS keyword when the role doesn't resolve; undefined only when
- * the role maps to no keyword at all.
- */
-export async function resolveCursorCss(scheme: string, role: string): Promise<string | undefined> {
-  const keyword = ROLE_KEYWORD[role]
-  const cursorId = await resolveCursor(scheme, role)
-  if (!cursorId) return keyword
-
-  const manifest = await loadCursorsManifest()
+function idInScheme(scheme: string, role: string): string | undefined {
+  const cursorId = schemeIndex[scheme]?.roles[role]
+  if (!cursorId) return undefined
   const entry = manifest[cursorId]
-  if (!entry) return keyword
+  if (!entry || entry.hotspotX === null || entry.hotspotY === null) return undefined
+  return cursorId
+}
 
+/** Sync cursorId for a scheme/role, with the windows-default fallback. undefined until `loadCursors()` settles or if neither scheme has the role. */
+export function cursorIdFor(scheme: string, role: string): string | undefined {
+  void cursorsVersion.value
+  return idInScheme(scheme, role) ?? (scheme === FALLBACK_SCHEME ? undefined : idInScheme(FALLBACK_SCHEME, role))
+}
+
+export function manifestEntryFor(cursorId: string): CursorEntry | undefined {
+  void cursorsVersion.value
+  return manifest[cursorId]
+}
+
+/**
+ * Sync native-mode CSS `cursor` value: `url("<cursorId>/native.gif") x y, kw` (native.gif is flat
+ * 1:1, so the raw manifest hotspot). Falls back to the bare CSS keyword when the role has no sprite;
+ * undefined only when the role maps to no keyword at all.
+ */
+export function cursorCssFor(scheme: string, role: string): string | undefined {
+  const keyword = ROLE_KEYWORD[role]
+  const cursorId = cursorIdFor(scheme, role)
+  const entry = cursorId ? manifest[cursorId] : undefined
+  if (!cursorId || !entry) return keyword
   return `url("${CURSORS_BASE_URL}/${cursorId}/native.gif") ${entry.hotspotX ?? 0} ${entry.hotspotY ?? 0}, ${keyword ?? 'default'}`
 }
 
 /**
- * Like resolveCursorCss but guaranteed to return a sprite `url(...)`, never a bare keyword: a role
- * with no sprite at all falls back to the scheme's `default` cursor. Used for the always-on paths
- * (subtree base, `<a>`/text-field derivation) so native mode never surfaces the OS cursor.
+ * cursorCssFor but never a bare keyword: a role with no sprite falls back to the scheme's `default`
+ * cursor. For the always-on paths (subtree base, `<a>`/text-field/disabled derivation) so native
+ * mode never surfaces the OS cursor.
  */
-export async function resolveCursorCssThemed(scheme: string, role: string): Promise<string | undefined> {
-  const value = await resolveCursorCss(scheme, role)
+export function themedCursorCssFor(scheme: string, role: string): string | undefined {
+  const value = cursorCssFor(scheme, role)
   if (value?.startsWith('url(') || role === 'default') return value
-  return (await resolveCursorCss(scheme, 'default')) ?? value
+  return cursorCssFor(scheme, 'default') ?? value
+}
+
+/** Async wrapper over cursorIdFor - awaits loadCursors() first. */
+export async function resolveCursor(scheme: string, role: string): Promise<string | undefined> {
+  await loadCursors()
+  return cursorIdFor(scheme, role)
 }

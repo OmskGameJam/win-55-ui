@@ -90,6 +90,12 @@ table {
   cursor: var(--win55-cursor-native-text, var(--win55-cursor-native, none)) !important;
 }
 
+/* Disabled controls (and their descendants) - matches immersive's wouldBeCursorRole `:disabled` ->
+   not-allowed. Last of the :where() block so it wins over the link/text rules for a disabled field. */
+:where(:disabled, :disabled *) {
+  cursor: var(--win55-cursor-native-notallowed, var(--win55-cursor-native, none)) !important;
+}
+
 /* Non-Vue escape hatch - a flat `revert` to the full per-element UA cursor, no nested re-enable.
    Real specificity, so it beats the :where() rules above. */
 [data-win55-cursor='off'],

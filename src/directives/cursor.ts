@@ -1,42 +1,46 @@
 import { nextTick, ref, watchEffect, type Directive, type Ref, type WatchStopHandle } from 'vue'
-import { resolveCursor, resolveCursorCss } from '../helpers/cursors'
+import { cursorCssFor, cursorIdFor, loadCursors } from '../helpers/cursors'
 import {
   findNearestCursorContext,
   CURSOR_TOKEN_PROPERTY,
   CURSOR_NATIVE_PROPERTY,
   CURSOR_NATIVE_LINK_PROPERTY,
   CURSOR_NATIVE_TEXT_PROPERTY,
+  CURSOR_NATIVE_NOTALLOWED_PROPERTY,
   type CursorContextApi,
   type CursorRole,
 } from '../helpers/cursorContext'
 
+const NATIVE_PROPS = [
+  CURSOR_NATIVE_PROPERTY,
+  CURSOR_NATIVE_LINK_PROPERTY,
+  CURSOR_NATIVE_TEXT_PROPERTY,
+  CURSOR_NATIVE_NOTALLOWED_PROPERTY,
+]
+
 function clear(el: HTMLElement): void {
   el.style.removeProperty('cursor')
   el.style.removeProperty(CURSOR_TOKEN_PROPERTY)
-  el.style.removeProperty(CURSOR_NATIVE_PROPERTY)
-  el.style.removeProperty(CURSOR_NATIVE_LINK_PROPERTY)
-  el.style.removeProperty(CURSOR_NATIVE_TEXT_PROPERTY)
+  for (const p of NATIVE_PROPS) el.style.removeProperty(p)
 }
 
-async function applyCursor(el: HTMLElement, role: CursorRole, context: CursorContextApi | undefined): Promise<void> {
+function applyCursor(el: HTMLElement, role: CursorRole, context: CursorContextApi | undefined): void {
   const native = (context?.mode.value ?? 'native') === 'native'
   // wipe first - keeps a live mode switch from leaving the other branch's props behind
   clear(el)
   if (!role) return
 
   if (native) {
-    const value = context ? await context.resolveRoleCss(role) : await resolveCursorCss('windows-default', role)
+    const value = context ? context.resolveRoleCssSync(role) : cursorCssFor('windows-default', role)
     if (!value) return
     // inline `!important` wins on the element itself (over index.css's `:where()` UA rules); the
-    // three custom props override the inherited derivation for the subtree, nested <a>/fields included
+    // native props override the inherited derivation for the subtree, nested <a>/fields included
     el.style.setProperty('cursor', value, 'important')
-    el.style.setProperty(CURSOR_NATIVE_PROPERTY, value)
-    el.style.setProperty(CURSOR_NATIVE_LINK_PROPERTY, value)
-    el.style.setProperty(CURSOR_NATIVE_TEXT_PROPERTY, value)
+    for (const p of NATIVE_PROPS) el.style.setProperty(p, value)
     return
   }
 
-  const cursorId = context ? await context.resolveRole(role) : await resolveCursor('windows-default', role)
+  const cursorId = context ? context.resolveRoleSync(role) : cursorIdFor('windows-default', role)
   if (!cursorId) return
 
   // the real `cursor` stays `none`; the cursorId rides CURSOR_TOKEN_PROPERTY for CursorOverlay to draw
@@ -55,6 +59,7 @@ const stateByElement = new WeakMap<HTMLElement, CursorDirectiveState>()
 // context's scheme, falling back to the registered root context, then windows-default.
 const cursorDirective: Directive<HTMLElement, CursorRole> = {
   mounted(el, binding) {
+    void loadCursors()
     const role = ref(binding.value)
     let stop: WatchStopHandle = () => {}
     stateByElement.set(el, { role, stop: () => stop() })
@@ -63,10 +68,8 @@ const cursorDirective: Directive<HTMLElement, CursorRole> = {
     void nextTick(() => {
       // a DOM walk, not inject() - see CURSOR_CONTEXT_DOM_MARKER for why inject() picks the wrong instance here
       const context = findNearestCursorContext(el)
-      // a lifetime effect, not a one-shot: a "default" role must swap to wait/progress when the context's busy state flips
-      stop = watchEffect(() => {
-        void applyCursor(el, role.value, context)
-      })
+      // a lifetime effect, not a one-shot: reacts to the context's scheme/mode/busy state and to cursor data loading
+      stop = watchEffect(() => applyCursor(el, role.value, context))
     })
   },
   updated(el, binding) {

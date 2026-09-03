@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, reactive, ref, watchEffect, type CSSProperties } from 'vue'
-import { resolveCursor, resolveCursorCss, resolveCursorCssThemed } from '../helpers/cursors'
+import { cursorCssFor, cursorIdFor, cursorsVersion, loadCursors, themedCursorCssFor } from '../helpers/cursors'
 import {
   provideCursorContext,
   useCursorContext,
@@ -15,6 +15,7 @@ import {
   CURSOR_NATIVE_PROPERTY,
   CURSOR_NATIVE_LINK_PROPERTY,
   CURSOR_NATIVE_TEXT_PROPERTY,
+  CURSOR_NATIVE_NOTALLOWED_PROPERTY,
   MANAGED_CURSOR_PROPS,
   type CursorContextApi,
   type CursorMode,
@@ -89,12 +90,22 @@ function roleForState(role: string | undefined): string | undefined {
   return role
 }
 
-function resolveRole(role: string): Promise<string | undefined> {
-  return resolveCursor(effectiveScheme.value, roleForState(role) ?? 'default')
+function resolveRoleSync(role: string): string | undefined {
+  return cursorIdFor(effectiveScheme.value, roleForState(role) ?? 'default')
 }
 
-function resolveRoleCss(role: string): Promise<string | undefined> {
-  return resolveCursorCss(effectiveScheme.value, roleForState(role) ?? 'default')
+function resolveRoleCssSync(role: string): string | undefined {
+  return cursorCssFor(effectiveScheme.value, roleForState(role) ?? 'default')
+}
+
+async function resolveRole(role: string): Promise<string | undefined> {
+  await loadCursors()
+  return resolveRoleSync(role)
+}
+
+async function resolveRoleCss(role: string): Promise<string | undefined> {
+  await loadCursors()
+  return resolveRoleCssSync(role)
 }
 
 const api: CursorContextApi = {
@@ -106,6 +117,8 @@ const api: CursorContextApi = {
   hasProgress,
   resolveRole,
   resolveRoleCss,
+  resolveRoleSync,
+  resolveRoleCssSync,
   addBusy,
   addProgress,
 }
@@ -113,6 +126,8 @@ const api: CursorContextApi = {
 provideCursorContext(api)
 
 defineExpose({ addBusy, addProgress, resolveRole, resolveRoleCss })
+
+void loadCursors()
 
 const rootEl = ref<HTMLElement>()
 
@@ -134,49 +149,40 @@ const pinnedRole = computed(() => roleForState(effectiveRole.value))
 // undefined while no role is pinned - the subtree derives per element instead
 const cursorId = ref<string>()
 
-// Native-mode values for --win55-cursor-native{,-link,-text} (see cursorContext.ts): a resolved
-// `url(...)`, or `auto` inside a `disabled` subtree. link/text equal the base when a role is
-// pinned (the subtree flattens to one cursor).
-const nativeBaseValue = ref<string>()
-const nativeLinkValue = ref<string>()
-const nativeTextValue = ref<string>()
+// Native-mode values for --win55-cursor-native{,-link,-text,-notallowed} (see cursorContext.ts): a
+// resolved `url(...)`, or `auto` inside a `disabled` subtree. link/text/notallowed equal the base
+// when a role is pinned (the subtree flattens to one cursor).
+const nativeBase = ref<string>()
+const nativeLink = ref<string>()
+const nativeText = ref<string>()
+const nativeNotAllowed = ref<string>()
 
-// pinned role and `disabled` flatten the subtree - base, link and text all get the same cursor
 function setNativeFlat(value: string | undefined): void {
-  nativeBaseValue.value = value
-  nativeLinkValue.value = value
-  nativeTextValue.value = value
+  nativeBase.value = value
+  nativeLink.value = value
+  nativeText.value = value
+  nativeNotAllowed.value = value
 }
 
 watchEffect(() => {
+  void cursorsVersion.value // recompute once cursor data lands / a scheme reloads
   const scheme = effectiveScheme.value
   const role = pinnedRole.value
 
   // immersive: cursorId for the pinned role; undefined leaves the overlay to derive per element
-  if (role) {
-    void resolveCursor(scheme, role).then((id) => {
-      cursorId.value = id
-    })
-  } else {
-    cursorId.value = undefined
-  }
+  cursorId.value = role ? cursorIdFor(scheme, role) : undefined
 
   // native: `disabled` is the sanctioned OS-cursor opt-out, same as [data-win55-cursor="off"]
   if (effectiveDisabled.value) {
     setNativeFlat('auto')
   } else if (role) {
     // an explicitly pinned role keeps its keyword fallback; the always-on paths below never do
-    void resolveCursorCss(scheme, role).then(setNativeFlat)
+    setNativeFlat(cursorCssFor(scheme, role))
   } else {
-    void resolveCursorCssThemed(scheme, 'default').then((v) => {
-      nativeBaseValue.value = v
-    })
-    void resolveCursorCssThemed(scheme, 'link').then((v) => {
-      nativeLinkValue.value = v
-    })
-    void resolveCursorCssThemed(scheme, 'text').then((v) => {
-      nativeTextValue.value = v
-    })
+    nativeBase.value = themedCursorCssFor(scheme, 'default')
+    nativeLink.value = themedCursorCssFor(scheme, 'link')
+    nativeText.value = themedCursorCssFor(scheme, 'text')
+    nativeNotAllowed.value = themedCursorCssFor(scheme, 'not-allowed')
   }
 })
 
@@ -204,9 +210,10 @@ const cursorDeclaration = computed<Record<string, string>>(() => {
     d[CURSOR_NATIVE_PROPERTY] = effectiveDisabled.value ? 'auto' : 'none'
     if (cursorId.value) d[CURSOR_TOKEN_PROPERTY] = cursorId.value
   } else if (publishesNative.value) {
-    if (nativeBaseValue.value) d[CURSOR_NATIVE_PROPERTY] = nativeBaseValue.value
-    if (nativeLinkValue.value) d[CURSOR_NATIVE_LINK_PROPERTY] = nativeLinkValue.value
-    if (nativeTextValue.value) d[CURSOR_NATIVE_TEXT_PROPERTY] = nativeTextValue.value
+    if (nativeBase.value) d[CURSOR_NATIVE_PROPERTY] = nativeBase.value
+    if (nativeLink.value) d[CURSOR_NATIVE_LINK_PROPERTY] = nativeLink.value
+    if (nativeText.value) d[CURSOR_NATIVE_TEXT_PROPERTY] = nativeText.value
+    if (nativeNotAllowed.value) d[CURSOR_NATIVE_NOTALLOWED_PROPERTY] = nativeNotAllowed.value
   }
   return d
 })

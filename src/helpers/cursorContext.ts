@@ -48,6 +48,10 @@ export interface CursorContextApi {
   resolveRole: (role: CursorRole) => Promise<string | undefined>
   /** As resolveRole, but returns a native-mode CSS `cursor` value (`url(...) x y, kw`) instead of a cursorId. */
   resolveRoleCss: (role: CursorRole) => Promise<string | undefined>
+  /** Sync resolveRole (undefined until cursor data has loaded). */
+  resolveRoleSync: (role: CursorRole) => string | undefined
+  /** Sync resolveRoleCss (undefined until cursor data has loaded). */
+  resolveRoleCssSync: (role: CursorRole) => string | undefined
   /** Shows the "wait" hourglass for every unpinned / "default" cursor in this subtree until `promise` settles. Takes priority over addProgress. */
   addBusy: (promise: Promise<unknown>) => void
   /** As addBusy, but the "arrow + hourglass" progress cursor - lower priority. */
@@ -76,6 +80,13 @@ export const CURSOR_SCHEME_PROPERTY = '--win55-scheme'
  */
 export const CURSOR_NATIVE_LINK_PROPERTY = '--win55-cursor-native-link'
 export const CURSOR_NATIVE_TEXT_PROPERTY = '--win55-cursor-native-text'
+/** Native mode: `not-allowed` role for the effective scheme; painted by index.css's `:where(:disabled, :disabled *)` rule so disabled controls match immersive's `wouldBeCursorRole`. */
+export const CURSOR_NATIVE_NOTALLOWED_PROPERTY = '--win55-cursor-native-notallowed'
+
+/** The elements the native-mode `:where()` rules (and immersive's wouldBeCursorRole / the frame animator) treat as a link or a text field - kept in sync with index.css by hand. */
+export const NATIVE_LINK_SELECTOR = 'a[href], area[href]'
+export const NATIVE_TEXT_SELECTOR =
+  'textarea, [contenteditable]:not([contenteditable="false"]), input:not([type]), input[type="text" i], input[type="search" i], input[type="url" i], input[type="tel" i], input[type="email" i], input[type="password" i], input[type="number" i]'
 
 /**
  * The value index.css's `* { cursor: var(--win55-cursor-native, none) !important }` rule paints,
@@ -95,6 +106,7 @@ export const MANAGED_CURSOR_PROPS = [
   CURSOR_NATIVE_PROPERTY,
   CURSOR_NATIVE_LINK_PROPERTY,
   CURSOR_NATIVE_TEXT_PROPERTY,
+  CURSOR_NATIVE_NOTALLOWED_PROPERTY,
 ] as const
 
 // Hard kill switch from a `root` context's `disable-all` - overrides any nested re-enable.
