@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import cursorDirective from '../directives/cursor'
+import { cursorWeakDirective } from '../directives/cursor'
 
-const vCursor = cursorDirective
+// weak: a consumer's plain v-cursor on <Checkbox> overrides this default (see directives/cursor.ts)
+const vCursor = cursorWeakDirective
 
 const props = withDefaults(defineProps<{
   modelValue: boolean

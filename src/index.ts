@@ -23,7 +23,7 @@ export { default as Emoji } from './components/Emoji.vue'
 
 // Directives
 export { default as emojiDirective, customEmojiDirective } from './directives/emoji'
-export { default as cursorDirective } from './directives/cursor'
+export { default as cursorDirective, cursorWeakDirective } from './directives/cursor'
 
 // Helpers
 export { typographyStyles } from './helpers/typography'

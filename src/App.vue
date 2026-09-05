@@ -22,6 +22,7 @@ import StrikeTester from './components/StrikeTester.vue'
 import CursorContext from './components/CursorContext.vue'
 import CursorBusyDemoButton from './components/CursorBusyDemoButton.vue'
 import { loadSchemeIndex } from './helpers/cursors'
+import type { CursorRole } from './helpers/cursorContext'
 import emojiDirective from './directives/emoji'
 import cursorDirective from './directives/cursor'
 
@@ -109,7 +110,10 @@ const sectionGroups: { label: string; sections: { key: string; label: string }[]
   },
   {
     label: 'Cursors',
-    sections: [{ key: 'cursorContext', label: 'CursorContext' }],
+    sections: [
+      { key: 'cursorContext', label: 'CursorContext' },
+      { key: 'cursorRoles', label: 'Cursor roles' },
+    ],
   },
 ]
 const sections = reactive<Record<string, boolean>>(
@@ -163,6 +167,30 @@ void loadSchemeIndex().then((index) => {
 function pickScheme(name: string): void {
   demoScheme.value = name
   schemeMenuOpen.value = false
+}
+
+const roleScheme = ref('windows-default')
+const roleSchemeMenuOpen = ref(false)
+const CURSOR_ROLES: CursorRole[] = [
+  'default',
+  'link',
+  'text',
+  'move',
+  'not-allowed',
+  'wait',
+  'progress',
+  'help',
+  'crosshair',
+  'handwriting',
+  'alternate',
+  'ns-resize',
+  'ew-resize',
+  'nesw-resize',
+  'nwse-resize',
+]
+function pickRoleScheme(name: string): void {
+  roleScheme.value = name
+  roleSchemeMenuOpen.value = false
 }
 
 const progressDemoContext = ref<InstanceType<typeof CursorContext>>()
@@ -647,6 +675,31 @@ const donutPositions = computed(() => {
               </div>
             </div>
           </CursorContext>
+          <CursorContext>
+            <div style="width: 220px; height: 100px; padding: 8px">
+              weak override:
+              <Button disabled>disabled (weak not-allowed)</Button>
+              <Button disabled v-cursor="'help'">+ v-cursor -&gt; help</Button>
+            </div>
+          </CursorContext>
+        </div>
+      </CursorContext>
+    </NamedPanel>
+
+    <NamedPanel v-if="sections.cursorRoles" label="Cursor roles" background-color-hint="#CBCBCB" style="width: fit-content; margin: 8px">
+      <CursorContext :scheme="roleScheme">
+        <BaseDropdown v-model:open="roleSchemeMenuOpen">
+          <template #trigger>
+            <Button>scheme: {{ roleScheme }}</Button>
+          </template>
+          <template #items>
+            <Box type="panel-d-1">
+              <Button v-for="name in schemeNames" :key="name" @click="pickRoleScheme(name)">{{ name }}</Button>
+            </Box>
+          </template>
+        </BaseDropdown>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; max-width: 640px; margin-top: 8px">
+          <span v-for="role in CURSOR_ROLES" :key="role" v-cursor="role">{{ role }}</span>
         </div>
       </CursorContext>
     </NamedPanel>

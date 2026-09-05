@@ -4,6 +4,10 @@ import RichTextNode from './RichTextNode.vue'
 import { loadShortcodeIndex } from '../helpers/shortcodes'
 import { loadEmojiRegistry, type EmojiRegistry } from '../helpers/emoji'
 import { parseRichText, type ShortcodeLookup } from '../helpers/richText'
+import { cursorWeakDirective } from '../directives/cursor'
+
+// weak: a consumer's plain v-cursor on <RichText> overrides this default (see directives/cursor.ts)
+const vCursor = cursorWeakDirective
 
 const props = withDefaults(defineProps<{ allowLinks?: boolean; allowSizes?: boolean }>(), {
   allowLinks: false,
@@ -58,7 +62,7 @@ const nodes = computed(() =>
 </script>
 
 <template>
-  <span data-win55-richtext style="display: contents;">
+  <span v-cursor="'text'" data-win55-richtext style="display: contents;">
     <RichTextNode v-for="(node, i) in nodes" :key="i" :node="node" :allow-links="props.allowLinks" :allow-sizes="props.allowSizes" />
   </span>
 </template>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import Box, { type BoxType } from './Box.vue'
-import cursorDirective from '../directives/cursor'
+import { cursorWeakDirective } from '../directives/cursor'
 
-const vCursor = cursorDirective
+// weak: a consumer's plain v-cursor on <Button> overrides this default (see directives/cursor.ts)
+const vCursor = cursorWeakDirective
 
 const props = withDefaults(defineProps<{
   baseType?: BoxType

@@ -16,7 +16,7 @@ function clear(el: HTMLElement): void {
 
 function applyCursor(el: HTMLElement, role: CursorRole, context: CursorContextApi | undefined): void {
   const native = (context?.mode.value ?? 'native') === 'native'
-  // wipe first - keeps a live mode switch from leaving the other branch's props behind
+  // wipe first - keeps a live mode switch (or a strong -> weak handover) from leaving stale props behind
   clear(el)
   if (!role) return
 
@@ -41,39 +41,110 @@ function applyCursor(el: HTMLElement, role: CursorRole, context: CursorContextAp
   el.style.setProperty(CURSOR_TOKEN_PROPERTY, cursorId)
 }
 
-interface CursorDirectiveState {
+type Strength = 'strong' | 'weak'
+
+interface CursorSlot {
   role: Ref<CursorRole>
-  stop: WatchStopHandle
+  context: CursorContextApi | undefined
 }
 
-const stateByElement = new WeakMap<HTMLElement, CursorDirectiveState>()
+interface ElementCursorState {
+  strong?: CursorSlot
+  weak?: CursorSlot
+  // bumped on slot add/remove so the shared effect re-picks the active slot
+  rev: Ref<number>
+  stop?: WatchStopHandle
+}
+
+// One controller per rendered element, keyed by the element (not by directive binding). v-cursor
+// owns the `strong` slot, v-cursor-weak the `weak` slot; a single effect applies `strong ?? weak`.
+// So a component's own v-cursor-weak and a consumer's v-cursor (landing on the same element via
+// directive fallthrough) coexist with deterministic precedence and independent teardown - strong
+// wins, and if it unmounts the effect re-runs and weak takes over. One strong + one weak is the
+// only valid pairing; a second of either strength on the same element throws (see attach).
+const controllers = new WeakMap<HTMLElement, ElementCursorState>()
+
+function activeSlot(state: ElementCursorState): CursorSlot | undefined {
+  return state.strong ?? state.weak
+}
+
+function runController(el: HTMLElement): void {
+  const state = controllers.get(el)
+  if (!state) return
+  void state.rev.value
+  const slot = activeSlot(state)
+  if (!slot) {
+    clear(el)
+    return
+  }
+  applyCursor(el, slot.role.value, slot.context)
+}
+
+function attach(el: HTMLElement, strength: Strength, value: CursorRole): void {
+  void loadCursors()
+  let state = controllers.get(el)
+  if (!state) {
+    state = { rev: ref(0) }
+    controllers.set(el, state)
+  }
+  if (state[strength]) {
+    const name = strength === 'strong' ? 'v-cursor' : 'v-cursor-weak'
+    throw new Error(
+      `[win-55-ui] two ${name} directives on one element. A reusable component must set its own ` +
+        `cursor with v-cursor-weak so a consumer's v-cursor overrides it; two of the same strength ` +
+        `on one element is unsupported. Element: ${el.tagName.toLowerCase()}${el.id ? '#' + el.id : ''}`,
+    )
+  }
+  const slot: CursorSlot = { role: ref(value), context: undefined }
+  state[strength] = slot
+  state.rev.value++
+
+  // deferred: an ancestor CursorContext marks its element from its own onMounted, which runs after this hook
+  void nextTick(() => {
+    const current = controllers.get(el)
+    if (!current || current[strength] !== slot) return
+    // a DOM walk, not inject() - see CURSOR_CONTEXT_DOM_MARKER for why inject() picks the wrong instance here
+    slot.context = findNearestCursorContext(el)
+    if (!current.stop) current.stop = watchEffect(() => runController(el))
+    else if (slot === activeSlot(current)) current.rev.value++
+  })
+}
+
+function detach(el: HTMLElement, strength: Strength): void {
+  const state = controllers.get(el)
+  if (!state) return
+  state[strength] = undefined
+  if (!state.strong && !state.weak) {
+    state.stop?.()
+    controllers.delete(el)
+    clear(el)
+    return
+  }
+  state.rev.value++
+}
+
+function makeCursorDirective(strength: Strength): Directive<HTMLElement, CursorRole> {
+  return {
+    mounted(el, binding) {
+      attach(el, strength, binding.value)
+    },
+    updated(el, binding) {
+      if (binding.value === binding.oldValue) return
+      const slot = controllers.get(el)?.[strength]
+      if (slot) slot.role.value = binding.value
+    },
+    unmounted(el) {
+      detach(el, strength)
+    },
+  }
+}
 
 // v-cursor="role" - a one-element CursorContext: resolves `role` against the nearest ancestor
 // context's scheme, falling back to the registered root context, then windows-default.
-const cursorDirective: Directive<HTMLElement, CursorRole> = {
-  mounted(el, binding) {
-    void loadCursors()
-    const role = ref(binding.value)
-    let stop: WatchStopHandle = () => {}
-    stateByElement.set(el, { role, stop: () => stop() })
+const cursorDirective = makeCursorDirective('strong')
 
-    // deferred: an ancestor CursorContext marks its element from its own onMounted, which runs after this hook
-    void nextTick(() => {
-      // a DOM walk, not inject() - see CURSOR_CONTEXT_DOM_MARKER for why inject() picks the wrong instance here
-      const context = findNearestCursorContext(el)
-      // a lifetime effect, not a one-shot: reacts to the context's scheme/mode/busy state and to cursor data loading
-      stop = watchEffect(() => applyCursor(el, role.value, context))
-    })
-  },
-  updated(el, binding) {
-    if (binding.value === binding.oldValue) return
-    const state = stateByElement.get(el)
-    if (state) state.role.value = binding.value
-  },
-  unmounted(el) {
-    stateByElement.get(el)?.stop()
-    stateByElement.delete(el)
-  },
-}
+// v-cursor-weak - same, but yields to a strong v-cursor on the same element. Reusable kit components
+// set their own default cursor with this so a consumer's plain v-cursor overrides it cleanly.
+export const cursorWeakDirective = makeCursorDirective('weak')
 
 export default cursorDirective

@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import type { CSSProperties } from 'vue'
 import Titlebar from './Titlebar.vue'
 import Box from './Box.vue'
+import cursorDirective from '../directives/cursor'
+import type { CursorRole } from '../helpers/cursorContext'
+
+const vCursor = cursorDirective
 
 // Define props for overflow control
 const props = defineProps<{
@@ -46,8 +50,22 @@ const allowVertical = computed(() => (props.resizable ?? false) || (props.resiza
 
 let dragging = false
 let resizing = false
-let resizeDir = ''
+// which edge/corner the pointer is over ('' | n | s | e | w | ne | nw | se | sw), set by detectEdge
+const resizeDir = ref('')
 let activeResizeDir = ''
+
+// edge/corner -> the diagonal-aware resize role, resolved against the active scheme by v-cursor
+const RESIZE_ROLE: Record<string, CursorRole> = {
+  n: 'ns-resize',
+  s: 'ns-resize',
+  e: 'ew-resize',
+  w: 'ew-resize',
+  ne: 'nesw-resize',
+  sw: 'nesw-resize',
+  nw: 'nwse-resize',
+  se: 'nwse-resize',
+}
+const resizeRole = computed<CursorRole>(() => RESIZE_ROLE[resizeDir.value] ?? '')
 
 let startX = 0
 let startY = 0
@@ -59,7 +77,7 @@ let startTop = 0
 // --- Dragging and Resizing ---
 function startDrag(e: MouseEvent) {
   if (props.faux) return
-  if (resizeDir) return
+  if (resizeDir.value) return
 
   const target = e.target as HTMLElement
   if (target.closest('.titlebar-image') || target.closest('.titlebar-buttons')) return
@@ -79,11 +97,11 @@ function startDrag(e: MouseEvent) {
 
 function startResize(e: MouseEvent) {
   if (props.faux) return
-  if (!resizeDir) return
+  if (!resizeDir.value) return
   if (!allowHorizontal.value && !allowVertical.value) return
 
   resizing = true
-  activeResizeDir = resizeDir
+  activeResizeDir = resizeDir.value
 
   startX = e.clientX
   startY = e.clientY
@@ -140,6 +158,7 @@ function stopAll() {
   dragging = false
   resizing = false
   activeResizeDir = ''
+  resizeDir.value = ''
 
   document.body.style.userSelect = ''
 
@@ -149,14 +168,14 @@ function stopAll() {
 
 function detectEdge(e: MouseEvent) {
   if (props.faux) {
-    resizeDir = ''
+    resizeDir.value = ''
     return
   }
 
   if (resizing) return
 
   if (!allowHorizontal.value && !allowVertical.value) {
-    resizeDir = ''
+    resizeDir.value = ''
     return
   }
 
@@ -180,7 +199,7 @@ function detectEdge(e: MouseEvent) {
     else if (right < edge) dir += 'e'
   }
 
-  resizeDir = dir
+  resizeDir.value = dir
 }
 </script>
 
@@ -198,6 +217,7 @@ function detectEdge(e: MouseEvent) {
           ...extraStyles
         }"
     type="panel-d-2"
+    v-cursor="resizeRole"
     @mousemove="detectEdge"
     @mousedown="startResize"
   >
