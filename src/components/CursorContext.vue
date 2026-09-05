@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, reactive, ref, watchEffect, type CSSProperties } from 'vue'
-import { cursorCssFor, cursorIdFor, cursorsVersion, loadCursors, themedCursorCssFor } from '../helpers/cursors'
+import { cursorCssFor, cursorIdFor, cursorsVersion, loadCursors, themedCursorCssFor, withCssFallback } from '../helpers/cursors'
 import {
   provideCursorContext,
   useCursorContext,
@@ -99,6 +99,19 @@ function resolveRoleCss(role: string): string | undefined {
   return cursorCssFor(effectiveScheme.value, roleForState(role) ?? 'default')
 }
 
+// This subtree's `default` cursor as a native CSS value. Re-theming levels chain their own default
+// ahead of the inherited one as url() fallbacks (one level deep is the whole chain - the parent's
+// value already carries its ancestors'), so every native cursor here can end with it and a sprite
+// still decoding falls back to the ambient cursor instead of the OS one.
+const nativeBaseCss = computed<string>(() => {
+  if (effectiveDisabled.value) return 'auto'
+  void cursorsVersion.value
+  const own = themedCursorCssFor(effectiveScheme.value, 'default') ?? 'default'
+  const inherited = parent?.nativeBaseCss.value
+  if (!inherited || inherited === 'auto') return own
+  return props.root || props.scheme !== undefined ? withCssFallback(own, inherited) : inherited
+})
+
 const api: CursorContextApi = {
   scheme: effectiveScheme,
   mode: effectiveMode,
@@ -108,6 +121,7 @@ const api: CursorContextApi = {
   hasProgress,
   resolveRole,
   resolveRoleCss,
+  nativeBaseCss,
   addBusy,
   addProgress,
 }
@@ -175,22 +189,21 @@ const cursorDeclaration = computed<Record<string, string>>(() => {
     return d
   }
 
-  // a pinned role flattens the subtree to one cursor (its bare keyword fallback kept); the
-  // always-on link/text/not-allowed derivations below never fall back to a bare keyword
+  // every value ends with the ambient default chain (nativeBaseCss), so a sprite that isn't
+  // decoded yet falls back to it, not the OS cursor
+  const fallback = nativeBaseCss.value
+
+  // a pinned role flattens the subtree to one cursor; a bare-keyword unresolved role stays as-is
   if (role) {
-    const css = cursorCssFor(scheme, role)
-    if (css) for (const prop of NATIVE_CURSOR_PROPS) d[prop] = css
+    const css = withCssFallback(cursorCssFor(scheme, role), fallback)
+    for (const prop of NATIVE_CURSOR_PROPS) d[prop] = css
     return d
   }
 
-  const base = themedCursorCssFor(scheme, 'default')
-  const link = themedCursorCssFor(scheme, 'link')
-  const text = themedCursorCssFor(scheme, 'text')
-  const notAllowed = themedCursorCssFor(scheme, 'not-allowed')
-  if (base) d[CURSOR_NATIVE_PROPERTY] = base
-  if (link) d[CURSOR_NATIVE_LINK_PROPERTY] = link
-  if (text) d[CURSOR_NATIVE_TEXT_PROPERTY] = text
-  if (notAllowed) d[CURSOR_NATIVE_NOTALLOWED_PROPERTY] = notAllowed
+  d[CURSOR_NATIVE_PROPERTY] = fallback
+  d[CURSOR_NATIVE_LINK_PROPERTY] = withCssFallback(themedCursorCssFor(scheme, 'link'), fallback)
+  d[CURSOR_NATIVE_TEXT_PROPERTY] = withCssFallback(themedCursorCssFor(scheme, 'text'), fallback)
+  d[CURSOR_NATIVE_NOTALLOWED_PROPERTY] = withCssFallback(themedCursorCssFor(scheme, 'not-allowed'), fallback)
   return d
 })
 

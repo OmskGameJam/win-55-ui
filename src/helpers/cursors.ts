@@ -138,3 +138,15 @@ export function themedCursorCssFor(scheme: string, role: string): string | undef
   if (value?.startsWith('url(') || role === 'default') return value
   return cursorCssFor(scheme, 'default') ?? value
 }
+
+/**
+ * Replaces `value`'s trailing CSS keyword with `fallback` (itself a full `url(...) x y, kw` chain),
+ * so a sprite that hasn't decoded yet lands on the ambient cursor instead of flashing the OS one.
+ * A bare-keyword `value` (a deliberately pinned unresolved role) passes through untouched; a missing
+ * `value` becomes the fallback outright.
+ */
+export function withCssFallback(value: string | undefined, fallback: string): string {
+  if (!value) return fallback
+  const comma = value.lastIndexOf(',')
+  return comma === -1 ? value : `${value.slice(0, comma)}, ${fallback}`
+}

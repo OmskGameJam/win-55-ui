@@ -1,5 +1,5 @@
 import { nextTick, ref, watchEffect, type Directive, type Ref, type WatchStopHandle } from 'vue'
-import { cursorCssFor, cursorIdFor, loadCursors } from '../helpers/cursors'
+import { cursorCssFor, cursorIdFor, loadCursors, themedCursorCssFor, withCssFallback } from '../helpers/cursors'
 import {
   findNearestCursorContext,
   NATIVE_CURSOR_PROPS,
@@ -21,8 +21,11 @@ function applyCursor(el: HTMLElement, role: CursorRole, context: CursorContextAp
   if (!role) return
 
   if (native) {
-    const value = context ? context.resolveRoleCss(role) : cursorCssFor('windows-default', role)
-    if (!value) return
+    const roleCss = context ? context.resolveRoleCss(role) : cursorCssFor('windows-default', role)
+    if (!roleCss) return
+    // end with the context's ambient default chain so a sprite still decoding never flashes the OS cursor
+    const fallback = context ? context.nativeBaseCss.value : themedCursorCssFor('windows-default', 'default')
+    const value = withCssFallback(roleCss, fallback ?? 'default')
     // inline `!important` wins on the element itself (over index.css's `:where()` UA rules); the
     // native props override the inherited derivation for the subtree, nested <a>/fields included
     el.style.setProperty('cursor', value, 'important')

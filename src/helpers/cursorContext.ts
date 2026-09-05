@@ -48,6 +48,8 @@ export interface CursorContextApi {
   resolveRole: (role: CursorRole) => string | undefined
   /** As resolveRole, but a native-mode CSS `cursor` value (`url(...) x y, kw`) instead of a cursorId. */
   resolveRoleCss: (role: CursorRole) => string | undefined
+  /** This subtree's `default` cursor as a native CSS value, with every re-theming ancestor's default chained ahead of the keyword as url() fallbacks. Every other native cursor here ends with this, so a sprite still decoding never flashes the OS cursor. `auto` in a disabled subtree. */
+  nativeBaseCss: ComputedRef<string>
   /** Shows the "wait" hourglass for every unpinned / "default" cursor in this subtree until `promise` settles. Takes priority over addProgress. */
   addBusy: (promise: Promise<unknown>) => void
   /** As addBusy, but the "arrow + hourglass" progress cursor - lower priority. */
@@ -67,12 +69,13 @@ export const CURSOR_TOKEN_PROPERTY = '--win55-cursor'
 export const CURSOR_SCHEME_PROPERTY = '--win55-scheme'
 
 /**
- * Native mode only. Resolved `url(...) x y, kw` for the `link` / `text` roles of the effective
- * scheme (or `auto` inside a `disabled` subtree), inherited down the DOM. index.css's
- * `:where(a[href])` / `:where(textarea, ...)` rules paint them, so links and text fields get a
- * themed context cursor with no per-element JS. A CursorContext that changes its subtree's theme
- * republishes both, so nesting re-themes the derived cursors; a pinned `role` sets both equal to
- * the base cursor (the subtree flattens to one cursor).
+ * Native mode only. `url(...) x y` for the `link` / `text` role of the effective scheme, then the
+ * subtree default and every re-theming ancestor's default as url() fallbacks, then the keyword (see
+ * withCssFallback / CursorContext's nativeBaseCss) - so a link/text sprite still decoding falls back
+ * to the ambient cursor, never the OS one. `auto` inside a `disabled` subtree. Inherited down the
+ * DOM; index.css's `:where(a[href])` / `:where(textarea, ...)` rules paint them, so links and text
+ * fields get a themed context cursor with no per-element JS. A CursorContext that changes its
+ * subtree's theme republishes both; a pinned `role` sets both equal to the base cursor.
  */
 export const CURSOR_NATIVE_LINK_PROPERTY = '--win55-cursor-native-link'
 export const CURSOR_NATIVE_TEXT_PROPERTY = '--win55-cursor-native-text'
