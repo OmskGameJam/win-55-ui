@@ -91,14 +91,22 @@ function wouldBeCursorRole(el: Element): string {
   return 'default'
 }
 
-// The one identity dispatch: native mode / disabled -> browser paints, overlay hidden, hand the
-// element to the frame animator; immersive -> resolve token or derived role and draw the sprite.
+// The one identity dispatch. Native is the default: the overlay draws ONLY when --win55-cursor-native
+// is explicitly `none` (immersive, positively set by a CursorContext). Every other value - a real
+// `url(...)`, `auto` (disabled), or unset (no root context yet, an HMR reload mid-flight) - is
+// native: the overlay stays hidden and the browser (plus the .ani frame animator) paints.
 function dispatch(el: Element | null): void {
   if (!el) return // over the scrollbar / a gap - keep the last cursor
 
+  // escape hatch: the kit is entirely hands-off, browser paints `cursor: revert`
+  if (el.closest('[data-win55-cursor="off"]')) {
+    applyCursorId('')
+    animator.stop()
+    return
+  }
+
   const cs = getComputedStyle(el)
-  const native = cs.getPropertyValue(CURSOR_NATIVE_PROPERTY).trim()
-  if ((native && native !== 'none') || el.closest('[data-win55-cursor="off"]')) {
+  if (cs.getPropertyValue(CURSOR_NATIVE_PROPERTY).trim() !== 'none') {
     applyCursorId('')
     animator.evaluate(el)
     return
