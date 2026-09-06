@@ -55,6 +55,57 @@ table {
   box-sizing: border-box;
 }
 
+/* The kit owns the cursor. --win55-cursor-native (set by CursorContext / v-cursor, inherited down
+   the DOM) decides per element what to paint: a real `url(...) x y, kw` (native mode), `none`
+   (immersive - CursorOverlay draws the sprite), or `auto` (OS cursor - inside a `disabled` subtree).
+   Unset falls back to `auto`, not `none`: native is the default, so before a root CursorContext has
+   stamped <html> (initial load, an HMR reload mid-flight) you get the OS cursor, never a hidden one
+   with the overlay guessing immersive. !important beats the UA/author `cursor` that links, text
+   fields, resize handles etc. carry; the would-be cursor stays recoverable for immersive - see
+   CursorOverlay.vue's wouldBeCursorRole. A nested enabled CursorContext sets the property back, so
+   nesting works at any depth. */
+* {
+  cursor: var(--win55-cursor-native, auto) !important;
+}
+
+/* Native mode: give the few native elements that carry their own UA cursor a themed context cursor,
+   from the per-role custom props CursorContext publishes. :where() keeps these at zero specificity -
+   they beat the `* {}` rule only by order, and lose to any real selector (v-cursor's inline
+   !important, the escape hatch below). In immersive mode the link/text props are unset, so these
+   fall through to --win55-cursor-native, which a root CursorContext has set to `none`, and the
+   overlay draws as usual. */
+:where(a[href], area[href]) {
+  cursor: var(--win55-cursor-native-link, var(--win55-cursor-native, auto)) !important;
+}
+
+:where(
+  textarea,
+  [contenteditable]:not([contenteditable='false']),
+  input:not([type]),
+  input[type='text' i],
+  input[type='search' i],
+  input[type='url' i],
+  input[type='tel' i],
+  input[type='email' i],
+  input[type='password' i],
+  input[type='number' i]
+) {
+  cursor: var(--win55-cursor-native-text, var(--win55-cursor-native, auto)) !important;
+}
+
+/* Disabled controls (and their descendants) - matches immersive's wouldBeCursorRole `:disabled` ->
+   not-allowed. Last of the :where() block so it wins over the link/text rules for a disabled field. */
+:where(:disabled, :disabled *) {
+  cursor: var(--win55-cursor-native-notallowed, var(--win55-cursor-native, auto)) !important;
+}
+
+/* Non-Vue escape hatch - a flat `revert` to the full per-element UA cursor, no nested re-enable.
+   Real specificity, so it beats the :where() rules above. */
+[data-win55-cursor='off'],
+[data-win55-cursor='off'] * {
+  cursor: revert !important;
+}
+
 body {
   line-height: 1;
   background-color: cyan;
@@ -171,7 +222,6 @@ body {
      translateY(-50%) combines two independent percentage bases and
      generally lands on a fractional pixel, breaking the kit's 2px grid). */
   top: 4px;
-  cursor: pointer;
   z-index: 1;
   image-rendering: pixelated;
 }
@@ -192,7 +242,6 @@ body {
 }
 
 .emoji-picker-tab {
-  cursor: pointer;
   text-decoration: underline;
   color: #0000ee;
   white-space: nowrap;
@@ -232,7 +281,6 @@ body {
 }
 
 .emoji-picker-grid-item {
-  cursor: pointer;
   image-rendering: pixelated;
   /* Scale each emoji to exactly 2x its own natural size (the kit's display
      convention) rather than stretching it to fill the cell. transform (not
@@ -245,7 +293,6 @@ body {
 .richtext-link {
   color: #0000ee;
   text-decoration: underline;
-  cursor: pointer;
 }
 
 .richtext-link:visited {

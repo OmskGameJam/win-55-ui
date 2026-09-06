@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { cursorWeakDirective } from '../directives/cursor'
+
+// weak: a consumer's plain v-cursor on <RadioButton> overrides this default (see directives/cursor.ts)
+const vCursor = cursorWeakDirective
 
 const props = withDefaults(defineProps<{
   modelValue: unknown
@@ -40,10 +44,10 @@ const handleClick = (e: MouseEvent) => {
       alignItems: 'center',
       gap: '8px',
       opacity: disabled ? 0.5 : 1,
-      cursor: disabled ? 'not-allowed' : 'pointer',
       userSelect: 'none',
       marginBottom: '2px',
     }"
+    v-cursor="disabled ? 'not-allowed' : 'link'"
     @click="handleClick"
   >
     <div style="display: flex; align-items: center">
@@ -60,7 +64,7 @@ const handleClick = (e: MouseEvent) => {
       style="display: none"
     />
 
-    <span v-if="label" :style="{ cursor: disabled ? 'not-allowed' : 'pointer' }">
+    <span v-if="label">
       {{ label }}
     </span>
   </div>

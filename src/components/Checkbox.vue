@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { cursorWeakDirective } from '../directives/cursor'
+
+// weak: a consumer's plain v-cursor on <Checkbox> overrides this default (see directives/cursor.ts)
+const vCursor = cursorWeakDirective
+
 const props = withDefaults(defineProps<{
   modelValue: boolean
   label?: string
@@ -32,10 +37,10 @@ const toggleCheckbox = () => {
       alignItems: 'center',
       gap: '8px',
       opacity: disabled ? 0.5 : 1,
-      cursor: disabled ? 'not-allowed' : 'pointer',
       userSelect: 'none',
       marginBottom: '2px',
     }"
+    v-cursor="disabled ? 'not-allowed' : 'link'"
     @click="toggleCheckbox"
   >
     <div style="display: flex; align-items: center">
@@ -54,7 +59,7 @@ const toggleCheckbox = () => {
       style="display: none"
     />
 
-    <span v-if="label" :style="{ cursor: disabled ? 'not-allowed' : 'pointer' }">
+    <span v-if="label">
       {{ label }}
     </span>
   </div>

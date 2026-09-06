@@ -7,7 +7,8 @@ const props = withDefaults(defineProps<{
   matchTriggerWidth: false,
 })
 
-const open = ref(false)
+// Uncontrolled by default; bind `v-model:open` to drive it (e.g. close on item select).
+const open = defineModel<boolean>('open', { default: false })
 const position = ref<{ top: number; left: number; width?: number } | null>(null)
 
 const triggerRef = ref<HTMLDivElement | null>(null)

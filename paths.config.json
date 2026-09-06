@@ -7,5 +7,7 @@
   "fontFixtures": "scripts/font/test/__fixtures__",
   "srcFontTests": "src-font-tests",
   "generatedFontsTs": "src/helpers/generatedFonts.ts",
-  "generatedFontsCss": "src/generated-fonts.css"
+  "generatedFontsCss": "src/generated-fonts.css",
+  "srcCursors": "src-cursors",
+  "publicCursors": "public/win-55-ui/cursors"
 }
