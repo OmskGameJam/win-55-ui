@@ -107,7 +107,7 @@ table {
 }
 
 body {
-  line-height: 1;
+  line-height: normal;
   background-color: cyan;
   font-family: 'Standard-Regular-12';
   font-size: 24px;
@@ -324,7 +324,7 @@ body {
   height: var(--win55-emoji-size, 30px);
   color: transparent;
   image-rendering: pixelated;
-  line-height: 1;
+  line-height: normal;
   overflow: hidden;
   position: relative;
   speak: never;

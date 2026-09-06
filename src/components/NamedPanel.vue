@@ -21,7 +21,8 @@ withDefaults(defineProps<{
   .label {
     background-color: rgb(203, 203, 203);
     position: absolute;
-    top: -20px;
+    /* bottom: calc(100% - 10px); */
+    top: -22px;
     padding: 4px;
   }
 </style>

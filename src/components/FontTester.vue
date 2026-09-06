@@ -51,7 +51,7 @@ const checkerboardStyle = computed<CSSProperties>(() => ({
   display: block;
   margin: 0;
   padding: 0;
-  line-height: 1;
+  line-height: normal;
   white-space: nowrap;
 }
 </style>
