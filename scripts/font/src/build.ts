@@ -2,7 +2,7 @@ import opentype from 'opentype.js'
 import type { BdfFont, BdfGlyph } from './types.js'
 import { traceGlyphContours, signedArea } from './contours.js'
 import { contourToSvgPath, svgFontToTtf, type SvgGlyphSpec } from './svgFont.js'
-import { insertSfntTable, replaceSfntTable, getSfntTable, buildGaspTable, GASP_DOGRAY } from './sfnt.js'
+import { insertSfntTable, replaceSfntTable, getSfntTable, normalizeVerticalMetrics, buildGaspTable, GASP_DOGRAY } from './sfnt.js'
 import { stripCmapFormat4 } from './cmap.js'
 
 export interface BuildReportEntry {
@@ -173,12 +173,13 @@ export function buildTtf(bdfFont: BdfFont, opts: BuildOptions = {}): BuildResult
   }
 
   // svg2ttf writes real glyf/loca TrueType tables (opentype.js's writer is CFF-only — see the
-  // halo investigation this replaced). It already defaults OS/2 fsSelection to
-  // REGULAR|USE_TYPO_METRICS on its own, so browsers size line boxes from our exact
-  // ascent/descent instead of glyph-extent-derived usWinAscent/usWinDescent — no extra work
-  // needed for that part. It doesn't write a `gasp` table though, so we splice one in
-  // afterward: DOGRAY across the full ppem range matches the old hand-made fonts' table exactly,
-  // and is what lets Windows render already-grid-aligned outlines with zero antialiasing bleed.
+  // halo investigation this replaced). It defaults OS/2 fsSelection to REGULAR|USE_TYPO_METRICS,
+  // but leaves the three vertical-metric triplets inconsistent (hhea lineGap 0, sTypoLineGap
+  // ~0.09em, usWin from outline extremes) — normalizeVerticalMetrics below pins all three equal
+  // so `line-height: normal` matches `line-height: 1` in every browser. It also doesn't write a
+  // `gasp` table, so we splice one in afterward: DOGRAY across the full ppem range matches the
+  // old hand-made fonts' table exactly, and is what lets Windows render already-grid-aligned
+  // outlines with zero antialiasing bleed.
   const baseBuffer = svgFontToTtf({
     familyName: family,
     styleName: style,
@@ -189,7 +190,9 @@ export function buildTtf(bdfFont: BdfFont, opts: BuildOptions = {}): BuildResult
     glyphs,
   })
 
-  const withGasp = insertSfntTable(baseBuffer, 'gasp', buildGaspTable([{ maxPpem: 0xffff, behavior: GASP_DOGRAY }]))
+  const normalized = normalizeVerticalMetrics(baseBuffer, ascent, descent)
+
+  const withGasp = insertSfntTable(normalized, 'gasp', buildGaspTable([{ maxPpem: 0xffff, behavior: GASP_DOGRAY }]))
 
   // svg2ttf's cmap format 4 subtable overflows its 16-bit idRangeOffset field once a font has
   // enough BMP segments/glyphs (routine once fallback-merged into the thousands) — OTS then

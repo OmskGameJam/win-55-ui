@@ -127,6 +127,44 @@ export function replaceSfntTable(buffer: ArrayBuffer, tag: string, data: Uint8Ar
   return writeSfnt(tables)
 }
 
+/**
+ * Forces `hhea`, `OS/2` typo, and `OS/2` win vertical metrics to one identical, zero-line-gap set.
+ *
+ * svg2ttf emits three disagreeing triplets: hhea ascender/descender with lineGap hardcoded to 0,
+ * sTypo ascender/descender with sTypoLineGap = round(0.09 * em), and usWinAscent/usWinDescent
+ * derived from the real outline extremes (a single tall merged fallback glyph inflates them well
+ * past the em box). With USE_TYPO_METRICS set, Chrome sizes `line-height: normal` from the sTypo
+ * triplet (~1.09em) while Firefox pulls in the win metrics (larger), so the two disagree and
+ * `line-height: 1` lets Firefox's oversized inline ascent paint over the line above. Pinning all
+ * three to ascent/descent with every line gap at 0 makes `normal` == `1` == exactly the em box in
+ * both, which is what the pixel grid wants (ascent + descent already sum to pixelSize by
+ * construction — see computeVerticalMetrics).
+ *
+ * `descent` is negative, per the OpenType convention used throughout build.ts.
+ */
+export function normalizeVerticalMetrics(buffer: ArrayBuffer, ascent: number, descent: number): ArrayBuffer {
+  const hhea = getSfntTable(buffer, 'hhea')
+  if (!hhea) throw new Error("sfnt has no 'hhea' table to normalize")
+  const os2 = getSfntTable(buffer, 'OS/2')
+  if (!os2) throw new Error("sfnt has no 'OS/2' table to normalize")
+
+  const hheaOut = hhea.slice()
+  const hheaView = new DataView(hheaOut.buffer, hheaOut.byteOffset, hheaOut.byteLength)
+  hheaView.setInt16(4, ascent) // ascender
+  hheaView.setInt16(6, descent) // descender
+  hheaView.setInt16(8, 0) // lineGap
+
+  const os2Out = os2.slice()
+  const os2View = new DataView(os2Out.buffer, os2Out.byteOffset, os2Out.byteLength)
+  os2View.setInt16(68, ascent) // sTypoAscender
+  os2View.setInt16(70, descent) // sTypoDescender
+  os2View.setInt16(72, 0) // sTypoLineGap
+  os2View.setUint16(74, ascent) // usWinAscent
+  os2View.setUint16(76, -descent) // usWinDescent
+
+  return replaceSfntTable(replaceSfntTable(buffer, 'hhea', hheaOut), 'OS/2', os2Out)
+}
+
 export interface GaspRange {
   /** Ranges apply up to and including this ppem (pixels-per-em); the last range should be 0xffff. */
   maxPpem: number

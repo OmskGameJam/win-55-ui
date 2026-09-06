@@ -14,7 +14,7 @@
 import type { BdfFont } from './types.js'
 import { buildGlyphUnsafe, DegenerateContourError } from './build.js'
 import { svgFontToTtf, type SvgGlyphSpec } from './svgFont.js'
-import { insertSfntTable, replaceSfntTable, buildGaspTable, GASP_DOGRAY } from './sfnt.js'
+import { insertSfntTable, replaceSfntTable, normalizeVerticalMetrics, buildGaspTable, GASP_DOGRAY } from './sfnt.js'
 import { buildTofuCmapTable } from './cmap.js'
 
 export interface TofuOptions {
@@ -74,7 +74,9 @@ export function buildTofuFont(bdfFont: BdfFont, opts: TofuOptions = {}): ArrayBu
     glyphs: [glyph],
   })
 
-  const withGasp = insertSfntTable(baseBuffer, 'gasp', buildGaspTable([{ maxPpem: 0xffff, behavior: GASP_DOGRAY }]))
+  const normalized = normalizeVerticalMetrics(baseBuffer, ascent, descent)
+
+  const withGasp = insertSfntTable(normalized, 'gasp', buildGaspTable([{ maxPpem: 0xffff, behavior: GASP_DOGRAY }]))
 
   const cmap = buildTofuCmapTable(QUESTION_MARK_GLYPH_ID)
   return replaceSfntTable(withGasp, 'cmap', cmap)

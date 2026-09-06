@@ -2,7 +2,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import opentype from 'opentype.js'
 import svg2ttf from 'svg2ttf'
-import { insertSfntTable, buildGaspTable, GASP_DOGRAY, GASP_GRIDFIT } from '../src/sfnt.js'
+import { insertSfntTable, normalizeVerticalMetrics, buildGaspTable, GASP_DOGRAY, GASP_GRIDFIT } from '../src/sfnt.js'
 
 function tinySvgFont(): string {
   // A single filled 4x4 square glyph, straight lines only — enough to exercise a real glyf/loca font.
@@ -65,6 +65,36 @@ test('insertSfntTable throws if the tag already exists', () => {
   const ttf = svg2ttf(tinySvgFont(), {})
   const original = toArrayBuffer(ttf.buffer)
   assert.throws(() => insertSfntTable(original, 'head', new Uint8Array(4)), /already has a 'head' table/)
+})
+
+test('normalizeVerticalMetrics pins hhea, sTypo, and usWin to one identical zero-line-gap set', () => {
+  const ttf = svg2ttf(tinySvgFont(), {})
+  const original = toArrayBuffer(ttf.buffer)
+
+  // svg2ttf's own output: hhea lineGap 0, sTypoLineGap ~0.09em, usWin from outline extremes — the
+  // three triplets disagree, which is exactly what the normalization exists to collapse.
+  const before = opentype.parse(original)
+  assert.notEqual(before.tables.os2.sTypoLineGap, 0, 'precondition: svg2ttf writes a non-zero sTypoLineGap')
+
+  const ascent = 360
+  const descent = -40
+  const normalized = normalizeVerticalMetrics(original, ascent, descent)
+
+  const font = opentype.parse(normalized)
+  assert.equal(font.outlinesFormat, 'truetype')
+
+  assert.equal(font.tables.hhea.ascender, ascent)
+  assert.equal(font.tables.hhea.descender, descent)
+  assert.equal(font.tables.hhea.lineGap, 0)
+  assert.equal(font.tables.os2.sTypoAscender, ascent)
+  assert.equal(font.tables.os2.sTypoDescender, descent)
+  assert.equal(font.tables.os2.sTypoLineGap, 0)
+  assert.equal(font.tables.os2.usWinAscent, ascent)
+  assert.equal(font.tables.os2.usWinDescent, -descent)
+
+  // Glyph data must still resolve — proves the two table replacements kept offsets/checksums sound.
+  const bbox = font.charToGlyph('X').getBoundingBox()
+  assert.deepEqual([bbox.x1, bbox.y1, bbox.x2, bbox.y2], [0, 0, 400, 400])
 })
 
 test('buildGaspTable sorts ranges ascending by maxPpem regardless of input order', () => {
