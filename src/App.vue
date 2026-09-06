@@ -158,12 +158,18 @@ onUnmounted(() => {
 })
 
 const cursorMode = ref<'native' | 'immersive'>('native')
+const rootScheme = ref('windows-default')
+const rootSchemeMenuOpen = ref(false)
 const demoScheme = ref('windows-default')
 const schemeMenuOpen = ref(false)
 const schemeNames = ref<string[]>(['windows-default'])
 void loadSchemeIndex().then((index) => {
   schemeNames.value = Object.keys(index).sort()
 })
+function pickRootScheme(name: string): void {
+  rootScheme.value = name
+  rootSchemeMenuOpen.value = false
+}
 function pickScheme(name: string): void {
   demoScheme.value = name
   schemeMenuOpen.value = false
@@ -217,7 +223,7 @@ const donutPositions = computed(() => {
 </script>
 
 <template>
-  <CursorContext root :mode="cursorMode">
+  <CursorContext root :mode="cursorMode" :scheme="rootScheme">
     <Box type="panel-d-1" :extra-styles="containerStyle">
       <h2>Debug sections</h2>
       <div style="display: flex; flex-wrap: wrap; align-items: flex-start;">
@@ -228,6 +234,16 @@ const donutPositions = computed(() => {
             v-model="sections[item.key]"
             :label="item.label"
           />
+          <BaseDropdown v-if="group.label === 'Cursors'" v-model:open="rootSchemeMenuOpen">
+            <template #trigger>
+              <Button>root scheme: {{ rootScheme }}</Button>
+            </template>
+            <template #items>
+              <Box type="panel-d-1">
+                <Button v-for="name in schemeNames" :key="name" @click="pickRootScheme(name)">{{ name }}</Button>
+              </Box>
+            </template>
+          </BaseDropdown>
         </NamedPanel>
       </div>
     </Box>
