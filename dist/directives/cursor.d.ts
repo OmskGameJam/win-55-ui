@@ -1,3 +1,5 @@
 import { type Directive } from 'vue';
-declare const cursorDirective: Directive<HTMLElement, string>;
+import { type CursorRole } from '../helpers/cursorContext';
+declare const cursorDirective: Directive<HTMLElement, CursorRole>;
+export declare const cursorWeakDirective: Directive<HTMLElement, CursorRole>;
 export default cursorDirective;
