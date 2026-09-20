@@ -5,6 +5,9 @@ import Button from './components/Button.vue'
 import BaseDropdown from './components/BaseDropdown.vue'
 import { useSineWave } from './helpers/useSineWave'
 import BaseInput from './components/BaseInput.vue'
+import SimpleStringInput from './components/SimpleStringInput.vue'
+import NumberInput from './components/NumberInput.vue'
+import RichInput from './components/RichInput.vue'
 import Typography from './components/Typography.vue'
 import Checkbox from './components/Checkbox.vue'
 import RadioButton from './components/RadioButton.vue'
@@ -77,6 +80,8 @@ const handleClick = () => window.alert('Click!')
 const strikeTesterOpen = ref(false)
 
 const exampleTextInputState = ref('sample')
+const exampleSimpleState = ref('')
+const exampleNumberState = ref('')
 const exampleWrap = ref(true)
 const exampleMultilineState = ref('first line\nsecond line')
 const exampleCheckboxState = ref(false)
@@ -284,18 +289,21 @@ const donutPositions = computed(() => {
       <Box v-if="sections.textInput" type="border-groove" :extra-styles="containerStyle">
         <h2>Text input</h2>
         <Typography font-shadow-color="#00000000">
-          <BaseInput
+          <RichInput
             v-model="exampleTextInputState"
             :extra-styles="{ width: '512px' }"
             show-emoji-button
           />
-          <BaseInput
+          <RichInput
             v-model="exampleMultilineState"
             :extra-styles="{ width: '512px', height: '128px', marginTop: '8px' }"
             multiline
             :wrap="exampleWrap"
             show-emoji-button
           />
+          <BaseInput v-model="exampleTextInputState" :extra-styles="{ width: '512px', marginTop: '8px' }" />
+          <SimpleStringInput v-model="exampleSimpleState" :extra-styles="{ width: '512px', marginTop: '8px' }" />
+          <NumberInput v-model="exampleNumberState" :extra-styles="{ width: '512px', marginTop: '8px' }" />
           <Checkbox v-model="exampleWrap" label="Wrap lines" />
         </Typography>
       </Box>
@@ -699,7 +707,32 @@ const donutPositions = computed(() => {
               <div>Open...</div>
               <HDivider />
               <div>Save</div>
-              <div>Save as...</div>
+              <div>
+              <MenuDropdown>
+                <template #trigger>
+                  <div>Submenu</div>
+                </template>
+                <template #items>
+                  <div>New</div>
+                  <div>Open...</div>
+                  <HDivider />
+                  <div>Save</div>
+                  <div>Save as...</div>
+                </template>
+              </MenuDropdown>
+              </div>
+              <MenuDropdown>
+                <template #trigger>
+                  <div>Submenu 2</div>
+                </template>
+                <template #items>
+                  <div>New</div>
+                  <div>Open...</div>
+                  <HDivider />
+                  <div>Save</div>
+                  <div>Save as...</div>
+                </template>
+              </MenuDropdown>
             </template>
           </MenuDropdown>
           <br />
@@ -729,7 +762,7 @@ const donutPositions = computed(() => {
       <div>🎉✨ party over here too</div>
     </Typography>
 
-    <!-- Global singleton: mounted once, shared by every BaseInput's emoji button -->
+    <!-- Global singleton: mounted once, shared by every RichInput's emoji button -->
     <EmojiPickerWindow />
 
     <StrikeTester v-model:open="strikeTesterOpen" />

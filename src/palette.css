@@ -1,0 +1,23 @@
+:root {
+  --win55-cga-black: #000000;
+  --win55-cga-blue: #0000AA;
+  --win55-cga-green: #00AA00;
+  --win55-cga-cyan: #00AAAA;
+  --win55-cga-red: #AA0000;
+  --win55-cga-magenta: #AA00AA;
+  --win55-cga-brown: #AA5500;
+  --win55-cga-light-gray: #AAAAAA;
+  --win55-cga-dark-gray: #555555;
+  --win55-cga-light-blue: #5555FF;
+  --win55-cga-light-green: #55FF55;
+  --win55-cga-light-cyan: #55FFFF;
+  --win55-cga-light-red: #FF5555;
+  --win55-cga-light-magenta: #FF55FF;
+  --win55-cga-yellow: #FFFF55;
+  --win55-cga-white: #FFFFFF;
+
+  --win55-cgax-surface: #CBCBCB;
+  --win55-cgax-surface-alt: #BFBFBF;
+  --win55-cgax-shadow: #999999;
+  --win55-cgax-tooltip: #FFFBA2;
+}

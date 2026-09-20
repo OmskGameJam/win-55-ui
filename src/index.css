@@ -1,5 +1,6 @@
 /* @font-face declarations, auto-generated from src-font/fonts.json - see generated-fonts.css */
 @import './generated-fonts.css';
+@import './palette.css';
 
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
@@ -126,6 +127,11 @@ body {
   position: relative
 }
 
+.border-9-none {
+  border: 0;
+  border-image: none;
+}
+
 .border-9-notification {
 	border: 12px solid transparent;
   border-image: var(--img) 12 fill repeat;
@@ -206,7 +212,7 @@ body {
   text-align: center;
 }
 
-.baseinput-emoji-wrapper {
+.baseinput-wrapper {
   position: relative;
   display: block;
   /* Scope the button's z-index to this wrapper only, so it doesn't compete
@@ -258,15 +264,17 @@ body {
   height: 30px;
 }
 
+.emoji-picker-scroll {
+  flex: 1;
+  min-height: 0;
+}
+
 .emoji-picker-grid {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
   gap: 4px;
   padding: 4px;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
 }
 
 /* Fixed-size slot so the grid stays uniform even though source assets aren't

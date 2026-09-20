@@ -14,6 +14,7 @@ export type BoxType =
   | 'border-groove'
   | 'white-box'
   | 'notification'
+  | 'none'
 
 const props = defineProps<{
   type: BoxType

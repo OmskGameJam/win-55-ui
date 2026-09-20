@@ -114,20 +114,22 @@ onUnmounted(() => {
 
               <HDivider />
 
-              <div class="emoji-picker-grid">
-                <div
-                  v-for="entry in selectedGroup?.emojis ?? []"
-                  :key="entry.code"
-                  class="emoji-picker-grid-cell"
-                >
-                  <img
-                    :src="getEmojiGifPathFromCode(entry.code)"
-                    :title="entry.shortcodes[0] ? `:${entry.shortcodes[0]}:` : undefined"
-                    class="emoji-picker-grid-item"
-                    @click="insertEmoji(entry.emoji)"
-                  />
+              <Box type="none" overflow-y="auto" extra-class="emoji-picker-scroll">
+                <div class="emoji-picker-grid">
+                  <div
+                    v-for="entry in selectedGroup?.emojis ?? []"
+                    :key="entry.code"
+                    class="emoji-picker-grid-cell"
+                  >
+                    <img
+                      :src="getEmojiGifPathFromCode(entry.code)"
+                      :title="entry.shortcodes[0] ? `:${entry.shortcodes[0]}:` : undefined"
+                      class="emoji-picker-grid-item"
+                      @click="insertEmoji(entry.emoji)"
+                    />
+                  </div>
                 </div>
-              </div>
+              </Box>
             </div>
           </Box>
         </Window>
