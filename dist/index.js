@@ -2207,6 +2207,7 @@ const dn = 2, Gl = /* @__PURE__ */ G({
   __name: "Typography",
   props: {
     element: { default: void 0 },
+    display: { default: "inline" },
     fontSize: {},
     isBold: { type: Boolean },
     isItalic: { type: Boolean },
@@ -2218,7 +2219,7 @@ const dn = 2, Gl = /* @__PURE__ */ G({
   setup(e) {
     const n = e, t = T(() => n.element ?? "span"), l = T(() => {
       const o = Cn(n);
-      return n.element || (o.display = "inline"), o;
+      return n.element || (o.display = n.display), o;
     });
     return (o, r) => (h(), H(xn(t.value), {
       style: Y(l.value)
