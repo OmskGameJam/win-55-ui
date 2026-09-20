@@ -13,6 +13,33 @@ const MIME_TYPES = {
   '.svg': 'image/svg+xml',
 }
 
+const LEGACY_SCROLLBAR_WARNING_CSS = `
+@property --win55-legacy-flash {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+@keyframes win55-legacy-flash {
+  0%, 70%, 100% { --win55-legacy-flash: 0; }
+  85% { --win55-legacy-flash: 1; }
+}
+:root {
+  --win55-legacy-flash-color: rgb(255 0 0 / calc(var(--win55-legacy-flash) * 0.35));
+  animation: win55-legacy-flash 2s ease-in-out infinite;
+}
+*::-webkit-scrollbar {
+  background-color: var(--win55-legacy-flash-color);
+}
+*::-webkit-scrollbar-corner {
+  background: linear-gradient(var(--win55-legacy-flash-color), var(--win55-legacy-flash-color)), #999;
+}
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-button {
+  box-shadow: inset 0 0 0 100px var(--win55-legacy-flash-color);
+}
+`
+
 function collectFiles(dir, base = '') {
   const entries = readdirSync(dir, { withFileTypes: true })
   const files = []
@@ -29,11 +56,21 @@ function collectFiles(dir, base = '') {
 }
 
 /**
- * Vite plugin that serves win-55-ui assets.
- * In dev mode, intercepts /win-55-ui/ requests and serves files from the package.
- * In build mode, emits asset files into the output directory.
+ * Vite plugin that injects a stylesheet flashing native (non-Box) scrollbars red.
+ * Active only while the dev server is running.
  */
-export function win55ui() {
+export function win55uiDevWarnings() {
+  return {
+    name: 'win-55-ui-dev-warnings',
+
+    transformIndexHtml(_html, ctx) {
+      if (!ctx.server) return
+      return [{ tag: 'style', attrs: { 'data-win55-dev': '' }, children: LEGACY_SCROLLBAR_WARNING_CSS, injectTo: 'head' }]
+    },
+  }
+}
+
+function win55uiAssets() {
   return {
     name: 'win-55-ui',
 
@@ -74,4 +111,14 @@ export function win55ui() {
       }
     },
   }
+}
+
+/**
+ * Vite plugin that serves win-55-ui assets.
+ * In dev mode, intercepts /win-55-ui/ requests and serves files from the package.
+ * In build mode, emits asset files into the output directory.
+ * In dev mode, also injects the native-scrollbar warning stylesheet.
+ */
+export function win55ui() {
+  return [win55uiAssets(), win55uiDevWarnings()]
 }

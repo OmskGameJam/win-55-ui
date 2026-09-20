@@ -18,6 +18,7 @@ import EmojiPickerWindow from './components/EmojiPickerWindow.vue'
 import Emoji from './components/Emoji.vue'
 import RichText from './components/RichText.vue'
 import FontTester from './components/FontTester.vue'
+import ScrollFillTester from './components/ScrollFillTester.vue'
 import StrikeTester from './components/StrikeTester.vue'
 import CursorContext from './components/CursorContext.vue'
 import CursorBusyDemoButton from './components/CursorBusyDemoButton.vue'
@@ -53,6 +54,11 @@ const boxStyle = {
 }
 
 // Window resize mode controls
+const manualLineCount = ref(10)
+const manualLineChunks = ref(0)
+const manualForgiveVertical = ref(false)
+const demoScrollTop = ref(0)
+const demoScrollLeft = ref(0)
 const resizeMode = ref('horizontal')
 const windowX = ref(100)
 const windowY = ref(100)
@@ -69,6 +75,8 @@ const handleClick = () => window.alert('Click!')
 const strikeTesterOpen = ref(false)
 
 const exampleTextInputState = ref('sample')
+const exampleWrap = ref(true)
+const exampleMultilineState = ref('first line\nsecond line')
 const exampleCheckboxState = ref(false)
 const exampleRadioState = ref('sample')
 
@@ -97,6 +105,7 @@ const sectionGroups: { label: string; sections: { key: string; label: string }[]
     sections: [
       { key: 'formElements', label: 'Form elements' },
       { key: 'sizedBoxes', label: 'Sized boxes' },
+      { key: 'scrollableBoxes', label: 'Scrollable boxes' },
       { key: 'window', label: 'Window' },
     ],
   },
@@ -277,6 +286,14 @@ const donutPositions = computed(() => {
             :extra-styles="{ width: '512px' }"
             show-emoji-button
           />
+          <BaseInput
+            v-model="exampleMultilineState"
+            :extra-styles="{ width: '512px', height: '128px', marginTop: '8px' }"
+            multiline
+            :wrap="exampleWrap"
+            show-emoji-button
+          />
+          <Checkbox v-model="exampleWrap" label="Wrap lines" />
         </Typography>
       </Box>
 
@@ -388,6 +405,46 @@ const donutPositions = computed(() => {
           :key="index"
         />
         <br />
+      </Box>
+
+      <Box v-if="sections.scrollableBoxes" type="border-groove" :extra-styles="containerStyle">
+        <h2>Scrollable boxes</h2>
+        <div>overflow="auto" (vertical), scrollTop={{ demoScrollTop }}, scrollLeft={{ demoScrollLeft }}</div>
+        <Button @click="demoScrollTop = 100">scrollTop = 100</Button>
+        <Button @click="demoScrollTop = 0">scrollTop = 0</Button>
+        <Box
+          type="textarea"
+          overflow="auto"
+          v-model:scroll-top="demoScrollTop"
+          v-model:scroll-left="demoScrollLeft"
+          :extra-styles="{ width: '400px', height: '200px' }"
+        >
+          <div v-for="n in 30" :key="n">Line {{ n }} of scrollable content</div>
+        </Box>
+        <div>Fill/drain loop (3s fill, 3s hold, 3s drain, 3s hold)</div>
+        <ScrollFillTester />
+        <div>Manual line count: {{ manualLineCount }}</div>
+        <Button @click="manualLineCount = Math.max(0, manualLineCount - 1)">-</Button>
+        <Button @click="manualLineCount++">+</Button>
+        <div>Manual line length: +{{ manualLineChunks * 4 }} chars</div>
+        <Button @click="manualLineChunks = Math.max(0, manualLineChunks - 1)">-</Button>
+        <Button @click="manualLineChunks++">+</Button>
+        <Checkbox v-model="manualForgiveVertical" label="Forgive 4px vertical overflow" />
+        <Box type="textarea" overflow="auto" :forgive-vertical-overflow="manualForgiveVertical" :extra-styles="{ width: '402px', height: '204px' }">
+          <div v-for="n in manualLineCount" :key="n" style="white-space: nowrap;">Line {{ n }} of {{ manualLineCount }} j{{ '@@@@'.repeat(manualLineChunks) }}</div>
+        </Box>
+        <div>overflow="scroll" (both, content fits)</div>
+        <Box type="textarea" overflow="scroll" :extra-styles="{ width: '400px', height: '120px' }">
+          <div>Short content</div>
+        </Box>
+        <div>overflow="auto" (both, wide and tall content)</div>
+        <Box type="textarea" overflow="auto" :extra-styles="{ width: '400px', height: '200px' }">
+          <div v-for="n in 30" :key="n" style="white-space: nowrap;">Line {{ n }} of content that is much wider than the box so that it overflows horizontally as well</div>
+        </Box>
+        <div>overflow-x="scroll" overflow-y="hidden"</div>
+        <Box type="textarea" overflow-x="scroll" overflow-y="hidden" :extra-styles="{ width: '400px', height: '120px' }">
+          <div v-for="n in 10" :key="n" style="white-space: nowrap;">Line {{ n }} of content that is much wider than the box so that it overflows horizontally</div>
+        </Box>
       </Box>
 
       <div v-if="sections.window">

@@ -41,6 +41,7 @@ const props = withDefaults(defineProps<{
   boxType?: BoxType
   extraStyles?: CSSProperties
   multiline?: boolean
+  wrap?: boolean
   showEmojiButton?: boolean
 }>(), {
   placeholder: '',
@@ -49,6 +50,7 @@ const props = withDefaults(defineProps<{
   boxType: 'textarea',
   extraStyles: undefined,
   multiline: false,
+  wrap: true,
   showEmojiButton: false,
 })
 
@@ -57,7 +59,8 @@ const emit = defineEmits<{
 }>()
 
 const boxRef = ref<InstanceType<typeof Box> | null>(null)
-const el = computed(() => boxRef.value?.el ?? null)
+const editorRef = ref<HTMLDivElement | null>(null)
+const el = computed(() => editorRef.value)
 
 /* Initialize default v-model content */
 onMounted(() => {
@@ -901,38 +904,43 @@ const handleBlur = () => {
   }
 }
 
-const combinedStyles = computed<CSSProperties>(() => ({
-  ...props.extraStyles,
+const editorStyles = computed<CSSProperties>(() => ({
   ...typographyStyles({ fontColor: 'black' }),
-  overflow: 'auto',
+  minHeight: '100%',
+  ...(props.wrap ? {} : { whiteSpace: 'nowrap', width: 'max-content', minWidth: '100%' }),
   ...(props.showEmojiButton ? { paddingRight: '34px' } : {}),
 }))
+
+const emojiButtonStyle = computed<CSSProperties | undefined>(() =>
+  boxRef.value?.verticalBarVisible ? { right: '38px' } : undefined)
 
 defineExpose({ el })
 </script>
 
 <template>
-  <div v-if="showEmojiButton" class="baseinput-emoji-wrapper">
-    <Box
-      ref="boxRef"
-      :type="boxType"
-      :contenteditable="!disabled"
-      :extra-styles="combinedStyles"
-      :data-placeholder="placeholder"
-      role="textbox"
-      :aria-multiline="multiline"
-      :aria-disabled="disabled"
-      @input="handleInput"
-      @keydown="handleKeyDown"
-      @beforeinput="handleBeforeInput"
-      @paste="handlePaste"
-      @focus="handleFocus"
-      @blur="handleBlur"
-    />
+  <div class="baseinput-emoji-wrapper">
+    <Box ref="boxRef" :type="boxType" overflow="auto" forgive-vertical-overflow :extra-styles="extraStyles">
+      <div
+        ref="editorRef"
+        :contenteditable="!disabled"
+        :style="editorStyles"
+        :data-placeholder="placeholder"
+        role="textbox"
+        :aria-multiline="multiline"
+        :aria-disabled="disabled"
+        @input="handleInput"
+        @keydown="handleKeyDown"
+        @beforeinput="handleBeforeInput"
+        @paste="handlePaste"
+        @focus="handleFocus"
+        @blur="handleBlur"
+      />
+    </Box>
 
     <img
       v-if="showEmojiButtonNow"
       :src="getEmojiGifPathFromCode(displayedEmojiButtonCode)"
+      :style="emojiButtonStyle"
       width="30"
       height="30"
       class="baseinput-emoji-button"
@@ -941,24 +949,6 @@ defineExpose({ el })
       @click.stop="handleEmojiButtonClick"
     />
   </div>
-
-  <Box
-    v-else
-    ref="boxRef"
-    :type="boxType"
-    :contenteditable="!disabled"
-    :extra-styles="combinedStyles"
-    :data-placeholder="placeholder"
-    role="textbox"
-    :aria-multiline="multiline"
-    :aria-disabled="disabled"
-    @input="handleInput"
-    @keydown="handleKeyDown"
-    @beforeinput="handleBeforeInput"
-    @paste="handlePaste"
-    @focus="handleFocus"
-    @blur="handleBlur"
-  />
 
   <Balloon v-if="shortcodeOpen && caretRect" :shown="true" :anchor="caretRect" side="top">
     <template #content>
