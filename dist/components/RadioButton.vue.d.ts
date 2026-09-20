@@ -12,8 +12,8 @@ declare const _default: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {
 }, string, import("vue").PublicProps, Readonly<__VLS_Props> & Readonly<{
     "onUpdate:modelValue"?: ((value: unknown) => any) | undefined;
 }>, {
-    disabled: boolean;
     label: string;
+    disabled: boolean;
     checkedIcon: string;
     uncheckedIcon: string;
     name: string;

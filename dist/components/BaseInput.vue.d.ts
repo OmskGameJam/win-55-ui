@@ -8,6 +8,7 @@ type __VLS_Props = {
     boxType?: BoxType;
     extraStyles?: CSSProperties;
     multiline?: boolean;
+    wrap?: boolean;
     showEmojiButton?: boolean;
 };
 declare const _default: import("vue").DefineComponent<__VLS_Props, {
@@ -18,6 +19,7 @@ declare const _default: import("vue").DefineComponent<__VLS_Props, {
     "onUpdate:modelValue"?: ((value: string) => any) | undefined;
 }>, {
     extraStyles: CSSProperties;
+    wrap: boolean;
     disabled: boolean;
     placeholder: string;
     maxLength: number;
