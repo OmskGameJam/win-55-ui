@@ -107,7 +107,7 @@ table {
 }
 
 body {
-  line-height: normal;
+  line-height: 24px;
   background-color: cyan;
   font-family: 'Standard-Regular-12';
   font-size: 24px;
@@ -328,7 +328,7 @@ body {
   overflow: hidden;
   position: relative;
   speak: never;
-  vertical-align: -0.125em;
+  vertical-align: round(max(-0.125em, min(0px, calc(0.5em - 15px))), 2px);
 }
 
 .win55-emoji-image {
@@ -351,5 +351,5 @@ body {
    normal inline replaced element so it pushes surrounding content. */
 .win55-emoji-standalone {
   image-rendering: pixelated;
-  vertical-align: -0.125em;
+  vertical-align: round(max(-0.125em, min(0px, calc(0.5em - 15px))), 2px);
 }

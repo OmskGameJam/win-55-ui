@@ -27,6 +27,8 @@ import type { CursorRole } from './helpers/cursorContext'
 import emojiDirective from './directives/emoji'
 import cursorDirective from './directives/cursor'
 
+const typographyDisplayModes = ['inline', 'contents'] as const
+
 const vEmoji = emojiDirective
 const vCursor = cursorDirective
 
@@ -89,6 +91,7 @@ const sectionGroups: { label: string; sections: { key: string; label: string }[]
       { key: 'bitmapStrikes', label: 'Bitmap strikes' },
       { key: 'textInput', label: 'Text input' },
       { key: 'richText', label: 'RichText' },
+      { key: 'typographyDisplay', label: 'Typography display modes' },
     ],
   },
   {
@@ -345,10 +348,12 @@ const donutPositions = computed(() => {
       <Box v-if="sections.richText" type="border-groove" :extra-styles="containerStyle">
         <h2>RichText (BBCode + :shortcodes:)</h2>
         <RichText allow-links allow-sizes>
-          Plain text, [b]bold[/b], [i]italic (no strike! tell anton to fix fonts)[/i],
+          Plain text, [b]bold[/b], [i]italic[/i],
           [u]underline[/u], [s]strike[/s], [color=#aa0000]red[/color], [size=24]big[/size],
           [url=https://example.com]a link[/url], and :smile: an emoji
           Also, real emoji! ☀ 🌈 😄 🚀 💾
+          [br][br]
+          [size=24]Emoji with ☀ 🌈 😄 🚀 💾 big[/size]
         </RichText>
         <RichText>
           Links disabled here: [url=https://example.com]this should render as plain text[/url]
@@ -359,6 +364,65 @@ const donutPositions = computed(() => {
         <RichText>
           Emoji outside the registry (rasterized fallback, not plain text): 🦖
         </RichText>
+      </Box>
+
+      <Box v-if="sections.typographyDisplay" type="border-groove" :extra-styles="containerStyle">
+        <h2>Typography display modes</h2>
+        <div v-emoji style="display: grid; grid-template-columns: repeat(2, 420px); column-gap: 16px; align-items: start">
+          <div v-for="mode in typographyDisplayModes" :key="mode">display: {{ mode }}</div>
+        <div style="grid-column: 1 / -1">1. Mixed sizes on one line</div>
+        <div v-for="mode in typographyDisplayModes" :key="mode">
+          <Typography :display="mode" :font-size="12">small </Typography><Typography :display="mode" :font-size="24">BIG </Typography><Typography :display="mode" is-bold :font-size="16">mid bold </Typography>trailing bare text that wraps onto the next line
+        </div>
+        <div style="grid-column: 1 / -1">2. Emoji beside big and small text</div>
+        <div v-for="mode in typographyDisplayModes" :key="mode">
+          <Typography :display="mode" :font-size="24">Big &#9728; &#127752; text</Typography> <Typography :display="mode" :font-size="12">small &#9728; &#127752;</Typography>
+        </div>
+        <div style="grid-column: 1 / -1">3. Flex row, multi-child wrappers</div>
+        <div v-for="mode in typographyDisplayModes" :key="mode">
+          <Box type="white-box" :extra-styles="{ display: 'flex', alignItems: 'center', gap: '4px' }">
+            <Typography :display="mode" :font-size="24"><span>one</span><span>two</span></Typography>
+            <Typography :display="mode" :font-size="12"><span>three</span><span>four</span></Typography>
+            <Typography :display="mode">single</Typography>
+          </Box>
+        </div>
+        <div style="grid-column: 1 / -1">4. Grid, multi-child wrappers</div>
+        <div v-for="mode in typographyDisplayModes" :key="mode">
+          <Box type="white-box" :extra-styles="{ display: 'grid', gridTemplateColumns: '1fr 1fr' }">
+            <Typography :display="mode" :font-size="18"><span>a</span><span>b</span></Typography>
+            <Typography :display="mode" :font-size="12"><span>c</span><span>d</span></Typography>
+          </Box>
+        </div>
+        <div style="grid-column: 1 / -1">5. Nested wrappers</div>
+        <div v-for="mode in typographyDisplayModes" :key="mode">
+          <Typography :display="mode" :font-size="24">outer <Typography :display="mode" :font-size="12">inner </Typography><Typography :display="mode" is-bold :font-size="18">deep</Typography> back</Typography>
+        </div>
+        <div style="grid-column: 1 / -1">6. Block child inside wrapper</div>
+        <div v-for="mode in typographyDisplayModes" :key="mode">
+          <Typography :display="mode" :font-size="18">before<div>block child</div>after</Typography>
+        </div>
+        <div style="grid-column: 1 / -1">7. Inside a Button</div>
+        <div v-for="mode in typographyDisplayModes" :key="mode">
+          <Button><Typography :display="mode" :font-size="24">Label</Typography></Button>
+          <Button><Typography :display="mode" :font-size="12">small</Typography> <Typography :display="mode" :font-size="24">BIG</Typography></Button>
+        </div>
+        <div style="grid-column: 1 / -1">8. Under an underlined parent</div>
+        <div v-for="mode in typographyDisplayModes" :key="mode">
+          <div style="text-decoration: underline">
+            <Typography :display="mode" :font-size="12">small </Typography><Typography :display="mode" :font-size="24">BIG</Typography>
+          </div>
+        </div>
+        <div style="grid-column: 1 / -1">9. Narrow box, wrapping mixed sizes</div>
+        <div v-for="mode in typographyDisplayModes" :key="mode">
+          <Box type="white-box" :extra-styles="{ width: '160px' }">
+            <Typography :display="mode" :font-size="12">some small words </Typography><Typography :display="mode" :font-size="24">and large ones </Typography><Typography :display="mode" :font-size="12">then small again</Typography>
+          </Box>
+        </div>
+        <div style="grid-column: 1 / -1">10. Line breaks inside wrapper</div>
+        <div v-for="mode in typographyDisplayModes" :key="mode">
+          <Typography :display="mode" :font-size="24">line one<br>line two<br><Typography :display="mode" :font-size="12">line three</Typography></Typography>
+        </div>
+        </div>
       </Box>
 
       <Box v-if="sections.formElements" type="panel-d-2" :extra-styles="containerStyle">

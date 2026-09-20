@@ -657,8 +657,9 @@ function Cn(e) {
     style: jo(e.isBold, e.isItalic),
     size: Sn(e.fontSize ?? 12, No)
   }, { fontName: l, style: o, size: r } = $o(e.fontName ?? En, n, t), s = {
-    fontFamily: `${l}-${o}-${r}, ${l}-${o}-${r}-TofuMaker, Arial, sans`,
+    fontFamily: `${l}-${o}-${r}, ${l}-${o}-${r}-TofuMaker`,
     fontSize: `${r * 2}px`,
+    lineHeight: `${r * 2}px`,
     color: e.fontColor
   };
   return e.fontShadowColor && (s.textShadow = `2px 2px 0 ${e.fontShadowColor}`), s;
@@ -2217,7 +2218,7 @@ const dn = 2, Gl = /* @__PURE__ */ G({
   setup(e) {
     const n = e, t = T(() => n.element ?? "span"), l = T(() => {
       const o = Cn(n);
-      return n.element || (o.display = "contents"), o;
+      return n.element || (o.display = "inline"), o;
     });
     return (o, r) => (h(), H(xn(t.value), {
       style: Y(l.value)
