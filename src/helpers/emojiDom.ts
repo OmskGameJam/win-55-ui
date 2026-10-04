@@ -57,6 +57,16 @@ function findCaretPosition(
   }
 
   if (node instanceof Element) {
+    // Match getTextWithCustomEmoji: a <br> occupies one newline in the
+    // serialized value. Land beside it rather than inside the void element.
+    if (node.tagName === 'BR') {
+      return {
+        node: node.parentNode ?? node,
+        offset: childIndex(node) + (offset > 0 ? 1 : 0),
+        remaining: Math.max(0, offset - 1),
+      }
+    }
+
     const emoji = node.getAttribute('data-win55-emoji')
 
     if (emoji) {
