@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'vue';
 import type { BoxOverflow } from '../helpers/scroll';
-export type BoxType = 'indent' | 'indent-dark' | 'panel-d-1' | 'panel-d-2' | 'textarea' | 'border-groove' | 'white-box' | 'notification';
+export type BoxType = 'indent' | 'indent-dark' | 'panel-d-1' | 'panel-d-2' | 'textarea' | 'border-groove' | 'white-box' | 'notification' | 'none';
 type __VLS_Props = {
     type: BoxType;
     overflow?: BoxOverflow;
