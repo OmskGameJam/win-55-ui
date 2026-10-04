@@ -12,6 +12,7 @@ import Typography from './components/Typography.vue'
 import Checkbox from './components/Checkbox.vue'
 import RadioButton from './components/RadioButton.vue'
 import MenuDropdown from './components/MenuDropdown.vue'
+import TestDeepMenu from './components/TestDeepMenu.vue'
 import HDivider from './components/HDivider.vue'
 import Window from './components/Window.vue'
 import Tooltip from './components/Tooltip.vue'
@@ -735,6 +736,7 @@ const donutPositions = computed(() => {
               </MenuDropdown>
             </template>
           </MenuDropdown>
+          <TestDeepMenu />
           <br />
           <br />
           <br />

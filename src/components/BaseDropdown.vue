@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, watch, onMounted, onUnmounted, nextTick, inject, provide } from 'vue'
+import { DROPDOWN_CONTEXT_KEY, type DropdownNode } from '../helpers/dropdownContext'
 
 const props = withDefaults(defineProps<{
   matchTriggerWidth?: boolean
@@ -10,6 +11,28 @@ const props = withDefaults(defineProps<{
 // Uncontrolled by default; bind `v-model:open` to drive it (e.g. close on item select).
 const open = defineModel<boolean>('open', { default: false })
 const position = ref<{ top: number; left: number; width?: number } | null>(null)
+
+const HOVER_OPEN_DELAY_MS = 200
+
+const parent = inject(DROPDOWN_CONTEXT_KEY, null)
+const isSubmenu = parent !== null
+
+const children = new Set<DropdownNode>()
+let activeChildClose: (() => void) | null = null
+
+provide(DROPDOWN_CONTEXT_KEY, {
+  registerChild: (child) => {
+    children.add(child)
+    return () => children.delete(child)
+  },
+  claimActive: (close) => {
+    if (activeChildClose && activeChildClose !== close) activeChildClose()
+    activeChildClose = close
+    return () => {
+      if (activeChildClose === close) activeChildClose = null
+    }
+  },
+})
 
 const triggerRef = ref<HTMLDivElement | null>(null)
 const dropdownRef = ref<HTMLDivElement | null>(null)
@@ -23,13 +46,25 @@ const calculatePosition = () => {
   const viewportHeight = window.innerHeight
   const dropdownHeight = dropdownEl.offsetHeight
 
-  let top = rect.bottom + window.scrollY
-  const left = rect.left + window.scrollX
+  let top: number
+  let left: number
 
-  const wouldOverflow = rect.bottom + dropdownHeight > viewportHeight
-
-  if (wouldOverflow) {
-    top = rect.top + window.scrollY - dropdownHeight
+  if (isSubmenu) {
+    const dropdownWidth = dropdownEl.offsetWidth
+    top = rect.top + window.scrollY
+    left = rect.right + window.scrollX
+    if (rect.top + dropdownHeight > viewportHeight) {
+      top = Math.max(0, viewportHeight - dropdownHeight) + window.scrollY
+    }
+    if (rect.right + dropdownWidth > window.innerWidth) {
+      left = rect.left + window.scrollX - dropdownWidth
+    }
+  } else {
+    top = rect.bottom + window.scrollY
+    left = rect.left + window.scrollX
+    if (rect.bottom + dropdownHeight > viewportHeight) {
+      top = rect.top + window.scrollY - dropdownHeight
+    }
   }
 
   position.value = {
@@ -39,12 +74,34 @@ const calculatePosition = () => {
   }
 }
 
+let releaseActive: (() => void) | null = null
+
 watch(open, async (isOpen) => {
   if (isOpen) {
+    releaseActive = parent?.claimActive(() => { open.value = false }) ?? null
     await nextTick()
     calculatePosition()
+  } else {
+    releaseActive?.()
+    releaseActive = null
   }
 })
+
+const containsTarget = (node: Node): boolean =>
+  !!triggerRef.value?.contains(node)
+  || !!dropdownRef.value?.contains(node)
+  || [...children].some((child) => child.containsTarget(node))
+
+const unregisterFromParent = parent?.registerChild({ containsTarget })
+
+let hoverTimer: ReturnType<typeof setTimeout> | undefined
+
+const handleTriggerEnter = () => {
+  if (!isSubmenu || open.value) return
+  hoverTimer = setTimeout(() => { open.value = true }, HOVER_OPEN_DELAY_MS)
+}
+
+const handleTriggerLeave = () => clearTimeout(hoverTimer)
 
 const handleResizeScroll = () => {
   if (open.value) calculatePosition()
@@ -52,9 +109,7 @@ const handleResizeScroll = () => {
 
 const handleClickOutside = (e: MouseEvent) => {
   if (!open.value) return
-  const target = e.target as Node
-  if (triggerRef.value?.contains(target)) return
-  if (dropdownRef.value?.contains(target)) return
+  if (containsTarget(e.target as Node)) return
   open.value = false
 }
 
@@ -68,15 +123,24 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResizeScroll)
   window.removeEventListener('scroll', handleResizeScroll)
   document.removeEventListener('click', handleClickOutside)
+  clearTimeout(hoverTimer)
+  releaseActive?.()
+  unregisterFromParent?.()
 })
 
 const toggleOpen = () => {
-  open.value = !open.value
+  open.value = isSubmenu ? true : !open.value
 }
 </script>
 
 <template>
-  <div ref="triggerRef" style="display: inline-block" @click.stop="toggleOpen">
+  <div
+    ref="triggerRef"
+    :style="{ display: isSubmenu ? 'block' : 'inline-block' }"
+    @click.stop="toggleOpen"
+    @mouseenter="handleTriggerEnter"
+    @mouseleave="handleTriggerLeave"
+  >
     <slot name="trigger" />
   </div>
 
