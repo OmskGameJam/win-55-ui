@@ -150,7 +150,7 @@ const vo = ["src"], ho = ["src"], po = {
   for (const [o, l] of n)
     t[o] = l;
   return t;
-}, Yt = /* @__PURE__ */ Tt(Eo, [["__scopeId", "data-v-08aa801a"]]), vt = 28;
+}, Yt = /* @__PURE__ */ Tt(Eo, [["__scopeId", "data-v-5f5ba9f2"]]), vt = 28;
 function lt(e) {
   return e === "hidden" || e === "scroll" || e === "auto";
 }
@@ -341,7 +341,7 @@ const Ro = {
       ], 64)) : J(R.$slots, "default", { key: 1 }, void 0, !0)
     ], 6));
   }
-}), ie = /* @__PURE__ */ Tt(Bo, [["__scopeId", "data-v-c896ad2e"]]), Io = { class: "balloon-tip-box" }, No = {
+}), ie = /* @__PURE__ */ Tt(Bo, [["__scopeId", "data-v-e2b0476a"]]), Io = { class: "balloon-tip-box" }, No = {
   key: 1,
   class: "balloon-wrapper"
 }, Ao = { class: "balloon-tip-box" }, Ke = 8, $o = /* @__PURE__ */ U({
@@ -3023,7 +3023,7 @@ const Ir = { style: { height: "0", overflow: "visible" } }, Nr = { class: "title
       _: 3
     }));
   }
-}), is = /* @__PURE__ */ Tt(Fr, [["__scopeId", "data-v-43f13cf9"]]), yn = "/win-55-ui/emoji/emoji-by-category.json";
+}), is = /* @__PURE__ */ Tt(Fr, [["__scopeId", "data-v-9ec738dd"]]), yn = "/win-55-ui/emoji/emoji-by-category.json";
 let xt = null;
 async function wn() {
   return xt || (xt = fetch(yn).then((e) => {
