@@ -112,7 +112,10 @@ body {
   background-color: cyan;
   font-family: 'Standard-Regular-12';
   font-size: 24px;
-  backface-visibility: hidden;
+  /* No layer-promoting properties here (backface-visibility, translateZ, will-change):
+     promoting <body> forces Chrome to drop LCD text for the whole page, which on Windows
+     falls back to DirectWrite NATURAL_SYMMETRIC - a symmetric 1px horizontal filter that
+     smears every glyph edge into a 0.10/0.88 halo. See FONTS.md "Cleartype/LCD". */
   text-rendering: geometricPrecision;
 }
 
