@@ -71,3 +71,14 @@ Effort: `S` ≤ half day, `M` ~1 day, `L` multi-day.
 5. TreeView, TableView, GroupBox, native `select`
 6. Titlebar buttons, Button `default`, link styling, field surface, `field-row`
 7. Parked: focus system
+
+## Deferred ideas
+
+- [ ] **MagicSlider** — slider with programmatic thumbs and ranges; displays current values of all provided thumbs and range highlights; messages back drag deltas
+
+## Slider polish
+
+- [ ] Visible focus treatment for slider handles — depends on the parked focus system — `S`
+- [ ] Per-handle accessible names for range sliders (`label` / `aria-label`) — `S`
+- [ ] Document the Slider API: sizes, orientation, `v-model:range`, `normalized`, `range-color` — `S`
+- [ ] Rewrite the stale 98.css-shaped Slider entry in “Missing controls” for our own markup — `S`

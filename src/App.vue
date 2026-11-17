@@ -14,6 +14,7 @@ import RadioButton from './components/RadioButton.vue'
 import MenuDropdown from './components/MenuDropdown.vue'
 import TestDeepMenu from './components/TestDeepMenu.vue'
 import HDivider from './components/HDivider.vue'
+import Slider from './components/Slider.vue'
 import Window from './components/Window.vue'
 import Tooltip from './components/Tooltip.vue'
 import Balloon from './components/Balloon.vue'
@@ -87,6 +88,10 @@ const exampleWrap = ref(true)
 const exampleMultilineState = ref('first line\nsecond line')
 const exampleCheckboxState = ref(false)
 const exampleRadioState = ref('sample')
+const exampleSliderValue = ref(50)
+const exampleRangeValue = ref<[number, number]>([25, 75])
+const exampleFixedValue = ref(50)
+const fixedSliderValues = [0, 10, 25, 50, 75, 90, 100]
 
 // Each kitchen-sink section is gated behind a checkbox and hidden until toggled on.
 // Grouped into NamedPanels purely for the debug-toggle UI.
@@ -113,6 +118,7 @@ const sectionGroups: { label: string; sections: { key: string; label: string }[]
     label: 'Layout & forms',
     sections: [
       { key: 'formElements', label: 'Form elements' },
+      { key: 'slider', label: 'Slider' },
       { key: 'sizedBoxes', label: 'Sized boxes' },
       { key: 'scrollableBoxes', label: 'Scrollable boxes' },
       { key: 'window', label: 'Window' },
@@ -468,6 +474,41 @@ const donutPositions = computed(() => {
             label="C"
           />
         </Box>
+      </Box>
+
+      <Box v-if="sections.slider" type="border-groove" :extra-styles="containerStyle">
+        <h2>Slider</h2>
+        <div style="display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: center; column-gap: 8px; row-gap: 8px; width: 360px;">
+          <div style="justify-self: end;">Name</div>
+          <SimpleStringInput v-model="exampleSimpleState" :extra-styles="{ width: '100%' }" />
+          <div style="justify-self: end;">Volume</div>
+          <Slider v-model="exampleSliderValue" :extra-styles="{ width: '100%' }" />
+          <div style="justify-self: end;">Comment</div>
+          <SimpleStringInput v-model="exampleTextInputState" :extra-styles="{ width: '100%' }" />
+          <div style="grid-column: 1 / -1; margin-top: 4px;">Sizes</div>
+          <div style="justify-self: end;">Small</div>
+          <Slider v-model="exampleSliderValue" size="small" :extra-styles="{ width: '100%' }" />
+          <div style="justify-self: end;">Medium</div>
+          <Slider v-model="exampleSliderValue" size="medium" :extra-styles="{ width: '100%' }" />
+          <div style="justify-self: end;">Large</div>
+          <Slider v-model="exampleSliderValue" size="large" :extra-styles="{ width: '100%' }" />
+          <div style="justify-self: end;">Range</div>
+          <Slider v-model:range="exampleRangeValue" normalized size="small" size-max="large" :fixed-values="fixedSliderValues" :extra-styles="{ width: '100%' }" />
+          <div style="justify-self: end;">Fixed</div>
+          <Slider v-model="exampleFixedValue" :fixed-values="fixedSliderValues" :extra-styles="{ width: '100%' }" />
+          <div style="grid-column: 1 / -1; margin-top: 4px;">Vertical</div>
+          <!-- Even column widths keep every vertical slider on the 2px grid. -->
+          <div style="grid-column: 1 / -1; display: grid; grid-template-columns: 66px 94px 70px 74px; justify-items: center; align-items: end; column-gap: 16px; row-gap: 4px;">
+            <Slider v-model="exampleSliderValue" orientation="vertical" size="small" :extra-styles="{ height: '120px' }" />
+            <Slider v-model="exampleSliderValue" orientation="vertical" size="medium" :extra-styles="{ height: '120px' }" />
+            <Slider v-model="exampleSliderValue" orientation="vertical" size="large" :extra-styles="{ height: '120px' }" />
+            <Slider v-model:range="exampleRangeValue" orientation="vertical" normalized size="small" size-max="large" :fixed-values="fixedSliderValues" :extra-styles="{ height: '120px' }" />
+            <div>Small</div>
+            <div>Medium</div>
+            <div>Large</div>
+            <div>Range</div>
+          </div>
+        </div>
       </Box>
 
       <Box v-if="sections.sizedBoxes" type="border-groove" :extra-styles="containerStyle">

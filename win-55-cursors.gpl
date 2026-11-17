@@ -1,0 +1,27 @@
+GIMP Palette
+Name: win-55-ui-cursors
+Columns: 8
+#
+# win-55-ui cursor palette.
+# Derived from every frame of the 758 GIF cursor assets in
+# public/win-55-ui/cursors/ (16 distinct opaque colors).
+#
+# These imported Windows cursors use their own VGA-style palette, separate
+# from the CGA chrome palette in win-55-ui.gpl.
+#
+  0   0   0	Black
+255 255 255	White
+192 192 192	Silver
+128 128 128	Gray
+128 128   0	Olive
+255 255   0	Yellow
+  0   0 128	Navy
+  0 128 128	Teal
+255   0   0	Red
+  0 255 255	Aqua
+  0   0 255	Blue
+128   0   0	Maroon
+191   0   0	Dark Red
+255   0 255	Fuchsia
+  0 255   0	Lime
+128   0 128	Purple
