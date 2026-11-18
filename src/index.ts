@@ -13,6 +13,7 @@ export { default as Button } from './components/Button.vue'
 export { default as Checkbox } from './components/Checkbox.vue'
 export { default as CursorContext } from './components/CursorContext.vue'
 export { default as HDivider } from './components/HDivider.vue'
+export { default as ProgressBar } from './components/ProgressBar.vue'
 export { default as Slider } from './components/Slider.vue'
 export { default as MenuDropdown } from './components/MenuDropdown.vue'
 export { default as RadioButton } from './components/RadioButton.vue'
@@ -62,6 +63,7 @@ export {
 
 // Types
 export type { BoxType } from './components/Box.vue'
+export type { ProgressBarSpan, ProgressBarValue } from './components/ProgressBar.vue'
 export type { BoxOverflow } from './helpers/scroll'
 export type { TypographySettings } from './helpers/typography'
 export type { CursorEntry, CursorsManifest, SchemeIndex, SchemeInfo } from './helpers/cursors'

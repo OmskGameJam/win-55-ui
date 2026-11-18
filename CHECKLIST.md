@@ -5,8 +5,8 @@ Effort: `S` ≤ half day, `M` ~1 day, `L` multi-day.
 
 ## Missing controls
 
-- [ ] **Slider** — `input[type=range]`; default + box indicator; vertical variant — `src/components/Slider.vue` — `S–M`
-- [ ] **ProgressBar** — solid + segmented — `ProgressBar.vue` — `S`
+- [x] **Slider** — `input[type=range]`; default + box indicator; vertical variant — `src/components/Slider.vue` — `S–M`
+- [x] **ProgressBar** — solid + segmented — `ProgressBar.vue` — `S`
 - [ ] **Tabs** — `role=tablist`/`tab`, arrow keys, multirow; replaces emoji-picker fake tabs (`index.css:242-258`) — `Tabs.vue` — `M`
 - [ ] **StatusBar** — fields, sunken 1px field border, resize grip — `StatusBar.vue` — `S`
 - [ ] **TreeView** — disclosure triangles, dotted indent guides, keyboard nav — `TreeView.vue` — `M`

@@ -14,6 +14,7 @@ import RadioButton from './components/RadioButton.vue'
 import MenuDropdown from './components/MenuDropdown.vue'
 import TestDeepMenu from './components/TestDeepMenu.vue'
 import HDivider from './components/HDivider.vue'
+import ProgressBar, { type ProgressBarSpan } from './components/ProgressBar.vue'
 import Slider from './components/Slider.vue'
 import Window from './components/Window.vue'
 import Tooltip from './components/Tooltip.vue'
@@ -92,6 +93,14 @@ const exampleSliderValue = ref(50)
 const exampleRangeValue = ref<[number, number]>([25, 75])
 const exampleFixedValue = ref(50)
 const fixedSliderValues = [0, 10, 25, 50, 75, 90, 100]
+const exampleProgressValue = ref(4)
+const exampleProgressMax = 10
+const exampleProgressBox = ref<BoxType>('border-groove')
+const exampleProgressSpans: ProgressBarSpan[] = [
+  { start: 0, end: 3, color: '#000080' },
+  { start: 2, end: 5.5, color: '#AA0000' },
+  { start: 5, end: 8, color: '#00AA00' },
+]
 
 // Each kitchen-sink section is gated behind a checkbox and hidden until toggled on.
 // Grouped into NamedPanels purely for the debug-toggle UI.
@@ -118,6 +127,7 @@ const sectionGroups: { label: string; sections: { key: string; label: string }[]
     label: 'Layout & forms',
     sections: [
       { key: 'formElements', label: 'Form elements' },
+      { key: 'progressBar', label: 'Progress bar' },
       { key: 'slider', label: 'Slider' },
       { key: 'sizedBoxes', label: 'Sized boxes' },
       { key: 'scrollableBoxes', label: 'Scrollable boxes' },
@@ -474,6 +484,43 @@ const donutPositions = computed(() => {
             label="C"
           />
         </Box>
+      </Box>
+
+      <Box v-if="sections.progressBar" type="border-groove" :extra-styles="containerStyle">
+        <h2>Progress bar</h2>
+        <div style="display: grid; grid-template-columns: max-content 384px; align-items: center; column-gap: 12px; row-gap: 8px;">
+          <div>Segmented (default)</div>
+          <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" />
+          <div>Continuous</div>
+          <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" fill-style="continuous" />
+          <div>Length: 7 visual px (flush)</div>
+          <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" :segment-length="7" />
+          <div>Count: 13 (flush)</div>
+          <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" :segment-count="13" />
+          <div>Multiple (segmented)</div>
+          <ProgressBar :value="exampleProgressSpans" :max="exampleProgressMax" :box-type="exampleProgressBox" />
+          <div>Multiple (continuous)</div>
+          <ProgressBar :value="exampleProgressSpans" :max="exampleProgressMax" :box-type="exampleProgressBox" fill-style="continuous" />
+          <div>Indeterminate (segmented)</div>
+          <ProgressBar :max="exampleProgressMax" :box-type="exampleProgressBox" />
+          <div>Indeterminate (continuous)</div>
+          <ProgressBar :max="exampleProgressMax" :box-type="exampleProgressBox" fill-style="continuous" />
+        </div>
+        <div style="margin-top: 8px">value={{ exampleProgressValue }} / max={{ exampleProgressMax }}</div>
+        <Slider
+          v-model="exampleProgressValue"
+          :min="0"
+          :max="exampleProgressMax"
+          :extra-styles="{ width: '384px', marginTop: '8px' }"
+        />
+        <div style="margin-top: 16px">Box type</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0 16px; margin-top: 8px">
+          <RadioButton v-model="exampleProgressBox" value="border-groove" label="border-groove" />
+          <RadioButton v-model="exampleProgressBox" value="indent" label="indent" />
+          <RadioButton v-model="exampleProgressBox" value="textarea" label="textarea" />
+          <RadioButton v-model="exampleProgressBox" value="none" label="none" />
+          <RadioButton v-model="exampleProgressBox" value="custom" label="custom" />
+        </div>
       </Box>
 
       <Box v-if="sections.slider" type="border-groove" :extra-styles="containerStyle">
