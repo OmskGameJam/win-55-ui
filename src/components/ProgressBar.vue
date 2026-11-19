@@ -66,27 +66,26 @@ const props = withDefaults(defineProps<{
   boxType: 'textarea',
   padding: 1,
   gap: 1,
-  segmentLength: undefined,
-  segmentCount: undefined,
   fillStyle: 'segmented',
   fillColor: '#000080',
-  extraStyles: undefined,
-  extraClass: undefined,
 })
 
-const evenDown = (value: number) => Math.floor(value / 2) * 2
-const even = (value: number) => Math.round(value / 2) * 2
+/** Snap to the nearest 2px visual pixel. */
+const roundEven = (value: number) => Math.round(value / 2) * 2
+/** Snap down to a whole 2px visual pixel. */
+const floorEven = (value: number) => Math.floor(value / 2) * 2
+/** Convert a visual-pixel prop to CSS px, never negative. */
 const visualPx = (value: number) => Math.max(0, Math.round(value)) * 2
 
 const isVertical = computed(() => props.orientation === 'vertical')
-const outerWidth = computed(() => even(props.width ?? (isVertical.value ? DEFAULT_THICKNESS : DEFAULT_LENGTH)))
-const outerHeight = computed(() => even(props.height ?? (isVertical.value ? DEFAULT_LENGTH : DEFAULT_THICKNESS)))
+const outerWidth = computed(() => roundEven(props.width ?? (isVertical.value ? DEFAULT_THICKNESS : DEFAULT_LENGTH)))
+const outerHeight = computed(() => roundEven(props.height ?? (isVertical.value ? DEFAULT_LENGTH : DEFAULT_THICKNESS)))
 const paddingPx = computed(() => visualPx(props.padding))
 const gapPx = computed(() => visualPx(props.gap))
-const explicitSegmentLength = computed(() => (
+const segmentLengthPx = computed(() => (
   props.segmentLength === undefined ? undefined : visualPx(props.segmentLength)
 ))
-const explicitSegmentCount = computed(() => (
+const requestedSegmentCount = computed(() => (
   props.segmentCount === undefined ? undefined : Math.max(0, Math.floor(props.segmentCount))
 ))
 
@@ -95,30 +94,26 @@ const boxBorderWidth = computed(() => (
 ))
 
 const resolvedBoxType = computed<BoxType>(() => (props.boxType === 'custom' ? 'none' : props.boxType))
-const usesInvisibleBorder = computed(() => props.boxType === 'none')
 
 const trackRef = ref<HTMLDivElement | null>(null)
 const measuredWidth = ref(0)
 const measuredHeight = ref(0)
 let resizeObserver: ResizeObserver | null = null
 
-const fallbackWidth = computed(() => (
-  outerWidth.value - 2 * boxBorderWidth.value - 2 * paddingPx.value
+// Prefer the measured track, but fall back to the geometry implied by the
+// props until the first ResizeObserver callback. Both paths snap down to the
+// 2px grid so the bar never drifts off it.
+const fitTrack = (measured: number, fallback: number) => (
+  Math.max(0, floorEven(measured > 0 ? measured : fallback))
+)
+
+const trackWidth = computed(() => (
+  fitTrack(measuredWidth.value, outerWidth.value - 2 * (boxBorderWidth.value + paddingPx.value))
 ))
 
-const fallbackHeight = computed(() => (
-  outerHeight.value - 2 * boxBorderWidth.value - 2 * paddingPx.value
+const trackHeight = computed(() => (
+  fitTrack(measuredHeight.value, outerHeight.value - 2 * (boxBorderWidth.value + paddingPx.value))
 ))
-
-const trackWidth = computed(() => {
-  const width = measuredWidth.value > 0 ? measuredWidth.value : fallbackWidth.value
-  return Math.max(0, evenDown(width))
-})
-
-const trackHeight = computed(() => {
-  const height = measuredHeight.value > 0 ? measuredHeight.value : fallbackHeight.value
-  return Math.max(0, evenDown(height))
-})
 
 const trackLength = computed(() => (isVertical.value ? trackHeight.value : trackWidth.value))
 const trackThickness = computed(() => (isVertical.value ? trackWidth.value : trackHeight.value))
@@ -142,96 +137,90 @@ const determinateSpans = computed<ProgressBarSpan[]>(() => {
   })
 })
 
-const marqueePosition = ref(0)
-
-// Windows' marquee is five "LEDs" long. Each LED is 2/3 of the bar's
-// cross-axis thickness with a 2px gap, and the block advances one LED per
-// MARQUEE_STEP_MS.
-const marqueePitch = computed(() => {
-  const led = Math.round((trackThickness.value * 2) / 3)
-  return Math.max(1, led + MARQUEE_LED_GAP)
-})
-
-// Keep the marquee block an even length. The shared continuous-span renderer
-// snaps both edges, and an odd source length would make the visible width
-// alternate by 2px as the block moves.
-const marqueeBlockLength = computed(() => (
-  Math.min(trackLength.value, even(marqueePitch.value * MARQUEE_LED_COUNT))
-))
-
-const marqueeSpans = computed<ProgressBarSpan[]>(() => {
-  const length = trackLength.value
-  const block = marqueeBlockLength.value
-  if (length <= 0 || block <= 0) return []
-
-  const start = marqueePosition.value % length
-  const end = start + block
-
-  if (end <= length) {
-    return [{ start: start / length, end: end / length, color: props.fillColor }]
-  }
-
-  const spans: ProgressBarSpan[] = [
-    { start: start / length, end: 1, color: props.fillColor },
-  ]
-  const wrapped = Math.min(length, end - length)
-  if (wrapped > 0) {
-    spans.push({ start: 0, end: wrapped / length, color: props.fillColor })
-  }
-
-  return spans
-})
-
-const normalizedSpans = computed<ProgressBarSpan[]>(() => (
-  indeterminate.value ? marqueeSpans.value : determinateSpans.value
-))
-
-const spanMax = computed(() => (indeterminate.value ? 1 : props.max))
-
 const ariaValueNow = computed(() => (
   indeterminate.value
     ? undefined
     : determinateSpans.value.reduce((max, span) => Math.max(max, span.end), 0)
 ))
 
-interface SegmentLayout {
-  lengths: number[]
+const marqueePosition = ref(0)
+
+// Windows' marquee is five "LEDs" long. Each LED is 2/3 of the bar's
+// cross-axis thickness with a 2px gap, and the block advances one LED per
+// MARQUEE_STEP_MS.
+const marqueePitch = computed(() => (
+  Math.max(1, Math.round((trackThickness.value * 2) / 3) + MARQUEE_LED_GAP)
+))
+
+// Keep the marquee block an even length. The continuous renderer snaps both
+// edges, and an odd source length would make the visible width alternate by
+// 2px as the block moves.
+const marqueeBlockLength = computed(() => (
+  Math.min(trackLength.value, roundEven(marqueePitch.value * MARQUEE_LED_COUNT))
+))
+
+interface PixelSpan {
+  start: number
+  end: number
+  color: string
 }
 
-// Spread leftover pixels one at a time so the final segment ends flush with the
-// track. This deliberately puts some segments off the 2px grid.
-const distributeSegmentLengths = (base: number, count: number, gap: number, availableLength: number): number[] => {
-  const remainder = availableLength - base * count - (count - 1) * gap
+const marqueeSpans = computed<PixelSpan[]>(() => {
+  const length = trackLength.value
+  const block = marqueeBlockLength.value
+  if (length <= 0 || block <= 0) return []
 
+  const start = marqueePosition.value % length
+  const end = start + block
+  if (end <= length) return [{ start, end, color: props.fillColor }]
+
+  return [
+    { start, end: length, color: props.fillColor },
+    { start: 0, end: end - length, color: props.fillColor },
+  ]
+})
+
+// Both renderers consume fill geometry in track pixels. Determinate spans are
+// converted from user units here; the marquee already lives in pixels.
+const fillSpans = computed<PixelSpan[]>(() => {
+  if (indeterminate.value) return marqueeSpans.value
+
+  const length = trackLength.value
+  if (!(props.max > 0) || length <= 0) return []
+
+  return determinateSpans.value.map((span) => ({
+    start: (span.start / props.max) * length,
+    end: (span.end / props.max) * length,
+    color: span.color,
+  }))
+})
+
+const segmentLengths = computed<number[]>(() => {
+  const length = trackLength.value
+  const gap = gapPx.value
+  const explicitLength = segmentLengthPx.value
+  let count: number
+  let base: number
+
+  if (explicitLength !== undefined) {
+    if (explicitLength < MIN_SEGMENT_LENGTH) return []
+    count = Math.floor((length + gap) / (explicitLength + gap))
+    if (count <= 0) return []
+    base = explicitLength
+  } else {
+    const requested = requestedSegmentCount.value ?? DEFAULT_SEGMENT_COUNT
+    if (requested <= 0) return []
+    count = Math.min(requested, Math.floor((length + gap) / (MIN_SEGMENT_LENGTH + gap)))
+    if (count <= 0) return []
+    base = Math.floor((length - (count - 1) * gap) / count)
+  }
+
+  // Spread leftover pixels one at a time so the final segment ends flush with
+  // the track. This deliberately puts some segments off the 2px grid.
+  const remainder = length - base * count - (count - 1) * gap
   return Array.from({ length: count }, (_, index) => (
     base + Math.floor(((index + 1) * remainder) / count) - Math.floor((index * remainder) / count)
   ))
-}
-
-const segmentLayout = computed<SegmentLayout>(() => {
-  const length = trackLength.value
-  const gap = gapPx.value
-  const segmentLength = explicitSegmentLength.value
-  const requestedCount = explicitSegmentCount.value
-
-  if (segmentLength !== undefined) {
-    if (segmentLength < MIN_SEGMENT_LENGTH) return { lengths: [] }
-    const count = Math.max(0, Math.floor((length + gap) / (segmentLength + gap)))
-    if (count === 0) return { lengths: [] }
-    return { lengths: distributeSegmentLengths(segmentLength, count, gap, length) }
-  }
-
-  const requested = requestedCount ?? DEFAULT_SEGMENT_COUNT
-  if (requested <= 0) return { lengths: [] }
-
-  const maxCount = Math.max(0, Math.floor((length + gap) / (MIN_SEGMENT_LENGTH + gap)))
-  const count = Math.min(requested, maxCount)
-  if (count === 0) return { lengths: [] }
-
-  const available = length - (count - 1) * gap
-  const base = Math.floor(available / count)
-
-  return { lengths: distributeSegmentLengths(base, count, gap, length) }
 })
 
 interface RenderedSegment {
@@ -240,58 +229,43 @@ interface RenderedSegment {
 }
 
 const renderedSegments = computed<RenderedSegment[]>(() => {
-  const { lengths } = segmentLayout.value
+  const lengths = segmentLengths.value
   if (lengths.length === 0) return []
 
-  const max = spanMax.value
-  const trackLengthPx = trackLength.value
+  const spans = fillSpans.value
   const gap = gapPx.value
-  const spans = normalizedSpans.value
-
-  if (!(max > 0) || spans.length === 0) {
-    return lengths.map((length) => ({ length, color: 'transparent' }))
-  }
-
-  const spansPx = spans.map((span) => ({
-    start: (span.start / max) * trackLengthPx,
-    end: (span.end / max) * trackLengthPx,
-    color: span.color,
-  }))
-
   let offset = 0
 
   return lengths.map((length) => {
     const start = offset
-    const end = offset + length
-    let color = 'transparent'
+    const end = start + length
+    offset = end + gap
 
-    for (const span of spansPx) {
-      const overlap = Math.min(end, span.end) - Math.max(start, span.start)
-      if (overlap >= 1 - 1e-9) color = span.color
+    let color = 'transparent'
+    for (const span of spans) {
+      if (Math.min(end, span.end) - Math.max(start, span.start) >= 1 - 1e-9) color = span.color
     }
 
-    offset = end + gap
     return { length, color }
   })
 })
 
-interface RenderedContinuousSpan {
+interface RenderedSpan {
   offset: number
   length: number
   color: string
 }
 
-const continuousSpans = computed<RenderedContinuousSpan[]>(() => {
-  const trackLengthPx = trackLength.value
-  const max = spanMax.value
-  if (!(max > 0) || trackLengthPx <= 0) return []
+const continuousSpans = computed<RenderedSpan[]>(() => {
+  const length = trackLength.value
+  if (length <= 0) return []
 
-  return normalizedSpans.value.flatMap((span) => {
+  return fillSpans.value.flatMap((span) => {
     // Continuous spans live on the 2px visual-pixel grid too.
-    const start = even((span.start / max) * trackLengthPx)
-    const end = even((span.end / max) * trackLengthPx)
+    const start = roundEven(span.start)
+    const end = roundEven(span.end)
     const offset = Math.max(0, Math.min(start, end))
-    const limit = Math.min(trackLengthPx, Math.max(start, end))
+    const limit = Math.min(length, Math.max(start, end))
     if (!(limit > offset)) return []
     return [{ offset, length: limit - offset, color: span.color }]
   })
@@ -304,7 +278,7 @@ const boxStyle = computed<CSSProperties>(() => ({
   height: `${outerHeight.value}px`,
   padding: `${paddingPx.value}px`,
   overflow: 'hidden',
-  ...(usesInvisibleBorder.value
+  ...(props.boxType === 'none'
     ? {
         borderWidth: `${STANDARD_BORDER_WIDTH}px`,
         borderStyle: 'solid',
@@ -324,7 +298,7 @@ const segmentStyle = (segment: RenderedSegment): CSSProperties => (
     : { width: `${segment.length}px`, backgroundColor: segment.color }
 )
 
-const continuousStyle = (span: RenderedContinuousSpan): CSSProperties => (
+const continuousStyle = (span: RenderedSpan): CSSProperties => (
   isVertical.value
     ? { bottom: `${span.offset}px`, height: `${span.length}px`, backgroundColor: span.color }
     : { left: `${span.offset}px`, width: `${span.length}px`, backgroundColor: span.color }
@@ -342,9 +316,7 @@ let marqueeFrame = 0
 let marqueeLastTime = 0
 
 const marqueeTick = (time: number) => {
-  if (!marqueeLastTime) marqueeLastTime = time
-
-  const delta = time - marqueeLastTime
+  const delta = marqueeLastTime ? time - marqueeLastTime : 0
   marqueeLastTime = time
 
   const length = trackLength.value
