@@ -14,7 +14,7 @@ import RadioButton from './components/RadioButton.vue'
 import MenuDropdown from './components/MenuDropdown.vue'
 import TestDeepMenu from './components/TestDeepMenu.vue'
 import HDivider from './components/HDivider.vue'
-import ProgressBar, { type ProgressBarSpan } from './components/ProgressBar.vue'
+import ProgressBar, { type ProgressBarBoxType, type ProgressBarSpan } from './components/ProgressBar.vue'
 import Slider from './components/Slider.vue'
 import Window from './components/Window.vue'
 import Tooltip from './components/Tooltip.vue'
@@ -95,7 +95,19 @@ const exampleFixedValue = ref(50)
 const fixedSliderValues = [0, 10, 25, 50, 75, 90, 100]
 const exampleProgressValue = ref(4)
 const exampleProgressMax = 10
-const exampleProgressBox = ref<BoxType>('border-groove')
+const progressBoxTypes: ProgressBarBoxType[] = [
+  'indent',
+  'indent-dark',
+  'panel-d-1',
+  'panel-d-2',
+  'textarea',
+  'border-groove',
+  'white-box',
+  'notification',
+  'none',
+  'custom',
+]
+const exampleProgressBox = ref<ProgressBarBoxType>('textarea')
 const exampleProgressSpans: ProgressBarSpan[] = [
   { start: 0, end: 3, color: '#000080' },
   { start: 2, end: 5.5, color: '#AA0000' },
@@ -505,6 +517,14 @@ const donutPositions = computed(() => {
           <ProgressBar :max="exampleProgressMax" :box-type="exampleProgressBox" />
           <div>Indeterminate (continuous)</div>
           <ProgressBar :max="exampleProgressMax" :box-type="exampleProgressBox" fill-style="continuous" />
+          <div>Vertical</div>
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" orientation="vertical" :height="160" />
+            <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" orientation="vertical" fill-style="continuous" :height="160" />
+            <ProgressBar :value="exampleProgressSpans" :max="exampleProgressMax" :box-type="exampleProgressBox" orientation="vertical" :height="160" />
+            <ProgressBar :max="exampleProgressMax" :box-type="exampleProgressBox" orientation="vertical" :height="160" />
+            <ProgressBar :max="exampleProgressMax" :box-type="exampleProgressBox" orientation="vertical" fill-style="continuous" :height="160" />
+          </div>
         </div>
         <div style="margin-top: 8px">value={{ exampleProgressValue }} / max={{ exampleProgressMax }}</div>
         <Slider
@@ -515,11 +535,13 @@ const donutPositions = computed(() => {
         />
         <div style="margin-top: 16px">Box type</div>
         <div style="display: flex; flex-wrap: wrap; gap: 0 16px; margin-top: 8px">
-          <RadioButton v-model="exampleProgressBox" value="border-groove" label="border-groove" />
-          <RadioButton v-model="exampleProgressBox" value="indent" label="indent" />
-          <RadioButton v-model="exampleProgressBox" value="textarea" label="textarea" />
-          <RadioButton v-model="exampleProgressBox" value="none" label="none" />
-          <RadioButton v-model="exampleProgressBox" value="custom" label="custom" />
+          <RadioButton
+            v-for="boxType in progressBoxTypes"
+            :key="boxType"
+            v-model="exampleProgressBox"
+            :value="boxType"
+            :label="boxType"
+          />
         </div>
       </Box>
 

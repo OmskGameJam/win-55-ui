@@ -63,7 +63,7 @@ export {
 
 // Types
 export type { BoxType } from './components/Box.vue'
-export type { ProgressBarSpan, ProgressBarValue } from './components/ProgressBar.vue'
+export type { ProgressBarSpan, ProgressBarValue, ProgressBarOrientation, ProgressBarFillStyle, ProgressBarBoxType } from './components/ProgressBar.vue'
 export type { BoxOverflow } from './helpers/scroll'
 export type { TypographySettings } from './helpers/typography'
 export type { CursorEntry, CursorsManifest, SchemeIndex, SchemeInfo } from './helpers/cursors'

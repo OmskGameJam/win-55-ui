@@ -7,7 +7,7 @@ Effort: `S` ≤ half day, `M` ~1 day, `L` multi-day.
 
 - [x] **Slider** — `input[type=range]`; default + box indicator; vertical variant — `src/components/Slider.vue` — `S–M`
 - [x] **ProgressBar** — solid + segmented — `ProgressBar.vue` — `S`
-- [ ] **Tabs** — `role=tablist`/`tab`, arrow keys, multirow; replaces emoji-picker fake tabs (`index.css:242-258`) — `Tabs.vue` — `M`
+- [ ] **Tabs** — `role=tablist`/`tab`, multirow; 
 - [ ] **StatusBar** — fields, sunken 1px field border, resize grip — `StatusBar.vue` — `S`
 - [ ] **TreeView** — disclosure triangles, dotted indent guides, keyboard nav — `TreeView.vue` — `M`
 - [ ] **TableView** — sunken panel, header, interactive/highlighted rows — `TableView.vue` — `M`
@@ -16,11 +16,7 @@ Effort: `S` ≤ half day, `M` ~1 day, `L` multi-day.
 
 ## Gaps in existing components
 
-- [ ] **Button `default` variant** — double border, Enter action — `Button.vue` — `S`
-- [ ] **Titlebar real buttons** — min/max/restore/help/close, `aria-label`s, `inactive` gradient, disabled maximize (`Titlebar.vue:95-118` is placeholder-only) — `M`
 - [ ] **`field-row` / `field-row-stacked`** spacing helpers — `S`
-- [ ] **Global link styling** — `:link #0000ee`, `:visited #000080`, focus — `S`
-- [ ] **Disabled / read-only field surface** — `field-border-disabled` equivalent — `S`
 
 ## Parked — do last
 
