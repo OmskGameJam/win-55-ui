@@ -86,12 +86,13 @@ const crossHeight = computed(() => Math.max(...activeThumbs.value.map((thumb) =>
 
 const clamp = (value: number) => Math.min(props.max, Math.max(props.min, value))
 const even = (value: number) => Math.round(value / 2) * 2
+const odd = (value: number) => Math.round((value - 1) / 2) * 2 + 1
 
 const stepSize = () => (props.step > 0 ? props.step : 1)
-const stepPrecision = (step: number) => (String(step).split('.')[1] ?? '').length
 const stepAt = (index: number) => {
   const step = stepSize()
-  return Number((props.min + index * step).toFixed(stepPrecision(step)))
+  const precision = (String(step).split('.')[1] ?? '').length
+  return Number((props.min + index * step).toFixed(precision))
 }
 
 const snap = (value: number) => clamp(stepAt(Math.round((clamp(value) - props.min) / stepSize())))
@@ -102,9 +103,10 @@ const ratioFor = (value: number) => {
 }
 
 const fixed = computed(() => {
-  const values = props.fixedValues ?? []
-  const valid = values.filter((value) => Number.isFinite(value) && value >= props.min && value <= props.max)
-  return [...new Set(valid)].sort((a, b) => a - b)
+  const values = (props.fixedValues ?? []).filter((value) => (
+    Number.isFinite(value) && value >= props.min && value <= props.max
+  ))
+  return [...new Set(values)].sort((a, b) => a - b)
 })
 
 const isFixed = computed(() => fixed.value.length > 0)
@@ -157,19 +159,19 @@ const nextDiscrete = (value: number): number | null => {
 
 const rangeValue = computed<[number, number]>(() => {
   const pair = rangeModel.value
-  return pair && pair.length === 2 ? [pair[0], pair[1]] : [props.min, props.max]
+  return pair?.length === 2 ? pair : [props.min, props.max]
+})
+
+const makeHandle = (key: HandleKey, value: number, thumb: Thumb): Handle => ({
+  key,
+  value: effectiveValue(value),
+  thumb,
 })
 
 const handles = computed<Handle[]>(() => {
-  const low = {
-    key: 'low' as const,
-    value: effectiveValue(isRange.value ? rangeValue.value[0] : model.value),
-    thumb: lowThumb.value,
-  }
-
+  const low = makeHandle('low', isRange.value ? rangeValue.value[0] : model.value, lowThumb.value)
   if (!isRange.value) return [low]
-
-  return [low, { key: 'high' as const, value: effectiveValue(rangeValue.value[1]), thumb: highThumb.value }]
+  return [low, makeHandle('high', rangeValue.value[1], highThumb.value)]
 })
 
 const valueFor = (key: HandleKey) =>
@@ -179,7 +181,7 @@ const valueMin = computed(() => (isFixed.value ? fixed.value[0] : props.min))
 const valueMax = computed(() => (isFixed.value ? fixed.value[fixed.value.length - 1] : props.max))
 
 const setHandleValue = (key: HandleKey, value: number) => {
-  let next = isFixed.value ? nearestFixed(clamp(value)) : snap(value)
+  let next = isFixed.value ? nearestFixed(value) : snap(value)
 
   if (!isRange.value) {
     if (next !== model.value) model.value = next
@@ -188,7 +190,7 @@ const setHandleValue = (key: HandleKey, value: number) => {
 
   const current = rangeValue.value
   const other = key === 'low' ? current[1] : current[0]
-  const otherValue = isFixed.value ? effectiveValue(other) : clamp(other)
+  const otherValue = effectiveValue(other)
 
   if (props.normalized) {
     if (key === 'low' && next >= otherValue) {
@@ -233,11 +235,10 @@ const rootHeight = ref(0)
 const dragValue = ref<number | null>(null)
 let dragKey: HandleKey | null = null
 
-const thumbExtent = (thumb: Thumb) => (isVertical.value ? thumb.height : thumb.width)
+const thumbLength = (thumb: Thumb) => (isVertical.value ? thumb.height : thumb.width)
+const thumbCross = (thumb: Thumb) => (isVertical.value ? thumb.width : thumb.height)
 
-const tipInset = computed(() => Math.max(...activeThumbs.value.map(thumbExtent)) / 2)
-
-const odd = (value: number) => Math.round((value - 1) / 2) * 2 + 1
+const tipInset = computed(() => Math.max(...activeThumbs.value.map(thumbLength)) / 2)
 
 // Single source of truth for a fixed value's pixel position: the thumb tip center.
 const tipCenterFor = (value: number) => {
@@ -263,32 +264,26 @@ const trackOffset = computed<number | null>(() => {
 
 const trackStyle = computed<CSSProperties>(() => {
   const offset = trackOffset.value
+  const thickness = `${TRACK_THICKNESS}px`
+  const borderWidth = isVertical.value ? `0 ${thickness} 0 0` : `0 0 ${thickness} 0`
+  const alignment = offset === null
+    ? isVertical.value
+      ? { left: '50%', transform: 'translateX(-50%)' }
+      : { top: '50%', transform: 'translateY(-50%)' }
+    : isVertical.value
+      ? { left: `${offset}px` }
+      : { top: `${offset}px` }
 
-  return isVertical.value
-    ? {
-        position: 'absolute',
-        top: '0',
-        bottom: '0',
-        ...(offset === null
-          ? { left: '50%', transform: 'translateX(-50%)' }
-          : { left: `${offset}px` }),
-        width: '0px',
-        boxSizing: 'border-box',
-        borderWidth: `0 ${TRACK_THICKNESS}px 0 0`,
-        borderImageWidth: `0 ${TRACK_THICKNESS}px 0 0`,
-      }
-    : {
-        position: 'absolute',
-        left: '0',
-        right: '0',
-        ...(offset === null
-          ? { top: '50%', transform: 'translateY(-50%)' }
-          : { top: `${offset}px` }),
-        height: '0px',
-        boxSizing: 'border-box',
-        borderWidth: `0 0 ${TRACK_THICKNESS}px 0`,
-        borderImageWidth: `0 0 ${TRACK_THICKNESS}px 0`,
-      }
+  return {
+    position: 'absolute',
+    ...(isVertical.value
+      ? { top: '0', bottom: '0', width: '0px' }
+      : { left: '0', right: '0', height: '0px' }),
+    ...alignment,
+    boxSizing: 'border-box',
+    borderWidth,
+    borderImageWidth: borderWidth,
+  }
 })
 
 const cssPx = (value: number | string) => (typeof value === 'number' ? `${value}px` : value)
@@ -300,19 +295,24 @@ const thumbBox = (handle: Handle, left: number | string, top: number | string): 
   height: `${handle.thumb.height}px`,
 })
 
+const thumbCrossOffset = (thumb: Thumb) => (
+  even(((isVertical.value ? crossWidth.value : rootHeight.value) - thumbCross(thumb)) / 2)
+)
+
 const fixedThumbStyle = (handle: Handle): CSSProperties => {
   const center = tipCenterFor(handle.value)
+  const cross = thumbCrossOffset(handle.thumb)
 
   return isVertical.value
-    ? thumbBox(handle, even((crossWidth.value - handle.thumb.width) / 2), center - handle.thumb.height / 2)
-    : thumbBox(handle, center - handle.thumb.width / 2, even((rootHeight.value - handle.thumb.height) / 2))
+    ? thumbBox(handle, cross, center - handle.thumb.height / 2)
+    : thumbBox(handle, center - handle.thumb.width / 2, cross)
 }
 
-const evenTravelFor = (handle: Handle) => (
-  isVertical.value
-    ? even((1 - ratioFor(handle.value)) * (rootHeight.value - handle.thumb.height))
-    : even(ratioFor(handle.value) * (rootWidth.value - handle.thumb.width))
-)
+const thumbTravelFor = (handle: Handle) => {
+  const along = isVertical.value ? rootHeight.value : rootWidth.value
+  const ratio = isVertical.value ? 1 - ratioFor(handle.value) : ratioFor(handle.value)
+  return even(ratio * (along - thumbLength(handle.thumb)))
+}
 
 // The real handle tracks the input continuously; its image is hidden but keeps the hit box.
 const handleStyle = (handle: Handle): CSSProperties => {
@@ -341,9 +341,12 @@ const fauxThumbStyle = (handle: Handle): CSSProperties => {
   if (!rootWidth.value || !rootHeight.value) return handleStyle(handle)
   if (isFixed.value) return fixedThumbStyle(handle)
 
+  const travel = thumbTravelFor(handle)
+  const cross = thumbCrossOffset(handle.thumb)
+
   return isVertical.value
-    ? thumbBox(handle, even((crossWidth.value - handle.thumb.width) / 2), evenTravelFor(handle))
-    : thumbBox(handle, evenTravelFor(handle), even((rootHeight.value - handle.thumb.height) / 2))
+    ? thumbBox(handle, cross, travel)
+    : thumbBox(handle, travel, cross)
 }
 
 const notchEdgeFor = (value: number) => tipCenterFor(value) - NOTCH_LENGTH / 2
@@ -379,7 +382,7 @@ const rangeStyle = computed<CSSProperties>(() => {
   }
 
   const center = (handle: Handle) => (
-    evenTravelFor(handle) + (isVertical.value ? handle.thumb.height : handle.thumb.width) / 2
+    thumbTravelFor(handle) + thumbLength(handle.thumb) / 2
   )
 
   const first = center(handles.value[0])
@@ -397,25 +400,24 @@ const notchStyle = (value: number): CSSProperties => {
   const edge = notchEdgeFor(value)
 
   // 12px tick: 2px before the track, 6px across it, 4px past it.
-  return isVertical.value
-    ? {
-        position: 'absolute',
-        left: `${offset - NOTCH_START_OFFSET}px`,
-        top: `${edge}px`,
-        width: `${NOTCH_THICKNESS}px`,
-        height: `${NOTCH_LENGTH}px`,
-        backgroundColor: 'var(--win55-cga-dark-gray, #555555)',
-        pointerEvents: 'none',
-      }
-    : {
-        position: 'absolute',
-        top: `${offset - NOTCH_START_OFFSET}px`,
-        left: `${edge}px`,
-        width: `${NOTCH_LENGTH}px`,
-        height: `${NOTCH_THICKNESS}px`,
-        backgroundColor: 'var(--win55-cga-dark-gray, #555555)',
-        pointerEvents: 'none',
-      }
+  return {
+    position: 'absolute',
+    ...(isVertical.value
+      ? {
+          left: `${offset - NOTCH_START_OFFSET}px`,
+          top: `${edge}px`,
+          width: `${NOTCH_THICKNESS}px`,
+          height: `${NOTCH_LENGTH}px`,
+        }
+      : {
+          top: `${offset - NOTCH_START_OFFSET}px`,
+          left: `${edge}px`,
+          width: `${NOTCH_LENGTH}px`,
+          height: `${NOTCH_THICKNESS}px`,
+        }),
+    backgroundColor: 'var(--win55-cga-dark-gray, #555555)',
+    pointerEvents: 'none',
+  }
 }
 
 const measureRoot = () => {
@@ -458,17 +460,14 @@ const handleCenter = (handle: Handle, rect: DOMRect) => {
     }
   }
 
-  const ratio = ratioFor(handle.value)
+  const ratio = isVertical.value ? 1 - ratioFor(handle.value) : ratioFor(handle.value)
+  const along = ratio * (isVertical.value ? rect.height - handle.thumb.height : rect.width - handle.thumb.width)
+    + thumbLength(handle.thumb) / 2
 
-  return isVertical.value
-    ? {
-        x: rect.left + crossWidth.value / 2,
-        y: rect.top + (1 - ratio) * (rect.height - handle.thumb.height) + handle.thumb.height / 2,
-      }
-    : {
-        x: rect.left + ratio * (rect.width - handle.thumb.width) + handle.thumb.width / 2,
-        y: rect.top + rect.height / 2,
-      }
+  return {
+    x: isVertical.value ? rect.left + crossWidth.value / 2 : rect.left + along,
+    y: isVertical.value ? rect.top + along : rect.top + rect.height / 2,
+  }
 }
 
 const pickHandle = (clientX: number, clientY: number): HandleKey => {
@@ -499,16 +498,13 @@ const valueFromPointer = (clientX: number, clientY: number, key: HandleKey) => {
 
   const rect = el.getBoundingClientRect()
   const thumb = handles.value.find((handle) => handle.key === key)?.thumb ?? lowThumb.value
+  const usable = (isVertical.value ? rect.height - thumb.height : rect.width - thumb.width)
+  const offset = isVertical.value ? clientY - rect.top - thumb.height / 2 : clientX - rect.left - thumb.width / 2
+  const ratio = usable > 0 ? offset / usable : 0
 
-  if (isVertical.value) {
-    const usable = rect.height - thumb.height
-    const fromTop = usable > 0 ? (clientY - rect.top - thumb.height / 2) / usable : 0
-    return props.max - fromTop * (props.max - props.min)
-  }
-
-  const usable = rect.width - thumb.width
-  const ratio = usable > 0 ? (clientX - rect.left - thumb.width / 2) / usable : 0
-  return props.min + ratio * (props.max - props.min)
+  return isVertical.value
+    ? props.max - ratio * (props.max - props.min)
+    : props.min + ratio * (props.max - props.min)
 }
 
 const onPointerDown = (e: PointerEvent) => {
@@ -545,26 +541,18 @@ const onPointerUp = (e: PointerEvent) => {
 
 type KeyMove = 'prev' | 'next' | 'page-prev' | 'page-next' | 'min' | 'max'
 
-const keyMoveFor = (key: string): KeyMove | null => {
-  switch (key) {
-    case 'ArrowLeft':
-    case 'ArrowDown':
-      return 'prev'
-    case 'ArrowRight':
-    case 'ArrowUp':
-      return 'next'
-    case 'PageDown':
-      return 'page-prev'
-    case 'PageUp':
-      return 'page-next'
-    case 'Home':
-      return 'min'
-    case 'End':
-      return 'max'
-    default:
-      return null
-  }
+const KEY_MOVES: Record<string, KeyMove> = {
+  ArrowLeft: 'prev',
+  ArrowDown: 'prev',
+  ArrowRight: 'next',
+  ArrowUp: 'next',
+  PageDown: 'page-prev',
+  PageUp: 'page-next',
+  Home: 'min',
+  End: 'max',
 }
+
+const keyMoveFor = (key: string): KeyMove | null => KEY_MOVES[key] ?? null
 
 const onKeyDown = (e: KeyboardEvent, key: HandleKey) => {
   if (props.disabled) return
