@@ -21,8 +21,7 @@ const emit = defineEmits<{
 const isVertical = computed(() => props.orientation === 'vertical')
 // Below three button-sized cells the two 28px arrow buttons leave no room for
 // the track; drop them so the thumb still gets the whole bar.
-const MIN_FULL_SIZE = 28 * 3
-const compact = computed(() => props.viewportSize < MIN_FULL_SIZE)
+const compact = computed(() => props.viewportSize < 28 * 3)
 const startName = computed(() => (isVertical.value ? 'up' : 'left'))
 const endName = computed(() => (isVertical.value ? 'down' : 'right'))
 const buttonSrc = (name: string, pressed: boolean) =>

@@ -8,7 +8,6 @@ import BaseInput from './components/BaseInput.vue'
 import SimpleStringInput from './components/SimpleStringInput.vue'
 import NumberInput from './components/NumberInput.vue'
 import ComboBox from './components/ComboBox.vue'
-import type { ComboBoxItem } from './helpers/comboBox'
 import RichInput from './components/RichInput.vue'
 import Typography from './components/Typography.vue'
 import Checkbox from './components/Checkbox.vue'
@@ -35,6 +34,7 @@ import CursorBusyDemoButton from './components/CursorBusyDemoButton.vue'
 import { loadSchemeIndex } from './helpers/cursors'
 import { useWin55Preload } from './helpers/preload'
 import type { CursorRole } from './helpers/cursorContext'
+import type { ComboBoxItem } from './helpers/comboBox'
 import emojiDirective from './directives/emoji'
 import cursorDirective from './directives/cursor'
 
@@ -124,6 +124,7 @@ const handleComboObjectSelect = (selection: ComboBoxItem<number> | string) => {
   exampleComboObjectState.value = selection.key
   exampleComboObjectSelection.value = `${selection.key} → ${selection.data}`
 }
+
 const exampleWrap = ref(true)
 const exampleMultilineState = ref('first line\nsecond line')
 const exampleCheckboxState = ref(false)
@@ -395,7 +396,13 @@ const donutPositions = computed(() => {
             :max="100"
             :extra-styles="{ width: '150px', marginTop: '8px' }"
           />
-          <ComboBox v-model="exampleComboState" :data="exampleComboData" placeholder="Pick a thing" show-emoji-button :extra-styles="{ width: '512px', marginTop: '8px' }" />
+          <ComboBox
+            v-model="exampleComboState"
+            :data="exampleComboData"
+            placeholder="Pick a thing"
+            show-emoji-button
+            :extra-styles="{ width: '512px', marginTop: '8px' }"
+          />
           <ComboBox
             v-model="exampleComboObjectState"
             :data="exampleComboObjectData"
