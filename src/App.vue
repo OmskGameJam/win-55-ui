@@ -26,10 +26,12 @@ import RichText from './components/RichText.vue'
 import FontTester from './components/FontTester.vue'
 import ScrollFillTester from './components/ScrollFillTester.vue'
 import StrikeTester from './components/StrikeTester.vue'
+import IntGrid from './components/IntGrid.vue'
 import IntGridTester from './components/IntGridTester.vue'
 import CursorContext from './components/CursorContext.vue'
 import CursorBusyDemoButton from './components/CursorBusyDemoButton.vue'
 import { loadSchemeIndex } from './helpers/cursors'
+import { useWin55Preload } from './helpers/preload'
 import type { CursorRole } from './helpers/cursorContext'
 import emojiDirective from './directives/emoji'
 import cursorDirective from './directives/cursor'
@@ -74,6 +76,9 @@ const windowY = ref(100)
 const windowWidth = ref(320)
 const windowHeight = ref(220)
 
+// Global preload state: counts advance as `startPreload` walks the generated asset list.
+const { progress: preloadProgress, startPreload } = useWin55Preload()
+
 // Computed properties for resize flags
 const resizable = computed(() => resizeMode.value === 'both')
 const resizableHorizontally = computed(() => resizeMode.value === 'horizontal' || resizeMode.value === 'both')
@@ -86,6 +91,8 @@ const strikeTesterOpen = ref(false)
 const exampleTextInputState = ref('sample')
 const exampleSimpleState = ref('')
 const exampleNumberState = ref('')
+const exampleUpDownNumberState = ref('42')
+const exampleTouchspinNumberState = ref('50')
 const exampleWrap = ref(true)
 const exampleMultilineState = ref('first line\nsecond line')
 const exampleCheckboxState = ref(false)
@@ -145,6 +152,7 @@ const sectionGroups: { label: string; sections: { key: string; label: string }[]
       { key: 'intGrid', label: 'IntGrid' },
       { key: 'sizedBoxes', label: 'Sized boxes' },
       { key: 'scrollableBoxes', label: 'Scrollable boxes' },
+      { key: 'preload', label: 'Preloading' },
       { key: 'window', label: 'Window' },
     ],
   },
@@ -274,8 +282,9 @@ const donutPositions = computed(() => {
   <CursorContext root :mode="cursorMode" :scheme="rootScheme">
     <Box type="panel-d-1" :extra-styles="containerStyle">
       <h2>Debug sections</h2>
-      <div style="display: flex; flex-wrap: wrap; align-items: flex-start;">
-        <NamedPanel v-for="group in sectionGroups" :key="group.label" :label="group.label">
+      <!-- 24px top margin leaves room for the NamedPanel labels, which overhang by 22px. -->
+      <IntGrid mode="masonry" :item-width="304" :item-height="224" :gap="12" :extra-styles="{ width: '1000px', marginTop: '24px' }">
+        <NamedPanel v-for="group in sectionGroups" :key="group.label" :label="group.label" :extra-styles="{ margin: '0px' }">
           <Checkbox
             v-for="item in group.sections"
             :key="item.key"
@@ -293,7 +302,7 @@ const donutPositions = computed(() => {
             </template>
           </BaseDropdown>
         </NamedPanel>
-      </div>
+      </IntGrid>
     </Box>
     <Typography v-emoji is-bold font-color="black">
       <div v-if="sections.bitmapStrikes">
@@ -335,6 +344,20 @@ const donutPositions = computed(() => {
           <BaseInput v-model="exampleTextInputState" :extra-styles="{ width: '512px', marginTop: '8px' }" />
           <SimpleStringInput v-model="exampleSimpleState" :extra-styles="{ width: '512px', marginTop: '8px' }" />
           <NumberInput v-model="exampleNumberState" :extra-styles="{ width: '512px', marginTop: '8px' }" />
+          <NumberInput
+            v-model="exampleUpDownNumberState"
+            variant="updown"
+            :min="0"
+            :max="100"
+            :extra-styles="{ width: '100px', marginTop: '8px' }"
+          />
+          <NumberInput
+            v-model="exampleTouchspinNumberState"
+            variant="touchspin"
+            :min="0"
+            :max="100"
+            :extra-styles="{ width: '150px', marginTop: '8px' }"
+          />
           <Checkbox v-model="exampleWrap" label="Wrap lines" />
         </Typography>
       </Box>
@@ -635,6 +658,17 @@ const donutPositions = computed(() => {
         <Box type="textarea" overflow-x="scroll" overflow-y="hidden" :extra-styles="{ width: '400px', height: '120px' }">
           <div v-for="n in 10" :key="n" style="white-space: nowrap;">Line {{ n }} of content that is much wider than the box so that it overflows horizontally</div>
         </Box>
+      </Box>
+
+      <Box v-if="sections.preload" type="border-groove" :extra-styles="containerStyle">
+        <h2>Preloading</h2>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <Button @click="startPreload">Start preload</Button>
+          <ProgressBar :value="preloadProgress.percent" :max="100" :width="384" />
+        </div>
+        <div style="margin-top: 8px">
+          {{ preloadProgress.loaded }} / {{ preloadProgress.total }} resources ({{ preloadProgress.percent }}%)
+        </div>
       </Box>
 
       <div v-if="sections.window">

@@ -10,11 +10,14 @@ const props = withDefaults(defineProps<{
   baseType?: BoxType
   extraStyles?: Record<string, string | number | undefined>
   extraClass?: string
+  /** Styles for the pressed-offset wrapper inside the bevel. */
+  contentStyles?: Record<string, string | number | undefined>
   disabled?: boolean
 }>(), {
   baseType: 'panel-d-1',
   extraStyles: undefined,
   extraClass: undefined,
+  contentStyles: undefined,
   disabled: false,
 })
 
@@ -86,7 +89,7 @@ const boxType = computed(() => {
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
-    <div :style="innerStyle">
+    <div :style="[innerStyle, contentStyles]">
       <slot />
     </div>
   </Box>

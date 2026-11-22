@@ -38,6 +38,7 @@ export { loadSchemeIndex } from './helpers/cursors'
 export { provideCursorContext, useCursorContext, CURSOR_CONTEXT_KEY } from './helpers/cursorContext'
 export { drawAngledBayerDitherGradient } from './helpers/bayerMatrix'
 export { useSineWave } from './helpers/useSineWave'
+export { useWin55Preload } from './helpers/preload'
 export { registerGlobalImageErrorHandler } from './helpers/imgErrors'
 export {
   getEmojiGifPath,
@@ -65,6 +66,7 @@ export {
 
 // Types
 export type { BoxType } from './components/Box.vue'
+export type { NumberInputVariant } from './components/NumberInput.vue'
 export type { IntGridFlow, IntGridMode, IntGridRect } from './helpers/intGrid'
 export type { ProgressBarSpan, ProgressBarValue, ProgressBarOrientation, ProgressBarFillStyle, ProgressBarBoxType } from './components/ProgressBar.vue'
 export type { BoxOverflow } from './helpers/scroll'
@@ -74,4 +76,5 @@ export type { CursorContextApi, CursorMode, CursorRole } from './helpers/cursorC
 export type { RichNode } from './helpers/richText'
 export type { EmojiDirectiveBindingValue, EmojiDirectiveOptions } from './directives/emoji'
 export type { EmojiRegistry, EmojiRegistryOptions } from './helpers/emoji'
+export type { Win55PreloadApi, Win55PreloadProgress } from './helpers/preload'
 export type { EmojiInsertTarget, PickerPosition } from './helpers/emojiPickerStore'

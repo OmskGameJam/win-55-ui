@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { CSSProperties } from 'vue';
 import Box from './Box.vue';
 
 withDefaults(defineProps<{
   label: string
   backgroundColorHint?: string
+  extraStyles?: CSSProperties
 }>(), {
   backgroundColorHint: '#CBCBCB'
 })
@@ -11,7 +13,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-  <Box type="border-groove" :extra-styles="{padding: '10px', margin: '10px'}">
+  <Box type="border-groove" :extra-styles="{ padding: '10px', margin: '10px', ...extraStyles }">
     
     <div class="label">
       <div class="line-hider" :style="{backgroundColor: backgroundColorHint}"></div>
