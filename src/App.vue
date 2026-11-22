@@ -26,6 +26,7 @@ import RichText from './components/RichText.vue'
 import FontTester from './components/FontTester.vue'
 import ScrollFillTester from './components/ScrollFillTester.vue'
 import StrikeTester from './components/StrikeTester.vue'
+import IntGridTester from './components/IntGridTester.vue'
 import CursorContext from './components/CursorContext.vue'
 import CursorBusyDemoButton from './components/CursorBusyDemoButton.vue'
 import { loadSchemeIndex } from './helpers/cursors'
@@ -141,6 +142,7 @@ const sectionGroups: { label: string; sections: { key: string; label: string }[]
       { key: 'formElements', label: 'Form elements' },
       { key: 'progressBar', label: 'Progress bar' },
       { key: 'slider', label: 'Slider' },
+      { key: 'intGrid', label: 'IntGrid' },
       { key: 'sizedBoxes', label: 'Sized boxes' },
       { key: 'scrollableBoxes', label: 'Scrollable boxes' },
       { key: 'window', label: 'Window' },
@@ -578,6 +580,11 @@ const donutPositions = computed(() => {
             <div>Range</div>
           </div>
         </div>
+      </Box>
+
+      <Box v-if="sections.intGrid" type="border-groove" :extra-styles="containerStyle">
+        <h2>IntGrid</h2>
+        <IntGridTester />
       </Box>
 
       <Box v-if="sections.sizedBoxes" type="border-groove" :extra-styles="containerStyle">

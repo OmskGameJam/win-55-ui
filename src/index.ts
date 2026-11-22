@@ -15,6 +15,7 @@ export { default as CursorContext } from './components/CursorContext.vue'
 export { default as HDivider } from './components/HDivider.vue'
 export { default as ProgressBar } from './components/ProgressBar.vue'
 export { default as Slider } from './components/Slider.vue'
+export { default as IntGrid } from './components/IntGrid.vue'
 export { default as MenuDropdown } from './components/MenuDropdown.vue'
 export { default as RadioButton } from './components/RadioButton.vue'
 export { default as RichText } from './components/RichText.vue'
@@ -32,6 +33,7 @@ export { default as cursorDirective, cursorWeakDirective } from './directives/cu
 
 // Helpers
 export { typographyStyles } from './helpers/typography'
+export { CELL, areaGrid, masonryGrid, repeatGrid } from './helpers/intGrid'
 export { loadSchemeIndex } from './helpers/cursors'
 export { provideCursorContext, useCursorContext, CURSOR_CONTEXT_KEY } from './helpers/cursorContext'
 export { drawAngledBayerDitherGradient } from './helpers/bayerMatrix'
@@ -63,6 +65,7 @@ export {
 
 // Types
 export type { BoxType } from './components/Box.vue'
+export type { IntGridFlow, IntGridMode, IntGridRect } from './helpers/intGrid'
 export type { ProgressBarSpan, ProgressBarValue, ProgressBarOrientation, ProgressBarFillStyle, ProgressBarBoxType } from './components/ProgressBar.vue'
 export type { BoxOverflow } from './helpers/scroll'
 export type { TypographySettings } from './helpers/typography'
