@@ -208,11 +208,12 @@ let primed = false
  * The win-55-ui preloading API (no conventional preloader): a global, reactive
  * progress record plus a queue you can extend and start from anywhere.
  *
- * The initial queue is every file under `public/`, generated at build time by
- * `win55uiPreloadManifest()` and resolved against `import.meta.env.BASE_URL`,
- * so the same code works in dev, in a production build and under a sub-path.
- * Calling this primes that list so `progress.total` is known before the first
- * `startPreload()`; it never downloads an asset by itself.
+ * The initial queue is every file under `public/` except the on-demand emoji
+ * GIFs, generated at build time by `win55uiPreloadManifest()` and resolved
+ * against `import.meta.env.BASE_URL`, so the same code works in dev, in a
+ * production build and under a sub-path. Calling this primes that list so
+ * `progress.total` is known before the first `startPreload()`; it never
+ * downloads an asset by itself.
  */
 export function useWin55Preload(): Win55PreloadApi {
   if (!primed) {

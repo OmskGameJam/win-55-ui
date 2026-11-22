@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
+import { defineAsyncComponent, h, ref, reactive, computed, onMounted, onUnmounted, type Component } from 'vue'
 import Box, { type BoxType } from './components/Box.vue'
 import Button from './components/Button.vue'
 import BaseDropdown from './components/BaseDropdown.vue'
@@ -40,6 +40,18 @@ const typographyDisplayModes = ['inline', 'contents'] as const
 
 const vEmoji = emojiDirective
 const vCursor = cursorDirective
+
+// The fun corner is gitignored, so resolve it through a glob: a checkout
+// without src/fun/ still builds, it just has nothing to show.
+const funModules = import.meta.glob('./fun/*.vue')
+
+const BadAppleDemo = defineAsyncComponent(async () => {
+  const load = funModules['./fun/BadApple.vue']
+  if (!load) {
+    return { name: 'NoFun', render: () => h('div', 'src/fun/ is missing — no fun allowed.') }
+  }
+  return (await load()) as Component
+})
 
 const testingBoxes: BoxType[] = [
   'indent',
@@ -169,6 +181,12 @@ const sectionGroups: { label: string; sections: { key: string; label: string }[]
     sections: [
       { key: 'cursorContext', label: 'CursorContext' },
       { key: 'cursorRoles', label: 'Cursor roles' },
+    ],
+  },
+  {
+    label: 'Fun',
+    sections: [
+      { key: 'badApple', label: '??? ?????!! (progress bars)' },
     ],
   },
 ]
@@ -530,8 +548,8 @@ const donutPositions = computed(() => {
           <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" />
           <div>Continuous</div>
           <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" fill-style="continuous" />
-          <div>Length: 7 visual px (flush)</div>
-          <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" :segment-length="7" />
+          <div>Length: 14px (flush)</div>
+          <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" :segment-length="14" />
           <div>Count: 13 (flush)</div>
           <ProgressBar :value="exampleProgressValue" :max="exampleProgressMax" :box-type="exampleProgressBox" :segment-count="13" />
           <div>Multiple (segmented)</div>
@@ -568,6 +586,11 @@ const donutPositions = computed(() => {
             :label="boxType"
           />
         </div>
+      </Box>
+
+      <Box v-if="sections.badApple" type="border-groove" :extra-styles="containerStyle">
+        <h2>??? ?????!!</h2>
+        <BadAppleDemo />
       </Box>
 
       <Box v-if="sections.slider" type="border-groove" :extra-styles="containerStyle">

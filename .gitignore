@@ -60,3 +60,6 @@ node_modules/
 *.tar.zst
 
 desktop.ini
+
+# no fun allowed
+/src/fun/

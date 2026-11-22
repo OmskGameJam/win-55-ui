@@ -43,18 +43,18 @@ const props = withDefaults(defineProps<{
   /** Bar flow direction. */
   orientation?: ProgressBarOrientation
   boxType?: ProgressBarBoxType
-  /** Inner padding, in visual pixels (multiples of 2 CSS px). */
+  /** Inner padding in CSS px; snaps to the 2px grid. */
   padding?: number
-  /** Space between segments, in visual pixels (multiples of 2 CSS px). */
+  /** Space between segments in CSS px; snaps to the 2px grid. */
   gap?: number
-  /** Segment length, in visual pixels (multiples of 2 CSS px). Mutually exclusive with segmentCount. */
+  /** Segment length in CSS px; snaps to the 2px grid. Mutually exclusive with segmentCount. */
   segmentLength?: number
   /** Segment count. Mutually exclusive with segmentLength. */
   segmentCount?: number
   fillStyle?: ProgressBarFillStyle
-  /** Outer width in CSS px; defaults to 384 horizontal / 36 vertical. */
+  /** Outer width in CSS px; snaps up to the 2px grid. Defaults to 384 horizontal / 36 vertical. */
   width?: number
-  /** Outer height in CSS px; defaults to 36 horizontal / 384 vertical. */
+  /** Outer height in CSS px; snaps up to the 2px grid. Defaults to 36 horizontal / 384 vertical. */
   height?: number
   /** Color for number values and the indeterminate marquee. */
   fillColor?: string
@@ -64,26 +64,26 @@ const props = withDefaults(defineProps<{
   max: 100,
   orientation: 'horizontal',
   boxType: 'textarea',
-  padding: 1,
-  gap: 1,
+  padding: 2,
+  gap: 2,
   fillStyle: 'segmented',
   fillColor: '#000080',
 })
 
-/** Snap to the nearest 2px visual pixel. */
+/** Snap to the nearest 2px cell. */
 const roundEven = (value: number) => Math.round(value / 2) * 2
-/** Snap down to a whole 2px visual pixel. */
+/** Snap down to a whole 2px cell. */
 const floorEven = (value: number) => Math.floor(value / 2) * 2
-/** Convert a visual-pixel prop to CSS px, never negative. */
-const visualPx = (value: number) => Math.max(0, Math.round(value)) * 2
+/** Snap up to a whole 2px cell. */
+const ceilEven = (value: number) => Math.ceil(value / 2) * 2
 
 const isVertical = computed(() => props.orientation === 'vertical')
-const outerWidth = computed(() => roundEven(props.width ?? (isVertical.value ? DEFAULT_THICKNESS : DEFAULT_LENGTH)))
-const outerHeight = computed(() => roundEven(props.height ?? (isVertical.value ? DEFAULT_LENGTH : DEFAULT_THICKNESS)))
-const paddingPx = computed(() => visualPx(props.padding))
-const gapPx = computed(() => visualPx(props.gap))
+const outerWidth = computed(() => ceilEven(props.width ?? (isVertical.value ? DEFAULT_THICKNESS : DEFAULT_LENGTH)))
+const outerHeight = computed(() => ceilEven(props.height ?? (isVertical.value ? DEFAULT_LENGTH : DEFAULT_THICKNESS)))
+const paddingPx = computed(() => Math.max(0, roundEven(props.padding)))
+const gapPx = computed(() => Math.max(0, roundEven(props.gap)))
 const segmentLengthPx = computed(() => (
-  props.segmentLength === undefined ? undefined : visualPx(props.segmentLength)
+  props.segmentLength === undefined ? undefined : Math.max(0, ceilEven(props.segmentLength))
 ))
 const requestedSegmentCount = computed(() => (
   props.segmentCount === undefined ? undefined : Math.max(0, Math.floor(props.segmentCount))
@@ -212,14 +212,16 @@ const segmentLengths = computed<number[]>(() => {
     if (requested <= 0) return []
     count = Math.min(requested, Math.floor((length + gap) / (MIN_SEGMENT_LENGTH + gap)))
     if (count <= 0) return []
-    base = Math.floor((length - (count - 1) * gap) / count)
+    base = floorEven((length - (count - 1) * gap) / count)
   }
 
-  // Spread leftover pixels one at a time so the final segment ends flush with
-  // the track. This deliberately puts some segments off the 2px grid.
-  const remainder = length - base * count - (count - 1) * gap
+  if (base < MIN_SEGMENT_LENGTH) return []
+
+  // Spread the leftover 2px cells one at a time so the final segment ends flush
+  // with the track. Everything the renderer emits stays on the 2px grid.
+  const cells = (length - base * count - (count - 1) * gap) / 2
   return Array.from({ length: count }, (_, index) => (
-    base + Math.floor(((index + 1) * remainder) / count) - Math.floor((index * remainder) / count)
+    base + 2 * (Math.floor(((index + 1) * cells) / count) - Math.floor((index * cells) / count))
   ))
 })
 
@@ -243,7 +245,8 @@ const renderedSegments = computed<RenderedSegment[]>(() => {
 
     let color = 'transparent'
     for (const span of spans) {
-      if (Math.min(end, span.end) - Math.max(start, span.start) >= 1 - 1e-9) color = span.color
+      // A segment lights up once the fill covers a whole 2px cell of it.
+      if (Math.min(end, span.end) - Math.max(start, span.start) >= MIN_SEGMENT_LENGTH - 1e-9) color = span.color
     }
 
     return { length, color }

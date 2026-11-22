@@ -319,6 +319,21 @@ npm run build     # type-check + сборка демо-приложения
 
 `src/App.vue` — kitchen sink со всеми компонентами. Это основная площадка для ручного тестирования и визуальной проверки изменений.
 
+### `src/fun/` — отдельный репозиторий
+
+Демка Bad Apple и её ассеты (~35 МБ) лежат в `src/fun/`, который этот репозиторий игнорирует (`# no fun allowed` в `.gitignore`) и который версионируется отдельно, в [win-55-ui-fun](https://github.com/OmskGameJam/win-55-ui-fun). Рабочее дерево остаётся на месте: правка `src/fun/BadApple.vue` — это правка того репозитория, переносить и подтягивать ничего не нужно.
+
+```bash
+npm run fun:pull              # склонировать src/fun или догнать fast-forward'ом
+npm run fun -- status         # любая git-команда внутри src/fun
+npm run fun -- commit -am "…"
+npm run fun -- push
+npm run fun:pop               # удалить src/fun, ассеты остаются на remote
+npm run fun:pop -- --force    # то же, выбросив незакоммиченное/неотправленное
+```
+
+Без `src/fun/` проект полностью собирается: `App.vue` подставляет заглушку вместо демки. Всё остальное (`npm run lint`, type-check, `git status` родителя) про `src/fun/` не знает.
+
 ---
 
 ## Документация для AI-агентов

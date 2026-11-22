@@ -171,15 +171,30 @@ function collectFiles(dir, base = '') {
 }
 
 /**
- * Every file under the public directory, as paths relative to it, so the runtime
- * can resolve them against `import.meta.env.BASE_URL` instead of a hard-coded
- * deployment path. Sorted for a reproducible build.
+ * Emoji GIFs are resolved one at a time from the runtime registry (see
+ * `src/directives/emoji.ts`), so pulling all of them up front would queue
+ * hundreds of files nothing has asked for yet. Their indexes (`*.json`, `*.csv`,
+ * `NOTICE.md`) stay in the list: those are the entry points the runtime fetches.
+ */
+const LAZY_EMOJI_DIRS = ['win-55-ui/emoji/', 'win-55-ui/x-emoji/']
+
+function isLazyEmojiAsset(relativePath) {
+  const path = relativePath.toLowerCase()
+  return path.endsWith('.gif') && LAZY_EMOJI_DIRS.some((dir) => path.startsWith(dir))
+}
+
+/**
+ * Every file under the public directory that is not an on-demand emoji GIF, as
+ * paths relative to it, so the runtime can resolve them against
+ * `import.meta.env.BASE_URL` instead of a hard-coded deployment path. Sorted
+ * for a reproducible build.
  */
 function collectPreloadManifest() {
   if (!existsSync(publicRoot)) return []
 
   return collectFiles(publicRoot)
     .map((file) => toPosix(file.relativePath))
+    .filter((file) => !isLazyEmojiAsset(file))
     .sort()
 }
 
