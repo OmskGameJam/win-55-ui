@@ -8,6 +8,7 @@ export { default as BaseInput } from './components/BaseInput.vue'
 export { default as RichInput } from './components/RichInput.vue'
 export { default as SimpleStringInput } from './components/SimpleStringInput.vue'
 export { default as NumberInput } from './components/NumberInput.vue'
+export { default as ComboBox } from './components/ComboBox.vue'
 export { default as Box } from './components/Box.vue'
 export { default as Button } from './components/Button.vue'
 export { default as Checkbox } from './components/Checkbox.vue'
@@ -33,6 +34,7 @@ export { default as cursorDirective, cursorWeakDirective } from './directives/cu
 
 // Helpers
 export { typographyStyles } from './helpers/typography'
+export { COMBO_LIST_SLIDE_MS } from './helpers/comboBox'
 export { CELL, areaGrid, masonryGrid, repeatGrid } from './helpers/intGrid'
 export { loadSchemeIndex } from './helpers/cursors'
 export { provideCursorContext, useCursorContext, CURSOR_CONTEXT_KEY } from './helpers/cursorContext'
@@ -66,6 +68,7 @@ export {
 
 // Types
 export type { BoxType } from './components/Box.vue'
+export type { ComboBoxItem } from './helpers/comboBox'
 export type { NumberInputVariant } from './components/NumberInput.vue'
 export type { IntGridFlow, IntGridMode, IntGridRect } from './helpers/intGrid'
 export type { ProgressBarSpan, ProgressBarValue, ProgressBarOrientation, ProgressBarFillStyle, ProgressBarBoxType } from './components/ProgressBar.vue'

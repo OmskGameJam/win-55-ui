@@ -19,6 +19,10 @@ const emit = defineEmits<{
 }>()
 
 const isVertical = computed(() => props.orientation === 'vertical')
+// Below three button-sized cells the two 28px arrow buttons leave no room for
+// the track; drop them so the thumb still gets the whole bar.
+const MIN_FULL_SIZE = 28 * 3
+const compact = computed(() => props.viewportSize < MIN_FULL_SIZE)
 const startName = computed(() => (isVertical.value ? 'up' : 'left'))
 const endName = computed(() => (isVertical.value ? 'down' : 'right'))
 const buttonSrc = (name: string, pressed: boolean) =>
@@ -153,6 +157,7 @@ function onThumbUp() {
 <template>
   <div :class="['win55-scrollbar', orientation]" aria-hidden="true">
     <div
+      v-if="!compact"
       class="sb-button"
       @pointerdown="onArrowDown($event, 'start')"
       @pointerup="onArrowUp"
@@ -182,6 +187,7 @@ function onThumbUp() {
       </div>
     </div>
     <div
+      v-if="!compact"
       class="sb-button"
       @pointerdown="onArrowDown($event, 'end')"
       @pointerup="onArrowUp"

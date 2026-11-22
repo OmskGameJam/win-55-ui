@@ -7,6 +7,8 @@ import { useSineWave } from './helpers/useSineWave'
 import BaseInput from './components/BaseInput.vue'
 import SimpleStringInput from './components/SimpleStringInput.vue'
 import NumberInput from './components/NumberInput.vue'
+import ComboBox from './components/ComboBox.vue'
+import type { ComboBoxItem } from './helpers/comboBox'
 import RichInput from './components/RichInput.vue'
 import Typography from './components/Typography.vue'
 import Checkbox from './components/Checkbox.vue'
@@ -105,6 +107,23 @@ const exampleSimpleState = ref('')
 const exampleNumberState = ref('')
 const exampleUpDownNumberState = ref('42')
 const exampleTouchspinNumberState = ref('50')
+const exampleComboState = ref('')
+const exampleComboData = [
+  'Alpha', 'Bravo', 'Charlie', 'Delta', 'Echo', 'Foxtrot',
+  'Golf', 'Hotel', 'India', 'Juliett', 'Kilo', 'Lima',
+]
+const exampleComboObjectState = ref('')
+const exampleComboObjectSelection = ref('')
+const exampleComboObjectData: ComboBoxItem<number>[] = [
+  { key: 'One', data: 1 },
+  { key: 'Two', data: 2 },
+  { key: 'Three', data: 3 },
+]
+const handleComboObjectSelect = (selection: ComboBoxItem<number> | string) => {
+  if (typeof selection === 'string') return
+  exampleComboObjectState.value = selection.key
+  exampleComboObjectSelection.value = `${selection.key} → ${selection.data}`
+}
 const exampleWrap = ref(true)
 const exampleMultilineState = ref('first line\nsecond line')
 const exampleCheckboxState = ref(false)
@@ -376,7 +395,19 @@ const donutPositions = computed(() => {
             :max="100"
             :extra-styles="{ width: '150px', marginTop: '8px' }"
           />
+          <ComboBox v-model="exampleComboState" :data="exampleComboData" placeholder="Pick a thing" show-emoji-button :extra-styles="{ width: '512px', marginTop: '8px' }" />
+          <ComboBox
+            v-model="exampleComboObjectState"
+            :data="exampleComboObjectData"
+            placeholder="Object data"
+            :extra-styles="{ width: '512px', marginTop: '8px' }"
+            @select="handleComboObjectSelect"
+          />
+          <div>Selected object: {{ exampleComboObjectSelection || '—' }}</div>
           <Checkbox v-model="exampleWrap" label="Wrap lines" />
+          <Box type="indent">
+            <br><br><br><br><br><br><br>a very important spacer<br><br><br><br><br><br><br><br>
+          </Box>
         </Typography>
       </Box>
 
