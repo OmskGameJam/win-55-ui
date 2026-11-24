@@ -14,8 +14,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  scrollTo: [pos: number]
-  scrollBy: [delta: number]
+  'scroll-to': [pos: number]
+  'scroll-by': [delta: number]
 }>()
 
 const isVertical = computed(() => props.orientation === 'vertical')
@@ -93,7 +93,7 @@ function onArrowDown(e: PointerEvent, side: 'start' | 'end') {
   if (e.button !== 0) return
   ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
   pressed.value = side
-  startRepeat(() => emit('scrollBy', side === 'start' ? -LINE_STEP : LINE_STEP))
+  startRepeat(() => emit('scroll-by', side === 'start' ? -LINE_STEP : LINE_STEP))
 }
 
 function onArrowUp() {
@@ -119,8 +119,8 @@ function onTrackDown(e: PointerEvent) {
   trackPointer = alongTrack(e)
   startRepeat(() => {
     const page = Math.max(2, props.viewportSize - LINE_STEP)
-    if (trackPointer < thumbPos.value) emit('scrollBy', -page)
-    else if (trackPointer > thumbPos.value + thumbLen.value) emit('scrollBy', page)
+    if (trackPointer < thumbPos.value) emit('scroll-by', -page)
+    else if (trackPointer > thumbPos.value + thumbLen.value) emit('scroll-by', page)
   })
 }
 
@@ -145,7 +145,7 @@ function onThumbMove(e: PointerEvent) {
   if (!drag) return
   const range = trackLen.value - thumbLen.value
   if (range <= 0) return
-  emit('scrollTo', drag.startScroll + ((clientAlong(e) - drag.start) * maxScroll.value) / range)
+  emit('scroll-to', drag.startScroll + ((clientAlong(e) - drag.start) * maxScroll.value) / range)
 }
 
 function onThumbUp() {

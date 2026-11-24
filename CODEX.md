@@ -59,7 +59,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Checkbox, RadioButton** — скрытый нативный input + кастомная иконка (img). Emit `change`. RadioButton сравнивает `target` с `value` для определения checked-состояния. Курсор — `v-cursor-weak="disabled ? 'not-allowed' : 'link'"` на контейнере (weak -> потребительский `v-cursor` перебивает; не хардкод `cursor:` инлайн-стилем: это перебивало бы наследование от `CursorContext`).
 - **Button** — кастомная обработка mousedown/mouseup (глобальный listener на window). Меняет BoxType на `indent` при нажатии. Emit `click` только если мышь внутри при отпускании. Курсор — та же `v-cursor-weak="isDisabled ? 'not-allowed' : 'default'"` на `Box`, по той же причине.
 - **Window** — перемещаемое/ресайзабельное окно с абсолютным позиционированием. Использует `defineModel` для `x`, `y`, `width`, `height`. Поддерживает направленный resize (по краям окна, 6px зона) и drag строго за titlebar-полосу (исключая иконку и кнопки тайтлбара — клик по ним не должен таскать окно). Курсор ресайз-зоны — `v-cursor="resizeRole"` на корневом `Box` (`detectEdge`-направление -> `ns-`/`ew-`/`nesw-`/`nwse-resize`), тематизируется активной схемой, оба режима. Во время drag/resize на `document.body` временно ставится `user-select: none`, чтобы жест не выделял текст. Props `resizable`, `resizableHorizontally`, `resizableVertically`.
-- **Balloon** — всплывающее уведомление с «хвостиком» (треугольная стрелка). Позиционирование: `side` (top/bottom/left/right) + `bias` (left/right/up/down) для смещения. Использует `defineModel` для `shown`. Контент через `#content` слот или prop `text`.
+- **Balloon** — всплывающее уведомление с «хвостиком» (треугольная стрелка). Позиционирование: `side` (top/bottom/left/right) + `bias` (left/right/up/down) для смещения. Использует `defineModel` для `open`. Контент через `#content` слот или prop `text`.
 - **Tooltip** — тултип, следующий за курсором. Появляется с задержкой 400ms при наведении. Props: `text`, `offsetX`, `offsetY`. Оборачивает контент через default slot.
 - **HDivider** — горизонтальный разделитель (Box type `border-groove` с нулевой высотой).
 - **NamedPanel** — Box с `border-groove` и плавающим лейблом сверху (абсолютно позиционированный `<div class="label">`). Props: `label`, `backgroundColorHint` (по умолчанию `#CBCBCB`). Контент через default slot.
@@ -93,7 +93,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Все компоненты используют `<script setup lang="ts">` с `defineProps`/`withDefaults`/`defineEmits`.
 - Кастомизация внешнего вида через props `extraStyles` (`CSSProperties`) и `extraClass` (`string`).
 - Компоненты, которым нужен DOM-доступ извне, используют `defineExpose`.
-- Состояние управляется через `v-model` (`defineModel`). Компоненты форм (BaseInput, Checkbox, RadioButton) используют `modelValue`/`update:modelValue`. Window использует именованные модели (`x`, `y`, `width`, `height`). Balloon — `shown`.
+- Состояние управляется через `v-model` (`defineModel`). Компоненты форм (BaseInput, Checkbox, RadioButton) используют `modelValue`/`update:modelValue`. Window использует именованные модели (`x`, `y`, `width`, `height`). Balloon — `open`.
 
 ### Стилизация
 

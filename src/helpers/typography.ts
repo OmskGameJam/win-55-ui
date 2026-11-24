@@ -6,11 +6,18 @@ import type { CSSProperties } from 'vue'
 // bitmap strike for yet without needing to know which combinations actually exist.
 import { SUPPORTED_FACES } from './generatedFonts'
 
+// Palette roles: selected/filled is Navy `#000080` (not the CGA black `#000000`),
+// while `--win55-cga-blue` is the interactive accent. ProgressBar.fillColor and
+// Slider.rangeColor default to those two roles on purpose, not by drift.
 const SIZES = [8, 10, 12, 16, 18, 24]
 
 const DEFAULT_FONT_NAME = 'Standard'
 
 export interface TypographySettings {
+  /**
+   * A bitmap strike token from `[8, 10, 12, 16, 18, 24]`, rendered at `size × 2`
+   * CSS px (see `typographyStyles`). It is not a CSS px value.
+   */
   fontSize?: number,
   isBold?: boolean,
   isItalic?: boolean,

@@ -88,7 +88,7 @@ onUnmounted(() => {
           :extra-styles="{ zIndex: 1200 }"
         >
           <template #titlebar-buttons>
-            <Button extra-class="titlebar-button" base-type="panel-d-2" @click="closePicker">
+            <Button extra-class="titlebar-button" box-type="panel-d-2" @click="closePicker">
               <img draggable="false" src="/win-55-ui/window/x.png" />
             </Button>
           </template>

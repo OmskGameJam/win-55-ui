@@ -77,7 +77,7 @@ const rendererWindow = ref({ x: 500, y: 40, width: 560, height: 560 })
       resizable
     >
       <template #titlebar-buttons>
-        <Button extra-class="titlebar-button" base-type="panel-d-2" @click="close">
+        <Button extra-class="titlebar-button" box-type="panel-d-2" @click="close">
           <img draggable="false" src="/win-55-ui/window/x.png" />
         </Button>
       </template>
@@ -119,7 +119,7 @@ const rendererWindow = ref({ x: 500, y: 40, width: 560, height: 560 })
       resizable
     >
       <template #titlebar-buttons>
-        <Button extra-class="titlebar-button" base-type="panel-d-2" @click="close">
+        <Button extra-class="titlebar-button" box-type="panel-d-2" @click="close">
           <img draggable="false" src="/win-55-ui/window/x.png" />
         </Button>
       </template>
@@ -147,7 +147,7 @@ const rendererWindow = ref({ x: 500, y: 40, width: 560, height: 560 })
       resizable
     >
       <template #titlebar-buttons>
-        <Button extra-class="titlebar-button" base-type="panel-d-2" @click="close">
+        <Button extra-class="titlebar-button" box-type="panel-d-2" @click="close">
           <img draggable="false" src="/win-55-ui/window/x.png" />
         </Button>
       </template>

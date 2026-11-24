@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import type { CSSProperties } from 'vue'
-import Titlebar from './Titlebar.vue'
+import Titlebar, { type TitlebarProps } from './Titlebar.vue'
 import Box from './Box.vue'
 import cursorDirective from '../directives/cursor'
 import type { CursorRole } from '../helpers/cursorContext'
@@ -10,7 +10,7 @@ import type { BoxOverflow } from '../helpers/scroll'
 const vCursor = cursorDirective
 
 // Define props for overflow control
-const props = defineProps<{
+const props = withDefaults(defineProps<TitlebarProps & {
   extraStyles?: CSSProperties
   extraClass?: string
   minWidth?: number
@@ -18,24 +18,19 @@ const props = defineProps<{
   resizable?: boolean
   resizableHorizontally?: boolean
   resizableVertically?: boolean
-  
-  // Titlebar passthrough props
-  title: string
-  icon?: string
-  placeholderButtons?: boolean
-  disabled?: boolean
-  gradientColorA?: string
-  gradientColorB?: string
 
   // New faux mode
   faux?: boolean
-  
+
   // Overflow control for the body, forwarded to the inner Box
   overflow?: BoxOverflow
   overflowX?: BoxOverflow
   overflowY?: BoxOverflow
   forgiveVerticalOverflow?: boolean
-}>()
+}>(), {
+  minWidth: 240,
+  minHeight: 40,
+})
 
 // v-model bindings
 const x = defineModel<number>('x', { default: 100 })
@@ -45,11 +40,9 @@ const height = defineModel<number>('height', { default: 220 })
 
 const edge = 6
 
-const minWidth = props.minWidth ?? 240
-const minHeight = props.minHeight ?? 40
 // Minima are declared sizes: snap up so a clamped window is still on the grid.
-const minWidthEven = Math.ceil(minWidth / 2) * 2
-const minHeightEven = Math.ceil(minHeight / 2) * 2
+const minWidthEven = Math.ceil(props.minWidth / 2) * 2
+const minHeightEven = Math.ceil(props.minHeight / 2) * 2
 
 const allowHorizontal = computed(() => (props.resizable ?? false) || (props.resizableHorizontally ?? false))
 const allowVertical = computed(() => (props.resizable ?? false) || (props.resizableVertically ?? false))
@@ -251,8 +244,7 @@ function detectEdge(e: MouseEvent) {
         <Titlebar
           :title="title"
           :icon="icon"
-          :placeholder-buttons="placeholderButtons"
-          :disabled="disabled"
+          :show-placeholder-buttons="showPlaceholderButtons"
           :gradient-color-a="faux ? '#888888' : gradientColorA"
           :gradient-color-b="faux ? '#555555' : gradientColorB"
         >

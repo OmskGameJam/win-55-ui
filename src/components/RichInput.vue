@@ -33,6 +33,11 @@ const EMOJI_BUTTON_CODES = [
    this specific input, as a visual "the picker is pointing at you" cue. */
 const BOOK_ICON_CODE = '546' // :book:
 
+/*
+ * The narrow prop/event surface is deliberate: RichInput owns `keydown` /
+ * `beforeinput` / `paste` for the shortcode and emoji machinery, so those
+ * events are not re-emitted. `BaseInput` is the open one.
+ */
 const props = withDefaults(defineProps<{
   modelValue: string
   placeholder?: string
@@ -850,7 +855,7 @@ const handleBlur = () => {
   }
 }
 
-const editorExtraStyles = computed<CSSProperties | undefined>(() =>
+const contentPadding = computed<CSSProperties | undefined>(() =>
   props.showEmojiButton ? { paddingRight: '34px' } : undefined)
 
 const emojiButtonStyle = computed<CSSProperties | undefined>(() =>
@@ -868,7 +873,7 @@ defineExpose({ el })
     :max-length="maxLength"
     :box-type="boxType"
     :extra-styles="extraStyles"
-    :editor-extra-styles="editorExtraStyles"
+    :content-styles="contentPadding"
     :multiline="multiline"
     :wrap="wrap"
     @update:model-value="emit('update:modelValue', $event)"
@@ -892,7 +897,7 @@ defineExpose({ el })
     />
   </BaseInput>
 
-  <Balloon v-if="shortcodeOpen && caretRect" :shown="true" :anchor="caretRect" side="top">
+  <Balloon v-if="shortcodeOpen && caretRect" :open="true" :anchor="caretRect" side="top">
     <template #content>
       <div class="shortcode-suggestions">
         <div v-if="shortcodeHasMoreAbove" class="shortcode-suggestion-ellipsis">...</div>

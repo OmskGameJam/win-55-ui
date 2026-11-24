@@ -13,7 +13,7 @@ export interface BaseInputProps {
   maxLength?: number
   boxType?: BoxType
   extraStyles?: CSSProperties
-  editorExtraStyles?: CSSProperties
+  contentStyles?: CSSProperties
   multiline?: boolean
   wrap?: boolean
   /** A grapheme must match this to be kept. */
@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
   maxLength: undefined,
   boxType: 'textarea',
   extraStyles: undefined,
-  editorExtraStyles: undefined,
+  contentStyles: undefined,
   multiline: false,
   wrap: true,
   allow: undefined,
@@ -169,7 +169,7 @@ const editorStyles = () => ({
   ...typographyStyles({ fontColor: 'black' }),
   minHeight: '100%',
   ...(props.wrap ? {} : { whiteSpace: 'nowrap', width: 'max-content', minWidth: '100%' }),
-  ...props.editorExtraStyles,
+  ...props.contentStyles,
 }) as CSSProperties
 
 defineExpose({ el, boxRef, syncValue })

@@ -26,14 +26,20 @@ import CursorOverlay from './CursorOverlay.vue'
 
 interface Props {
   element?: string
+  /** Cursor scheme for this subtree. `undefined` means inherit from the nearest context (which is why it has no declared default). */
   scheme?: string
   /** Pins one cursor for the whole subtree. Left unset, each element's cursor is derived from its native `cursor` (link -> `link`, text field -> `text`, ...) and resolved against `scheme` - see CursorOverlay.vue. */
   role?: CursorRole
-  /** Turns the kit cursor off for this subtree - the OS cursor renders instead. Inherits; a nested `<CursorContext :disabled="false">` turns it back on. */
+  /**
+   * Turns the kit cursor off for this subtree - the OS cursor renders instead.
+   * `undefined` inherits from the nearest context; a nested
+   * `<CursorContext :disabled="false">` turns it back on.
+   */
   disabled?: boolean
   /**
    * How the cursor is painted for this subtree - `native` (default; real CSS `cursor: url()`) or
-   * `immersive` (`cursor: none` + CursorOverlay draws the sprite). Inherits like `disabled`.
+   * `immersive` (`cursor: none` + CursorOverlay draws the sprite).
+   * `undefined` inherits from the nearest context.
    */
   mode?: CursorMode
   /**
@@ -45,7 +51,11 @@ interface Props {
    * isn't reliably an ancestor of every hoverable pixel.
    */
   root?: boolean
-  /** `root` only: hard-disables the kit cursor everywhere, overriding any nested re-enable. */
+  /**
+   * `root` only: hard-disables the kit cursor everywhere, beating any nested
+   * re-enable. This is the deliberate nuclear option - not a synonym for
+   * `disabled`, which inherits and can be re-enabled.
+   */
   disableAll?: boolean
 }
 

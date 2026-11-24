@@ -814,7 +814,7 @@ const donutPositions = computed(() => {
           :overflow-y="windowOverflowY ? 'auto' : 'hidden'"
           title="Title but long so we can see shit" 
           icon="/win-55-ui/icons/program.png" 
-          placeholder-buttons
+          show-placeholder-buttons
         >
           <Box type="white-box" :extra-styles="{ ...windowContentStyle, padding: '4px' }">
             Window content: {{ windowContentLabel }}
@@ -822,7 +822,7 @@ const donutPositions = computed(() => {
         </Window>
       
         <!-- Second window is in faux mode, behaving as a div -->
-        <Window faux title="Title 👀😀🥳🦄🎉✨ " placeholder-buttons>
+        <Window faux title="Title 👀😀🥳🦄🎉✨ " show-placeholder-buttons>
           Sample
         </Window>
       </div>
@@ -842,14 +842,14 @@ const donutPositions = computed(() => {
         gap: 100px;"
       >
 
-        <Balloon side="bottom" bias="right" :shown="true">
+        <Balloon side="bottom" bias="right" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT  <br>
             TEXT TEXT TEXT TEXT 
           </template>
         </Balloon>
-        <Balloon side="right" bias="down" text="LEFT" :shown="true">
+        <Balloon side="right" bias="down" text="LEFT" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT <br>
@@ -858,7 +858,7 @@ const donutPositions = computed(() => {
             TEXT TEXT TEXT TEXT  
           </template>
         </Balloon>
-        <Balloon side="left" bias="up" text="RIGHT" :shown="true">
+        <Balloon side="left" bias="up" text="RIGHT" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT <br>
@@ -867,7 +867,7 @@ const donutPositions = computed(() => {
             TEXT TEXT TEXT TEXT  
           </template>
         </Balloon>
-        <Balloon side="top" bias="left" :shown="true">
+        <Balloon side="top" bias="left" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT  <br>
@@ -875,28 +875,28 @@ const donutPositions = computed(() => {
           </template>
         </Balloon>
 
-        <Balloon side="right" :shown="true">
+        <Balloon side="right" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT  <br>
             TEXT TEXT TEXT TEXT 
           </template>
         </Balloon>
-        <Balloon side="top" :shown="true">
+        <Balloon side="top" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT  <br>
             TEXT TEXT TEXT TEXT 
           </template>
         </Balloon>
-        <Balloon side="bottom" :shown="true">
+        <Balloon side="bottom" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT  <br>
             TEXT TEXT TEXT TEXT 
           </template>
         </Balloon>
-        <Balloon side="left" :shown="true">
+        <Balloon side="left" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT  <br>
@@ -904,14 +904,14 @@ const donutPositions = computed(() => {
           </template>
         </Balloon>
 
-        <Balloon side="top" bias="right" :shown="true">
+        <Balloon side="top" bias="right" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT  <br>
             TEXT TEXT TEXT TEXT 
           </template>
         </Balloon>
-        <Balloon side="left" bias="down" text="LEFT" :shown="true">
+        <Balloon side="left" bias="down" text="LEFT" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT <br>
@@ -920,7 +920,7 @@ const donutPositions = computed(() => {
             TEXT TEXT TEXT TEXT  
           </template>
         </Balloon>
-        <Balloon side="right" bias="up" text="RIGHT" :shown="true">
+        <Balloon side="right" bias="up" text="RIGHT" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT <br>
@@ -929,7 +929,7 @@ const donutPositions = computed(() => {
             TEXT TEXT TEXT TEXT  
           </template>
         </Balloon>
-        <Balloon side="bottom" bias="left" :shown="true">
+        <Balloon side="bottom" bias="left" :open="true">
           <Button>BUTTON</Button>
           <template #content>
             TEXT TEXT TEXT TEXT  <br>

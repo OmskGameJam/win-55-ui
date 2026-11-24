@@ -87,7 +87,7 @@ Props соответствуют `TypographySettings`: `font-size`, `is-bold`, `
 <Button disabled>Недоступно</Button>
 ```
 
-Props: `baseType` (BoxType, по умолчанию `panel-d-1`), `extraStyles`, `extraClass`, `disabled`.
+Props: `boxType` (BoxType, по умолчанию `panel-d-1`), `extraStyles`, `extraClass`, `disabled`.
 Emit: `click` (только если мышь была отпущена внутри кнопки).
 
 ---
@@ -152,7 +152,7 @@ Emit: `change`.
 </Window>
 ```
 
-Props: `title` (обязательный), `icon`, `resizable`, `resizableHorizontally`, `resizableVertically`, `minWidth`, `minHeight`, `placeholderButtons`, `disabled`, `gradientColorA`, `gradientColorB`, `faux`, `extraStyles`, `extraClass`, `overflow`, `overflowX`, `overflowY`, `forgiveVerticalOverflow`.
+Props: `title` (обязательный), `icon`, `resizable`, `resizableHorizontally`, `resizableVertically`, `minWidth`, `minHeight`, `showPlaceholderButtons`, `gradientColorA`, `gradientColorB`, `faux`, `extraStyles`, `extraClass`, `overflow`, `overflowX`, `overflowY`, `forgiveVerticalOverflow`.
 
 `faux` — режим встроенного div без drag/resize (titlebar становится серым).
 
@@ -167,7 +167,7 @@ Props: `title` (обязательный), `icon`, `resizable`, `resizableHorizo
 Всплывающее уведомление с «хвостиком».
 
 ```vue
-<Balloon side="bottom" bias="right" v-model:shown="isVisible">
+<Balloon side="bottom" bias="right" v-model:open="isVisible">
   <Button>Триггер</Button>
   <template #content>
     Текст уведомления
@@ -175,7 +175,7 @@ Props: `title` (обязательный), `icon`, `resizable`, `resizableHorizo
 </Balloon>
 ```
 
-Props: `side` (`top` | `bottom` | `left` | `right`), `bias` (`left` | `right` | `up` | `down`), `text`, `shown` (v-model).
+Props: `side` (`top` | `bottom` | `left` | `right`), `bias` (`left` | `right` | `up` | `down`), `text`, `open` (v-model).
 
 ---
 
@@ -242,10 +242,10 @@ Props: `label`, `backgroundColorHint` (цвет фона лейбла, по ум
 Canvas-градиент с Bayer-dithering, используется внутри `Window`. Можно использовать отдельно.
 
 ```vue
-<Titlebar title="Заголовок" icon="/win-55-ui/icons/program.png" placeholder-buttons />
+<Titlebar title="Заголовок" icon="/win-55-ui/icons/program.png" show-placeholder-buttons />
 ```
 
-Props: `title`, `icon`, `placeholderButtons`, `disabled`, `gradientColorA`, `gradientColorB`.
+Props: `title`, `icon`, `showPlaceholderButtons`, `gradientColorA`, `gradientColorB`.
 Slot `#buttons` — кнопки справа.
 
 ---

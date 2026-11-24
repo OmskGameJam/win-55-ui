@@ -25,7 +25,9 @@ const ICONS = {
   minus: '/win-55-ui/mini-buttons/minus.png',
 }
 
-const props = withDefaults(defineProps<Omit<BaseInputProps, 'allow'> & {
+const props = withDefaults(defineProps<Omit<BaseInputProps, 'allow' | 'modelValue'> & {
+  /** Numeric **text**, not a number (`formatNumber`). `Slider` is the number-typed control. */
+  modelValue: string
   /** `updown` puts a stacked pair of buttons inside the field; `touchspin` puts one on each side. */
   variant?: NumberInputVariant
   step?: number
@@ -55,6 +57,7 @@ const inputProps = computed<Partial<BaseInputProps>>(() => ({
   boxType: props.boxType,
   multiline: props.multiline,
   wrap: props.wrap,
+  deny: props.deny,
 }))
 
 // Exact centering often lands on an odd pixel; bias to the upper-left cell of
@@ -88,9 +91,9 @@ const updownRootStyles = computed<CSSProperties>(() => ({
 }))
 
 const editorStyles = computed<CSSProperties>(() => {
-  if (props.variant !== 'updown') return props.editorExtraStyles ?? {}
+  if (props.variant !== 'updown') return props.contentStyles ?? {}
 
-  return { paddingRight: `${SPIN_BUTTON_WIDTH}px`, ...props.editorExtraStyles }
+  return { paddingRight: `${SPIN_BUTTON_WIDTH}px`, ...props.contentStyles }
 })
 
 const rootStyles = computed<CSSProperties>(() => ({
@@ -107,7 +110,7 @@ const buttonStyles = computed(() => ({
   paddingRight: 0,
 }))
 
-const buttonContentStyles = {
+const buttonContentStyles: CSSProperties = {
   position: 'relative',
   width: '100%',
   height: '100%',
@@ -176,7 +179,7 @@ const canStep = (direction: number) => {
       :model-value="modelValue"
       :allow="NUMBER_ALLOW"
       :extra-styles="fieldStyles"
-      :editor-extra-styles="editorStyles"
+      :content-styles="editorStyles"
       @update:model-value="emit('update:modelValue', $event)"
       @input="emit('input')"
       @keydown="emit('keydown', $event)"
@@ -201,7 +204,7 @@ const canStep = (direction: number) => {
       :model-value="modelValue"
       :allow="NUMBER_ALLOW"
       :extra-styles="fieldStyles"
-      :editor-extra-styles="editorStyles"
+      :content-styles="editorStyles"
       @update:model-value="emit('update:modelValue', $event)"
       @input="emit('input')"
       @keydown="emit('keydown', $event)"
@@ -237,7 +240,7 @@ const canStep = (direction: number) => {
     :model-value="modelValue"
     :allow="NUMBER_ALLOW"
     :extra-styles="fieldStyles"
-    :editor-extra-styles="editorStyles"
+    :content-styles="editorStyles"
     @update:model-value="emit('update:modelValue', $event)"
     @input="emit('input')"
     @keydown="emit('keydown', $event)"

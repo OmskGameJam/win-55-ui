@@ -4,21 +4,25 @@ import { drawAngledBayerDitherGradient } from '../helpers/bayerMatrix'
 import Button from './Button.vue'
 import Typography from './Typography.vue'
 
-const props = defineProps<{
+export interface TitlebarProps {
   title: string
   icon?: string
-  placeholderButtons?: boolean
-  disabled?: boolean
+  showPlaceholderButtons?: boolean
   gradientColorA?: string
   gradientColorB?: string
-}>()
+}
+
+const props = withDefaults(defineProps<TitlebarProps>(), {
+  gradientColorA: '5555ff',
+  gradientColorB: '0000aa',
+})
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 let resizeObserver: ResizeObserver | null = null
 
 function draw(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
-  const colorA = props.gradientColorA || '5555ff'
-  const colorB = props.gradientColorB || '0000aa'
+  const colorA = props.gradientColorA
+  const colorB = props.gradientColorB
   
   drawAngledBayerDitherGradient(canvas, canvas.width, canvas.height, colorA, colorB)
   context.fillStyle = '#555555'
@@ -91,18 +95,18 @@ onUnmounted(() => {
         <!-- Slot for custom buttons -->
         <slot name="buttons"></slot>
 
-        <!-- Placeholder buttons when slot is empty and placeholderButtons is true -->
-        <template v-if="placeholderButtons">
+        <!-- Placeholder buttons when slot is empty and showPlaceholderButtons is true -->
+        <template v-if="showPlaceholderButtons">
           <Button
             extra-class="titlebar-button"
-            base-type="panel-d-2"
+            box-type="panel-d-2"
             disabled
           >
             <img draggable="false" src="/win-55-ui/window/o.png" />
           </Button>
           <Button
             extra-class="titlebar-button"
-            base-type="panel-d-2"
+            box-type="panel-d-2"
             disabled
           >
             <img draggable="false" src="/win-55-ui/window/_.png" />
@@ -110,7 +114,7 @@ onUnmounted(() => {
           <div style="width: 2px"><!-- Он тут реально! --></div>
           <Button
             extra-class="titlebar-button"
-            base-type="panel-d-2"
+            box-type="panel-d-2"
             disabled
           >
             <img draggable="false" src="/win-55-ui/window/x.png" />

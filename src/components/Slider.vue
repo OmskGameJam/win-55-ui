@@ -49,6 +49,10 @@ const props = withDefaults(defineProps<{
   orientation?: SliderOrientation
   normalized?: boolean
   rangeColor?: string
+  /**
+   * Explicit discrete values. When a non-empty list survives the `min`/`max`
+   * filter it wins over `step`; `step` is ignored entirely.
+   */
   fixedValues?: readonly number[]
   min?: number
   max?: number

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed, type CSSProperties } from 'vue'
 import Box, { type BoxType } from './Box.vue'
 import { cursorWeakDirective } from '../directives/cursor'
 
@@ -7,14 +7,14 @@ import { cursorWeakDirective } from '../directives/cursor'
 const vCursor = cursorWeakDirective
 
 const props = withDefaults(defineProps<{
-  baseType?: BoxType
-  extraStyles?: Record<string, string | number | undefined>
+  boxType?: BoxType
+  extraStyles?: CSSProperties
   extraClass?: string
   /** Styles for the pressed-offset wrapper inside the bevel. */
-  contentStyles?: Record<string, string | number | undefined>
+  contentStyles?: CSSProperties
   disabled?: boolean
 }>(), {
-  baseType: 'panel-d-1',
+  boxType: 'panel-d-1',
   extraStyles: undefined,
   extraClass: undefined,
   contentStyles: undefined,
@@ -22,6 +22,7 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
+  /** Activation event (mouse released inside the button); no payload, not the native DOM event. */
   click: []
 }>()
 
@@ -74,14 +75,14 @@ const innerStyle = computed(() => ({
   opacity: isDisabled.value ? 0.5 : 1,
 }))
 
-const boxType = computed(() => {
-  return pressed.value ? 'indent' : props.baseType
+const resolvedBoxType = computed(() => {
+  return pressed.value ? 'indent' : props.boxType
 })
 </script>
 
 <template>
   <Box
-    :type="boxType"
+    :type="resolvedBoxType"
     :extra-styles="boxStyle"
     :extra-class="extraClass"
     v-cursor="isDisabled ? 'not-allowed' : 'default'"

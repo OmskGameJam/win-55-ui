@@ -15,8 +15,13 @@ const emit = defineEmits<{
   blur: []
 }>()
 
-const denyPattern = computed(() =>
-  props.deny ? new RegExp(`${EMOJI_PATTERN.source}|${props.deny.source}`, 'u') : EMOJI_PATTERN)
+const denyPattern = computed(() => {
+  if (!props.deny) return EMOJI_PATTERN
+
+  // Union both patterns' flags; `u` stays on because both sources are Unicode patterns.
+  const flags = [...new Set([...EMOJI_PATTERN.flags, ...props.deny.flags, 'u'])].join('')
+  return new RegExp(`${EMOJI_PATTERN.source}|${props.deny.source}`, flags)
+})
 </script>
 
 <template>

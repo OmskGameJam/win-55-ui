@@ -2,11 +2,14 @@
 import { ref, reactive, onUnmounted, computed, type CSSProperties } from 'vue';
 import Box from './Box.vue';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   text: string;
   offsetX?: number;
   offsetY?: number;
-}>();
+}>(), {
+  offsetX: 24,
+  offsetY: 24,
+});
 
 const visible = ref(false);
 const cursor = reactive({ x: 0, y: 0 });
@@ -27,8 +30,8 @@ const endHover = () => {
 };
 
 const updateCursor = (event: MouseEvent) => {
-  cursor.x = event.clientX + (props.offsetX ?? 24);
-  cursor.y = event.clientY + (props.offsetY ?? 24);
+  cursor.x = event.clientX + props.offsetX;
+  cursor.y = event.clientY + props.offsetY;
 };
 
 const tooltipStyle = computed<CSSProperties>(() => ({

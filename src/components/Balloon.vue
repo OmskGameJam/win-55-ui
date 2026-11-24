@@ -5,7 +5,7 @@ import Box from './Box.vue'
 type Side = 'top' | 'bottom' | 'left' | 'right'
 type Bias = 'left' | 'right' | 'up' | 'down'
 
-const shown = defineModel<boolean>('shown', {
+const open = defineModel<boolean>('open', {
   default: false
 })
 
@@ -32,28 +32,29 @@ function normalizeAnchor(anchor: Anchor): AnchorRect {
   return isAnchorRect(anchor) ? anchor : { top: anchor.y, bottom: anchor.y, left: anchor.x, right: anchor.x }
 }
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   text?: string
   side?: Side
   bias?: Bias
   /** Viewport point or rect to anchor to, instead of the default slot's trigger element. */
   anchor?: Anchor
-}>()
+}>(), {
+  side: 'top',
+})
 
 const slots = useSlots()
-const side = computed(() => props.side ?? 'top')
 const bias = computed(() => props.bias)
 
 /* In anchor mode, the requested side can flip to avoid viewport overflow;
    everything else (tip rotation, bias, layout direction) reacts to whichever
    side is actually in effect. */
-const resolvedAnchorSide = ref<Side>(side.value)
-const activeSide = computed(() => (props.anchor ? resolvedAnchorSide.value : side.value))
+const resolvedAnchorSide = ref<Side>(props.side)
+const activeSide = computed(() => (props.anchor ? resolvedAnchorSide.value : props.side))
 
 const balloonStyle = computed<CSSProperties>(() => {
   const style: CSSProperties = {}
 
-  switch (side.value) {
+  switch (props.side) {
     case 'top':
       style.bottom = '100%'
       style.left = '50%'
@@ -200,7 +201,7 @@ function calculateAnchoredPosition() {
   const rect = balloonEl.getBoundingClientRect()
   const viewportWidth = window.innerWidth
   const viewportHeight = window.innerHeight
-  const requestedSide = props.side ?? 'top'
+  const requestedSide = props.side
 
   /* Try the requested side, then its opposite, then the two perpendicular
      sides. First one whose full box fits wins; if none do, give up and use
@@ -218,9 +219,9 @@ function calculateAnchoredPosition() {
 }
 
 watch(
-  [() => props.anchor, shown],
-  async ([anchor, isShown]) => {
-    if (!anchor || !isShown) return
+  [() => props.anchor, open],
+  async ([anchor, isOpen]) => {
+    if (!anchor || !isOpen) return
 
     await nextTick()
     calculateAnchoredPosition()
@@ -229,7 +230,7 @@ watch(
 )
 
 const handleWindowChange = () => {
-  if (props.anchor && shown.value) {
+  if (props.anchor && open.value) {
     calculateAnchoredPosition()
   }
 }
@@ -248,7 +249,7 @@ onUnmounted(() => {
 <template>
   <Teleport v-if="anchor" to="body">
     <div
-      v-if="shown"
+      v-if="open"
       ref="anchoredRef"
       class="balloon-anchored"
       :style="{
@@ -284,7 +285,7 @@ onUnmounted(() => {
   <div v-else class="balloon-wrapper">
     <slot />
 
-    <div v-if="shown" class="balloon" :style="balloonStyle">
+    <div v-if="open" class="balloon" :style="balloonStyle">
       <div class="balloon-inner" :style="{ flexDirection }">
 
         <!-- Wrap the Box to apply bias translation -->
