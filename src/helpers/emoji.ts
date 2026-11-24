@@ -1,12 +1,7 @@
 const DEFAULT_EMOJI_BASE_PATH = '/win-55-ui/emoji'
 const DEFAULT_EMOJI_REGISTRY_URL = `${DEFAULT_EMOJI_BASE_PATH}/emoji-registry.csv`
 
-/**
- * Matches any unicode emoji-ish grapheme, not just ones present in the
- * registry CSV. Shared by the `v-emoji` directive (canvas rasterization
- * fallback) and `RichText`'s own emoji-node splitting, so both agree on what
- * counts as "an emoji" even when it has no registry GIF.
- */
+/** Matches any unicode emoji-ish grapheme, including ones absent from the registry CSV. */
 export const EMOJI_DETECTION_PATTERN = [
   '[\\u{1F1E6}-\\u{1F1FF}]{2}',
   '[0-9#*]\\uFE0F?\\u20E3',
@@ -68,10 +63,7 @@ function parseEmojiRegistry(csv: string): EmojiRegistry {
   return registry
 }
 
-/**
- * Loads the emoji registry from the public two-column CSV at runtime.
- * The result is cached so the browser only fetches and parses it once.
- */
+/** Loads and caches the registry CSV. */
 export async function loadEmojiRegistry(
   options: EmojiRegistryOptions = {},
 ): Promise<EmojiRegistry> {
@@ -106,18 +98,13 @@ export async function loadEmojiRegistry(
   return registryPromise
 }
 
-/**
- * Clears the cached registry. Useful if a host app swaps the CSV URL at runtime.
- */
+/** Clears the cache so a different registry URL can be used. */
 export function resetEmojiRegistryCache(): void {
   registryPromise = null
   registryPromiseUrl = null
   registry = null
 }
 
-/**
- * Returns the full path to an emoji GIF file in the public directory.
- */
 export async function getEmojiGifPath(
   emoji: string,
   options: EmojiRegistryOptions = {},
@@ -132,9 +119,6 @@ export async function getEmojiGifPath(
   return getEmojiGifPathFromCode(code, options)
 }
 
-/**
- * Returns a GIF path for a known registry code without loading the CSV.
- */
 export function getEmojiGifPathFromCode(
   code: string,
   options: Pick<EmojiRegistryOptions, 'basePath'> = {},
@@ -143,18 +127,12 @@ export function getEmojiGifPathFromCode(
   return `${basePath}/${normalizeCode(code)}.gif`
 }
 
-/**
- * Returns the entire emoji registry object.
- */
 export async function getEmojiRegistry(
   options: EmojiRegistryOptions = {},
 ): Promise<EmojiRegistry> {
   return loadEmojiRegistry(options)
 }
 
-/**
- * Checks if an emoji exists in the registry.
- */
 export async function hasEmoji(
   emoji: string,
   options: EmojiRegistryOptions = {},
@@ -163,6 +141,5 @@ export async function hasEmoji(
   return emoji in loadedRegistry
 }
 
-/* Kick off the default registry fetch as soon as this module is imported,
-   rather than waiting for the first v-emoji-bound element to mount. */
+// Start the fetch on import instead of waiting for the first v-emoji element.
 void loadEmojiRegistry()

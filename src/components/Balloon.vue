@@ -45,9 +45,7 @@ const props = withDefaults(defineProps<{
 const slots = useSlots()
 const bias = computed(() => props.bias)
 
-/* In anchor mode, the requested side can flip to avoid viewport overflow;
-   everything else (tip rotation, bias, layout direction) reacts to whichever
-   side is actually in effect. */
+/* In anchor mode, the requested side can flip; tip, bias, and flex follow the active side. */
 const resolvedAnchorSide = ref<Side>(props.side)
 const activeSide = computed(() => (props.anchor ? resolvedAnchorSide.value : props.side))
 
@@ -173,10 +171,8 @@ function computePosition(side: Side, anchor: AnchorRect, rect: DOMRect): { top: 
 }
 
 /*
- * Checks the full resulting box against the viewport, not just the axis the
- * side name suggests — a downward balloon can still poke off the left/right
- * edge if it's wide, so any AABB overlap with the viewport margin counts as
- * not fitting.
+ * Test the full box against the viewport, not just the named axis: a wide
+ * downward balloon can still clip left/right.
  */
 function fitsInViewport(
   position: { top: number; left: number },
@@ -203,9 +199,7 @@ function calculateAnchoredPosition() {
   const viewportHeight = window.innerHeight
   const requestedSide = props.side
 
-  /* Try the requested side, then its opposite, then the two perpendicular
-     sides. First one whose full box fits wins; if none do, give up and use
-     the requested side anyway rather than clamping/repositioning to force a fit. */
+  /* Try requested side, opposite, then perpendicular; fall back to requested. */
   const candidates: Side[] = [
     requestedSide,
     OPPOSITE_SIDE[requestedSide],
@@ -288,7 +282,7 @@ onUnmounted(() => {
     <div v-if="open" class="balloon" :style="balloonStyle">
       <div class="balloon-inner" :style="{ flexDirection }">
 
-        <!-- Wrap the Box to apply bias translation -->
+        <!-- Wrapper applies the bias translation -->
         <div class="balloon-box-wrapper" :style="boxBiasStyle">
           <Box type="notification" :extra-styles="{  whiteSpace: 'pre' }">
             <template v-if="slots.content">

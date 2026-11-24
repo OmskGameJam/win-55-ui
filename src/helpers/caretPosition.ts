@@ -1,11 +1,8 @@
 import { getSelectionOffset, restoreSelectionOffset } from './emojiDom'
 
 /**
- * Returns the on-screen (viewport) rect of the collapsed caret inside `root`,
- * or null if there's no collapsed selection inside it. Works by briefly
- * inserting a zero-width marker at the caret, measuring it, and removing it
- * again — collapsed ranges/carets don't reliably report a client rect on
- * their own in every browser.
+ * Viewport rect of the collapsed caret inside `root`, or null when there is
+ * none. A temporary zero-width marker makes it measurable.
  */
 export function getCaretClientRect(root: HTMLElement): DOMRect | null {
   const selection = window.getSelection()

@@ -1,14 +1,6 @@
 /**
- * Integer layout for the kit's 2px grid.
- *
- * Every rectangle this module emits has edges on integer multiples of `CELL`.
- * Sizes are derived by subtracting snapped edges, never by rounding sizes, so a
- * run of tracks sums to exactly the box it was fitted into and neighbours
- * cannot overlap or leave a seam. Nothing here reads the DOM — callers pass the
- * box from `getBoundingClientRect()`.
- *
- * Modes that fit columns assume the height is unbounded (the container grows
- * downward) and the reverse; only `areas` needs both axes.
+ * Integer layout for the kit's 2px grid. Sizes derive from snapped edges, never
+ * from rounded sizes, so tracks tile exactly; only `areas` reads both axes.
  */
 
 export const CELL = 2
@@ -16,10 +8,8 @@ export const CELL = 2
 export type IntGridMode = 'fill' | 'columns' | 'masonry' | 'areas'
 
 /**
- * Which way items advance. `ltr`/`rtl` are left-to-right / right-to-left,
- * `ttb`/`btt` top-to-bottom / bottom-to-top. Implemented as a mirror of the
- * finished tracks, so a reversed axis anchors to the far edge and the leftover
- * space lands on the near side.
+ * Which way items advance. Reversed flows mirror finished tracks, so the anchor
+ * and leftover space move to the far edge.
  */
 export type IntGridFlow = 'ltr' | 'ttb' | 'rtl' | 'btt'
 
@@ -84,10 +74,7 @@ export interface RepeatGridOptions {
   height?: number
 }
 
-/**
- * Uniform grid: fixed item width filling as many columns as fit (`itemWidth`),
- * or a fixed column count dividing the width evenly (`columns`).
- */
+/** Fixed item width filling as many columns as fit, or a fixed column count. */
 export function repeatGrid(o: RepeatGridOptions) {
   const gap = up(o.gap ?? 0)
   const h = up(o.itemHeight)
@@ -190,7 +177,7 @@ export function masonryGrid(o: MasonryGridOptions) {
     return { rects: mirror(rects, width, mirrorHeight, flow), rows, cols: lanes, height: contentHeight }
   }
 
-  // Horizontal: fixed item height, natural widths, wrap when the row is full.
+  // Horizontal: fixed item height, natural widths, wrap when full.
   const rects: IntGridRect[] = []
   const rowLens: number[] = []
   const rowOf: number[] = []

@@ -4,14 +4,9 @@ import type { CSSProperties } from 'vue'
 import { CELL, areaGrid, masonryGrid, repeatGrid, type IntGridFlow, type IntGridMode, type IntGridRect } from '../helpers/intGrid'
 
 /**
- * Presentation-only integer layout. Positions its direct element children in
- * even pixels; it owns their `position`/`left`/`top`/`width`/`height` and does
- * not render a wrapper per item (there is no `<Cell>`).
- *
- * `fill` / `columns` / `masonry` grow their own height from the fitted width.
- * `areas` uses both axes of its own box, so the consumer must size it (e.g.
- * `height: 100%`). Areas are assigned with `data-intgrid-area="name"` on the
- * child, matching the names in `areas`.
+ * Positions direct children in even pixels; owns their position/size and adds no wrapper.
+ * `areas` reads both axes, so size it; other modes grow downward. Area names use
+ * `data-intgrid-area`.
  */
 const props = withDefaults(defineProps<{
   mode?: IntGridMode
@@ -57,10 +52,8 @@ function place(el: HTMLElement, x: number, y: number, w: number, h?: number) {
 }
 
 /**
- * Publishes the item's position on the element itself: attributes for branching
- * (`[data-win55-row-last]` style logic) and custom properties for `calc()`.
- * `row`/`col` read top-left whatever the flow; `flowRow`/`flowCol` count in
- * fill order, so a `btt` grid's bottom row is `flowRow: 1`.
+ * Publishes row/col (screen order) and flowRow/flowCol (fill order) on the element,
+ * plus custom properties for `calc()`.
  */
 function mark(el: HTMLElement, r: IntGridRect) {
   const d = el.dataset
@@ -76,7 +69,7 @@ function mark(el: HTMLElement, r: IntGridRect) {
   s.setProperty('--win55-flow-col', `${r.flowCol}`)
 }
 
-/** Totals sit on the grid root; the custom properties inherit to every child. */
+/** Row/col totals on the root; custom properties inherit to every child. */
 function markTotals(el: HTMLElement, rows: number, cols: number) {
   el.dataset.win55Rows = `${rows}`
   el.dataset.win55Cols = `${cols}`
@@ -89,7 +82,7 @@ function layout() {
   if (!el) return
 
   const box = el.getBoundingClientRect()
-  // The outer box is the only measurement: everything below is arithmetic.
+  // The outer box is the only measurement.
   const width = Math.floor(box.width / CELL) * CELL
   const height = Math.floor(box.height / CELL) * CELL
 

@@ -121,16 +121,7 @@ function getDirectiveOptions(
   return {}
 }
 
-/*
- * Marks the root of a self-managed dynamic subtree (e.g. `RichText`) that
- * renders its own emoji reactively. The ambient `v-emoji` directive's
- * MutationObserver-driven background scan must not reach into it: its raw
- * `textNode.replaceWith(fragment)` splices detach DOM nodes Vue still owns,
- * so when the subtree's own reactive re-render lands later it patches nodes
- * that are no longer in the live tree, corrupting the output. Standalone,
- * explicitly-triggered calls (`renderCustomEmoji`) are unaffected by this
- * boundary — it only blocks the ambient/automatic scan.
- */
+// Marks a subtree that renders its own emoji; the ambient scan must not splice its Vue-owned nodes.
 const RICHTEXT_BOUNDARY_ATTRIBUTE = 'data-win55-richtext'
 
 function shouldSkipElement(element: Element): boolean {
@@ -140,15 +131,7 @@ function shouldSkipElement(element: Element): boolean {
   )
 }
 
-/**
- * True if some ancestor of `el` also has an enabled `v-emoji` binding, meaning
- * that ancestor's own (subtree-scoped) MutationObserver already covers `el`.
- *
- * Checked lazily at render/copy time rather than in `mounted`, since Vue
- * mounts child elements before their parents: an ancestor's directive state
- * may not exist yet when a descendant's `mounted` hook runs, but always does
- * by the time anything actually renders or a copy event fires.
- */
+/** True when an ancestor's `v-emoji` already covers `el`. Checked lazily: Vue mounts children first. */
 function hasEmojiAncestor(el: HTMLElement): boolean {
   let ancestor = el.parentElement
 
@@ -203,9 +186,8 @@ function quantizeCanvas(
   width: number,
   height: number,
   palette: readonly [number, number, number][],
-  percentage: number,                       // new param, range 0..1
+  percentage: number,
 ): void {
-  // clamp percentage to valid range
   const t = Math.min(1, Math.max(0, percentage));
 
   const imageData = context.getImageData(0, 0, width, height);
@@ -218,18 +200,15 @@ function quantizeCanvas(
     const alpha = data[i + 3];
 
     if (alpha < 80) {
-      // transparent: keep fully transparent
       data[i] = 0;
       data[i + 1] = 0;
       data[i + 2] = 0;
       data[i + 3] = 0;
     } else {
-      // find nearest colour in palette
       const [rQuant, gQuant, bQuant] = findNearestColor(
         originalR, originalG, originalB, palette
       );
 
-      // interpolate between original and quantized
       const r = Math.round(originalR + (rQuant - originalR) * t);
       const g = Math.round(originalG + (gQuant - originalG) * t);
       const b = Math.round(originalB + (bQuant - originalB) * t);
@@ -237,7 +216,7 @@ function quantizeCanvas(
       data[i] = r;
       data[i + 1] = g;
       data[i + 2] = b;
-      data[i + 3] = 255;   // make opaque (original behaviour)
+      data[i + 3] = 255;
     }
   }
 
@@ -426,16 +405,8 @@ function replaceEmojiInTextNode(
 
     matched = true
 
-    /*
-     * Firefox-only: always insert a (possibly empty) text node before this
-     * emoji, even when it's immediately adjacent to the previous one
-     * (index === lastIndex). Two contenteditable="false" atoms with nothing
-     * between them hit the same Firefox caret-placement problem as a
-     * trailing atom — there needs to be a real node between them to land a
-     * caret on. Chrome doesn't need the empty placeholder, and inserting one
-     * anyway plays badly with Chrome's native IME/OS emoji-panel input, so
-     * only add it there when there's actual text to carry.
-     */
+    // Firefox needs a text node before each emoji atom to place the caret.
+    // Chrome only needs it when it carries text; an empty one breaks native IME input.
     const beforeSlice = text.slice(lastIndex, index)
 
     if (FIREFOX_CARET_WORKAROUNDS || beforeSlice.length > 0) {
@@ -476,15 +447,8 @@ function replaceEmojiInTextNode(
     return
   }
 
-  /*
-   * Firefox-only: always leave a (possibly empty) text node after the last
-   * emoji, even when the match ran to the end of the original text. Firefox
-   * refuses to place/render a caret immediately after a trailing
-   * contenteditable="false" atom with no following node. Chrome doesn't need
-   * it, and — unlike the "harmless either way" this used to assume — an
-   * empty trailing text node interferes with Chrome's native IME/OS
-   * emoji-panel input, so only add it there when there's real text to carry.
-   */
+  // Firefox needs a trailing text node after the last atom for the caret.
+  // Chrome only needs it when it carries text; an empty one breaks native IME input.
   const afterSlice = text.slice(lastIndex)
 
   if (FIREFOX_CARET_WORKAROUNDS || afterSlice.length > 0) {
@@ -529,11 +493,7 @@ function replaceEmojiInElement(
 
 const standaloneRenderVersion = new WeakMap<HTMLElement, number>()
 
-/**
- * Renders custom emoji inside `el` once, without requiring the `v-emoji`
- * directive to be bound to it. Useful for components that need to trigger
- * emoji conversion imperatively (e.g. right after a paste).
- */
+/** Renders custom emoji inside `el` once, without binding `v-emoji`; for imperative calls. */
 export async function renderCustomEmoji(
   el: HTMLElement,
   options: EmojiDirectiveOptions = {},
@@ -679,12 +639,7 @@ const emojiDirective: Directive<HTMLElement, EmojiDirectiveBindingValue> = {
   },
 }
 
-/**
- * Draws a black inset outline on the sprite inside a canvas.
- * The outline is applied exactly on the outermost non‑transparent pixels.
- *
- * @param canvas - The target HTMLCanvasElement (size is inferred from its dimensions)
- */
+/** Draws a black inset outline on the sprite's outer non-transparent pixels. */
 function drawInsetBlackOutline(canvas: HTMLCanvasElement): void {
   const ctx = canvas.getContext('2d');
   if (!ctx) {
@@ -695,22 +650,19 @@ function drawInsetBlackOutline(canvas: HTMLCanvasElement): void {
   const width = canvas.width;
   const height = canvas.height;
 
-  // Read the current pixel data
   const imageData = ctx.getImageData(0, 0, width, height);
-  const data = imageData.data; // Uint8ClampedArray in RGBA order
+  const data = imageData.data;
 
-  // Helper: get alpha value of a pixel (0 = fully transparent)
   const getAlpha = (x: number, y: number): number => {
     if (x < 0 || y < 0 || x >= width || y >= height) return 0;
     return data[(y * width + x) * 4 + 3];
   };
 
-  // ------- 1. Find all transparent pixels connected to the canvas border -------
-  // (these define the "outside" background)
+  // 1. Transparent background connected to the canvas border.
   const isBackground = Array.from({ length: height }, () => Array(width).fill(false));
   const queue: { x: number; y: number }[] = [];
 
-  // Enqueue all border pixels that are fully transparent
+  // Enqueue transparent border pixels.
   for (let x = 0; x < width; x++) {
     if (getAlpha(x, 0) === 0 && !isBackground[0][x]) {
       isBackground[0][x] = true;
@@ -732,7 +684,7 @@ function drawInsetBlackOutline(canvas: HTMLCanvasElement): void {
     }
   }
 
-  // BFS flood fill to mark all transparent cells reachable from the border
+  // Flood fill from the border.
   const dirs = [
     [1, 0],
     [-1, 0],
@@ -756,21 +708,17 @@ function drawInsetBlackOutline(canvas: HTMLCanvasElement): void {
     }
   }
 
-  // ------- 2. Identify the external edge pixels of the sprite -------
-  // An opaque pixel is an edge if it has a neighbour that is:
-  //   - out of canvas bounds, or
-  //   - a transparent pixel that belongs to the outside background
+  // 2. Sprite edges: opaque pixels next to the outside background or the canvas bound.
   const isEdge = Array.from({ length: height }, () => Array(width).fill(false));
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      if (getAlpha(x, y) === 0) continue; // skip transparent pixels
+      if (getAlpha(x, y) === 0) continue;
 
       let edge = false;
       for (const [dx, dy] of dirs) {
         const nx = x + dx;
         const ny = y + dy;
-        // Out of bounds → treat as outside background
         if (nx < 0 || ny < 0 || nx >= width || ny >= height) {
           edge = true;
           break;
@@ -785,20 +733,18 @@ function drawInsetBlackOutline(canvas: HTMLCanvasElement): void {
     }
   }
 
-  // ------- 3. Apply black outline on the edge pixels -------
+  // 3. Paint the outline; alpha stays unchanged.
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       if (isEdge[y][x]) {
         const idx = (y * width + x) * 4;
-        data[idx] = 0;     // R = 0
-        data[idx + 1] = 0; // G = 0
-        data[idx + 2] = 0; // B = 0
-        // Alpha channel is left unchanged
+        data[idx] = 0;
+        data[idx + 1] = 0;
+        data[idx + 2] = 0;
       }
     }
   }
 
-  // Write the modified pixels back to the canvas
   ctx.putImageData(imageData, 0, 0);
 }
 

@@ -9,7 +9,6 @@ import type { BoxOverflow } from '../helpers/scroll'
 
 const vCursor = cursorDirective
 
-// Define props for overflow control
 const props = withDefaults(defineProps<TitlebarProps & {
   extraStyles?: CSSProperties
   extraClass?: string
@@ -19,10 +18,10 @@ const props = withDefaults(defineProps<TitlebarProps & {
   resizableHorizontally?: boolean
   resizableVertically?: boolean
 
-  // New faux mode
+  // Faux mode
   faux?: boolean
 
-  // Overflow control for the body, forwarded to the inner Box
+  // Body overflow, forwarded to the inner Box
   overflow?: BoxOverflow
   overflowX?: BoxOverflow
   overflowY?: BoxOverflow
@@ -32,7 +31,6 @@ const props = withDefaults(defineProps<TitlebarProps & {
   minHeight: 40,
 })
 
-// v-model bindings
 const x = defineModel<number>('x', { default: 100 })
 const y = defineModel<number>('y', { default: 100 })
 const width = defineModel<number>('width', { default: 320 })
@@ -49,11 +47,11 @@ const allowVertical = computed(() => (props.resizable ?? false) || (props.resiza
 
 let dragging = false
 let resizing = false
-// which edge/corner the pointer is over ('' | n | s | e | w | ne | nw | se | sw), set by detectEdge
+// which edge/corner the pointer is over ('' | n | s | e | w | ne | nw | se | sw)
 const resizeDir = ref('')
 let activeResizeDir = ''
 
-// edge/corner -> the diagonal-aware resize role, resolved against the active scheme by v-cursor
+// edge/corner -> diagonal-aware resize role, resolved by v-cursor
 const RESIZE_ROLE: Record<string, CursorRole> = {
   n: 'ns-resize',
   s: 'ns-resize',
@@ -76,7 +74,6 @@ let startTop = 0
 // Pointer deltas are fractional; every window edge lands on the 2px visual grid.
 const even = (value: number) => Math.round(value / 2) * 2
 
-// --- Dragging and Resizing ---
 function startDrag(e: MouseEvent) {
   if (props.faux) return
   if (resizeDir.value) return
@@ -229,7 +226,7 @@ function detectEdge(e: MouseEvent) {
     @mousemove="detectEdge"
     @mousedown="startResize"
   >
-    <!-- Window container with flex layout -->
+    <!-- Window container -->
     <div
       class="window-container"
       :style="{
@@ -239,7 +236,7 @@ function detectEdge(e: MouseEvent) {
         width: '100%'
       }"
     >
-      <!-- Titlebar with fixed height -->
+      <!-- Titlebar -->
       <div class="titlebar-wrapper" @mousedown.stop="startDrag" :style="{ height: '34px' }">
         <Titlebar
           :title="title"
@@ -254,7 +251,7 @@ function detectEdge(e: MouseEvent) {
         </Titlebar>
       </div>
       
-      <!-- Window body: Box supplies the kit's custom scrollbars -->
+      <!-- Body: Box supplies the custom scrollbars -->
       <Box
         type="none"
         :overflow-x="props.overflowX ?? props.overflow ?? 'auto'"

@@ -11,16 +11,10 @@ export interface PickerPosition {
   height: number
 }
 
-/*
- * Module-level singleton: a single floating emoji picker Window is shared by
- * the whole app. Position/size live here (not in EmojiPickerWindow's own
- * state) so they survive across close/reopen for the lifetime of the page.
- */
+// One picker per app; position/size survive close/reopen.
 export const pickerOpen = ref(false)
 export const pickerPosition = ref<PickerPosition>({ x: 160, y: 120, width: 360, height: 420 })
-/* shallowRef, not ref: a plain ref deep-wraps any object assigned to it in a
-   reactive Proxy, which would make `activeTarget.value === someTarget`
-   always false for the raw object identity RichInput compares against. */
+/* shallowRef keeps raw object identity for `activeTarget === target` comparisons. */
 export const activeTarget = shallowRef<EmojiInsertTarget | null>(null)
 
 export function registerActiveInput(target: EmojiInsertTarget): void {
@@ -39,9 +33,7 @@ export function insertEmoji(emoji: string): void {
   activeTarget.value?.insertEmoji(emoji)
 }
 
-/* Tracked globally (not per-RichInput-instance) so the trigger button cycles
-   through the icon list in order, then repeats, continuing the same
-   sequence regardless of which RichInput most recently rerolled it. */
+/* Global so the icon cycles in one sequence across every RichInput. */
 let nextButtonIconIndex = 0
 
 export function pickNextButtonIcon(codes: string[]): string {

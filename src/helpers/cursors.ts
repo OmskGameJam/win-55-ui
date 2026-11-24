@@ -17,10 +17,10 @@ export interface CursorEntry {
   hotspotX: number | null
   hotspotY: number | null
   suspiciousInvertFrames: number
-  /** Whether `public/win-55-ui/cursors/<cursorId>/{normal,invert}.gif` exist (checked against disk at publish time). Neither is guaranteed - a cursor can be invert-only (crosshair/text) or normal-only. `native.gif` is written for every cursor, so it has no flag. */
+  /** Whether the normal/invert sprites exist; either may be absent. */
   hasNormal: boolean
   hasInvert: boolean
-  /** Animated cursors only: ms to hold each `native-<i>.gif` still. Native mode flips the CSS `cursor` url through them on a timer (a CSS cursor never animates a GIF itself). */
+  /** Animated cursors only: ms to hold each `native-<i>.gif` still. */
   nativeFrameDelays?: number[]
 }
 
@@ -33,9 +33,7 @@ export interface SchemeInfo {
 
 export type SchemeIndex = Record<string, SchemeInfo>
 
-// manifest.json + scheme.json are static once fetched, so everything resolves against these
-// module vars synchronously after `loadCursors()` settles. `cursorsVersion` bumps when the data
-// lands - a reactive read of it inside a computed/watchEffect makes that scope recompute then.
+// Static after loadCursors(); cursorsVersion bumps when data lands so computeds recompute.
 let manifest: CursorsManifest = {}
 let schemeIndex: SchemeIndex = {}
 export const cursorsVersion = ref(0)
@@ -48,7 +46,7 @@ async function fetchJson<T>(url: string): Promise<T> {
   return response.json() as Promise<T>
 }
 
-/** Fetches manifest.json + scheme.json once (published by `npm run cursors -- sprite`); idempotent. */
+/** Fetches the manifest and scheme once; idempotent. */
 export function loadCursors(): Promise<void> {
   if (!loadPromise) {
     loadPromise = Promise.all([
@@ -63,21 +61,21 @@ export function loadCursors(): Promise<void> {
   return loadPromise
 }
 
-/** Awaits the one fetch, then resolves to the scheme index (slug -> displayName + role map). */
+/** Resolves the scheme index after loading. */
 export async function loadSchemeIndex(): Promise<SchemeIndex> {
   await loadCursors()
   return schemeIndex
 }
 
-/** The overlay's normal/invert sprites render at 2x source pixels (project rule) - multiply a manifest hotspot by this for them. native.gif is 1:1 and uses the raw hotspot. */
+/** Overlay sprites render at 2x; native.gif is 1:1 and uses the raw hotspot. */
 export const SPRITE_SCALE = 2
 
 const CURSORS_BASE_URL = '/win-55-ui/cursors'
 
-/** Falls back here when a scheme lacks a role - not every themed pack ships e.g. `handwriting`/`help`. */
+/** Used when a scheme lacks a role. */
 const FALLBACK_SCHEME = 'windows-default'
 
-/** Role -> the native CSS `cursor` keyword used as the fallback tail of a `url()` value, and on its own when no sprite fits. */
+/** Fallback CSS keyword per role. */
 const ROLE_KEYWORD: Record<string, string> = {
   default: 'default',
   link: 'pointer',
@@ -104,7 +102,7 @@ function idInScheme(scheme: string, role: string): string | undefined {
   return cursorId
 }
 
-/** Sync cursorId for a scheme/role, with the windows-default fallback. undefined until `loadCursors()` settles or if neither scheme has the role. */
+/** cursorId for a scheme/role, falling back to windows-default. */
 export function cursorIdFor(scheme: string, role: string): string | undefined {
   void cursorsVersion.value
   return idInScheme(scheme, role) ?? (scheme === FALLBACK_SCHEME ? undefined : idInScheme(FALLBACK_SCHEME, role))
@@ -115,11 +113,7 @@ export function manifestEntryFor(cursorId: string): CursorEntry | undefined {
   return manifest[cursorId]
 }
 
-/**
- * Sync native-mode CSS `cursor` value: `url("<cursorId>/native.gif") x y, kw` (native.gif is flat
- * 1:1, so the raw manifest hotspot). Falls back to the bare CSS keyword when the role has no sprite;
- * undefined only when the role maps to no keyword at all.
- */
+/** Native cursor value; bare keyword when the role has no sprite. */
 export function cursorCssFor(scheme: string, role: string): string | undefined {
   const keyword = ROLE_KEYWORD[role]
   const cursorId = cursorIdFor(scheme, role)
@@ -128,23 +122,14 @@ export function cursorCssFor(scheme: string, role: string): string | undefined {
   return `url("${CURSORS_BASE_URL}/${cursorId}/native.gif") ${entry.hotspotX ?? 0} ${entry.hotspotY ?? 0}, ${keyword ?? 'default'}`
 }
 
-/**
- * cursorCssFor but never a bare keyword: a role with no sprite falls back to the scheme's `default`
- * cursor. For the always-on paths (subtree base, `<a>`/text-field/disabled derivation) so native
- * mode never surfaces the OS cursor.
- */
+/** `cursorCssFor` that never returns a bare keyword; falls back to the scheme's `default`. */
 export function themedCursorCssFor(scheme: string, role: string): string | undefined {
   const value = cursorCssFor(scheme, role)
   if (value?.startsWith('url(') || role === 'default') return value
   return cursorCssFor(scheme, 'default') ?? value
 }
 
-/**
- * Replaces `value`'s trailing CSS keyword with `fallback` (itself a full `url(...) x y, kw` chain),
- * so a sprite that hasn't decoded yet lands on the ambient cursor instead of flashing the OS one.
- * A bare-keyword `value` (a deliberately pinned unresolved role) passes through untouched; a missing
- * `value` becomes the fallback outright.
- */
+/** Replaces the trailing keyword with `fallback`; a missing value becomes the fallback. */
 export function withCssFallback(value: string | undefined, fallback: string): string {
   if (!value) return fallback
   const comma = value.lastIndexOf(',')

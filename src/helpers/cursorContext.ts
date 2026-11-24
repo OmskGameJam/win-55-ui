@@ -1,18 +1,11 @@
 import { inject, provide, ref, type ComputedRef, type InjectionKey } from 'vue'
 
-/**
- * How a subtree's cursor is painted. Inherited down the context chain like `disabled`.
- * - `native`: a real CSS `cursor: url()`, the browser paints it (no invert layer).
- * - `immersive`: `cursor: none` everywhere, CursorOverlay draws the sprite (invert layer, edge-safe).
- */
+/** `native` paints real CSS cursors; `immersive` hides them and draws sprites in an overlay. */
 export type CursorMode = 'native' | 'immersive'
 
 /**
- * A cursor role - the abstract slot (`link`, `text`, `not-allowed`, ...) a scheme maps to a
- * concrete cursor. These are every role the shipped schemes define (see
- * `public/win-55-ui/cursors/scheme.json`); `(string & {})` keeps the union open - an unknown role
- * still type-checks and resolves through the windows-default fallback - while giving editors the
- * known names as completions for `<CursorContext role>` and `v-cursor`.
+ * Known cursor roles. The open union lets unknown roles type-check and resolve
+ * through the windows-default fallback while keeping editor completions.
  */
 export type CursorRole =
   | 'default'
@@ -33,71 +26,52 @@ export type CursorRole =
   | (string & {})
 
 export interface CursorContextApi {
-  /** Effective scheme, already resolved against this context's ancestor chain. */
+  /** Effective scheme after ancestor inheritance. */
   scheme: ComputedRef<string>
-  /** Effective render mode, already resolved against this context's ancestor chain. */
+  /** Effective render mode after ancestor inheritance. */
   mode: ComputedRef<CursorMode>
-  /** Effective *pinned* role, or undefined when nothing pins one and the cursor is left to derive from the element's native `cursor` (see CursorOverlay.vue). */
+  /** Pinned role, or `undefined` when each element derives its own cursor. */
   role: ComputedRef<CursorRole | undefined>
-  /** True when the kit cursor is off for this subtree (a `disabled` ancestor, or a `root` with `disable-all`); the OS cursor renders instead. */
+  /** True when the kit cursor is off; the OS cursor renders instead. */
   disabled: ComputedRef<boolean>
-  /** True while this context or any ancestor has an in-flight addBusy()/addProgress() promise. */
+  /** True while this context or an ancestor has an in-flight busy promise. */
   hasBusy: ComputedRef<boolean>
   hasProgress: ComputedRef<boolean>
-  /** Resolves a role against the effective scheme to a cursorId, substituting busy/progress for "default" when one is active (see CursorContext.vue's roleForState). undefined until cursor data has loaded. */
+  /** Resolves a role to a cursorId; busy/progress replace `default`. Undefined until data loads. */
   resolveRole: (role: CursorRole) => string | undefined
-  /** As resolveRole, but a native-mode CSS `cursor` value (`url(...) x y, kw`) instead of a cursorId. */
+  /** As `resolveRole`, but returns a native CSS cursor value. */
   resolveRoleCss: (role: CursorRole) => string | undefined
-  /** This subtree's `default` cursor as a native CSS value, with every re-theming ancestor's default chained ahead of the keyword as url() fallbacks. Every other native cursor here ends with this, so a sprite still decoding never flashes the OS cursor. `auto` in a disabled subtree. */
+  /** Subtree default as a native CSS value, with ancestor fallbacks. `auto` when disabled. */
   nativeBaseCss: ComputedRef<string>
-  /** Shows the "wait" hourglass for every unpinned / "default" cursor in this subtree until `promise` settles. Takes priority over addProgress. */
+  /** Show wait for unpinned cursors until `promise` settles; beats progress. */
   addBusy: (promise: Promise<unknown>) => void
-  /** As addBusy, but the "arrow + hourglass" progress cursor - lower priority. */
+  /** Show progress for unpinned cursors until `promise` settles. */
   addProgress: (promise: Promise<unknown>) => void
 }
 
 export const CURSOR_CONTEXT_KEY: InjectionKey<CursorContextApi> = Symbol('win55ui:cursor-context')
 
-/**
- * Resolved cursorId, inherited down the DOM like `cursor` but never painted, so CursorOverlay reads
- * it via getComputedStyle. Set only where a role is pinned (`role` prop, `v-cursor`, busy/progress);
- * where it's absent CursorOverlay derives the cursor from the element's native `cursor` instead.
- */
+/** Inherited cursorId, read via getComputedStyle; set only where a role is pinned. */
 export const CURSOR_TOKEN_PROPERTY = '--win55-cursor'
 
-/** Effective scheme, inherited down the DOM, so CursorOverlay resolves a derived role in the right themed pack. */
+/** Inherited scheme for the overlay's themed lookups. */
 export const CURSOR_SCHEME_PROPERTY = '--win55-scheme'
 
-/**
- * Native mode only. `url(...) x y` for the `link` / `text` role of the effective scheme, then the
- * subtree default and every re-theming ancestor's default as url() fallbacks, then the keyword (see
- * withCssFallback / CursorContext's nativeBaseCss) - so a link/text sprite still decoding falls back
- * to the ambient cursor, never the OS one. `auto` inside a `disabled` subtree. Inherited down the
- * DOM; index.css's `:where(a[href])` / `:where(textarea, ...)` rules paint them, so links and text
- * fields get a themed context cursor with no per-element JS. A CursorContext that changes its
- * subtree's theme republishes both; a pinned `role` sets both equal to the base cursor.
- */
+/** Inherited native cursor values for links and text fields. */
 export const CURSOR_NATIVE_LINK_PROPERTY = '--win55-cursor-native-link'
 export const CURSOR_NATIVE_TEXT_PROPERTY = '--win55-cursor-native-text'
-/** Native mode: `not-allowed` role for the effective scheme; painted by index.css's `:where(:disabled, :disabled *)` rule so disabled controls match immersive's `wouldBeCursorRole`. */
+/** Inherited native cursor value for disabled controls. */
 export const CURSOR_NATIVE_NOTALLOWED_PROPERTY = '--win55-cursor-native-notallowed'
 
-/** The elements the native-mode `:where()` rules (and immersive's wouldBeCursorRole / the frame animator) treat as a link or a text field - kept in sync with index.css by hand. */
+/** Selectors treated as links or text fields for cursor derivation. */
 export const NATIVE_LINK_SELECTOR = 'a[href], area[href]'
 export const NATIVE_TEXT_SELECTOR =
   'textarea, [contenteditable]:not([contenteditable="false"]), input:not([type]), input[type="text" i], input[type="search" i], input[type="url" i], input[type="tel" i], input[type="email" i], input[type="password" i], input[type="number" i]'
 
-/**
- * The value index.css's `* { cursor: var(--win55-cursor-native, none) !important }` rule paints,
- * inherited down the DOM:
- * - unset / `none` - immersive: OS cursor hidden, CursorOverlay draws the sprite.
- * - `url("...") x y, kw` - native mode: the browser paints the themed sprite directly.
- * - `auto` - OS cursor renders. Only inside a `disabled` subtree or `[data-win55-cursor="off"]`.
- * CursorOverlay hides itself whenever the value under the pointer is anything other than `none`.
- */
+/** Inherited native cursor value; `none` means immersive, `auto` means the OS cursor. */
 export const CURSOR_NATIVE_PROPERTY = '--win55-cursor-native'
 
-/** The four inherited native-mode cursor props: subtree base + the link / text / not-allowed derivations. CursorContext and v-cursor write them as a set. */
+/** All four inherited native cursor props. */
 export const NATIVE_CURSOR_PROPS = [
   CURSOR_NATIVE_PROPERTY,
   CURSOR_NATIVE_LINK_PROPERTY,
@@ -105,10 +79,10 @@ export const NATIVE_CURSOR_PROPS = [
   CURSOR_NATIVE_NOTALLOWED_PROPERTY,
 ] as const
 
-/** Every property a CursorContext writes - the `root` context clears/mirrors this whole set on `<html>`. */
+/** Every property a CursorContext writes on its element or `<html>`. */
 export const MANAGED_CURSOR_PROPS = ['cursor', CURSOR_SCHEME_PROPERTY, CURSOR_TOKEN_PROPERTY, ...NATIVE_CURSOR_PROPS] as const
 
-// Hard kill switch from a `root` context's `disable-all` - overrides any nested re-enable.
+// Hard kill switch; beats nested re-enables.
 const globalCursorDisabled = ref(false)
 
 export function setGlobalCursorDisabled(value: boolean): void {
@@ -123,17 +97,12 @@ export function provideCursorContext(api: CursorContextApi): void {
   provide(CURSOR_CONTEXT_KEY, api)
 }
 
-/** For a component's own <script setup>. A directive can't inject(); it uses findNearestCursorContext instead. */
+/** For `<script setup>`; directives use `findNearestCursorContext` instead. */
 export function useCursorContext(): CursorContextApi | undefined {
   return inject(CURSOR_CONTEXT_KEY, undefined)
 }
 
-/**
- * Property name under which each CursorContext stashes its api on its own DOM element, for v-cursor
- * to find by `.parentElement` walk. inject() / binding.instance can't be used from the directive:
- * for `<CursorContext><div v-cursor>` in one template, `_withCtx` attributes the vnode to the
- * component that authored the slot, not CursorContext, even though the mounted tree nests right.
- */
+/** Stashed on each context element for `findNearestCursorContext` to find by DOM walk. */
 const CURSOR_CONTEXT_DOM_MARKER = '__win55CursorContext'
 
 export function markCursorContextElement(el: Element, api: CursorContextApi): void {
@@ -144,8 +113,7 @@ export function unmarkCursorContextElement(el: Element): void {
   delete (el as unknown as Record<string, CursorContextApi | undefined>)[CURSOR_CONTEXT_DOM_MARKER]
 }
 
-// The one `root` CursorContext. `<Teleport>`-ed content sits outside every CursorContext element's
-// subtree, so the `.parentElement` walk can't reach one - findNearestCursorContext falls back here.
+// Fallback for teleported content outside every marked subtree.
 let rootCursorContext: CursorContextApi | undefined
 
 export function setRootCursorContext(api: CursorContextApi): void {
@@ -156,7 +124,7 @@ export function clearRootCursorContext(api: CursorContextApi): void {
   if (rootCursorContext === api) rootCursorContext = undefined
 }
 
-/** Nearest marked CursorContext ancestor by `.parentElement` walk, else the registered `root` context, else undefined. */
+/** Nearest marked ancestor, else the registered root context. */
 export function findNearestCursorContext(el: Element | null): CursorContextApi | undefined {
   let node = el
   while (node) {

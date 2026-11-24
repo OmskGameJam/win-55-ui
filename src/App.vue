@@ -43,8 +43,7 @@ const typographyDisplayModes = ['inline', 'contents'] as const
 const vEmoji = emojiDirective
 const vCursor = cursorDirective
 
-// The fun corner is gitignored, so resolve it through a glob: a checkout
-// without src/fun/ still builds, it just has nothing to show.
+// The fun corner is gitignored; glob so a checkout without src/fun/ still builds.
 const funModules = import.meta.glob('./fun/*.vue')
 
 const BadAppleDemo = defineAsyncComponent(async () => {
@@ -78,7 +77,6 @@ const boxStyle = {
   marginLeft: '8px',
 }
 
-// Window resize mode controls
 const manualLineCount = ref(10)
 const manualLineChunks = ref(0)
 const manualForgiveVertical = ref(false)
@@ -113,7 +111,6 @@ const windowOverflowY = ref(true)
 // Global preload state: counts advance as `startPreload` walks the generated asset list.
 const { progress: preloadProgress, startPreload } = useWin55Preload()
 
-// Computed properties for resize flags
 const resizable = computed(() => resizeMode.value === 'both')
 const resizableHorizontally = computed(() => resizeMode.value === 'horizontal' || resizeMode.value === 'both')
 const resizableVertically = computed(() => resizeMode.value === 'vertical' || resizeMode.value === 'both')
@@ -174,8 +171,7 @@ const exampleProgressSpans: ProgressBarSpan[] = [
   { start: 5, end: 8, color: '#00AA00' },
 ]
 
-// Each kitchen-sink section is gated behind a checkbox and hidden until toggled on.
-// Grouped into NamedPanels purely for the debug-toggle UI.
+// Each section is gated behind a debug checkbox.
 const sectionGroups: { label: string; sections: { key: string; label: string }[] }[] = [
   {
     label: 'Typography & text',
@@ -236,9 +232,7 @@ const sections = reactive<Record<string, boolean>>(
   ),
 )
 
-// Simulates text arriving after the initial render (e.g. from an API call),
-// mixing registered emoji (rendered as our GIFs) and unregistered ones
-// (rendered via the canvas fallback) with plain text.
+// Simulates text arriving later, mixing registry and fallback emoji.
 const delayedEmojiText = ref('')
 setTimeout(() => {
   delayedEmojiText.value = 'Loaded later: pizza night 🍕🐶 party time 🎉✨ and also 😀🥳🦄 surprise!'
@@ -801,7 +795,6 @@ const donutPositions = computed(() => {
           </div>
         </div>
 
-        <!-- First window is floating like normal -->
         <Window 
           :resizable="resizable" 
           :resizableHorizontally="resizableHorizontally" 
@@ -821,7 +814,6 @@ const donutPositions = computed(() => {
           </Box>
         </Window>
       
-        <!-- Second window is in faux mode, behaving as a div -->
         <Window faux title="Title 👀😀🥳🦄🎉✨ " show-placeholder-buttons>
           Sample
         </Window>
@@ -1011,14 +1003,13 @@ const donutPositions = computed(() => {
       </div>
     </Typography>
 
-    <!-- Independent of the v-emoji above (not a descendant of it): verifies
-         multiple separate v-emoji instances on the same page both work. -->
+    <!-- Independent v-emoji instance, not a descendant of the one above. -->
     <Typography v-if="sections.secondEmoji" v-emoji font-color="black">
       <h2>Second, independent v-emoji instance</h2>
       <div>🎉✨ party over here too</div>
     </Typography>
 
-    <!-- Global singleton: mounted once, shared by every RichInput's emoji button -->
+    <!-- Mounted once, shared by every RichInput emoji button. -->
     <EmojiPickerWindow />
 
     <StrikeTester v-model:open="strikeTesterOpen" />

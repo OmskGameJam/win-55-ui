@@ -1,29 +1,22 @@
 import { reactive } from 'vue'
 
 export interface Win55PreloadProgress {
-  /** How many resources are registered for preloading. */
   total: number
-  /** How many resources have settled - loaded or failed. */
   loaded: number
-  /** `loaded / total` as a whole percentage, 0-100; kept in sync with the counts. */
   percent: number
-  /** True once every registered resource has settled. */
   done: boolean
 }
 
 export interface Win55PreloadApi {
-  /** The one global preload state, shared by every caller. */
+  /** Global, shared by every caller. */
   progress: Readonly<Win55PreloadProgress>
-  /** Queue one extra resource; a base-relative path, a root-relative path or an absolute URL. */
   addPreloadPath: (path: string) => void
-  /** Start (or resume) preloading everything registered so far; resolves when the queue drains. */
   startPreload: () => Promise<void>
 }
 
-/** Enough parallelism to hide latency without opening thousands of sockets. */
 const CONCURRENCY = 8
 
-/** Generated at build time by `win55uiPreloadManifest()` (see `plugin.js`). */
+/** Generated at build time from the public asset list. */
 const MANIFEST_PATH = 'win-55-ui/assets.json'
 
 /** Manifest paths are base-relative; `/...` and absolute URLs are taken as written. */
@@ -33,8 +26,7 @@ const MANIFEST_URL = `${BASE_URL}${MANIFEST_PATH}`
 const IMAGE_EXTENSIONS = new Set(['avif', 'bmp', 'gif', 'ico', 'jpeg', 'jpg', 'png', 'svg', 'webp'])
 const FONT_EXTENSIONS = new Set(['otf', 'ttf', 'woff', 'woff2'])
 
-// Module-level singleton: every `useWin55Preload()` call observes the same run,
-// so a component that mounts mid-preload already sees the current progress.
+// Module singleton: every caller observes the same run, including mid-preload mounts.
 const progress = reactive<Win55PreloadProgress>({
   total: 0,
   loaded: 0,
@@ -71,7 +63,7 @@ function register(path: string): void {
   updateProgress()
 }
 
-/** Fetches and registers the generated asset list; idempotent and failure-tolerant. */
+/** Fetches and registers the generated list; idempotent and failure-tolerant. */
 function loadManifest(): Promise<void> {
   if (!manifestPromise) {
     manifestPromise = (async () => {
@@ -97,7 +89,6 @@ function extensionOf(url: string): string {
   return dot === -1 ? '' : path.slice(dot + 1).toLowerCase()
 }
 
-/** `Standard-Regular-12.ttf` -> `Standard-Regular-12`, the @font-face family name. */
 function fontFamilyOf(url: string): string {
   const path = url.split(/[?#]/)[0]
   const name = path.slice(path.lastIndexOf('/') + 1)
@@ -108,8 +99,7 @@ function fontFamilyOf(url: string): string {
 function preloadImage(url: string): Promise<void> {
   const image = new Image()
   image.src = url
-  // decode() resolves only once the frame is ready to paint, which is the whole
-  // point of preloading. Older engines fall back to the load event.
+  // decode() resolves when the frame is ready to paint; older engines use load.
   if (typeof image.decode === 'function') return image.decode()
   return new Promise((resolve, reject) => {
     image.onload = () => resolve()
@@ -128,8 +118,7 @@ async function preloadFont(url: string): Promise<void> {
   const family = fontFamilyOf(url)
   if (family && typeof document !== 'undefined' && document.fonts) {
     try {
-      // Loads through the family's @font-face rule, so the font is parsed and
-      // ready for the next paint instead of merely sitting in the HTTP cache.
+      // Loads through @font-face so the font is parsed, not just HTTP-cached.
       const faces = await document.fonts.load(`16px "${family}"`)
       if (faces.length > 0) return
     } catch {
@@ -152,7 +141,7 @@ async function runQueue(): Promise<void> {
       try {
         await preloadOne(url)
       } catch (error) {
-        // A single missing file must not stall the run: name it, count it, move on.
+        // One missing file must not stall the run: warn and continue.
         console.warn(`[win-55-ui] Could not preload ${url}: ${(error as Error).message}`)
       }
       progress.loaded += 1
@@ -201,19 +190,12 @@ const api: Win55PreloadApi = {
   startPreload,
 }
 
-/** Set once the API is used, so merely importing the library never fetches the list. */
+/** Importing alone must not fetch; the first API use primes the manifest. */
 let primed = false
 
 /**
- * The win-55-ui preloading API (no conventional preloader): a global, reactive
- * progress record plus a queue you can extend and start from anywhere.
- *
- * The initial queue is every file under `public/` except the on-demand emoji
- * GIFs, generated at build time by `win55uiPreloadManifest()` and resolved
- * against `import.meta.env.BASE_URL`, so the same code works in dev, in a
- * production build and under a sub-path. Calling this primes that list so
- * `progress.total` is known before the first `startPreload()`; it never
- * downloads an asset by itself.
+ * Global reactive preload progress plus an extendable queue. The first call primes
+ * the generated asset list; it never downloads an asset by itself.
  */
 export function useWin55Preload(): Win55PreloadApi {
   if (!primed) {

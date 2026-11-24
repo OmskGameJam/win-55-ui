@@ -13,18 +13,12 @@ export interface ShortcodeLookup {
   get(name: string): { emoji: string; code: string } | undefined
 }
 
-/** Raw unicode emoji -> registry code, e.g. the `EmojiRegistry` from helpers/emoji.ts. */
+/** Raw unicode emoji -> registry code. */
 export type EmojiRegistryLookup = Record<string, string>
 
 type TagType = 'bold' | 'italic' | 'underline' | 'strike' | 'color' | 'size' | 'url'
 
-/*
- * BBCode tag vocabulary intentionally includes tags Typography can't fully
- * honor yet (e.g. italic — there's no italic font strike shipped). Rendered
- * nodes still get produced for them; it's up to the renderer (Typography's
- * own style-degradation) to silently fall back rather than this parser
- * needing to know what's actually renderable.
- */
+// Includes tags Typography may not render; the parser emits nodes and lets the renderer degrade.
 const ALLOWED_TAGS: Record<string, TagType> = {
   b: 'bold',
   i: 'italic',
@@ -36,7 +30,7 @@ const ALLOWED_TAGS: Record<string, TagType> = {
   url: 'url',
 }
 
-/** Self-closing tags: emit a leaf node immediately, regardless of a trailing slash. */
+/** Always leaf nodes, with or without a trailing slash. */
 const SELF_CLOSING_TAGS = new Set(['br'])
 
 /** [size=] keyword shorthands, alongside raw numeric values. */
@@ -126,12 +120,7 @@ function escapeRegExp(value: string): string {
 const rawEmojiRegexCache = new WeakMap<EmojiRegistryLookup, RegExp>()
 const noRegistryEmojiRegex = new RegExp(EMOJI_DETECTION_PATTERN, 'gu')
 
-/**
- * Registry emoji first (longest first, so multi-codepoint sequences win over
- * prefixes), then the generic pictographic pattern so unicode emoji outside
- * the registry are still recognized (and get a rasterized fallback glyph
- * downstream instead of being left as plain text).
- */
+/** Registry emoji first (longest first), then generic pictographs. */
 function getRawEmojiRegex(registry: EmojiRegistryLookup | null): RegExp {
   if (!registry) return noRegistryEmojiRegex
 
@@ -150,15 +139,7 @@ function getRawEmojiRegex(registry: EmojiRegistryLookup | null): RegExp {
   return regex
 }
 
-/**
- * Splits out raw (already-unicode, not `:shortcode:`) emoji characters, so
- * they render through the same Vue-native `emoji` RichNode as shortcodes —
- * never via the `v-emoji` directive's own DOM splicing, which would race
- * RichText's own reactive re-renders. Emoji present in the registry carry a
- * `code` (rendered as the registry GIF); emoji outside the registry carry no
- * `code`, leaving the renderer to rasterize a fallback glyph, matching the
- * `v-emoji` directive's own fallback behavior.
- */
+/** Splits raw emoji into `emoji` nodes; registry matches carry a `code`. */
 function splitRawEmoji(text: string, registry: EmojiRegistryLookup | null): RichNode[] {
   const regex = getRawEmojiRegex(registry)
 
@@ -206,10 +187,8 @@ function splitEmoji(
 }
 
 /**
- * Parses a limited BBCode subset ([b] [i] [u] [s]/[strike] [color=] [size=]
- * [url]/[url=] [br]) plus `:shortcode:` emoji into a tree of RichNode.
- * Unknown tags and unmatched/malformed brackets pass through as literal
- * text rather than being stripped.
+ * Parses a limited BBCode subset plus `:shortcode:` emoji into RichNodes.
+ * Unknown or malformed tags pass through as literal text.
  */
 export function parseRichText(
   text: string,

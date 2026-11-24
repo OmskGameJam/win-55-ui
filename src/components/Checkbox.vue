@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { cursorWeakDirective } from '../directives/cursor'
 
-// weak: a consumer's plain v-cursor on <Checkbox> overrides this default (see directives/cursor.ts)
+// weak: a consumer's plain v-cursor overrides this default.
 const vCursor = cursorWeakDirective
 
 const props = withDefaults(defineProps<{

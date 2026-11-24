@@ -6,7 +6,7 @@ import { loadEmojiRegistry, type EmojiRegistry } from '../helpers/emoji'
 import { parseRichText, type ShortcodeLookup } from '../helpers/richText'
 import { cursorWeakDirective } from '../directives/cursor'
 
-// weak: a consumer's plain v-cursor on <RichText> overrides this default (see directives/cursor.ts)
+// weak: a consumer's plain v-cursor overrides this default.
 const vCursor = cursorWeakDirective
 
 const props = withDefaults(defineProps<{ allowLinks?: boolean; allowSizes?: boolean }>(), {
@@ -17,12 +17,8 @@ const props = withDefaults(defineProps<{ allowLinks?: boolean; allowSizes?: bool
 const slots = useSlots()
 
 /*
- * Populated asynchronously; nodes render without emoji resolution until
- * these load, then re-render once ready (same fetch-and-cache pattern as
- * the rest of the emoji system). Both shortcodes AND raw unicode emoji are
- * resolved here, into real `emoji` RichNodes rendered natively by
- * RichTextNode — never via the ambient `v-emoji` directive's DOM splicing,
- * which would race this component's own reactive re-renders.
+ * Async: renders plain until emoji data loads, then re-renders. Shortcode and
+ * raw emoji both become `emoji` RichNodes.
  */
 const shortcodeMap = ref<Map<string, { emoji: string; code: string }> | null>(null)
 const emojiRegistry = ref<EmojiRegistry | null>(null)
@@ -48,7 +44,7 @@ const shortcodeLookup = computed<ShortcodeLookup | null>(() => {
   return map ? { get: (name: string) => map.get(name) } : null
 })
 
-/** Flattens the default slot's vnodes down to their raw text content. */
+/** Flattens the default slot to text. */
 function slotToText(vnodes: VNode[]): string {
   return vnodes.map((node) => {
     if (typeof node.children === 'string') return node.children

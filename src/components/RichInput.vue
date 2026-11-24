@@ -19,8 +19,7 @@ import {
   type EmojiInsertTarget,
 } from '../helpers/emojiPickerStore'
 
-/* Exact registry matches for a few whimsical picker trigger icons; one is
-   picked at random each time the button becomes visible. */
+// Random picker trigger icons; one is chosen each time the button appears.
 const EMOJI_BUTTON_CODES = [
   '338', // :smile:
   '814', // :notes:
@@ -29,13 +28,11 @@ const EMOJI_BUTTON_CODES = [
   'B60', // :sparkles:
 ]
 
-/* Shown instead of the cycling icon while the picker is open and targeting
-   this specific input, as a visual "the picker is pointing at you" cue. */
+// Shown while the picker targets this input.
 const BOOK_ICON_CODE = '546' // :book:
 
 /*
- * The narrow prop/event surface is deliberate: RichInput owns `keydown` /
- * `beforeinput` / `paste` for the shortcode and emoji machinery, so those
+ * RichInput owns keydown/beforeinput/paste for shortcodes and emoji, so those
  * events are not re-emitted. `BaseInput` is the open one.
  */
 const props = withDefaults(defineProps<{
@@ -77,17 +74,13 @@ const handleInput = () => {
 }
 
 /*
- * Discord-style `:shortcode:` autocomplete. Never silently auto-converts a
- * fully-typed `:name:` — a closing `:` only resolves if the popup was
- * already open showing that exact query the instant before, so the user
- * always saw it coming. Otherwise, confirmation only happens through an
- * explicit Tab/Space/Enter while the popup is open.
+ * Discord-style `:shortcode:` autocomplete: a closed `:name:` resolves only if
+ * the popup was already showing that query. Otherwise Tab/Space/Enter confirms.
  */
 const OPEN_SHORTCODE_PATTERN = /:([A-Za-z0-9_+-]*)$/
 const CLOSED_SHORTCODE_PATTERN = /:([A-Za-z0-9_+-]{2,}):$/
 
-/* Virtual scroll: only SHORTCODE_WINDOW_SIZE rows are ever rendered, however
-   many matches there are, sliding the window as the selection moves past it. */
+/* Only SHORTCODE_WINDOW_SIZE rows are rendered, sliding as the selection moves past them. */
 const SHORTCODE_WINDOW_SIZE = 5
 
 const shortcodeOpen = ref(false)
@@ -97,9 +90,7 @@ const selectedMatchIndex = ref(0)
 const caretRect = ref<AnchorRect | null>(null)
 let shortcodeRequestId = 0
 
-/* The window only slides when the selection moves past whichever edge it's
-   currently pinned to — the cursor is otherwise free to move within the
-   already-visible rows without provoking a scroll. */
+/* The window slides only when the selection leaves the visible rows. */
 const shortcodeWindowStart = ref(0)
 
 function scrollShortcodeWindowTo(index: number) {
@@ -167,12 +158,8 @@ const confirmSelectedMatch = () => {
 }
 
 /*
- * Full emoji picker: BaseInput exposes an `insertEmoji` target the global
- * picker store calls back into. Opening the picker usually moves focus away
- * from this input, so the caret position to insert at is captured on blur;
- * but the picker button itself doesn't steal focus (it's a plain <img>), so
- * if this input is still focused, its live selection is more accurate than
- * whatever was last captured on a previous blur.
+ * Picker usually moves focus away, so capture the caret on blur; if this input
+ * still has focus, its live selection is more accurate.
  */
 const lastCaretOffset = ref<number | null>(null)
 
@@ -201,25 +188,20 @@ const insertEmoji = (emojiChar: string) => {
   void renderCustomEmoji(el.value)
 }
 
-/* Stable object identity so the store's activeTarget can be compared against
-   it (===) to know whether the picker is currently targeting THIS input. */
+/* Stable identity so the store can compare activeTarget with `===`. */
 const emojiTarget: EmojiInsertTarget = { insertEmoji }
 
 const isFocused = ref(false)
 
-/* Whether the picker is currently open and targeting THIS input specifically
-   (as opposed to just being focused). */
+/* Picker open and targeting this input, not just focused. */
 const isPickerTargetingThis = computed(() => pickerOpen.value && activeTarget.value === emojiTarget)
 
-/* Only show the trigger button while this input is focused, or while the
-   picker is open and still targeting it (so it stays visible if focus moves
-   to the picker window itself). */
+/* Show while focused, or while the picker targets this input. */
 const showEmojiButtonNow = computed(() => props.showEmojiButton && (isFocused.value || isPickerTargetingThis.value))
 
 const emojiButtonCode = ref(EMOJI_BUTTON_CODES[0])
 
-/* While the picker is pointed at this input, show :book: as a "the picker is
-   pointing at you" cue instead of the cycling icon. */
+/* Show :book: while the picker targets this input. */
 const displayedEmojiButtonCode = computed(() =>
   isPickerTargetingThis.value ? BOOK_ICON_CODE : emojiButtonCode.value)
 
@@ -314,11 +296,8 @@ const updateShortcodeTrigger = async () => {
 }
 
 /*
- * BaseInput implements its own undo/redo stack instead of relying on the
- * browser's native contentEditable history: native undo/redo mutates the
- * emoji-span DOM in an unspecified way (it isn't aware of `data-win55-emoji`
- * atoms), so we intercept `historyUndo`/`historyRedo` and replay full
- * innerHTML + caret snapshots instead.
+ * Own undo/redo: native contentEditable history mutates emoji atoms
+ * unpredictably, so replay innerHTML + caret snapshots instead.
  */
 const HISTORY_COALESCE_MS = 200
 
@@ -695,11 +674,8 @@ const deleteAdjacentEmoji = (
 }
 
 /*
- * Firefox doesn't reliably step the caret across a contenteditable="false"
- * emoji atom with plain ArrowLeft/ArrowRight (it can get stuck at the
- * boundary) — so this jumps it across manually, treating the emoji as one
- * unit. Skipped when a modifier is held (shift-select, word-jump, etc.) to
- * leave that native behavior alone.
+ * Firefox gets stuck stepping over an emoji atom with plain arrows, so move
+ * across it manually. Modifier-held keys keep native behavior.
  */
 const jumpOverAdjacentEmoji = (e: KeyboardEvent): boolean => {
   if (!isFirefox()) return false

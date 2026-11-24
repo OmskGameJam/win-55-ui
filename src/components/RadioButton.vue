@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { cursorWeakDirective } from '../directives/cursor'
 
-// weak: a consumer's plain v-cursor on <RadioButton> overrides this default (see directives/cursor.ts)
+// weak: a consumer's plain v-cursor overrides this default.
 const vCursor = cursorWeakDirective
 
 const props = withDefaults(defineProps<{

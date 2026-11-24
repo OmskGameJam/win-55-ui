@@ -41,8 +41,7 @@ async function resolveSrc(value: string): Promise<void> {
 
 watch(() => props.emoji, (value) => { void resolveSrc(value) }, { immediate: true })
 
-/* Registry GIFs aren't guaranteed to be a 15x15 square (some are 15x14 etc.),
-   so the real 2x size is only known once the browser has decoded the image. */
+/* GIFs aren't all square; the real size is known only after decode. */
 function onLoad(event: Event): void {
   const image = event.target as HTMLImageElement
   width.value = image.naturalWidth * UI_SCALE

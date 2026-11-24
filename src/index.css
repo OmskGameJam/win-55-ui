@@ -1,4 +1,4 @@
-/* @font-face declarations, auto-generated from src-font/fonts.json - see generated-fonts.css */
+/* Auto-generated @font-face declarations. */
 @import './generated-fonts.css';
 @import './palette.css';
 
@@ -27,7 +27,6 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -56,25 +55,13 @@ table {
   box-sizing: border-box;
 }
 
-/* The kit owns the cursor. --win55-cursor-native (set by CursorContext / v-cursor, inherited down
-   the DOM) decides per element what to paint: a real `url(...) x y, kw` (native mode), `none`
-   (immersive - CursorOverlay draws the sprite), or `auto` (OS cursor - inside a `disabled` subtree).
-   Unset falls back to `auto`, not `none`: native is the default, so before a root CursorContext has
-   stamped <html> (initial load, an HMR reload mid-flight) you get the OS cursor, never a hidden one
-   with the overlay guessing immersive. !important beats the UA/author `cursor` that links, text
-   fields, resize handles etc. carry; the would-be cursor stays recoverable for immersive - see
-   CursorOverlay.vue's wouldBeCursorRole. A nested enabled CursorContext sets the property back, so
-   nesting works at any depth. */
+/* Kit cursor: `--win55-cursor-native` decides per element. Unset falls back to `auto`,
+   so the OS cursor shows until a root context stamps `<html>`. */
 * {
   cursor: var(--win55-cursor-native, auto) !important;
 }
 
-/* Native mode: give the few native elements that carry their own UA cursor a themed context cursor,
-   from the per-role custom props CursorContext publishes. :where() keeps these at zero specificity -
-   they beat the `* {}` rule only by order, and lose to any real selector (v-cursor's inline
-   !important, the escape hatch below). In immersive mode the link/text props are unset, so these
-   fall through to --win55-cursor-native, which a root CursorContext has set to `none`, and the
-   overlay draws as usual. */
+/* Native roles from custom props; `:where()` keeps zero specificity so inline v-cursor wins. */
 :where(a[href], area[href]) {
   cursor: var(--win55-cursor-native-link, var(--win55-cursor-native, auto)) !important;
 }
@@ -94,14 +81,12 @@ table {
   cursor: var(--win55-cursor-native-text, var(--win55-cursor-native, auto)) !important;
 }
 
-/* Disabled controls (and their descendants) - matches immersive's wouldBeCursorRole `:disabled` ->
-   not-allowed. Last of the :where() block so it wins over the link/text rules for a disabled field. */
+/* Disabled controls win over link/text rules because this comes last. */
 :where(:disabled, :disabled *) {
   cursor: var(--win55-cursor-native-notallowed, var(--win55-cursor-native, auto)) !important;
 }
 
-/* Non-Vue escape hatch - a flat `revert` to the full per-element UA cursor, no nested re-enable.
-   Real specificity, so it beats the :where() rules above. */
+/* Escape hatch: flat `revert`, no nested re-enable. Real specificity beats :where(). */
 [data-win55-cursor='off'],
 [data-win55-cursor='off'] * {
   cursor: revert !important;
@@ -112,10 +97,7 @@ body {
   background-color: cyan;
   font-family: 'Standard-Regular-12';
   font-size: 24px;
-  /* No layer-promoting properties here (backface-visibility, translateZ, will-change):
-     promoting <body> forces Chrome to drop LCD text for the whole page, which on Windows
-     falls back to DirectWrite NATURAL_SYMMETRIC - a symmetric 1px horizontal filter that
-     smears every glyph edge into a 0.10/0.88 halo. See FONTS.md "Cleartype/LCD". */
+  /* No layer promotion here: it drops LCD text page-wide. */
   text-rendering: geometricPrecision;
 }
 
@@ -218,18 +200,14 @@ body {
 .baseinput-wrapper {
   position: relative;
   display: block;
-  /* Scope the button's z-index to this wrapper only, so it doesn't compete
-     in the page's global stacking order against unrelated elements (like
-     other Windows) that happen to have no z-index of their own. */
+  /* Isolate the button's z-index from unrelated page elements. */
   isolation: isolate;
 }
 
 .baseinput-emoji-button {
   position: absolute;
   right: 4px;
-  /* Fixed, grid-safe inset instead of computed centering (top: 50% +
-     translateY(-50%) combines two independent percentage bases and
-     generally lands on a fractional pixel, breaking the kit's 2px grid). */
+  /* Fixed grid-safe inset; computed centering lands on fractional pixels. */
   top: 4px;
   z-index: 1;
   image-rendering: pixelated;
@@ -260,8 +238,7 @@ body {
   color: #000080;
 }
 
-/* Emoji GIFs used as a Window icon still need the kit's 2x display convention
-   (15px asset -> 30px shown), same as everywhere else emoji are rendered. */
+/* Window icons use the kit's 2x emoji display size. */
 .emoji-picker-window .titlebar-image img {
   width: 30px;
   height: 30px;
@@ -280,8 +257,7 @@ body {
   padding: 4px;
 }
 
-/* Fixed-size slot so the grid stays uniform even though source assets aren't
-   all the same native size; the image inside is centered, not stretched. */
+/* Uniform slot; the image is centered, not stretched. */
 .emoji-picker-grid-cell {
   width: 30px;
   height: 30px;
@@ -293,11 +269,7 @@ body {
 
 .emoji-picker-grid-item {
   image-rendering: pixelated;
-  /* Scale each emoji to exactly 2x its own natural size (the kit's display
-     convention) rather than stretching it to fill the cell. transform (not
-     zoom) keeps this correct across browsers; the cell's flex-centering
-     keeps it visually centered since scale is anchored at the image's own
-     center by default. */
+  /* 2x the image's own size; `transform` avoids `zoom` quirks. */
   transform: scale(2);
 }
 
@@ -357,9 +329,7 @@ body {
   width: var(--win55-emoji-size, 30px);
 }
 
-/* Unlike .win55-emoji-image (absolutely centered inside a .win55-emoji
-   wrapper), this is a plain in-flow <img> with no wrapper: it must stay a
-   normal inline replaced element so it pushes surrounding content. */
+/* In-flow <img>, no wrapper: it must push surrounding content. */
 .win55-emoji-standalone {
   image-rendering: pixelated;
   vertical-align: round(max(-0.125em, min(0px, calc(0.5em - 15px))), 2px);

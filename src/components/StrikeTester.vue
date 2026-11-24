@@ -11,10 +11,7 @@ import HDivider from './HDivider.vue'
 import { TEST_SCRIPTS } from '../helpers/testScripts'
 import { SUPPORTED_FACES } from '../helpers/generatedFonts'
 
-// SUPPORTED_FACES is generated from src-font/fonts.json - it's the actual set of registered
-// face/style/size combos, not a guess at what typography.ts's degrade logic could fall back to.
-// Face -> Style -> Size cascades through it so this tester can never select a combo that doesn't
-// really exist.
+// Generated face registry; cascading selectors only offer real face/style/size combos.
 const FACE_OPTIONS = [...new Set(SUPPORTED_FACES.map((face) => face.fontName))]
 
 function styleLabel(style: string): string {
@@ -37,8 +34,7 @@ const sizeOptions = computed(() =>
 )
 const selectedSize = ref(sizeOptions.value[0])
 
-// Face changing can invalidate the current style, which can in turn invalidate the current size -
-// each watcher only resets its own selection when it's no longer in the (recomputed) option list.
+// Each watcher resets only its own selection when it leaves the recomputed options.
 watch(styleOptions, (options) => {
   if (!options.includes(selectedStyle.value)) selectedStyle.value = options[0]
 })
@@ -56,8 +52,7 @@ const selectedScript = computed(() => TEST_SCRIPTS.find((script) => script.name 
 const firstLetters = computed(() => (capitalFirst.value ? selectedScript.value.upper : selectedScript.value.lower))
 const secondLetters = computed(() => (capitalSecond.value ? selectedScript.value.upper : selectedScript.value.lower))
 
-// Flattened row-major so the grid is one v-for instead of nested v-fors - `gridTemplateColumns`
-// below is what actually folds it back into an NxN square.
+// Row-major pairs; `gridTemplateColumns` folds them back into a square.
 const gridPairs = computed(() => firstLetters.value.flatMap((a) => secondLetters.value.map((b) => a + b)))
 
 const fontWindow = ref({ x: 40, y: 40, width: 440, height: 210 })

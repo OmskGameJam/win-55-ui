@@ -69,7 +69,6 @@ watch(() => props.modelValue, (newVal) => {
   }
 })
 
-/** Reads the editor DOM, enforces multiline/maxLength and emits `update:modelValue`. */
 const syncValue = () => {
   if (!el.value) return
 

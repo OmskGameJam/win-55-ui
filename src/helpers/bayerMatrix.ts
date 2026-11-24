@@ -42,9 +42,6 @@ export function drawAngledBayerDitherGradient(
       const gradient = (bx + by) / (blocksX + blocksY - 6);
 
       // Clamp edges so leftmost is fully color1 and rightmost fully color2
-      // if (bx === 0) gradient = 0;
-      // if (bx === blocksX - 1) gradient = 1;
-
       const threshold = (bayer8[by % 8][bx % 8] + 0.5) / 64;
 
       const t = gradient > threshold ? 1 : 0;

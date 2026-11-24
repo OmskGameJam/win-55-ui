@@ -16,18 +16,17 @@ function clear(el: HTMLElement): void {
 
 function applyCursor(el: HTMLElement, role: CursorRole, context: CursorContextApi | undefined): void {
   const native = (context?.mode.value ?? 'native') === 'native'
-  // wipe first - keeps a live mode switch (or a strong -> weak handover) from leaving stale props behind
+  // Wipe first so a mode switch or strong/weak handover leaves no stale props.
   clear(el)
   if (!role) return
 
   if (native) {
     const roleCss = context ? context.resolveRoleCss(role) : cursorCssFor('windows-default', role)
     if (!roleCss) return
-    // end with the context's ambient default chain so a sprite still decoding never flashes the OS cursor
+    // Append the ambient default chain so an undecoded sprite never flashes the OS cursor.
     const fallback = context ? context.nativeBaseCss.value : themedCursorCssFor('windows-default', 'default')
     const value = withCssFallback(roleCss, fallback ?? 'default')
-    // inline `!important` wins on the element itself (over index.css's `:where()` UA rules); the
-    // native props override the inherited derivation for the subtree, nested <a>/fields included
+    // Inline `!important` beats UA rules; the native props override inherited derivation.
     el.style.setProperty('cursor', value, 'important')
     for (const p of NATIVE_CURSOR_PROPS) el.style.setProperty(p, value)
     return
@@ -36,7 +35,7 @@ function applyCursor(el: HTMLElement, role: CursorRole, context: CursorContextAp
   const cursorId = context ? context.resolveRole(role) : cursorIdFor('windows-default', role)
   if (!cursorId) return
 
-  // the real `cursor` stays `none`; the cursorId rides CURSOR_TOKEN_PROPERTY for CursorOverlay to draw
+  // Keep `cursor: none`; the id rides the token for the overlay to draw.
   el.style.cursor = 'none'
   el.style.setProperty(CURSOR_TOKEN_PROPERTY, cursorId)
 }
@@ -51,17 +50,13 @@ interface CursorSlot {
 interface ElementCursorState {
   strong?: CursorSlot
   weak?: CursorSlot
-  // bumped on slot add/remove so the shared effect re-picks the active slot
+  // bumped when a slot is added/removed so the effect re-picks the active slot
   rev: Ref<number>
   stop?: WatchStopHandle
 }
 
-// One controller per rendered element, keyed by the element (not by directive binding). v-cursor
-// owns the `strong` slot, v-cursor-weak the `weak` slot; a single effect applies `strong ?? weak`.
-// So a component's own v-cursor-weak and a consumer's v-cursor (landing on the same element via
-// directive fallthrough) coexist with deterministic precedence and independent teardown - strong
-// wins, and if it unmounts the effect re-runs and weak takes over. One strong + one weak is the
-// only valid pairing; a second of either strength on the same element throws (see attach).
+// One controller per element: strong wins over weak, so a component's weak default
+// can be overridden by a consumer's strong v-cursor. Two of the same strength throw.
 const controllers = new WeakMap<HTMLElement, ElementCursorState>()
 
 function activeSlot(state: ElementCursorState): CursorSlot | undefined {
@@ -99,11 +94,11 @@ function attach(el: HTMLElement, strength: Strength, value: CursorRole): void {
   state[strength] = slot
   state.rev.value++
 
-  // deferred: an ancestor CursorContext marks its element from its own onMounted, which runs after this hook
+  // Defer: an ancestor CursorContext marks its element in a later onMounted.
   void nextTick(() => {
     const current = controllers.get(el)
     if (!current || current[strength] !== slot) return
-    // a DOM walk, not inject() - see CURSOR_CONTEXT_DOM_MARKER for why inject() picks the wrong instance here
+    // DOM walk, not inject(), which would pick the slot author's instance.
     slot.context = findNearestCursorContext(el)
     if (!current.stop) current.stop = watchEffect(() => runController(el))
     else if (slot === activeSlot(current)) current.rev.value++
@@ -139,12 +134,10 @@ function makeCursorDirective(strength: Strength): Directive<HTMLElement, CursorR
   }
 }
 
-// v-cursor="role" - a one-element CursorContext: resolves `role` against the nearest ancestor
-// context's scheme, falling back to the registered root context, then windows-default.
+// v-cursor="role" - resolves against the nearest context, root context, then windows-default.
 const cursorDirective = makeCursorDirective('strong')
 
-// v-cursor-weak - same, but yields to a strong v-cursor on the same element. Reusable kit components
-// set their own default cursor with this so a consumer's plain v-cursor overrides it cleanly.
+// v-cursor-weak yields to a strong v-cursor on the same element.
 export const cursorWeakDirective = makeCursorDirective('weak')
 
 export default cursorDirective

@@ -1,10 +1,6 @@
 :root {
-  /*
-   * Palette roles used by components:
-   * - `#000080` (Navy) = selected/filled, set at the use site in index.css;
-   * - `--win55-cga-blue` = interactive accent (hover/active controls).
-   * The CGA black below is pure `#000000`, not Navy.
-   */
+  /* Navy `#000080` is selected/filled; `--win55-cga-blue` is the interactive accent. */
+  /* CGA black is pure `#000000`, not Navy. */
   --win55-cga-black: #000000;
   --win55-cga-blue: #0000AA;
   --win55-cga-green: #00AA00;

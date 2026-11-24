@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted, computed, type CSSProperties } from 'vue'
 import Box, { type BoxType } from './Box.vue'
 import { cursorWeakDirective } from '../directives/cursor'
 
-// weak: a consumer's plain v-cursor on <Button> overrides this default (see directives/cursor.ts)
+// weak: a consumer's plain v-cursor overrides this default.
 const vCursor = cursorWeakDirective
 
 const props = withDefaults(defineProps<{

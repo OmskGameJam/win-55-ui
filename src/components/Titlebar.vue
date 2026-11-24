@@ -47,7 +47,6 @@ function resizeCanvas() {
   draw(canvas, context)
 }
 
-// Redraw when gradient colors change
 watch(() => [props.gradientColorA, props.gradientColorB], () => {
   if (canvasRef.value) {
     const context = canvasRef.value.getContext('2d')
@@ -92,10 +91,8 @@ onUnmounted(() => {
       </div>
       
       <div class="titlebar-buttons">
-        <!-- Slot for custom buttons -->
         <slot name="buttons"></slot>
 
-        <!-- Placeholder buttons when slot is empty and showPlaceholderButtons is true -->
         <template v-if="showPlaceholderButtons">
           <Button
             extra-class="titlebar-button"
@@ -111,7 +108,7 @@ onUnmounted(() => {
           >
             <img draggable="false" src="/win-55-ui/window/_.png" />
           </Button>
-          <div style="width: 2px"><!-- Он тут реально! --></div>
+          <div style="width: 2px"></div>
           <Button
             extra-class="titlebar-button"
             box-type="panel-d-2"

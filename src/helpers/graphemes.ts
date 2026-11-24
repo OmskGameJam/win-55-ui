@@ -10,17 +10,15 @@ function segmentGraphemes(value: string): string[] {
   return Array.from(value)
 }
 
-/** Counts user-perceived characters (graphemes) instead of UTF-16 code units. */
 export function graphemeLength(value: string): number {
   return segmentGraphemes(value).length
 }
 
-/** Slices the first `count` graphemes instead of raw UTF-16 code units. */
 export function sliceGraphemes(value: string, count: number): string {
   return segmentGraphemes(value).slice(0, count).join('')
 }
 
-/** Keeps the graphemes `keep` accepts; `caret` (a grapheme offset) is shifted by the removals before it. */
+/** Keeps accepted graphemes; `caret` is shifted by removals before it. */
 export function filterGraphemes(
   value: string,
   keep: (grapheme: string) => boolean,

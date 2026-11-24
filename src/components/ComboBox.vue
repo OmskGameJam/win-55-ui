@@ -69,8 +69,6 @@ type ListPosition = {
 
 // Exact centering often lands on an odd pixel; bias to the upper-left cell of
 // the 2x2 center block so the icon stays on the grid.
-// Exact centering often lands on an odd pixel; bias to the upper-left cell of
-// the 2x2 center block so the icon stays on the grid.
 const evenDown = (value: number) => Math.floor(value / 2) * 2
 const evenUp = (value: number) => Math.ceil(value / 2) * 2
 // The initial containing block excludes a classic horizontal scrollbar,

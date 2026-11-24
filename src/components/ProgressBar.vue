@@ -3,9 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch, watchEffect, type CSS
 import Box, { type BoxType } from './Box.vue'
 
 export interface ProgressBarSpan {
-  /** Start position in the same units as `max`. */
   start: number
-  /** End position in the same units as `max`. */
   end: number
   color: string
 }
@@ -45,7 +43,6 @@ const props = withDefaults(defineProps<{
    */
   value?: ProgressBarValue
   max?: number
-  /** Bar flow direction. */
   orientation?: ProgressBarOrientation
   /**
    * `'none'` keeps Box's 6px frame invisibly; `'custom'` drops the frame and
@@ -85,9 +82,7 @@ const props = withDefaults(defineProps<{
 
 /** Snap to the nearest 2px cell. */
 const roundEven = (value: number) => Math.round(value / 2) * 2
-/** Snap down to a whole 2px cell. */
 const floorEven = (value: number) => Math.floor(value / 2) * 2
-/** Snap up to a whole 2px cell. */
 const ceilEven = (value: number) => Math.ceil(value / 2) * 2
 
 const isVertical = computed(() => props.orientation === 'vertical')
@@ -113,9 +108,8 @@ const measuredWidth = ref(0)
 const measuredHeight = ref(0)
 let resizeObserver: ResizeObserver | null = null
 
-// Prefer the measured track, but fall back to the geometry implied by the
-// props until the first ResizeObserver callback. Both paths snap down to the
-// 2px grid so the bar never drifts off it.
+// Prefer the measured track; until the first ResizeObserver callback, use the prop geometry.
+// Both snap down so the bar never drifts off the 2px grid.
 const fitTrack = (measured: number, fallback: number) => (
   Math.max(0, floorEven(measured > 0 ? measured : fallback))
 )
@@ -158,16 +152,12 @@ const ariaValueNow = computed(() => (
 
 const marqueePosition = ref(0)
 
-// Windows' marquee is five "LEDs" long. Each LED is 2/3 of the bar's
-// cross-axis thickness with a 2px gap, and the block advances one LED per
-// MARQUEE_STEP_MS.
+// Windows' marquee is five "LEDs" long; the block advances one LED per MARQUEE_STEP_MS.
 const marqueePitch = computed(() => (
   Math.max(1, Math.round((trackThickness.value * 2) / 3) + MARQUEE_LED_GAP)
 ))
 
-// Keep the marquee block an even length. The continuous renderer snaps both
-// edges, and an odd source length would make the visible width alternate by
-// 2px as the block moves.
+// Keep the marquee block even; an odd length would make its visible width alternate by 2px.
 const marqueeBlockLength = computed(() => (
   Math.min(trackLength.value, roundEven(marqueePitch.value * MARQUEE_LED_COUNT))
 ))
@@ -193,8 +183,7 @@ const marqueeSpans = computed<PixelSpan[]>(() => {
   ]
 })
 
-// Both renderers consume fill geometry in track pixels. Determinate spans are
-// converted from user units here; the marquee already lives in pixels.
+// Both renderers use track pixels; determinate user units are converted here.
 const fillSpans = computed<PixelSpan[]>(() => {
   if (indeterminate.value) return marqueeSpans.value
 
@@ -230,8 +219,7 @@ const segmentLengths = computed<number[]>(() => {
 
   if (base < MIN_SEGMENT_LENGTH) return []
 
-  // Spread the leftover 2px cells one at a time so the final segment ends flush
-  // with the track. Everything the renderer emits stays on the 2px grid.
+  // Spread leftover 2px cells so the final segment ends flush with the track.
   const cells = (length - base * count - (count - 1) * gap) / 2
   return Array.from({ length: count }, (_, index) => (
     base + 2 * (Math.floor(((index + 1) * cells) / count) - Math.floor((index * cells) / count))
@@ -277,8 +265,8 @@ const continuousSpans = computed<RenderedSpan[]>(() => {
   if (length <= 0) return []
 
   return fillSpans.value.flatMap((span) => {
-    // Continuous spans live on the 2px visual-pixel grid too.
-    const start = roundEven(span.start)
+  // Continuous spans stay on the 2px grid too.
+  const start = roundEven(span.start)
     const end = roundEven(span.end)
     const offset = Math.max(0, Math.min(start, end))
     const limit = Math.min(length, Math.max(start, end))

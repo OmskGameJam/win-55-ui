@@ -26,7 +26,6 @@ withDefaults(defineProps<{
 <style scoped>
   .label {
     position: absolute;
-    /* bottom: calc(100% - 10px); */
     top: -22px;
     padding: 4px;
   }

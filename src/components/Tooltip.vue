@@ -38,7 +38,7 @@ const tooltipStyle = computed<CSSProperties>(() => ({
   position: 'fixed',
   left: `${cursor.x}px`,
   top: `${cursor.y}px`,
-  pointerEvents: 'none',  // now TS understands it's valid
+  pointerEvents: 'none',
   whiteSpace: 'nowrap',
   zIndex: 1000,
 }));

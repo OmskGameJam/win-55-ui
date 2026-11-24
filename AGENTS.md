@@ -4,6 +4,14 @@
 
 If the task or target is ambiguous, stop and ask a clarifying question. Do not fire off random greps or leave the project boundaries to hunt for context. Asking is cheaper than guessing wrong.
 
+## Comments
+
+- Timeless: never narrate what the code used to do. Describe what it does.
+- Describe the file you are in. Do not cross-reference other files unless the reference is load-bearing.
+- Terse, max 120 characters per comment line. Docblocks are comments too.
+- A docblock must earn its keep: keep edge cases, defaults, and contracts; delete anything the signature already says.
+- Assume a competent reader who can read the code.
+
 ## Layout: the 2px grid
 
 The kit lays out on a 2 CSS px grid. `CELL = 2` in `src/helpers/intGrid.ts`.

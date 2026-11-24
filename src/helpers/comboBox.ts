@@ -4,5 +4,5 @@ export interface ComboBoxItem<T = unknown> {
   data: T
 }
 
-/** Duration of the list's slide-out transition, in ms. Tweak for feel. */
+/** Slide-out duration in ms. */
 export const COMBO_LIST_SLIDE_MS = 160

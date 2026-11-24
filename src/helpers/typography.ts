@@ -1,14 +1,7 @@
 import type { CSSProperties } from 'vue'
-// SUPPORTED_FACES is generated from src-font/fonts.json (`npm run font -- update-register`), not
-// hand-maintained - see generatedFonts.ts. Requesting a style/size/fontName combination outside it
-// degrades (see resolveSupportedFace below) instead of silently rendering an unstyled system font,
-// which is what lets callers (e.g. a BBCode renderer) pass along styles we haven't shipped a
-// bitmap strike for yet without needing to know which combinations actually exist.
+// Generated; unsupported combinations degrade rather than falling back to a system font.
 import { SUPPORTED_FACES } from './generatedFonts'
 
-// Palette roles: selected/filled is Navy `#000080` (not the CGA black `#000000`),
-// while `--win55-cga-blue` is the interactive accent. ProgressBar.fillColor and
-// Slider.rangeColor default to those two roles on purpose, not by drift.
 const SIZES = [8, 10, 12, 16, 18, 24]
 
 const DEFAULT_FONT_NAME = 'Standard'
@@ -16,7 +9,7 @@ const DEFAULT_FONT_NAME = 'Standard'
 export interface TypographySettings {
   /**
    * A bitmap strike token from `[8, 10, 12, 16, 18, 24]`, rendered at `size × 2`
-   * CSS px (see `typographyStyles`). It is not a CSS px value.
+   * CSS px. Not a CSS px value.
    */
   fontSize?: number,
   isBold?: boolean,
@@ -39,10 +32,8 @@ function sizesForStyle(fontName: string, style: string): number[] {
   return SUPPORTED_FACES.filter((face) => face.fontName === fontName && face.style === style).map((face) => face.size)
 }
 
-/** Degrades an arbitrary requested fontName/style/size down to one we actually have a font for. */
 function resolveSupportedFace(fontName: string, style: string, size: number): { fontName: string; style: string; size: number } {
-  // An unknown font name has nothing to degrade through — fall back to the one family
-  // guaranteed to exist rather than falling through to an unstyled system font.
+  // An unknown font name has nothing to degrade through; use the guaranteed family.
   const resolvedFontName = SUPPORTED_FACES.some((face) => face.fontName === fontName) ? fontName : DEFAULT_FONT_NAME
 
   const fallbackChain = STYLE_FALLBACKS[style] ?? ['Regular']
@@ -65,7 +56,6 @@ function resolveSupportedFace(fontName: string, style: string, size: number): { 
 }
 
 export function typographyStyles(settings: TypographySettings): CSSProperties {
-  // Parse shorthand or derive from individual settings
   const { style: requestedStyle, size: requestedSize } = settings.shorthand
     ? parseShorthand(settings.shorthand)
     : {
@@ -75,10 +65,7 @@ export function typographyStyles(settings: TypographySettings): CSSProperties {
 
   const { fontName, style, size } = resolveSupportedFace(settings.fontName ?? DEFAULT_FONT_NAME, requestedStyle, requestedSize)
 
-  // The TofuMaker companion (see scripts/font/src/tofu.ts) maps every Unicode codepoint to this
-  // face's own '?' glyph - placed right after the real face and before any system font, so a
-  // codepoint we have no ink for renders as our own pixel-style '?' instead of falling through to
-  // a smooth system glyph.
+  // TofuMaker maps every codepoint to this face's '?' glyph, placed before any system font.
   const outStyle: CSSProperties = {
     fontFamily: `${fontName}-${style}-${size}, ${fontName}-${style}-${size}-TofuMaker`,
     fontSize: `${size * 2}px`,

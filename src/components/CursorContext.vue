@@ -26,36 +26,17 @@ import CursorOverlay from './CursorOverlay.vue'
 
 interface Props {
   element?: string
-  /** Cursor scheme for this subtree. `undefined` means inherit from the nearest context (which is why it has no declared default). */
+  /** `undefined` inherits the nearest context's scheme. */
   scheme?: string
-  /** Pins one cursor for the whole subtree. Left unset, each element's cursor is derived from its native `cursor` (link -> `link`, text field -> `text`, ...) and resolved against `scheme` - see CursorOverlay.vue. */
+  /** Pin one cursor for the subtree; unset derives it from each element's native `cursor`. */
   role?: CursorRole
-  /**
-   * Turns the kit cursor off for this subtree - the OS cursor renders instead.
-   * `undefined` inherits from the nearest context; a nested
-   * `<CursorContext :disabled="false">` turns it back on.
-   */
+  /** OS cursor instead of the kit cursor. `undefined` inherits; `false` re-enables locally. */
   disabled?: boolean
-  /**
-   * How the cursor is painted for this subtree - `native` (default; real CSS `cursor: url()`) or
-   * `immersive` (`cursor: none` + CursorOverlay draws the sprite).
-   * `undefined` inherits from the nearest context.
-   */
+  /** `native` paints real CSS cursors; `immersive` hides them and draws sprites in an overlay. */
   mode?: CursorMode
-  /**
-   * Puts the ambient scheme + base `--win55-cursor-native` on `<html>` instead of this wrapper's
-   * element, and mounts CursorOverlay. For the one outermost CursorContext of an app: CSS inheritance
-   * follows the real DOM, so `<Teleport>`-ed content (dropdown menus, Window, ...) lands under
-   * `<body>` outside this wrapper's subtree - only a style set on `<html>` reaches everything.
-   * `<html>` not `<body>` because body's box is only as tall as its content (Meyer reset), so it
-   * isn't reliably an ancestor of every hoverable pixel.
-   */
+  /** Publishes scheme + cursor props on `<html>` and mounts the overlay, reaching teleported content. */
   root?: boolean
-  /**
-   * `root` only: hard-disables the kit cursor everywhere, beating any nested
-   * re-enable. This is the deliberate nuclear option - not a synonym for
-   * `disabled`, which inherits and can be re-enabled.
-   */
+  /** `root` only: hard-disable everywhere, beating nested re-enables. Not the same as `disabled`. */
   disableAll?: boolean
 }
 
@@ -63,17 +44,16 @@ const props = defineProps<Props>()
 
 const tag = computed(() => props.element ?? 'span')
 
-// Unset props inherit the nearest ancestor context's effective (already-inherited) value.
+// Unset props inherit the nearest ancestor context's effective value.
 const parent = useCursorContext()
 const effectiveScheme = computed(() => props.scheme ?? parent?.scheme.value ?? 'windows-default')
-// undefined = no pinned role here or above; the subtree derives per element (see CursorOverlay.vue).
+// No pinned role here or above; derive per element.
 const effectiveRole = computed(() => props.role ?? parent?.role.value)
-// `root disable-all` wins; else own prop, else inherited. `:disabled="false"` re-enables inside a disabled ancestor.
+// Root kill switch wins, then own prop, then inherited. `:disabled="false"` re-enables locally.
 const effectiveDisabled = computed(() => isGlobalCursorDisabled() || (props.disabled ?? parent?.disabled.value ?? false))
 const effectiveMode = computed<CursorMode>(() => props.mode ?? parent?.mode.value ?? 'native')
 
-// A Set, not a counter - adding the same promise twice can't double-count, and a duplicate removal
-// is a no-op. Entries drop via finally (resolve or reject alike).
+// Sets make duplicate adds/removes harmless; entries drop when the promise settles.
 const ownBusyPromises = reactive(new Set<Promise<unknown>>())
 const ownProgressPromises = reactive(new Set<Promise<unknown>>())
 
@@ -87,13 +67,11 @@ function addProgress(promise: Promise<unknown>): void {
   void promise.finally(() => ownProgressPromises.delete(promise))
 }
 
-// Downward only: own promises OR the parent's state, never a child's - so an outer addBusy() covers
-// the whole subtree while a child's can't leak up to a sibling or ancestor.
+// Downward only: a child's busy state never leaks to a sibling or ancestor.
 const hasBusy = computed(() => ownBusyPromises.size > 0 || parent?.hasBusy.value === true)
 const hasProgress = computed(() => ownProgressPromises.size > 0 || parent?.hasProgress.value === true)
 
-// busy/progress replace only an unpinned or "default" cursor - a deliberately picked role passes
-// straight through, and undefined stays undefined (the subtree keeps deriving per element).
+// Busy/progress only replace an unpinned or `default` cursor.
 function roleForState(role: string | undefined): string | undefined {
   if (role !== undefined && role !== 'default') return role
   if (hasBusy.value) return 'wait'
@@ -109,10 +87,8 @@ function resolveRoleCss(role: string): string | undefined {
   return cursorCssFor(effectiveScheme.value, roleForState(role) ?? 'default')
 }
 
-// This subtree's `default` cursor as a native CSS value. Re-theming levels chain their own default
-// ahead of the inherited one as url() fallbacks (one level deep is the whole chain - the parent's
-// value already carries its ancestors'), so every native cursor here can end with it and a sprite
-// still decoding falls back to the ambient cursor instead of the OS one.
+// Re-theming levels chain their default ahead of the inherited one as url() fallbacks,
+// so a sprite still decoding falls back to the ambient cursor, not the OS cursor.
 const nativeBaseCss = computed<string>(() => {
   if (effectiveDisabled.value) return 'auto'
   void cursorsVersion.value
@@ -145,7 +121,7 @@ void loadCursors()
 const rootEl = ref<HTMLElement>()
 
 onMounted(() => {
-  // stash the api on the DOM element so v-cursor can find it by parent walk (inject() doesn't work there)
+  // v-cursor finds the context by DOM walk, not inject().
   if (rootEl.value) markCursorContextElement(rootEl.value, api)
   if (props.root) setRootCursorContext(api)
 })
@@ -160,9 +136,8 @@ onUnmounted(() => {
 
 const pinnedRole = computed(() => roleForState(effectiveRole.value))
 
-// Native mode: stamp the inherited props only where this context changes its subtree's theme.
-// A bare nested <CursorContext> stays transparent and inherits, matching immersive; `root` always
-// stamps, since it seeds the base value for the whole document.
+// Stamp native props only where this context changes the subtree theme.
+// `root` always stamps because it seeds the document base.
 const publishesNative = computed(
   () =>
     props.root ||
@@ -172,10 +147,9 @@ const publishesNative = computed(
     pinnedRole.value !== undefined,
 )
 
-// The cursor properties this context contributes, one source of truth for both the :style binding
-// (non-root) and the <html> sync (root). Absent keys mean "don't set / clear".
+// One source of truth for the :style binding and the <html> sync.
 const cursorDeclaration = computed<Record<string, string>>(() => {
-  void cursorsVersion.value // recompute once cursor data lands / a scheme reloads
+  void cursorsVersion.value // recompute when cursor data lands or a scheme reloads
   const scheme = effectiveScheme.value
   const role = pinnedRole.value
   const d: Record<string, string> = {}
@@ -183,9 +157,9 @@ const cursorDeclaration = computed<Record<string, string>>(() => {
 
   if (effectiveMode.value === 'immersive') {
     d.cursor = 'none'
-    // `auto` in a disabled subtree (OS cursor, overlay hides), `none` otherwise (overlay draws)
+    // `auto` in a disabled subtree, `none` otherwise
     d[CURSOR_NATIVE_PROPERTY] = effectiveDisabled.value ? 'auto' : 'none'
-    // a pinned role rides the token for the overlay; unpinned leaves it to derive per element
+    // a pinned role rides the token; unpinned roles derive per element
     const id = role ? cursorIdFor(scheme, role) : undefined
     if (id) d[CURSOR_TOKEN_PROPERTY] = id
     return d
@@ -199,8 +173,7 @@ const cursorDeclaration = computed<Record<string, string>>(() => {
     return d
   }
 
-  // every value ends with the ambient default chain (nativeBaseCss), so a sprite that isn't
-  // decoded yet falls back to it, not the OS cursor
+  // Every value ends with nativeBaseCss, so an undecoded sprite falls back to it.
   const fallback = nativeBaseCss.value
 
   // a pinned role flattens the subtree to one cursor; a bare-keyword unresolved role stays as-is
@@ -227,8 +200,7 @@ const styles = computed<CSSProperties>(() => {
 if (props.root) {
   watchEffect(() => setGlobalCursorDisabled(props.disableAll === true))
 
-  // root's declaration can't ride :style (Teleported content escapes the wrapper's subtree) - mirror
-  // it onto <html>, which is an ancestor of every painted pixel.
+  // Teleported content escapes the wrapper, so mirror the declaration onto <html>.
   watchEffect(() => {
     const decl = cursorDeclaration.value
     const style = document.documentElement.style
@@ -244,6 +216,6 @@ if (props.root) {
   <component :is="tag" :style="styles" ref="rootEl">
     <slot />
   </component>
-  <!-- root-only; inert in native mode - it self-hides wherever --win55-cursor-native isn't `none` -->
+  <!-- root only; self-hides in native mode -->
   <CursorOverlay v-if="root" />
 </template>

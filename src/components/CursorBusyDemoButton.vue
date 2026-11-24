@@ -8,14 +8,13 @@ const props = defineProps<{
   label: string
 }>()
 
-// No template ref to a CursorContext anywhere in this file - inject() finds the nearest ancestor
-// regardless of how deep this component is nested under it (see App.vue's kitchen sink demo).
+// Inject the nearest ancestor context; no template ref needed.
 const context = useCursorContext()
 
 function trigger(): void {
   if (!context) return
   const track = props.mode === 'busy' ? context.addBusy : context.addProgress
-  simulateWork(track, 3000) // handed to a function with zero Vue imports, called from there instead
+  simulateWork(track, 3000)
 }
 </script>
 

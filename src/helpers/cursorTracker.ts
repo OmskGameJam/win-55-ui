@@ -1,17 +1,14 @@
 import { onMounted, onUnmounted } from 'vue'
 
-// The one set of pointer listeners for the whole cursor system. CursorOverlay drives both the
-// immersive sprite draw and the native-mode .ani frame animator off this, so there's a single
-// pointerover listener and a single sweep interval regardless of mode.
+// One pointer listener set shared by the immersive sprite and native frame animator.
 
 const SWEEP_MS = 120
 
 interface CursorTrackerHandlers {
-  /** Every pointer sample - for the sprite's compositor-only transform write. */
   onMove: (x: number, y: number) => void
-  /** The element under the pointer changed (or `null` from elementFromPoint over the scrollbar / a gap - the handler should keep the last cursor). */
+  /** Element under the pointer changed; `null` means keep the last cursor. */
   onIdentity: (el: Element | null) => void
-  /** The pointer left the window, or the tab was hidden - hide everything. */
+  /** Pointer left the window or the tab was hidden. */
   onLeave: () => void
 }
 
@@ -26,7 +23,7 @@ export function useCursorTracker({ onMove, onIdentity, onLeave }: CursorTrackerH
     onMove(x, y)
   }
 
-  // pointerrawupdate isn't in the DOM event maps; this wrapper keeps its addEventListener call off a global-type cast.
+  // Not in the DOM event maps; the wrapper avoids a global-type cast.
   function onPointerRawUpdate(event: Event): void {
     onPointerMove(event as PointerEvent)
   }
@@ -47,8 +44,7 @@ export function useCursorTracker({ onMove, onIdentity, onLeave }: CursorTrackerH
     onIdentity(document.elementFromPoint(x, y))
   }
 
-  // A background setInterval is clamped to >=1s and stays clamped for the first tick after refocus,
-  // so stop the sweep on hide and restart + sweep immediately on show.
+  // Background intervals are clamped, so stop on hide and restart with an immediate sweep.
   function onVisibilityChange(): void {
     if (document.hidden) {
       if (sweepHandle !== undefined) {

@@ -18,7 +18,7 @@ export interface ScrollContainerProps {
   forgiveVerticalOverflow?: boolean
 }
 
-/** Native scroller with hidden scrollbars, custom bar state, and scroll positions snapped to even integers. */
+/** Native scroller with hidden bars, custom bar state, and even scroll positions. */
 export function useScrollContainer(
   props: Readonly<ScrollContainerProps>,
   scrollTop: Ref<number | undefined>,

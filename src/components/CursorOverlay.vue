@@ -5,11 +5,8 @@ import { CURSOR_TOKEN_PROPERTY, CURSOR_SCHEME_PROPERTY, CURSOR_NATIVE_PROPERTY, 
 import { useCursorTracker } from '../helpers/cursorTracker'
 import { createCursorFrameAnimator } from '../helpers/cursorFrameAnimator'
 
-// Draws the immersive cursor as two sibling `position: fixed` <img> layers (invert under normal)
-// teleported into <body>, mounted once by the `root` CursorContext. A `cursor: url()` can't paint
-// near a viewport edge and can't do the invert/blend layer; a `position: fixed` element has neither
-// limit. In native mode the overlay stays hidden and this component is just the host for the shared
-// pointer tracker + the .ani frame animator.
+// Immersive cursor: two fixed <img> layers (invert under normal) teleported to <body>.
+// They escape the viewport-edge limit of `cursor: url()` and can blend with the page.
 
 const GRID = 2
 
@@ -29,8 +26,7 @@ function snapToGrid(n: number): number {
   return Math.round(n / GRID) * GRID
 }
 
-// Per layer, not a shared wrapper: a transformed ancestor would isolate invertImg's blend group
-// off from the page its mix-blend-mode has to reach.
+// Per layer, not a wrapper: a transformed ancestor would isolate the invert layer's blend group.
 function applyTransform(): void {
   const t = `translate(${snapToGrid(pendingX - lastHotspotX)}px, ${snapToGrid(pendingY - lastHotspotY)}px)`
   if (normalImg.value) normalImg.value.style.transform = t
@@ -40,7 +36,7 @@ function applyTransform(): void {
 function setVisible(next: boolean): void {
   const n = normalImg.value
   const iv = invertImg.value
-  // skip a redundant write - it still dirties style
+  // skip redundant writes - they still dirty style
   if ((!n && !iv) || next === visible) return
   visible = next
   const v = next ? 'visible' : 'hidden'
@@ -81,9 +77,7 @@ function applyCursorId(cursorId: string): void {
   applyTransform()
 }
 
-// index.css keeps `.cursor` at `none` in immersive, so getComputedStyle can't report what the
-// browser would have shown - a link, a text field, or a disabled control (author `cursor:` never
-// happens in this kit, so the ancestor walk that used to be here is gone).
+// Immersive sets `cursor: none`, so derive the role from element semantics instead.
 function wouldBeCursorRole(el: Element): string {
   if (el.closest('a[href], area[href]')) return 'link'
   if (el.closest(NATIVE_TEXT_SELECTOR)) return 'text'
@@ -91,14 +85,11 @@ function wouldBeCursorRole(el: Element): string {
   return 'default'
 }
 
-// The one identity dispatch. Native is the default: the overlay draws ONLY when --win55-cursor-native
-// is explicitly `none` (immersive, positively set by a CursorContext). Every other value - a real
-// `url(...)`, `auto` (disabled), or unset (no root context yet, an HMR reload mid-flight) - is
-// native: the overlay stays hidden and the browser (plus the .ani frame animator) paints.
+// Native is the default; overlay draws only when --win55-cursor-native is explicitly `none`.
 function dispatch(el: Element | null): void {
-  if (!el) return // over the scrollbar / a gap - keep the last cursor
+  if (!el) return // scrollbar or a gap - keep the last cursor
 
-  // escape hatch: the kit is entirely hands-off, browser paints `cursor: revert`
+  // escape hatch: the kit is hands-off, the browser paints `cursor: revert`
   if (el.closest('[data-win55-cursor="off"]')) {
     applyCursorId('')
     animator.stop()
@@ -137,7 +128,7 @@ useCursorTracker({
   onLeave,
 })
 
-// re-dispatch once cursor data (or a fresh scheme) lands, without waiting for the sweep
+// re-dispatch when cursor data or a scheme lands, without waiting for the sweep
 watch(cursorsVersion, () => dispatch(document.elementFromPoint(pendingX, pendingY)))
 
 onMounted(() => {
