@@ -5,6 +5,8 @@ Sources: `defineProps` / `withDefaults` / `defineModel` declarations, plus consu
 
 Verification: `npx vue-tsc --noEmit -p tsconfig.app.json` passes. This re-audit covers the modified `src/App.vue` and `src/components/ProgressBar.vue`; the report itself is saved as `SELFCONSISTENCY.md`.
 
+0.8.0 scope decisions are recorded in `CONSISTENCY-0.8.0.md`; this report reflects them — findings that release explicitly excludes are not repeated as open recommendations.
+
 Notation: `name*` = required, `= value` = declared default, `—` = none.
 
 ---
@@ -20,7 +22,7 @@ The touched-up `ProgressBar.vue` now resolves the previous unit inconsistency:
 - Span fill now lights a segment once it covers a whole 2px cell (`ProgressBar.vue:247–250`).
 - The demo was updated from `:segment-length="7"` (visual px) to `:segment-length="14"` (CSS px) in `App.vue:533–534`.
 
-Remaining ProgressBar-specific items are listed as findings 16 (the `'custom'` sentinel), 22 (snap/minimum documentation), and 11 (fill color default).
+Remaining ProgressBar-specific item is finding 16 (snap/minimum documentation). `'custom'` stays as-is: it is a real no-frame mode, not a misspelling of a `BoxType`, and `'none'` / `'custom'` are documented separately (see §4).
 
 ---
 
@@ -65,10 +67,10 @@ No props: `HDivider`, `MenuDropdown`, `EmojiPickerWindow`, `IntGridTester`, `Scr
 |---|---|---|
 | Boolean names | **Good** | Almost all positive (`disabled`, `multiline`, `wrap`, `fixedHeight`, `allowLinks`, `allowSizes`). Only `disableAll` is negative, and it is a root-level override. Defaults are consistently `false` where declared. |
 | Enum values | **Good** | `orientation` is `'horizontal' / 'vertical'` in `Slider`, `ProgressBar`, `ScrollBar`. `side`, `bias`, `size`, and `mode` are clean unions. |
-| Units | **Good** | Every layout length is now CSS px after the ProgressBar fix. Caveat: `Typography.fontSize` is a bitmap-font token rendered at 2× CSS px (finding 22). |
+| Units | **Good** | Every layout length is now CSS px after the ProgressBar fix. Caveat: `Typography.fontSize` is a bitmap-font token rendered at 2× CSS px (finding 16). |
 | `modelValue` convention | **Mixed** | All editable controls use `update:modelValue`, but payload types differ (string / number / boolean / unknown), and some use named models instead. |
-| Style escape hatches | **Mixed** | `extraStyles` / `extraClass` pair exists on 6 components; 8+ components have no `extraClass`; `extraStyles` uses two different types. |
-| Box skin naming | **Poor** | Three prop names for one concept (`type`, `baseType`, `boxType`), plus `ProgressBar`'s widened `ProgressBarBoxType`. |
+| Style escape hatches | **Mixed** | `extraStyles` uses two different types (fix in `Button`, T1.3); `extraClass` coverage is uneven but accepted because `class` falls through on single-root components. |
+| Box skin naming | **Poor** | Three prop names for one concept (`type`, `baseType`, `boxType`). |
 | Default declaration | **Mixed** | 16 of 26 prop-declaring components use `withDefaults`; 10 rely on runtime fallbacks or implicit `false` / truthiness. |
 | Event surface | **Mixed** | `SimpleStringInput` mirrors `BaseInput` perfectly; `NumberInput` nearly does; `RichInput` exposes only `update:modelValue`. |
 | Wrapper forwarding | **Mixed** | `SimpleStringInput` / `NumberInput` forward explicitly; `MenuDropdown` declares nothing and relies on fallthrough. |
@@ -80,93 +82,72 @@ No props: `HDivider`, `MenuDropdown`, `EmojiPickerWindow`, `IntGridTester`, `Scr
 
 ### High impact
 
-**1. The Box skin prop has three names (plus a widened type).**
+**1. The Box skin prop has three names.**
 - `Box.vue:20` → `type`
 - `Button.vue:10` → `baseType`
 - `BaseInput.vue:14` / `RichInput` / `NumberInput` → `boxType`
-- `ProgressBar.vue:45` → `boxType`, but accepts `ProgressBarBoxType = BoxType / 'custom'`
+- `ProgressBar.vue:45` → `boxType`
 
-Consumers must remember `base-type` vs `box-type` vs `type`, and `ProgressBar` silently accepts a value (`'custom'`) no other component accepts. Recommended: `boxType` everywhere except `Box`'s own `type`, or make `Box` accept `boxType` too.
+Consumers must remember `base-type` vs `box-type` vs `type`. Recommended: `boxType` everywhere except `Box`'s own `type`; do not add a `boxType` alias to `Box` — two names for one prop is the drift being removed.
 
 **2. `NumberInput` declares `deny` but drops it.**
-It inherits `deny?: RegExp` via `Omit<BaseInputProps, 'allow'>` (`NumberInput.vue:28`), but `inputProps` (`NumberInput.vue:51–58`) never includes `deny`. Declared props are removed from `$attrs`, so the regex never reaches `BaseInput`. A consumer passing `:deny` gets no filtering and no warning. Add `deny: props.deny` to `inputProps`.
+It inherits `deny?: RegExp` via `Omit<BaseInputProps, 'allow'>` (`NumberInput.vue:28`), but `inputProps` (`NumberInput.vue:51–58`) never includes `deny`. Declared props are removed from `$attrs`, so the regex never reaches `BaseInput`. A consumer passing `:deny` gets no filtering and no warning. Add `deny: props.deny` to `inputProps` (T3.1).
 
 **3. `RichInput` has a much smaller event surface than its siblings.**
-`BaseInput`, `SimpleStringInput`, and `NumberInput` all emit `update:modelValue`, `input`, `keydown`, `beforeinput`, `paste`, `focus`, `blur`. `RichInput.vue:57–59` emits only `update:modelValue`, although it internally handles all the others. Swapping `BaseInput` for `RichInput` silently loses every listener except `v-model`. Either re-emit them or document `RichInput` as intentionally closed.
+`BaseInput`, `SimpleStringInput`, and `NumberInput` all emit `update:modelValue`, `input`, `keydown`, `beforeinput`, `paste`, `focus`, `blur`. `RichInput.vue:57–59` emits only `update:modelValue`, although it internally handles all the others. This is closed on purpose and documented (T4.8); `RichInput` is not a drop-in `BaseInput` replacement.
 
 **4. `disabled` on `Window` / `Titlebar` does not mean “disabled”.**
-`Window.disabled` is only forwarded to `Titlebar` (`Window.vue:240`), and `Titlebar.disabled` only disables the *placeholder* buttons (`Titlebar.vue:95–114`). Dragging and resizing still work (`Window.vue:78–80, 98–101` check only `faux`). Everywhere else (`Button`, `Checkbox`, `RadioButton`, `Slider`, inputs, `CursorContext`) `disabled` disables the whole control. Recommended: either honor `disabled` in `Window` drag/resize, or rename the prop to `placeholderButtonsDisabled`.
+`Window.disabled` is only forwarded to `Titlebar` (`Window.vue:240`), and `Titlebar.disabled` only disables the *placeholder* buttons (`Titlebar.vue:95–114`). Dragging and resizing still work (`Window.vue:78–80, 98–101` check only `faux`). Everywhere else (`Button`, `Checkbox`, `RadioButton`, `Slider`, inputs, `CursorContext`) `disabled` disables the whole control. **Resolved:** 0.8.0 deletes the prop from both components (T2.9); wiring it would be new behaviour, not a rename.
 
 **5. `Window.overflowX` / `overflowY` diverge from `BoxOverflow`.**
 `Window.vue:33–34` declares `'auto' / 'hidden' / 'scroll' / 'visible'`, omitting `'clip'` from `BoxOverflow` (`scroll.ts:1`). It also applies overflow to an inner `div` (`Window.vue:251–259`) rather than forwarding to `Box`, so `Window` bypasses the kit's custom scrollbar system. Reuse `BoxOverflow` and decide whether `Window` should forward to `Box`.
 
-**6. `value` is overloaded with three unrelated meanings.**
-- `ProgressBar.value`: indicator value (`number / Span[]`)
-- `RadioButton.value`: option identity (`unknown`)
-- `Checkbox.value`: hidden input value (`string`)
-
-Not strictly wrong, but it makes generic form tooling and documentation ambiguous. Consider `optionValue` / `inputValue` for the form controls, keeping `value` for the progress indicator.
+**Resolved:** `Window` now declares `overflow` / `overflowX` / `overflowY` as `BoxOverflow` and forwards them (plus `forgiveVerticalOverflow`) to an inner `Box type="none"` that owns the body and paints the kit's scrollbars.
 
 ### Medium impact
 
-**7. “Display text” has three names.**
-`text` (`Tooltip`, `Balloon`, `FontTester`), `label` (`NamedPanel`, `Checkbox`, `RadioButton`, `CursorBusyDemoButton`), `title` (`Window`, `Titlebar`). Semantics differ, but the public contract should define them: `text` = free content, `label` = form label, `title` = window chrome.
+**6. `extraStyles` has two types.**
+`extraStyles` is `CSSProperties` almost everywhere, but `Record<string, string / number / undefined>` in `Button` (`Button.vue:11`). Type `Button`'s props as `CSSProperties` (T1.3). `extraClass` exists only on `Window`, `Box`, `Button`, `Slider`, `ProgressBar`, `IntGrid`; that coverage is accepted, because `class` already falls through on every single-root component and adding the prop elsewhere would only duplicate it.
 
-**8. `extraClass` coverage is uneven, and `extraStyles` has two types.**
-`extraClass` exists only on `Window`, `Box`, `Button`, `Slider`, `ProgressBar`, `IntGrid`. It is missing on `BaseInput`, `RichInput`, `NumberInput`, `SimpleStringInput`, `NamedPanel`, `Tooltip`, `Balloon`, `Checkbox`, `RadioButton`, `Emoji`, `Typography`, `ScrollBar`, `FontTester`. `extraStyles` is `CSSProperties` almost everywhere, but `Record<string, string / number / undefined>` in `Button` (`Button.vue:11`). Standardize a shared `StyleOverrides { extraStyles?: CSSProperties; extraClass?: string }`.
-
-**9. Popup visibility models use two names.**
+**7. Popup visibility models use two names.**
 `BaseDropdown` uses `open` (`BaseDropdown.vue:12`), `Balloon` uses `shown` (`Balloon.vue:8`), and `StrikeTester` uses `open`. Standardize `open` for all popups.
 
-**10. Default values are declared inconsistently.**
-- No `withDefaults`, effective fallbacks in code: `Window.minWidth` / `minHeight` (`240` / `40`, `Window.vue:45–46`), `Tooltip.offsetX` / `offsetY` (`24`, `Tooltip.vue:30–31`), `Balloon.side` (`'top'`, `Balloon.vue:44`), `CursorContext.scheme` / `mode` / `disabled` (`CursorContext.vue:58–63`), `Titlebar.gradientColorA` / `B` (`'5555ff'` / `'0000aa'`).
+**8. Default values are declared inconsistently.**
+- No `withDefaults`, effective fallbacks in code: `Window.minWidth` / `minHeight` (`240` / `40`, `Window.vue:45–46`), `Tooltip.offsetX` / `offsetY` (`24`, `Tooltip.vue:30–31`), `Balloon.side` (`'top'`, `Balloon.vue:44`), `Titlebar.gradientColorA` / `B` (`'5555ff'` / `'0000aa'`).
 - `SimpleStringInput` re-declares `BaseInputProps` with no defaults; defaults only exist downstream in `BaseInput`.
 - `NumberInput` declares defaults only for its own four props; the inherited BaseInput props are left `undefined` and rely on BaseInput's defaults.
 
-These defaults are invisible to docs/tooling and easy to drift.
+These defaults are invisible to docs/tooling and easy to drift. T1.2 declares the concrete fallbacks. `CursorContext` is the exception: its `undefined` `scheme` / `mode` / `disabled` mean “inherit from the nearest context” and must stay undeclared (T4.6).
 
-**11. Fill-color defaults disagree.**
-`Slider.rangeColor` = `var(--win55-cga-blue, #0000AA)` (`Slider.vue:64`); `ProgressBar.fillColor` = `#000080` (`ProgressBar.vue:70`). Two different blues for the same “filled track/bar” role, and only one supports theming. Pick one token (e.g. `var(--win55-cga-blue, #0000AA)`).
+**9. `modelValue` payload types are not comparable across controls.**
+`NumberInput.modelValue` is a **string** while `Slider.modelValue` is a **number**, yet both expose `min` / `max` / `step`. `Checkbox.modelValue` is `boolean` while `RadioButton.modelValue` / `value` are `unknown`. For a kit, document that `NumberInput` is a text field whose value is numeric text (T4.4).
 
-**12. `columns` vs `cols`, `direction` vs `flow`.**
-`IntGrid` exposes `columns?: number` for repeat modes and `cols?: string` for `areas`; both are “columns” but different types/meanings. `direction` is the visual axis of masonry items, while `flow` is reading order. Rename to `columns` (number) and `areaColumns` (string), or take an `areas` object.
+**10. Emit naming/casing and payloads are inconsistent.**
+`ScrollBar` declares camelCase `scrollTo` / `scrollBy` (`ScrollBar.vue:16–19`) while templates use `@scroll-to` / `@scroll-by` (`Box.vue:72–73`). `Button` emits `click: []` with no `MouseEvent` (`Button.vue:24–26`), so `@click="e => ..."` receives `undefined`. `BaseInput.input` also has no payload. 0.8.0 fixes the `ScrollBar` declaration casing (T1.4); `Button.click` keeps its name as the activation event and is documented without a payload (T4.5).
 
-**13. `modelValue` payload types are not comparable across controls.**
-`NumberInput.modelValue` is a **string** while `Slider.modelValue` is a **number**, yet both expose `min` / `max` / `step`. `Checkbox.modelValue` is `boolean` while `RadioButton.modelValue` / `value` are `unknown`. For a kit, document that `NumberInput` is a text field whose value is numeric text; consider a `number`-typed convenience wrapper if consumers expect numeric v-model.
+**11. `Slider.fixedValues` and `step` overlap.**
+Both can be set; `fixedValues` silently wins (`Slider.vue:105–112, 132`). That is reasonable, but the props do not state precedence or mutual exclusivity. Document the precedence (T4.3).
 
-**14. Emit naming/casing and payloads are inconsistent.**
-`ScrollBar` declares camelCase `scrollTo` / `scrollBy` (`ScrollBar.vue:16–19`) while templates use `@scroll-to` / `@scroll-by` (`Box.vue:72–73`). `Button` emits `click: []` with no `MouseEvent` (`Button.vue:24–26`), so `@click="e => ..."` receives `undefined`. `BaseInput.input` also has no payload. Prefer kebab-case event names in `defineEmits` and include the native event when the name shadows a native one.
+**12. `Window` duplicates the `Titlebar` prop set.**
+`title`, `icon`, `placeholderButtons`, `disabled`, `gradientColorA`, `gradientColorB` are declared twice and wired manually (`Window.vue:21–27, 236–242`). Today they match, but every Titlebar change risks drift. Extract a shared `TitlebarProps` interface (T1.1); T2.8 renames `placeholderButtons`, T2.9 deletes `disabled` from both components.
 
-**15. `Window.minWidth` / `minHeight` only clamp resizing.**
-They are used in `startResize` / `onMove` (`Window.vue:134–150`) but not against the initial `width` / `height` model. A window can be created smaller than its declared minimum and only snaps once the user drags. If the prop is a minimum, enforce it on mount/watch.
+**13. `MenuDropdown` declares no props.**
+It is a thin wrapper around `BaseDropdown` (`MenuDropdown.vue:1–4`), so `matchTriggerWidth` and `v-model:open` are only reachable via attribute/event fallthrough. That works in Vue, but it is undiscoverable and breaks if a second root is ever added. Deferred: explicit forwarding adds API surface and is 0.9 work, not needed for 0.8.0 (see `CONSISTENCY-0.8.0.md` §5).
 
-**16. `ProgressBar.boxType: 'custom'` is a sentinel, not a box.**
-`ProgressBarBoxType = BoxType / 'custom'` (`ProgressBar.vue:17, 96`) maps `'custom'` to `'none'` with zero border. This breaks the “`boxType` accepts `BoxType`” rule and forces consumers to import a second type. Consider `boxType?: BoxType` plus a separate `borderless?: boolean`, or accept `'none'`.
+**14. `SimpleStringInput` recompiles `deny` and drops its flags.**
+`SimpleStringInput.vue:18–19` builds `new RegExp(..., 'u')`, discarding any `i` / `m` / `s` flags on the incoming `deny` regex. 0.8.0 preserves the flags (T3.2).
 
-**17. `Slider.fixedValues` and `step` overlap.**
-Both can be set; `fixedValues` silently wins (`Slider.vue:105–112, 132`). That is reasonable, but the props do not state precedence or mutual exclusivity. Add a note or runtime warning.
+**15. `RichInput` intentionally omits `allow` / `deny` / `editorExtraStyles` (→ `contentStyles`).**
+`NumberInput` omits only `allow`; `RichInput` omits all three (`RichInput.vue:36–46`). This is documented as intentional (T4.8): `RichInput` is not a drop-in `BaseInput` replacement.
 
-**18. `Window` duplicates the `Titlebar` prop set.**
-`title`, `icon`, `placeholderButtons`, `disabled`, `gradientColorA`, `gradientColorB` are declared twice and wired manually (`Window.vue:21–27, 236–242`). Today they match, but every Titlebar change risks drift. Extract a shared `TitlebarProps` interface.
-
-**19. `MenuDropdown` declares no props.**
-It is a thin wrapper around `BaseDropdown` (`MenuDropdown.vue:1–4`), so `matchTriggerWidth` and `v-model:open` are only reachable via attribute/event fallthrough. That works in Vue, but it is undiscoverable and breaks if a second root is ever added. Forward the props explicitly.
-
-**20. `SimpleStringInput` recompiles `deny` and drops its flags.**
-`SimpleStringInput.vue:18–19` builds `new RegExp(..., 'u')`, discarding any `i` / `m` / `s` flags on the incoming `deny` regex. Either document that `deny` is treated as source-only, or preserve flags.
-
-**21. `RichInput` intentionally omits `allow` / `deny` / `editorExtraStyles`.**
-`NumberInput` omits only `allow`; `RichInput` omits all three (`RichInput.vue:36–46`). If this is by design, document it; otherwise `RichInput` cannot be used as a drop-in `BaseInput` replacement.
-
-**22. `Typography.fontSize` is a token, not CSS px — and ProgressBar's snap docs are imprecise.**
-- `TypographySettings.fontSize` is a bitmap-font size token from `[8, 10, 12, 16, 18, 24]`, rendered at `size * 2` CSS px (`typography.ts:9, 66, 77–78`). `:font-size="12"` produces 24px CSS. `FontTester` inherits the same prop. Rename to `fontSizeToken` / `size` or document the 2× rule prominently.
-- `ProgressBar` says `padding`, `gap`, and `segmentLength` all “snap to the 2px grid”, but the first two snap to the **nearest** cell (`roundEven`) while `segmentLength` snaps **up** (`ceilEven`). Also `segmentLength < 2` silently renders no segments (`ProgressBar.vue:206`), which is not documented. Align the wording and document the minimum.
+**16. `Typography.fontSize` is a token, not CSS px — and ProgressBar's snap docs are imprecise.**
+- `TypographySettings.fontSize` is a bitmap-font size token from `[8, 10, 12, 16, 18, 24]`, rendered at `size * 2` CSS px (`typography.ts:9, 66, 77–78`). `:font-size="12"` produces 24px CSS. `FontTester` inherits the same prop. The token name stays; document the 2× rule in the JSDoc (T4.1).
+- `ProgressBar` says `padding`, `gap`, and `segmentLength` all “snap to the 2px grid”, but the first two snap to the **nearest** cell (`roundEven`) while `segmentLength` snaps **up** (`ceilEven`). Also `segmentLength < 2` silently renders no segments (`ProgressBar.vue:206`), which is not documented. Align the wording and document the minimum (T4.2).
 
 ### Low / cosmetic
 
 - `Tooltip` and `Balloon` share `text` but differ in requiredness (`text*` vs `text?` with slot fallback) and positioning API.
 - `Checkbox.value` is optional `string`; `RadioButton.value` is required `unknown`. Same concept, different type/requiredness.
-- `NamedPanel` has `extraStyles` but no `extraClass`.
 - `Typography` has no `extraStyles` / `extraClass`, relying on `class` / `style` fallthrough; acceptable, but different from the rest.
 - `Emoji` derives size from the decoded GIF (`Emoji.vue:48–49`) and exposes no `size` prop, unlike `Slider`'s explicit `size`.
 - Code style differs in `Tooltip.vue` / `NamedPanel.vue` (semicolons, quoted imports) vs the rest; harmless but noticeable in a consistency audit.
@@ -182,11 +163,17 @@ It is a thin wrapper around `BaseDropdown` (`MenuDropdown.vue:1–4`), so `match
 - **ProgressBar now uses CSS px for every length prop**, with 2px-grid snapping that matches the rest of the kit; its `gap` default (`2`) now matches `IntGrid.gap` (`2`).
 - `allowLinks` / `allowSizes` are identical (name, type, default) in `RichText` and `RichTextNode`.
 - `checkedIcon` / `uncheckedIcon` are identical in `Checkbox` and `RadioButton`.
-- `title` / `icon` / `placeholderButtons` / `disabled` / `gradientColorA` / `gradientColorB` match exactly between `Window` and `Titlebar`.
+- `title` / `icon` / `placeholderButtons` / `gradientColorA` / `gradientColorB` match exactly between `Window` and `Titlebar` (`disabled` is deleted by T2.9).
 - `SimpleStringInput` re-emits every `BaseInput` event one-for-one, including event arguments; `NumberInput` copies all but `deny` (finding 2).
 - `update:modelValue` is used consistently for two-way bindings; named models use `update:<name>`.
 - `min` / `max` / `step` names are consistent between `Slider` and `NumberInput`.
 - `BoxType` string values (`indent`, `panel-d-1`, `textarea`, …) are used consistently wherever a real box is selected.
+- `value` is component-local: `ProgressBar.value` is the displayed value, `RadioButton.value` the option identity, `Checkbox.value` the hidden input value. No rename.
+- Display text is role-scoped: `text` = free content, `label` = form label / panel caption, `title` = window chrome.
+- `IntGrid` uses `columns` for the count, `cols` / `rows` for area-grid strings, `direction` for the visual axis, and `flow` for reading order.
+- `Slider.rangeColor` (CGA blue) and `ProgressBar.fillColor` (Navy) are two palette roles, not two spellings of one API.
+- `ProgressBar`'s `'custom'` box type is a real no-frame mode: `none` keeps the 6px frame, `custom` drops it.
+- `Window.minWidth` / `minHeight` are drag floors, not mount clamps: a window may open at a smaller size and only refuses to shrink past the minimum.
 
 ---
 
@@ -194,29 +181,25 @@ It is a thin wrapper around `BaseDropdown` (`MenuDropdown.vue:1–4`), so `match
 
 | Concept | Current names | Recommendation |
 |---|---|---|
-| Box skin | `type` / `baseType` / `boxType` | `boxType` for all non-`Box` components; `Box` keeps `type` (or add `boxType` alias) |
-| Style override | `extraStyles` (2 types) | `extraStyles?: CSSProperties` everywhere |
-| Class override | `extraClass` (partial) | `extraClass?: string` on every component with a root wrapper |
-| Content text | `text` / `label` / `title` | `text` = content, `label` = form label, `title` = window chrome |
-| Popup visibility | `open` / `shown` | `open` for all popups |
-| Fill color | `rangeColor` / `fillColor` | `fillColor` for both, using the same token |
-| Grid columns | `columns` / `cols` | `columns: number` and `areaColumns: string` (or `areas` object) |
-| Axis vs order | `orientation` / `direction` / `flow` | `orientation` = visual axis, `flow` = reading order; drop `direction` in favour of one |
-| Spacing | `padding` / `gap` / `segmentLength` | CSS px everywhere (now true for ProgressBar); document nearest-vs-up snapping |
-| Font size | `fontSize` token vs CSS px | `fontSize` = CSS px, or rename the token to `size` / `fontSizeToken` |
-| Disable state | `disabled` / `disableAll` | `disabled` everywhere; keep `disableAll` explicitly documented as root-only override |
+| Box skin | `type` / `baseType` / `boxType` | `boxType` for all non-`Box` components; `Box` keeps `type` (no alias) (T2.1) |
+| Style override | `extraStyles` (2 types) | `extraStyles?: CSSProperties` everywhere (T1.3) |
+| Class override | `extraClass` (partial) | keep as-is: `class` falls through on every single-root component |
+| Content text | `text` / `label` / `title` | `text` = content, `label` = form label / panel caption, `title` = window chrome |
+| Popup visibility | `open` / `shown` | `open` for all popups (T2.2) |
+| Component value | `value` (three roles) | component-local; no rename (§4) |
+| Spacing | `padding` / `gap` / `segmentLength` | CSS px everywhere (now true for ProgressBar); document nearest-vs-up snapping (T4.2) |
+| Font size | `fontSize` token vs CSS px | keep the token; document the 2× rule (T4.1) |
+| Disable state | `disabled` / `disableAll` | `disabled` wherever it disables the whole control; keep `disableAll` root-only and documented (T4.7); delete `Window` / `Titlebar` `disabled` (T2.9) |
 
 ---
 
 ## 6. Suggested fix order
 
-1. **`NumberInput.deny` forwarding** — a real silent data-loss bug.
-2. **`RichInput` event surface** — decide re-emit vs document; affects drop-in replacement.
-3. **`Window` / `Titlebar` `disabled` semantics** — rename or implement fully.
-4. **`Window.overflowX/Y` → `BoxOverflow`** — type and behaviour alignment with `Box`.
-5. **Standardize `boxType`** (`Button.baseType` first) — largest naming churn but biggest clarity win.
-6. **Add `extraClass` to the remaining components** and type `Button.extraStyles` as `CSSProperties`.
-7. **Declare hidden defaults via `withDefaults`** — `Window` minima, `Tooltip` offsets, `Balloon.side`, `CursorContext` fallbacks.
-8. **Unify fill-color defaults** — `Slider.rangeColor` vs `ProgressBar.fillColor`.
-9. **Extract `TitlebarProps` and forward `MenuDropdown` props** — prevents future drift.
-10. **Polish ProgressBar docs** — `segmentLength` minimum, nearest-vs-up snapping; consider dropping the `'custom'` sentinel.
+1. **`NumberInput.deny` forwarding** — a real silent data-loss bug (T3.1).
+2. **`RichInput` event surface** — document as intentionally closed (T4.8).
+3. **Delete the dead `Window` / `Titlebar` `disabled` props** (T2.9).
+4. **Standardize `boxType`** (`Button.baseType` first) — largest naming churn but biggest clarity win (T2.1).
+5. **Type `Button.extraStyles` as `CSSProperties`** (T1.3); `extraClass` coverage stays as-is.
+6. **Declare hidden defaults via `withDefaults`** — `Window` minima, `Tooltip` offsets, `Balloon.side`, `Titlebar` gradients (T1.2).
+7. **Extract `TitlebarProps`** (T1.1); forwarding `MenuDropdown` props is 0.9 work.
+8. **Fix `ScrollBar` emit declarations** (T1.4) and **polish ProgressBar docs** (T4.2).

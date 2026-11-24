@@ -90,6 +90,26 @@ const windowY = ref(100)
 const windowWidth = ref(320)
 const windowHeight = ref(220)
 
+const windowContentSizes = [
+  { key: '800x100', label: '800 × 100' },
+  { key: '100x800', label: '100 × 800' },
+  { key: '800x800', label: '800 × 800' },
+  { key: 'stretch', label: 'Stretch to fit' },
+] as const
+type WindowContentSize = (typeof windowContentSizes)[number]['key']
+const windowContentSize = ref<WindowContentSize>('stretch')
+const windowContentStyle = computed(() => ({
+  '800x100': { width: '800px', height: '100px' },
+  '100x800': { width: '100px', height: '800px' },
+  '800x800': { width: '800px', height: '800px' },
+  'stretch': { width: '100%', height: '100%' },
+}[windowContentSize.value]))
+const windowContentLabel = computed(
+  () => windowContentSizes.find((size) => size.key === windowContentSize.value)?.label ?? '',
+)
+const windowOverflowX = ref(true)
+const windowOverflowY = ref(true)
+
 // Global preload state: counts advance as `startPreload` walks the generated asset list.
 const { progress: preloadProgress, startPreload } = useWin55Preload()
 
@@ -760,6 +780,27 @@ const donutPositions = computed(() => {
           </div>
         </div>
       
+        <div style="margin-bottom: 10px;">
+          <h3>Content Size:</h3>
+          <div style="display: flex; flex-direction: column; gap: 5px; margin-left: 8px;">
+            <RadioButton
+              v-for="size in windowContentSizes"
+              :key="size.key"
+              v-model="windowContentSize"
+              :value="size.key"
+              :label="size.label"
+            />
+          </div>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <h3>Overflow:</h3>
+          <div style="display: flex; flex-direction: column; gap: 5px; margin-left: 8px;">
+            <Checkbox v-model="windowOverflowX" label="Allow horizontal scrolling" />
+            <Checkbox v-model="windowOverflowY" label="Allow vertical scrolling" />
+          </div>
+        </div>
+
         <!-- First window is floating like normal -->
         <Window 
           :resizable="resizable" 
@@ -769,14 +810,15 @@ const donutPositions = computed(() => {
           v-model:y="windowY" 
           v-model:width="windowWidth" 
           v-model:height="windowHeight"
+          :overflow-x="windowOverflowX ? 'auto' : 'hidden'"
+          :overflow-y="windowOverflowY ? 'auto' : 'hidden'"
           title="Title but long so we can see shit" 
           icon="/win-55-ui/icons/program.png" 
           placeholder-buttons
         >
-          <NamedPanel label="Это борт!">
-            TEXT TEXT TEXT TEXT TEXT TEXT TEXT <br>
-            TEXT TEXT TEXT TEXT TEXT TEXT TEXT <br>
-          </NamedPanel>
+          <Box type="white-box" :extra-styles="{ ...windowContentStyle, padding: '4px' }">
+            Window content: {{ windowContentLabel }}
+          </Box>
         </Window>
       
         <!-- Second window is in faux mode, behaving as a div -->

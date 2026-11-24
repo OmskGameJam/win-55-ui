@@ -5,6 +5,7 @@ import Titlebar from './Titlebar.vue'
 import Box from './Box.vue'
 import cursorDirective from '../directives/cursor'
 import type { CursorRole } from '../helpers/cursorContext'
+import type { BoxOverflow } from '../helpers/scroll'
 
 const vCursor = cursorDirective
 
@@ -29,9 +30,11 @@ const props = defineProps<{
   // New faux mode
   faux?: boolean
   
-  // Overflow control for inner container
-  overflowX?: 'auto' | 'hidden' | 'scroll' | 'visible'
-  overflowY?: 'auto' | 'hidden' | 'scroll' | 'visible'
+  // Overflow control for the body, forwarded to the inner Box
+  overflow?: BoxOverflow
+  overflowX?: BoxOverflow
+  overflowY?: BoxOverflow
+  forgiveVerticalOverflow?: boolean
 }>()
 
 // v-model bindings
@@ -44,6 +47,9 @@ const edge = 6
 
 const minWidth = props.minWidth ?? 240
 const minHeight = props.minHeight ?? 40
+// Minima are declared sizes: snap up so a clamped window is still on the grid.
+const minWidthEven = Math.ceil(minWidth / 2) * 2
+const minHeightEven = Math.ceil(minHeight / 2) * 2
 
 const allowHorizontal = computed(() => (props.resizable ?? false) || (props.resizableHorizontally ?? false))
 const allowVertical = computed(() => (props.resizable ?? false) || (props.resizableVertically ?? false))
@@ -73,6 +79,9 @@ let startW = 0
 let startH = 0
 let startLeft = 0
 let startTop = 0
+
+// Pointer deltas are fractional; every window edge lands on the 2px visual grid.
+const even = (value: number) => Math.round(value / 2) * 2
 
 // --- Dragging and Resizing ---
 function startDrag(e: MouseEvent) {
@@ -123,34 +132,40 @@ function onMove(e: MouseEvent) {
   const dy = e.clientY - startY
 
   if (dragging) {
-    x.value = startLeft + dx
-    y.value = startTop + dy
+    x.value = even(startLeft + dx)
+    y.value = even(startTop + dy)
   }
 
   if (resizing) {
     const dir = activeResizeDir
 
+    // Snap the boundary pair and derive the size from it: the fixed west/north edge must not
+    // drift by a pixel just because the opposite edge rounded.
+    let left = even(startLeft)
+    let top = even(startTop)
+    let right = even(startLeft + startW)
+    let bottom = even(startTop + startH)
+
     if (allowHorizontal.value && dir.includes('e')) {
-      width.value = Math.max(minWidth, startW + dx)
+      right = Math.max(left + minWidthEven, even(startLeft + startW + dx))
     }
 
     if (allowVertical.value && dir.includes('s')) {
-      height.value = Math.max(minHeight, startH + dy)
+      bottom = Math.max(top + minHeightEven, even(startTop + startH + dy))
     }
 
     if (allowHorizontal.value && dir.includes('w')) {
-      const newWidth = startW - dx
-      const clamped = Math.max(minWidth, newWidth)
-      width.value = clamped
-      x.value = startLeft + (startW - clamped)
+      left = Math.min(right - minWidthEven, even(startLeft + dx))
     }
 
     if (allowVertical.value && dir.includes('n')) {
-      const newHeight = startH - dy
-      const clamped = Math.max(minHeight, newHeight)
-      height.value = clamped
-      y.value = startTop + (startH - clamped)
+      top = Math.min(bottom - minHeightEven, even(startTop + dy))
     }
+
+    x.value = left
+    y.value = top
+    width.value = right - left
+    height.value = bottom - top
   }
 }
 
@@ -247,19 +262,20 @@ function detectEdge(e: MouseEvent) {
         </Titlebar>
       </div>
       
-      <!-- Inner container that fills remaining space with 2px gutter -->
-      <div 
-        class="inner-container"
-        :style="{
+      <!-- Window body: Box supplies the kit's custom scrollbars -->
+      <Box
+        type="none"
+        :overflow-x="props.overflowX ?? props.overflow ?? 'auto'"
+        :overflow-y="props.overflowY ?? props.overflow ?? 'auto'"
+        :forgive-vertical-overflow="props.forgiveVerticalOverflow"
+        :extra-styles="{
           flex: '1',
-          overflowX: props.overflowX ?? 'auto',
-          overflowY: props.overflowY ?? 'auto',
-          marginTop: '4px',
-          boxSizing: 'border-box'
+          minHeight: '0',
+          marginTop: '4px'
         }"
       >
         <slot></slot>
-      </div>
+      </Box>
     </div>
   </Box>
 </template>

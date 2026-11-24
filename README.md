@@ -152,9 +152,13 @@ Emit: `change`.
 </Window>
 ```
 
-Props: `title` (обязательный), `icon`, `resizable`, `resizableHorizontally`, `resizableVertically`, `minWidth`, `minHeight`, `placeholderButtons`, `disabled`, `gradientColorA`, `gradientColorB`, `faux`, `extraStyles`, `extraClass`.
+Props: `title` (обязательный), `icon`, `resizable`, `resizableHorizontally`, `resizableVertically`, `minWidth`, `minHeight`, `placeholderButtons`, `disabled`, `gradientColorA`, `gradientColorB`, `faux`, `extraStyles`, `extraClass`, `overflow`, `overflowX`, `overflowY`, `forgiveVerticalOverflow`.
 
 `faux` — режим встроенного div без drag/resize (titlebar становится серым).
+
+Позиция окна при перетаскивании привязывается к сетке 2px (`x`/`y` всегда чётные). При ресайзе границы тоже снапаются к сетке: ширина/высота остаются чётными, а неподвижные края не дрейфуют.
+
+Тело окна прокручивается через `Box`: `overflow`/`overflowX`/`overflowY` принимают `BoxOverflow` (`auto` по умолчанию) и используют штатные скроллбары кита.
 
 ---
 
