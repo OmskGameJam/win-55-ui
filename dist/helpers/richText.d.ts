@@ -29,12 +29,10 @@ export interface ShortcodeLookup {
         code: string;
     } | undefined;
 }
-/** Raw unicode emoji -> registry code, e.g. the `EmojiRegistry` from helpers/emoji.ts. */
+/** Raw unicode emoji -> registry code. */
 export type EmojiRegistryLookup = Record<string, string>;
 /**
- * Parses a limited BBCode subset ([b] [i] [u] [s]/[strike] [color=] [size=]
- * [url]/[url=] [br]) plus `:shortcode:` emoji into a tree of RichNode.
- * Unknown tags and unmatched/malformed brackets pass through as literal
- * text rather than being stripped.
+ * Parses a limited BBCode subset plus `:shortcode:` emoji into RichNodes.
+ * Unknown or malformed tags pass through as literal text.
  */
 export declare function parseRichText(text: string, shortcodes: ShortcodeLookup | null, registry?: EmojiRegistryLookup | null): RichNode[];

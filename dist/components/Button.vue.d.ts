@@ -1,8 +1,11 @@
+import { type CSSProperties } from 'vue';
 import { type BoxType } from './Box.vue';
 type __VLS_Props = {
-    baseType?: BoxType;
-    extraStyles?: Record<string, string | number | undefined>;
+    boxType?: BoxType;
+    extraStyles?: CSSProperties;
     extraClass?: string;
+    /** Styles for the pressed-offset wrapper inside the bevel. */
+    contentStyles?: CSSProperties;
     disabled?: boolean;
 };
 declare var __VLS_11: {};
@@ -14,10 +17,11 @@ declare const __VLS_component: import("vue").DefineComponent<__VLS_Props, {}, {}
 }, string, import("vue").PublicProps, Readonly<__VLS_Props> & Readonly<{
     onClick?: (() => any) | undefined;
 }>, {
-    extraStyles: Record<string, string | number | undefined>;
+    extraStyles: CSSProperties;
     extraClass: string;
     disabled: boolean;
-    baseType: BoxType;
+    boxType: BoxType;
+    contentStyles: CSSProperties;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 declare const _default: __VLS_WithSlots<typeof __VLS_component, __VLS_Slots>;
 export default _default;

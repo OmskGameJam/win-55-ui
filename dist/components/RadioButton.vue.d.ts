@@ -14,8 +14,8 @@ declare const _default: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {
 }>, {
     label: string;
     disabled: boolean;
+    name: string;
     checkedIcon: string;
     uncheckedIcon: string;
-    name: string;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 export default _default;

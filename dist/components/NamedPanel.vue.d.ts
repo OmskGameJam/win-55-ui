@@ -1,6 +1,8 @@
+import type { CSSProperties } from 'vue';
 type __VLS_Props = {
     label: string;
     backgroundColorHint?: string;
+    extraStyles?: CSSProperties;
 };
 declare var __VLS_5: {};
 type __VLS_Slots = {} & {

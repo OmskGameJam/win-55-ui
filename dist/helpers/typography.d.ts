@@ -1,5 +1,9 @@
 import type { CSSProperties } from 'vue';
 export interface TypographySettings {
+    /**
+     * A bitmap strike token from `[8, 10, 12, 16, 18, 24]`, rendered at `size × 2`
+     * CSS px. Not a CSS px value.
+     */
     fontSize?: number;
     isBold?: boolean;
     isItalic?: boolean;

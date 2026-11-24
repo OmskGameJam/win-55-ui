@@ -7,7 +7,7 @@ export interface BaseInputProps {
     maxLength?: number;
     boxType?: BoxType;
     extraStyles?: CSSProperties;
-    editorExtraStyles?: CSSProperties;
+    contentStyles?: CSSProperties;
     multiline?: boolean;
     wrap?: boolean;
     /** A grapheme must match this to be kept. */
@@ -232,7 +232,7 @@ declare const __VLS_component: import("vue").DefineComponent<BaseInputProps, {
     placeholder: string;
     maxLength: number;
     boxType: BoxType;
-    editorExtraStyles: CSSProperties;
+    contentStyles: CSSProperties;
     multiline: boolean;
     allow: RegExp;
     deny: RegExp;

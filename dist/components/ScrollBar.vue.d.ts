@@ -5,10 +5,10 @@ type __VLS_Props = {
     contentSize: number;
 };
 declare const _default: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
-    scrollTo: (pos: number) => any;
-    scrollBy: (delta: number) => any;
+    "scroll-to": (pos: number) => any;
+    "scroll-by": (delta: number) => any;
 }, string, import("vue").PublicProps, Readonly<__VLS_Props> & Readonly<{
-    onScrollTo?: ((pos: number) => any) | undefined;
-    onScrollBy?: ((delta: number) => any) | undefined;
+    "onScroll-to"?: ((pos: number) => any) | undefined;
+    "onScroll-by"?: ((delta: number) => any) | undefined;
 }>, {}, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 export default _default;

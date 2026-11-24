@@ -1,26 +1,17 @@
 import { type CursorMode, type CursorRole } from '../helpers/cursorContext';
 interface Props {
     element?: string;
+    /** `undefined` inherits the nearest context's scheme. */
     scheme?: string;
-    /** Pins one cursor for the whole subtree. Left unset, each element's cursor is derived from its native `cursor` (link -> `link`, text field -> `text`, ...) and resolved against `scheme` - see CursorOverlay.vue. */
+    /** Pin one cursor for the subtree; unset derives it from each element's native `cursor`. */
     role?: CursorRole;
-    /** Turns the kit cursor off for this subtree - the OS cursor renders instead. Inherits; a nested `<CursorContext :disabled="false">` turns it back on. */
+    /** OS cursor instead of the kit cursor. `undefined` inherits; `false` re-enables locally. */
     disabled?: boolean;
-    /**
-     * How the cursor is painted for this subtree - `native` (default; real CSS `cursor: url()`) or
-     * `immersive` (`cursor: none` + CursorOverlay draws the sprite). Inherits like `disabled`.
-     */
+    /** `native` paints real CSS cursors; `immersive` hides them and draws sprites in an overlay. */
     mode?: CursorMode;
-    /**
-     * Puts the ambient scheme + base `--win55-cursor-native` on `<html>` instead of this wrapper's
-     * element, and mounts CursorOverlay. For the one outermost CursorContext of an app: CSS inheritance
-     * follows the real DOM, so `<Teleport>`-ed content (dropdown menus, Window, ...) lands under
-     * `<body>` outside this wrapper's subtree - only a style set on `<html>` reaches everything.
-     * `<html>` not `<body>` because body's box is only as tall as its content (Meyer reset), so it
-     * isn't reliably an ancestor of every hoverable pixel.
-     */
+    /** Publishes scheme + cursor props on `<html>` and mounts the overlay, reaching teleported content. */
     root?: boolean;
-    /** `root` only: hard-disables the kit cursor everywhere, overriding any nested re-enable. */
+    /** `root` only: hard-disable everywhere, beating nested re-enables. Not the same as `disabled`. */
     disableAll?: boolean;
 }
 declare function addBusy(promise: Promise<unknown>): void;
