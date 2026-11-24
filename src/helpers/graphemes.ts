@@ -2,7 +2,7 @@ const segmenter = typeof Intl.Segmenter === 'function'
   ? new Intl.Segmenter(undefined, { granularity: 'grapheme' })
   : null
 
-function segmentGraphemes(value: string): string[] {
+export function segmentGraphemes(value: string): string[] {
   if (segmenter) {
     return Array.from(segmenter.segment(value), (s) => s.segment)
   }

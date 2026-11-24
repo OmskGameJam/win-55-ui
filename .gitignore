@@ -20,6 +20,9 @@ scripts/font/dist/
 # Test scratch I/O (scripts/font/src/*.test.ts) - never src-font/ itself, see FONTS.md
 /src-font-tests/
 
+# Transformed emoji + Telegram upload state (scripts/emoji-telegram.js)
+/.cache/
+
 # Dependencies
 node_modules/
 

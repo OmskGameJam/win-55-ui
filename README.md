@@ -283,6 +283,34 @@ npm run emoji -- replace 😀 ./emoji.gif
 npm run emoji -- check
 ```
 
+### Публикация в Telegram
+
+Тот же реестр можно залить как наборы кастомных эмодзи (Telegram требует ровно 100×100, поэтому ассеты апскейлятся целым множителем и центрируются — без ресемплинга):
+
+```bash
+npm run emoji:telegram -- build   # 100×100 PNG (static) и WEBM VP9+alpha (animated) → .cache/emoji-telegram/
+npm run emoji:telegram -- check   # размеры, формат, лимиты Telegram
+npm run emoji:telegram -- plan    # какие наборы получатся, без сети
+npm run emoji:telegram -- sync    # создать или обновить наборы через Bot API
+```
+
+Токен бота из @BotFather кладётся в `.env` (он в `.gitignore`):
+
+```
+TELEGRAM_BOT_TOKEN=123456:ABC...
+TELEGRAM_OWNER_USER_ID=123456789
+```
+
+`TELEGRAM_OWNER_USER_ID` — ваш числовой Telegram id (владелец наборов). Бот владельцем быть не может: Bot API отвечает `USER_IS_BOT`, поэтому id обязателен, его же можно передать как `--user-id`.
+
+Кастомный набор вмещает 200 эмодзи (смешивать static и animated в одном наборе можно с Bot API 7.2), поэтому `sync` режет реестр по категориям: Smileys, Symbols, Animals, Food и Objects & Places — последняя на два набора по ~139. Имена вида `omsky_gamedev_<category>_by_<bot>` (переопределяются `--base` и `--title`), ссылки печатаются как `t.me/addemoji/<name>`.
+
+Дополнительно собирается набор `omsky_gamedev_picks` из `handpicked-emoji.txt` (до 200 уникальных эмодзи, по одному на строку, `#` — комментарий). Файл удобно набивать апплетом **Emoji → Handpicked emoji set** в `App.vue`: ричтекстовое поле с пикером, счётчиком `X/200`, подсветкой дублей и кнопкой копирования сразу в формате файла.
+
+Повторный `sync` обновляет те же наборы: изменённые ассеты заменяются, новые добавляются, лишние удаляются только с `--prune`. Соответствие кодов и загруженных эмодзи хранится в `.cache/emoji-telegram/state.json`, так что хэндлы переиспользуются между запусками; `--dry-run` показывает план без обращений к API, `--group flat` кладёт всё в последовательные наборы без разбивки по категориям.
+
+Анимированные GIF'ы конвертируются в WEBM/VP9 (как требует Bot API; анимированный WEBP и GIF не принимаются), длиннее 3 секунд — ускоряются в предел. TGS не генерируется. Если `ffmpeg-static` не скачал бинарь (install-скрипты заблокированы), помогает `npm rebuild ffmpeg-static` либо `FFMPEG_PATH=/path/to/ffmpeg`.
+
 ---
 
 ## Хелперы

@@ -33,6 +33,8 @@ import CursorContext from './components/CursorContext.vue'
 import CursorBusyDemoButton from './components/CursorBusyDemoButton.vue'
 import { loadSchemeIndex } from './helpers/cursors'
 import { useWin55Preload } from './helpers/preload'
+import { segmentGraphemes } from './helpers/graphemes'
+import { EMOJI_DETECTION_PATTERN } from './helpers/emoji'
 import type { CursorRole } from './helpers/cursorContext'
 import type { ComboBoxItem } from './helpers/comboBox'
 import emojiDirective from './directives/emoji'
@@ -186,6 +188,7 @@ const sectionGroups: { label: string; sections: { key: string; label: string }[]
     label: 'Emoji',
     sections: [
       { key: 'customEmoji', label: 'Custom emoji' },
+      { key: 'handpickedEmoji', label: 'Handpicked emoji set' },
       { key: 'emoji', label: 'Emoji' },
       { key: 'spinningDonut', label: 'Spinning donut' },
       { key: 'secondEmoji', label: 'Second v-emoji instance' },
@@ -237,6 +240,46 @@ const delayedEmojiText = ref('')
 setTimeout(() => {
   delayedEmojiText.value = 'Loaded later: pizza night 🍕🐶 party time 🎉✨ and also 😀🥳🦄 surprise!'
 }, 2000)
+
+/* Handpicked set editor: copy feeds handpicked-emoji.txt verbatim. */
+const HANDPICKED_LIMIT = 200
+const HAND_PICKED_EMOJI_PATTERN = new RegExp(`^(?:${EMOJI_DETECTION_PATTERN})$`, 'u')
+
+const handpickedText = ref('')
+const handpickedCopyState = ref<'idle' | 'copied' | 'failed'>('idle')
+let handpickedCopyTimer: ReturnType<typeof setTimeout> | undefined
+
+const handpickedEmoji = computed(() =>
+  segmentGraphemes(handpickedText.value).filter((grapheme) => HAND_PICKED_EMOJI_PATTERN.test(grapheme)))
+
+const handpickedUnique = computed(() => [...new Set(handpickedEmoji.value)])
+
+const handpickedDuplicates = computed(() => {
+  const counts = new Map<string, number>()
+  for (const emoji of handpickedEmoji.value) counts.set(emoji, (counts.get(emoji) ?? 0) + 1)
+
+  return [...counts].filter(([, count]) => count > 1).map(([emoji, count]) => ({ emoji, count }))
+})
+
+const handpickedOverLimit = computed(() => handpickedUnique.value.length > HANDPICKED_LIMIT)
+
+const handpickedCopyLabel = computed(() => ({
+  idle: 'Copy for handpicked-emoji.txt',
+  copied: 'Copied',
+  failed: 'Copy failed',
+})[handpickedCopyState.value])
+
+const copyHandpicked = async () => {
+  try {
+    await navigator.clipboard.writeText(handpickedUnique.value.join('\n'))
+    handpickedCopyState.value = 'copied'
+  } catch {
+    handpickedCopyState.value = 'failed'
+  }
+
+  clearTimeout(handpickedCopyTimer)
+  handpickedCopyTimer = setTimeout(() => { handpickedCopyState.value = 'idle' }, 1500)
+}
 
 const DONUT_EMOJI_COUNT = 32
 const DONUT_EMOJI_POOL = ['🍕', '🐶', '🎉', '✨', '😀', '🥳', '🦄', '☀', '🌈', '🚀', '💾', '🦖']
@@ -445,6 +488,38 @@ const donutPositions = computed(() => {
         </div>
         <div v-emoji>
           Nested v-emoji (should not double-render): 🍕🐶
+        </div>
+      </Box>
+
+      <Box v-if="sections.handpickedEmoji" type="border-groove" :extra-styles="containerStyle">
+        <h2>Handpicked emoji set</h2>
+        <div style="display: flex; flex-direction: column; gap: 8px; width: 700px">
+          <!-- 30 CSS px per emoji: 680x400 holds 22 columns x 11 rows, more than the 200 cap. -->
+          <RichInput
+            v-model="handpickedText"
+            multiline
+            show-emoji-button
+            placeholder="Pick or paste emoji for the omsky_gamedev_picks set"
+            :extra-styles="{ width: '680px', height: '400px' }"
+          />
+          <div>
+            <Typography :font-color="handpickedOverLimit ? '#AA0000' : 'black'">
+              {{ handpickedUnique.length }}/{{ HANDPICKED_LIMIT }} unique
+            </Typography>
+            <Typography v-if="handpickedDuplicates.length" font-color="#AA0000">
+              duplicates:
+              <span v-for="duplicate in handpickedDuplicates" :key="duplicate.emoji">{{ duplicate.emoji }}×{{ duplicate.count }} </span>
+            </Typography>
+            <Typography v-if="handpickedOverLimit" font-color="#AA0000">
+              drop {{ handpickedUnique.length - HANDPICKED_LIMIT }} before copying
+            </Typography>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <Button :disabled="handpickedUnique.length === 0 || handpickedOverLimit" @click="copyHandpicked">
+              {{ handpickedCopyLabel }}
+            </Button>
+            <Typography>paste into handpicked-emoji.txt</Typography>
+          </div>
         </div>
       </Box>
 
